@@ -1,0 +1,66 @@
+name: package-ndsrecomp-source
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/package-ndsrecomp-source.yml'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout research repo
+        uses: actions/checkout@v4
+
+      - name: Checkout pinned ndsrecomp
+        uses: actions/checkout@v4
+        with:
+          repository: RetroPortingToolKit/ndsrecomp
+          ref: 3a57236bb23d25dcb4caad7d58d733311062ff5e
+          submodules: recursive
+          path: ndsrecomp
+
+      - name: Configure recompiler
+        run: cmake -S ndsrecomp/recompiler -B build/recompiler -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build nds_recompile
+        run: cmake --build build/recompiler --target nds_recompile --parallel 2
+
+      - name: Generate public FreeBIOS banks
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p public-generated
+          R=build/recompiler/nds_recompile
+          FB9=ndsrecomp/third_party/freebios/drastic_bios_arm9.bin
+          FB7=ndsrecomp/third_party/freebios/drastic_bios_arm7.bin
+          "$R" --config ndsrecomp/bios/freebios9.toml --bin "$FB9" --out public-generated --bank freebios_arm9 --shards 2
+          "$R" --config ndsrecomp/bios/freebios7.toml --bin "$FB7" --out public-generated --bank freebios_arm7 --shards 2
+          # The current runner build graph always names retail BIOS bank objects even
+          # when the selected runtime backend is --freebios. Provide link-only
+          # placeholders generated from the same public FreeBIOS images. They are
+          # never registered or executed in --freebios mode.
+          "$R" --config ndsrecomp/bios/freebios9.toml --bin "$FB9" --out public-generated --bank arm9_bios --shards 2
+          "$R" --config ndsrecomp/bios/freebios7.toml --bin "$FB7" --out public-generated --bank arm7_bios --shards 2
+
+      - name: Stage source package
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p package/ndsrecomp package/generated-public
+          rsync -a --exclude='.git' ndsrecomp/ package/ndsrecomp/
+          cp -a public-generated/. package/generated-public/
+          cat > package/PIN.txt <<'EOF'
+          ndsrecomp=3a57236bb23d25dcb4caad7d58d733311062ff5e
+          arm-recomp-core=705e71b8aff3ad64fe78f77c3c94bd93158554dd
+          freebios=6d6cfb4953924e4abdaa130aedf71826a055508e
+          EOF
+
+      - name: Upload public source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ndsrecomp-source-directboot-3a57236
+          path: package/
+          if-no-files-found: error
+          retention-days: 7
