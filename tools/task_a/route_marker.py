@@ -41,6 +41,7 @@ def main():
     parser.add_argument("--key-mask", type=int)
     parser.add_argument("--stop", action="store_true")
     parser.add_argument("--savestate", action="store_true")
+    parser.add_argument("--force-tier3", action="store_true")
     args = parser.parse_args()
     root = args.out.resolve()
     session_path = root / "session.json"
@@ -58,6 +59,8 @@ def main():
                    "--save-path", str(root / "erased.sav"), "--boot", "direct", "--freebios",
                    "--generated-firmware", "--identity-mac", "02:00:00:00:00:01",
                    "--diagnostics", "off", "--no-coverage-manifest", "--network", "off"]
+        if args.force_tier3:
+            command.append("--force-tier3")
         with (root / "stdout.log").open("wb") as stdout, (root / "stderr.log").open("wb") as stderr:
             process = subprocess.Popen(command, env=environment, stdout=stdout, stderr=stderr,
                                        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
