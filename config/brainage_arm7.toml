@@ -1,0 +1,22 @@
+# Brain Age: Train Your Brain in Minutes a Day! (USA Rev 1)
+# Exact ROM SHA-1: b8a105bacc3234dede8d4465df0869f2b922a0e2
+# Input arm7.bin is the raw NDS ARM7 image slice at ROM offset 0x000D7400.
+
+[program]
+name = "Brain Age USA Rev 1 ARM7 main"
+id = "brainage_ande1_arm7"
+cpu = "arm7"
+isa = "armv4t"
+load_address = 0x02380000
+size = 0x00026F24
+entry_pc = 0x02380000
+authoritative_entry_points = false
+
+[identity]
+sha1 = "f2d795fb08500539b331b67686efcb7e44dc933a"
+
+[[entry_point]]
+addr = 0x02380000
+mode = "arm"
+name = "entry"
+kind = "rom_header"
