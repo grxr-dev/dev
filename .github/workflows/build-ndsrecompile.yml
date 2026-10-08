@@ -27,16 +27,23 @@ jobs:
       - name: Build nds_recompile
         run: cmake --build build/recompiler --target nds_recompile --parallel 2
 
+      - name: Stage public runtime ABI headers
+        run: |
+          mkdir -p artifact/runtime
+          cp build/recompiler/nds_recompile artifact/
+          cp ndsrecomp/recompiler/armv4t/runtime_arm.h artifact/runtime/
+          cp ndsrecomp/recompiler/armv4t/runtime_arm_types.h artifact/runtime/
+
       - name: Smoke test executable
         run: |
-          test -x build/recompiler/nds_recompile
-          build/recompiler/nds_recompile --help || true
-          sha256sum build/recompiler/nds_recompile
+          test -x artifact/nds_recompile
+          artifact/nds_recompile --help || true
+          sha256sum artifact/nds_recompile
 
       - name: Upload recompiler artifact
         uses: actions/upload-artifact@v4
         with:
           name: nds_recompile-linux-3a57236
-          path: build/recompiler/nds_recompile
+          path: artifact/
           if-no-files-found: error
           retention-days: 7
