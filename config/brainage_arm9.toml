@@ -1,0 +1,22 @@
+# Brain Age: Train Your Brain in Minutes a Day! (USA Rev 1)
+# Exact ROM SHA-1: b8a105bacc3234dede8d4465df0869f2b922a0e2
+# Input arm9.bin is the raw NDS ARM9 image slice at ROM offset 0x4000.
+
+[program]
+name = "Brain Age USA Rev 1 ARM9 main"
+id = "brainage_ande1_arm9"
+cpu = "arm9"
+isa = "armv5te"
+load_address = 0x02000000
+size = 0x000D3218
+entry_pc = 0x02000800
+authoritative_entry_points = false
+
+[identity]
+sha1 = "eedde90ca6073d4d71653d37ed6997d4eed15ed4"
+
+[[entry_point]]
+addr = 0x02000800
+mode = "arm"
+name = "entry"
+kind = "rom_header"
