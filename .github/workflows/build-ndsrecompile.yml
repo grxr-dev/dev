@@ -32,7 +32,7 @@ jobs:
           mkdir -p artifact/runtime
           cp build/recompiler/nds_recompile artifact/
           cp ndsrecomp/recompiler/armv4t/runtime_arm.h artifact/runtime/
-          cp ndsrecomp/recompiler/armv4t/runtime_arm_types.h artifact/runtime/
+          cp ndsrecomp/external/arm-recomp-core/common/runtime_arm_types.h artifact/runtime/
 
       - name: Smoke test executable
         run: |
