@@ -1,0 +1,22 @@
+# User-supplied / copyrighted inputs
+*.nds
+*.sav
+*.dsv
+*.bin
+*.rom
+firmware*.bin
+bios*.bin
+
+# Local prepared/generated data
+local/
+work/
+generated/
+build/
+*.o
+*.obj
+*.exe
+
+# Python
+__pycache__/
+*.pyc
+.venv/
