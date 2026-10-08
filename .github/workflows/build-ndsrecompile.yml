@@ -1,0 +1,42 @@
+name: build-ndsrecompile
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-ndsrecompile.yml'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout research repo
+        uses: actions/checkout@v4
+
+      - name: Checkout pinned ndsrecomp
+        uses: actions/checkout@v4
+        with:
+          repository: RetroPortingToolKit/ndsrecomp
+          ref: 3a57236bb23d25dcb4caad7d58d733311062ff5e
+          submodules: recursive
+          path: ndsrecomp
+
+      - name: Configure recompiler
+        run: cmake -S ndsrecomp/recompiler -B build/recompiler -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build nds_recompile
+        run: cmake --build build/recompiler --target nds_recompile --parallel 2
+
+      - name: Smoke test executable
+        run: |
+          test -x build/recompiler/nds_recompile
+          build/recompiler/nds_recompile --help || true
+          sha256sum build/recompiler/nds_recompile
+
+      - name: Upload recompiler artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nds_recompile-linux-3a57236
+          path: build/recompiler/nds_recompile
+          if-no-files-found: error
+          retention-days: 7
