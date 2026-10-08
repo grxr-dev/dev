@@ -1,0 +1,8 @@
+[system]
+boot = "direct"
+freebios = true
+generated_firmware = true
+
+[cartridge]
+save_type = "flash"
+save_size = 262144

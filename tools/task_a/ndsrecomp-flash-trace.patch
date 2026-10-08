@@ -1,0 +1,183 @@
+diff --git a/runner/src/cart_backup.cpp b/runner/src/cart_backup.cpp
+index f893433..111ad41 100644
+--- a/runner/src/cart_backup.cpp
++++ b/runner/src/cart_backup.cpp
+@@ -109,10 +109,14 @@ uint8_t flash_spi_write(NdsCartBackup& chip, uint8_t val, uint32_t pos,
+                     // Match melonDS's currently modelled distinction between
+                     // page-program (0x02) and page-write (0x0A).
+                     const uint8_t programmed = chip.cmd == 0x02 ? 0u : val;
++                    const uint8_t previous = destination;
+                     if (destination != programmed) {
+                         destination = programmed;
+                         chip.dirty = true;
+                     }
++                    if (chip.trace_commit)
++                        chip.trace_commit(chip, chip.addr & mask, &previous,
++                                          &destination, 1u, pos, last);
+                 }
+                 ++chip.addr;
+             }
+@@ -133,13 +137,24 @@ uint8_t flash_spi_write(NdsCartBackup& chip, uint8_t val, uint32_t pos,
+             if (pos <= 3) chip.addr = (chip.addr << 8) | val;
+             if (pos == 3 && (chip.status & 0x02u)) {
+                 const uint32_t length = chip.cmd == 0xD8 ? 0x10000u : 0x100u;
++                std::vector<uint8_t> previous;
++                std::vector<uint8_t> committed;
++                if (chip.trace_commit) {
++                    previous.resize(length);
++                    committed.resize(length);
++                }
+                 for (uint32_t i = 0; i < length; ++i) {
+                     uint8_t& destination = chip.sram[(chip.addr + i) & mask];
++                    if (chip.trace_commit) previous[i] = destination;
+                     if (destination != 0u) {
+                         destination = 0u;
+                         chip.dirty = true;
+                     }
++                    if (chip.trace_commit) committed[i] = destination;
+                 }
++                if (chip.trace_commit)
++                    chip.trace_commit(chip, chip.addr & mask, previous.data(),
++                                      committed.data(), length, pos, last);
+             }
+             if (last) chip.status &= ~0x02u;
+             return 0;
+@@ -155,12 +170,21 @@ void nds_cart_backup_reset_command(NdsCartBackup& chip) {
+     chip.cmd = 0;
+     chip.status = 0;
+     chip.addr = 0;
++    chip.trace_command_origin = {};
++    chip.trace_byte_origin = {};
++    chip.trace_commit = nullptr;
+ }
+
+ uint8_t nds_cart_backup_spi_write(NdsCartBackup& chip, uint8_t value,
+-                                  uint32_t pos, bool last) {
++                                  uint32_t pos, bool last,
++                                  const NdsCartBackupOrigin* origin,
++                                  NdsCartBackupCommitHook hook) {
+     if (chip.sram.empty()) return 0;
++    chip.trace_commit = hook;
++    chip.trace_byte_origin = origin ? *origin : NdsCartBackupOrigin{};
+     if (pos == 0) {
++        chip.trace_command_origin = chip.trace_byte_origin;
++        ++chip.trace_transaction;
+         switch (value) {
+             case 0x04: chip.status &= ~0x02u; return 0;  // WRDI
+             case 0x06: chip.status |= 0x02u; return 0;   // WREN
+diff --git a/runner/src/cart_backup.h b/runner/src/cart_backup.h
+index 4ccbb75..225625e 100644
+--- a/runner/src/cart_backup.h
++++ b/runner/src/cart_backup.h
+@@ -5,6 +5,21 @@
+
+ #include "cartridge_config.h"
+
++struct NdsCartBackupOrigin {
++    bool valid = false;
++    uint8_t cpu = 0;
++    bool thumb = false;
++    uint8_t execution = 0;
++    uint32_t pc = 0;
++    uint64_t cpu_cycles = 0;
++    uint64_t system_cycles = 0;
++    uint64_t instruction = 0;
++};
++
++struct NdsCartBackup;
++using NdsCartBackupCommitHook = void (*)(const NdsCartBackup&, uint32_t,
++    const uint8_t*, const uint8_t*, uint32_t, uint32_t, bool);
++
+ // AUXSPI backup-chip (save memory) protocol, modelled on melonDS
+ // CartRetail::SPIWrite / SRAMWrite_*. Kept free of the rest of the runtime so
+ // the guest-visible behaviour can be pinned by cart_backup_test.
+@@ -17,12 +32,18 @@ struct NdsCartBackup {
+     // Set whenever a command actually changed a byte of `sram`; the caller owns
+     // deciding when to write the image out and when to clear this.
+     bool dirty = false;
++    NdsCartBackupOrigin trace_command_origin{};
++    NdsCartBackupOrigin trace_byte_origin{};
++    uint64_t trace_transaction = 0;
++    NdsCartBackupCommitHook trace_commit = nullptr;
+ };
+
+ // Feeds one AUXSPI byte to the backup chip. `pos` is the byte's index within
+ // the current chip-select transfer and `last` marks the transfer's final byte.
+ uint8_t nds_cart_backup_spi_write(NdsCartBackup& chip, uint8_t value,
+-                                  uint32_t pos, bool last);
++                                  uint32_t pos, bool last,
++                                  const NdsCartBackupOrigin* origin = nullptr,
++                                  NdsCartBackupCommitHook hook = nullptr);
+
+ // Clears the latched command state; call on reset.
+ void nds_cart_backup_reset_command(NdsCartBackup& chip);
+diff --git a/runner/src/io.cpp b/runner/src/io.cpp
+index bc2be3a..2ff424c 100644
+--- a/runner/src/io.cpp
++++ b/runner/src/io.cpp
+@@ -13,6 +13,7 @@
+
+ #include "battery_save.h"
+ #include "cart_backup.h"
++#include "brainage_flash_trace.h"
+ #include "state.h"
+ #include "scheduler.h"
+ #include "savestate.h"
+@@ -1676,7 +1677,13 @@ int active() { return (g_nds_active == NDS_ARM9) ? 0 : 1; }
+ // pinned by cart_backup_test; this only adds the write-through to disk.
+ uint8_t cart_sram_spi_write(uint8_t val, uint32_t pos, bool last) {
+     const uint8_t result =
+-        nds_cart_backup_spi_write(g_cart_backup, val, pos, last);
++        [&] {
++            if (!task_a_flash_trace_file())
++                return nds_cart_backup_spi_write(g_cart_backup, val, pos, last);
++            const NdsCartBackupOrigin origin = task_a_capture_origin();
++            return nds_cart_backup_spi_write(g_cart_backup, val, pos, last,
++                                             &origin, task_a_flash_commit);
++        }();
+     if (last && g_cart_backup.dirty && !g_cart_save_path.empty())
+         nds_io_flush_cartridge_save();
+     return result;
+@@ -2878,6 +2885,9 @@ bool io_peripheral_savestate_import(const NdsIoPeripheralSaveState& in,
+     g_cart_backup.status = in.backup_status;
+     g_cart_backup.addr = in.backup_addr;
+     g_cart_backup.dirty = in.backup_dirty != 0u;
++    g_cart_backup.trace_command_origin = {};
++    g_cart_backup.trace_byte_origin = {};
++    g_cart_backup.trace_commit = nullptr;
+     g_cart_persistence_detached =
+         in.backup_persistence_detached != 0u;
+     g_cart_detached_warning_emitted = false;
+@@ -2972,6 +2982,7 @@ void nds_dma_trigger(int cpu, uint32_t start_mode) {
+ }
+
+ void nds_dma_run(int cpu, unsigned long long target_cycles) {
++    TaskAHardwareScope task_a_hardware_scope;
+     cpu &= 1;
+     // EXACT, not round-sampled. The scheduler only calls this after
+     // nds_dma_cpu_stalled() proved a channel is running, so the region opens
+diff --git a/runner/src/tier3.cpp b/runner/src/tier3.cpp
+index 1d6591b..2d227bc 100644
+--- a/runner/src/tier3.cpp
++++ b/runner/src/tier3.cpp
+@@ -6,6 +6,7 @@
+ // and drives the fetch→decode→step loop with cross-tier exits.
+
+ #include "tier3.h"
++#include "brainage_flash_trace.h"
+
+ #include <algorithm>
+ #include <cstdio>
+@@ -441,7 +442,11 @@ void tier3_run(uint32_t /*entry*/) {
+
+         g_bus.begin_instruction();
+         uint32_t cyc = 1;
+-        Interpreter::Result r = Interpreter::step(ic, g_bus, in, &cyc);
++        Interpreter::Result r;
++        {
++            TaskAInstructionScope task_a_instruction_scope(pc, thumb);
++            r = Interpreter::step(ic, g_bus, in, &cyc);
++        }
+         if (g_nds_active != NDS_ARM9 && thumb &&
+             in.op == armv4t::IrOp::MUL) {
+             // melonDS ARM7 T_MUL_REG models the architecturally-destroyed C

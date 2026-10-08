@@ -15,6 +15,10 @@ build/
 *.o
 *.obj
 *.exe
+*.state
+*.stt
+*.png
+*.bmp
 
 # Python
 __pycache__/
