@@ -1,0 +1,19 @@
+diff --git a/runner/src/tier3.cpp b/runner/src/tier3.cpp
+--- a/runner/src/tier3.cpp
++++ b/runner/src/tier3.cpp
+@@ -8,6 +8,7 @@
+ #include "tier3.h"
+ #include "brainage_flash_trace.h"
+ #include "brainage_request_trace.h"
++#include "brainage_task_c_trace.h"
+
+ #include <algorithm>
+ #include <cstdio>
+@@ -446,6 +447,7 @@
+         Interpreter::Result r;
+         {
+             task_b_snapshot(pc, thumb, ic.R, pack_cpsr(ic));
++            task_c_snapshot(pc, thumb, ic.R);
+             TaskAInstructionScope task_a_instruction_scope(pc, thumb);
+             r = Interpreter::step(ic, g_bus, in, &cyc);
+         }
