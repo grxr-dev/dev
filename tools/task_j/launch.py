@@ -1,0 +1,30 @@
+"""Restore the same validated Training menu for one disabled or enabled native-hook run."""
+
+import argparse
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--port", type=int, required=True)
+    parser.add_argument("--enabled", action="store_true")
+    args = parser.parse_args()
+    project = Path(__file__).resolve().parents[2]
+    output = args.out.resolve()
+    assert output.is_relative_to(project / "local/task-j"), "Task J outputs must remain local/ignored"
+    environment = os.environ.copy()
+    environment["NDS_TASK_J_CUSTOM_EXERCISE_PROBE"] = "1" if args.enabled else "0"
+    environment["NDS_TASK_J_TRACE"] = str(output / "native-probe.jsonl")
+    environment["NDS_TASK_J_CONTROL"] = str(output / "native-control.txt")
+    environment["NDS_TASK_J_PANEL_CAPTURE"] = str(output / "native-panel.bmp")
+    subprocess.run([sys.executable, str(project / "tools/task_i/restore_menu.py"),
+                    "--source", str(project / "local/task-g/session-001/04-training-menu"),
+                    "--out", str(output), "--port", str(args.port)], env=environment, check=True)
+
+
+if __name__ == "__main__":
+    main()

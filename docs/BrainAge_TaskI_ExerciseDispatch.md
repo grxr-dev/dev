@@ -6,6 +6,11 @@ Architecture is **mixed numeric-table selection and hardcoded scene dispatch**,
 not a demonstrated extensible exercise/function-pointer registry. Future hook
 work is recommended below, not implemented.
 
+**Task J correction:** direct lifecycle-entry observation established that the
+restored Daily Training menu's current scene is `0x32`, not 3. Task I's R4=3
+observation was not the current-scene global. Use old=`0x32`, requested=`0x41`,
+selected=`0x11` for this route; see `BrainAge_TaskJ_NativeHookProof.md`.
+
 **Scope exception:** selecting Reading's Normal font unexpectedly caused two
 16-byte settings writes, changing four bytes in the isolated comparison save.
 This is not a save-free comparison and must not be reported as one. The write
@@ -75,7 +80,7 @@ rules, but the meaning of every bit is not mapped.
 ## Common route and provisional function map
 
 ```text
-scene 3 / Training menu
+scene 0x32 / Training menu
   frame dispatcher 0204F91C -> callsite 02050020 -> menu update 02076E24
   menu index -> order table 020C7880 -> scene table 020C7814
   selected scene written at 0207737C to 020DA3F0
@@ -220,7 +225,7 @@ rendering, result/save transport, availability or bounds checks for a new ID.
 Intercept **before** old-scene cleanup, reached from `0x02050264`. Available:
 CPU/mode, desired scene R0, old scene `0x020DA464`, chosen launch scene
 `0x020DA3F0`, live profile/menu context and LR. Gate first proof narrowly to
-ARM9 ARM, old=3, new=`0x41`, selected=`0x11`. This identifies a Calculations
+ARM9 ARM, old=`0x32`, new=`0x41`, selected=`0x11`. This identifies a Calculations
 x20 launch from Training, not unrelated dialogs using the same rules scene.
 For a later exercise-specific boundary, old=`0x43`, new=`0x11` distinguishes
 countdown completion. Common lifecycle point, not exclusive to Training.
@@ -276,7 +281,7 @@ when disabled. No hook, result replacement or custom exercise was implemented.
 ## Recommended Task J (proposal only)
 
 Smallest useful proof: opt-in **pass-through launch rendezvous**, at
-`0x0204D790`, conditioned old=3/new=`0x41`/selected=`0x11`.
+`0x0204D790`, conditioned old=`0x32`/new=`0x41`/selected=`0x11`.
 From the same menu checkpoint, normal x20 selection pauses at that boundary,
 shows a trivial ROM-free host/native panel, then dismissal resumes the exact
 original transition. Use the game's normal Back action on the resulting
