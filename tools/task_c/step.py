@@ -19,24 +19,31 @@ def main():
     parser.add_argument("--cycles", type=int, default=67000000)
     parser.add_argument("--tap", type=int, nargs=2)
     parser.add_argument("--answer")
+    parser.add_argument("--strokes", type=Path, help="JSON list of normal raw touch pen paths")
     parser.add_argument("--baseline", action="store_true")
     parser.add_argument("--finish-candidate", action="store_true")
     parser.add_argument("--savestate", action="store_true")
     args = parser.parse_args()
-    assert not (args.tap and args.answer), "choose one normal input"
+    assert sum(bool(value) for value in (args.tap, args.answer, args.strokes)) <= 1, "choose one normal input"
+    strokes = json.loads(args.strokes.read_text()) if args.strokes else pen_paths(args.answer) if args.answer else []
+    for stroke in strokes:
+        assert stroke, "empty pen stroke"
+        for point in stroke:
+            assert len(point) == 2 and all(isinstance(value, int) for value in point)
+            assert 0 <= point[0] <= 255 and 0 <= point[1] <= 191, "touch point outside the DS screen"
     root = args.out.resolve()
     session = json.loads((root / "session.json").read_text())
     assert session["marker"] and session["marker"]["transaction_complete"]
     if args.baseline:
-        assert args.cycles == 0 and args.tap is None
+        assert args.cycles == 0 and args.tap is None and not strokes
         assert "task_c" not in session, "baseline already established"
         session["task_c"] = {"request_position": 0, "request_sequence": 0,
                              "request_count": 0, "latest_request": None, "candidate": None}
     monitor = session["task_c"]
-    if monitor["candidate"] and (args.tap or args.answer or args.cycles) and not args.finish_candidate:
+    if monitor["candidate"] and (args.tap or strokes or args.cycles) and not args.finish_candidate:
         raise SystemExit("Candidate latched; no further gameplay input/progression allowed")
     if args.finish_candidate:
-        assert monitor["candidate"] and args.tap is None and args.answer is None, "only drain the existing operation"
+        assert monitor["candidate"] and args.tap is None and not strokes, "only drain the existing operation"
     checkpoint = root / args.label
     checkpoint.mkdir(exist_ok=False)
     before = (root / "ledger.sav").read_bytes()
@@ -125,8 +132,8 @@ def main():
         pressed = args.tap is not None
         if pressed:
             request({"cmd": "touch", "x": args.tap[0], "y": args.tap[1], "down": True})
-        if args.answer:
-            for stroke in pen_paths(args.answer):
+        if strokes:
+            for stroke in strokes:
                 if monitor["candidate"]:
                     break
                 for horizontal, vertical in stroke:
@@ -172,7 +179,7 @@ def main():
         frames("after")
         state_result = request({"cmd": "state_save", "path": str(checkpoint / "checkpoint.state")}, True) if args.savestate else None
     changed, spans = ranges(before, after)
-    summary = {"label": args.label, "tap": args.tap, "answer": args.answer, "requested_cycles": args.cycles,
+    summary = {"label": args.label, "tap": args.tap, "answer": args.answer, "strokes": strokes, "requested_cycles": args.cycles,
                "initial": initial, "final": final, "save_sha256_before": digest(before),
                "save_sha256_after": digest(after), "changed_bytes": changed,
                "changed_ranges_half_open": spans, "sequence_before": sequence_before,
