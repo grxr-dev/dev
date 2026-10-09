@@ -13,7 +13,7 @@ def main():
     args = parser.parse_args()
     project = Path(__file__).resolve().parents[2]
     root = args.out.resolve()
-    assert root.is_relative_to(project / "local/task-j")
+    assert any(root.is_relative_to(project / name) for name in ("local/task-j", "local/task-k"))
     records = [json.loads(line) for line in (root / "native-probe.jsonl").read_text().splitlines()]
     assert records and records[-1]["enabled"]
     assert records[-1]["event"] in ("panel_active", "held_sample"), "probe is not awaiting input"

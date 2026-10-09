@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--port", type=int, default=19855)
+    parser.add_argument("--normal", action="store_true", help="Disable the inherited forced interpreter selector after state restoration")
     args = parser.parse_args()
     source, root = args.source.resolve(), args.out.resolve()
     previous = json.loads((source.parent / "session.json").read_text())
@@ -27,6 +28,8 @@ def main():
     assert summary["accepted_bytes"] == summary["api_operations"] == 0
     assert summary["save_sha256_after"] == "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
     command = list(previous["command"])
+    if args.normal:
+        command.remove("--force-tier3")
     rom = Path(command[command.index("--rom") + 1])
     assert hashlib.sha1(rom.read_bytes()).hexdigest() == "b8a105bacc3234dede8d4465df0869f2b922a0e2"
     root.mkdir(parents=True, exist_ok=False)
@@ -78,6 +81,9 @@ def main():
         assert rtc == summary["rtc_after"], "restored RTC differs"
         actual = bytes.fromhex(request({"cmd": "cart_save"})["hex"])
         assert actual == image, "restored Flash differs from snapshot"
+        selector_before = request({"cmd": "force_tier3"})
+        selector_after = request({"cmd": "force_tier3", "on": 0}) if args.normal else selector_before
+        assert selector_after["forced_tier3"] == (not args.normal)
     session = {"pid": process.pid, "port": args.port, "command": command,
                "sequence": 0, "trace_position": 0, "marker": previous["marker"],
                "checkpoints": [], "recovery_source": str(source),
@@ -85,7 +91,8 @@ def main():
     (root / "session.json").write_text(json.dumps(session, indent=2) + "\n")
     evidence = {"source": str(source), "state_load": loaded, "io_state": counts, "rtc_state": rtc,
                 "state_sha256": hashlib.sha256((source / "checkpoint.state").read_bytes()).hexdigest(),
-                "save_sha256": hashlib.sha256(actual).hexdigest(), "marker_offset": actual.find(b"CLEAR-RAM-CHECK")}
+                "save_sha256": hashlib.sha256(actual).hexdigest(), "marker_offset": actual.find(b"CLEAR-RAM-CHECK"),
+                "selector_before": selector_before, "selector_after": selector_after}
     (root / "restore.json").write_text(json.dumps(evidence, indent=2) + "\n")
     print(json.dumps(evidence, indent=2))
 

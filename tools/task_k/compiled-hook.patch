@@ -1,0 +1,44 @@
+*** Begin Patch
+*** Update File: local/ndsrecomp/runner/src/io.h
+@@
+ void nds_insn_hook_recompute();
++using NdsCompiledInstructionHook = void (*)();
++void nds_set_compiled_instruction_hook(NdsCompiledInstructionHook hook);
+*** Update File: local/ndsrecomp/runner/src/io.cpp
+@@
+ extern "C" uint32_t g_insn_hook_armed = 1u;
++static NdsCompiledInstructionHook g_compiled_instruction_hook = nullptr;
++
++void nds_set_compiled_instruction_hook(NdsCompiledInstructionHook hook) {
++    g_compiled_instruction_hook = hook;
++    nds_insn_hook_recompute();
++}
+@@
+-    g_insn_hook_armed = (g_runtime_deep_trace || g_brk_ptr) ? 1u : 0u;
++    g_insn_hook_armed = (g_runtime_deep_trace || g_brk_ptr || g_compiled_instruction_hook) ? 1u : 0u;
+@@
+-extern "C" void runtime_insn_slow(void) {
++static void nds_insn_payload() {
+@@
+     brk_check();
+ }
++
++extern "C" void runtime_insn_slow(void) {
++    if (g_compiled_instruction_hook) g_compiled_instruction_hook();
++    nds_insn_payload();
++}
+@@
+     ++g_insn_count[cpu & 1];
+-    if (g_insn_hook_armed) runtime_insn_slow();
++    if (g_insn_hook_armed) nds_insn_payload();
+*** Update File: local/ndsrecomp/runner/src/runtime_arm.cpp
+@@
+ extern "C" void runtime_insn_fp(void) {
+-    nds_note_insn_retired(g_nds_active);
++    ++g_insn_count[g_nds_active];
++    if (g_insn_hook_armed) runtime_insn_slow();
+*** Update File: local/ndsrecomp/runner/src/tier3.cpp
+@@
+             if (condition_passed) task_i_snapshot(pc, thumb, in.raw, ic.R);
++            if (condition_passed) brainage_task_j::observe_entry(pc, thumb, ic.R, "tier3");
+*** End Patch

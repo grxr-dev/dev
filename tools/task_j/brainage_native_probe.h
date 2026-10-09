@@ -27,13 +27,12 @@ inline bool enabled = false;
 inline bool used = false;
 inline FILE* trace = nullptr;
 inline unsigned sequence = 0;
+inline void compiled_instruction();
 
 inline void initialize(const char* rom_sha1) {
     identity_ok = rom_sha1 && std::strcmp(rom_sha1, "b8a105bacc3234dede8d4465df0869f2b922a0e2") == 0;
     const char* activation = std::getenv("NDS_TASK_J_CUSTOM_EXERCISE_PROBE");
     enabled = identity_ok && activation && std::strcmp(activation, "1") == 0;
-    if (enabled && !g_nds_force_tier3)
-        throw std::runtime_error("Task J proof currently requires --force-tier3");
     const char* path = std::getenv("NDS_TASK_J_TRACE");
     if (path && *path) {
         trace = std::fopen(path, "wb");
@@ -41,6 +40,9 @@ inline void initialize(const char* rom_sha1) {
     }
     if (activation && std::strcmp(activation, "1") == 0 && !identity_ok)
         throw std::runtime_error("Task J requires the exact Brain Age ROM SHA-1");
+    const char* observer = std::getenv("NDS_TASK_K_TRACE");
+    if (identity_ok && (enabled || trace || (observer && *observer)))
+        nds_set_compiled_instruction_hook(compiled_instruction);
 }
 
 inline uint32_t peek_word(uint32_t address) {
@@ -70,6 +72,7 @@ struct Hold {
     std::string flash;
     bool continued = false;
     unsigned control_sequence = 0;
+    const char* backend = "tier3";
 };
 
 inline void record(const char* event, const Hold& hold) {
@@ -83,7 +86,7 @@ inline void record(const char* event, const Hold& hold) {
         hold.cpsr, g_nds_terminal ? "true" : "false", flash_digest().c_str());
     for (unsigned index = 0; index < 16; ++index)
         std::fprintf(trace, "%s%u", index ? "," : "", hold.registers[index]);
-    std::fputs("]}\n", trace);
+    std::fprintf(trace, "],\"backend\":\"%s\",\"forced_tier3\":%s}\n", hold.backend, g_nds_force_tier3 ? "true" : "false");
     std::fflush(trace);
 }
 
@@ -217,11 +220,12 @@ inline void show_panel(Hold& hold) {
 }
 #endif
 
-inline void before_instruction(uint32_t pc, bool thumb, uint32_t raw, const uint32_t* registers, uint32_t cpsr) {
+inline void before_instruction(uint32_t pc, bool thumb, uint32_t raw, const uint32_t* registers, uint32_t cpsr, const char* backend = "tier3") {
     if ((!enabled && !trace) || !identity_ok || used || g_nds_active != NDS_ARM9 || thumb || pc != 0x0204d790u) return;
     if (registers[0] != 0x41u || peek_word(0x020da3f0u) != 0x11u) return;
     Hold hold{registers, {}, cpsr, g_runtime_cycles, scheduler_cpu_cycles(1),
         g_insn_count[0], g_insn_count[1], flash_digest()};
+    hold.backend = backend;
     std::memcpy(hold.saved.data(), registers, sizeof(uint32_t) * 16);
     record("boundary_context", hold);
     if (raw != 0xe92d4030u || registers[14] != 0x02050268u ||
@@ -245,5 +249,32 @@ inline void before_instruction(uint32_t pc, bool thumb, uint32_t raw, const uint
         peek_word(0x020da3ecu) != 0x41u || peek_word(0x020da3f0u) != 0x11u || g_nds_terminal)
         throw std::runtime_error("Task J guest context changed during native hold");
     record("continue_original", hold);
+}
+
+inline void observe_entry(uint32_t pc, bool thumb, const uint32_t* registers, const char* backend) {
+    if (!identity_ok || g_nds_active != NDS_ARM9 || thumb) return;
+    const char* kind = pc == 0x0204d790u ? "lifecycle" :
+        pc == 0x020610b4u ? "rules_initializer" :
+        pc == 0x02027a28u ? "calculation_constructor" :
+        pc == 0x0200de78u ? "write_api" : nullptr;
+    if (!kind) return;
+    static FILE* output = [] {
+        const char* path = std::getenv("NDS_TASK_K_TRACE");
+        return path && *path ? std::fopen(path, "wb") : nullptr;
+    }();
+    if (!output) return;
+    static uint64_t ordinal = 0;
+    std::fprintf(output, "{\"sequence\":%llu,\"kind\":\"%s\",\"pc\":%u,\"backend\":\"%s\",\"forced_tier3\":%s,\"cycles\":%llu,\"instruction\":%llu,\"r0\":%u,\"r1\":%u,\"lr\":%u}\n",
+        (unsigned long long)++ordinal, kind, pc, backend, g_nds_force_tier3 ? "true" : "false",
+        (unsigned long long)g_runtime_cycles, (unsigned long long)g_insn_count[0], registers[0], registers[1], registers[14]);
+    std::fflush(output);
+}
+
+inline void compiled_instruction() {
+    const uint32_t pc = g_cpu.R[15];
+    const bool thumb = (g_cpu.cpsr & 0x20u) != 0u;
+    observe_entry(pc, thumb, g_cpu.R, "compiled");
+    if (g_nds_active == NDS_ARM9 && !thumb && pc == 0x0204d790u)
+        before_instruction(pc, thumb, peek_word(pc), g_cpu.R, g_cpu.cpsr, "compiled");
 }
 }

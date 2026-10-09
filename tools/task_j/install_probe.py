@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 import subprocess
+import sys
 
 
 def main():
@@ -39,7 +40,9 @@ def main():
     if patches:
         patch = "*** Begin Patch\n" + "\n".join(patches) + "\n*** End Patch\n"
         subprocess.run([str(args.codex_executable.resolve()), "--codex-run-as-apply-patch", patch], cwd=root, check=True)
-    print("Task J installed; rebuild nds_runner. Probe disabled unless NDS_TASK_J_CUSTOM_EXERCISE_PROBE=1")
+    subprocess.run([sys.executable, str(root / "tools/task_k/install.py"),
+                    "--codex-executable", str(args.codex_executable.resolve())], check=True)
+    print("Shared Task J/K probe installed; rebuild nds_runner. Disabled unless NDS_TASK_J_CUSTOM_EXERCISE_PROBE=1")
 
 
 if __name__ == "__main__":

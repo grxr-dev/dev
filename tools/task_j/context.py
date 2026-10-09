@@ -13,7 +13,7 @@ def main():
     parser.add_argument("--name", required=True)
     args = parser.parse_args()
     root = args.out.resolve()
-    assert root.is_relative_to(Path(__file__).resolve().parents[2] / "local/task-j")
+    assert any(root.is_relative_to(Path(__file__).resolve().parents[2] / name) for name in ("local/task-j", "local/task-k"))
     assert re.fullmatch(r"[a-z0-9-]+", args.name)
     output = root / f"{args.name}-context.json"
     assert not output.exists()
