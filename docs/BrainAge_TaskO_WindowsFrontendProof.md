@@ -1,6 +1,12 @@
 # Task O ? Windows frontend presentation/input prerequisite
 
-## Result: blocked, not a frontend PASS
+## Historical result: blocked, not a frontend PASS
+
+Retry 002 subsequently passed with actual Windows client pixel capture and
+the explicitly permitted **SDL event-queue input fallback**. Physical Win32
+mouse delivery remains unproven. See
+[the retry report](BrainAge_TaskO_WindowsFrontendRetry002.md); the original
+missing-SDL evidence below is preserved unchanged.
 
 The available runner was built **without SDL**. One isolated `--interactive`
 startup returned exit code **1** and the exact error:

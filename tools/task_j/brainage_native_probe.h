@@ -29,6 +29,15 @@
 #include "gpu2d.h"
 #include "vram.h"
 #include "debug_server.h"
+#include "frontend.h"
+
+inline uint64_t brainage_frontend_hold_presents() {
+#if defined(NDS_NATIVE_HOLD_FRONTEND_SERVICE)
+    return nds_frontend_native_present_count();
+#else
+    return 0;
+#endif
+}
 
 namespace brainage_task_j {
 inline bool identity_ok = false;
@@ -157,7 +166,7 @@ inline void record(const char* event, const Hold& hold) {
             hold.surface ? pixel_digest(hold.surface->pixels.data()).c_str() : "", pixel_digest(bottom).c_str(),
             pixel_digest(nds_gpu2d_framebuffer(0)).c_str(), pixel_digest(nds_gpu2d_framebuffer(1)).c_str(), video_digest().c_str(), hold.capture_name);
     }
-    std::fputs("}\n", trace);
+    std::fprintf(trace, ",\"frontend_hold_presents\":%llu}\n", (unsigned long long)brainage_frontend_hold_presents());
     std::fflush(trace);
 }
 
@@ -392,6 +401,10 @@ inline void show_surface(Hold& hold) {
     } owner_scope;
     record("panel_active", hold);
     while (!hold.continued) {
+#if defined(NDS_NATIVE_HOLD_FRONTEND_SERVICE)
+        if (!nds_frontend_service_native_hold())
+            throw std::runtime_error("native hold cancelled by host frontend");
+#endif
         poll_control(nullptr, &hold);
         if (!hold.continued) std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
