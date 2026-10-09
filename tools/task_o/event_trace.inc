@@ -1,13 +1,16 @@
 uint64_t task_o_input_sequence = 0;
 
 void task_o_event_trace(const SDL_Event& event, bool held) {
-    if (event.type != SDL_MOUSEBUTTONDOWN && event.type != SDL_MOUSEBUTTONUP) return;
+    const bool motion = event.type == SDL_MOUSEMOTION && (event.motion.state & SDL_BUTTON_LMASK);
+    if (!motion && event.type != SDL_MOUSEBUTTONDOWN && event.type != SDL_MOUSEBUTTONUP) return;
     const char* path = std::getenv("NDS_TASK_O_FRONTEND_TRACE");
     if (!path || !*path) return;
     if (FILE* trace = std::fopen(path, "ab")) {
-        std::fprintf(trace, "{\"event\":\"frontend_button\",\"sequence\":%llu,\"window_id\":%u,\"client_x\":%.3f,\"client_y\":%.3f,\"down\":%s,\"held\":%s}\n",
-            (unsigned long long)++task_o_input_sequence, event.button.windowID,
-            double(event.button.x), double(event.button.y), event.type == SDL_MOUSEBUTTONDOWN ? "true" : "false", held ? "true" : "false");
+        std::fprintf(trace, "{\"event\":\"%s\",\"sequence\":%llu,\"window_id\":%u,\"client_x\":%.3f,\"client_y\":%.3f,\"down\":%s,\"held\":%s}\n",
+            motion ? "frontend_motion" : "frontend_button", (unsigned long long)++task_o_input_sequence,
+            motion ? event.motion.windowID : event.button.windowID,
+            double(motion ? event.motion.x : event.button.x), double(motion ? event.motion.y : event.button.y),
+            motion || event.type == SDL_MOUSEBUTTONDOWN ? "true" : "false", held ? "true" : "false");
         std::fclose(trace);
     }
 }

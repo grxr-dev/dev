@@ -46,12 +46,15 @@ def main():
     parser.add_argument("--input-source", choices=("win32-sendinput", "sdl-queue"), default="win32-sendinput")
     parser.add_argument("--brainage-host", action="store_true")
     parser.add_argument("--disabled-control", action="store_true")
+    parser.add_argument("--freehand", action="store_true")
     args = parser.parse_args()
     if args.disabled_control and not args.brainage_host:
         parser.error("--disabled-control requires --brainage-host")
+    if args.freehand and (not args.brainage_host or args.input_source != "sdl-queue" or args.disabled_control):
+        parser.error("--freehand requires enabled --brainage-host and SDL-queue input")
     repository = Path(__file__).resolve().parents[2]
     root = args.out.resolve()
-    assert root.is_relative_to(repository / ("local/task-p" if args.brainage_host else "local/task-o"))
+    assert root.is_relative_to(repository / ("local/task-q" if args.freehand else "local/task-p" if args.brainage_host else "local/task-o"))
     source = repository / "local/task-g/session-001/04-training-menu"
     initial = (source / "after.sav").read_bytes()
     assert len(initial) == 262144 and digest(initial) == H0
@@ -83,6 +86,8 @@ def main():
         environment.pop("NDS_TASK_N_DS_PRESENTATION", None)
         if not args.disabled_control:
             environment.update({"NDS_BRAINAGE_CUSTOM_EXERCISE": "1", "NDS_BRAINAGE_NATIVE_PRESENTATION": "1"})
+            if args.freehand:
+                environment["NDS_BRAINAGE_CUSTOM_EXERCISE_ID"] = "freehand-canvas"
         else:
             environment.pop("NDS_BRAINAGE_CUSTOM_EXERCISE", None)
             environment.pop("NDS_BRAINAGE_NATIVE_PRESENTATION", None)
@@ -94,7 +99,7 @@ def main():
         (root / name).touch()
     evidence = {"command": command, "input_source": args.input_source, "manual_input": False,
         "answer_specific_controls": False, "checkpoint": str(source / "checkpoint.state"), "samples": [], "window_actions": [], "captures": []}
-    evidence["activation"] = {name: environment[name] for name in ("NDS_BRAINAGE_CUSTOM_EXERCISE", "NDS_BRAINAGE_NATIVE_PRESENTATION", "NDS_TASK_J_CUSTOM_EXERCISE_PROBE", "NDS_TASK_N_DS_PRESENTATION") if name in environment}
+    evidence["activation"] = {name: environment[name] for name in ("NDS_BRAINAGE_CUSTOM_EXERCISE", "NDS_BRAINAGE_NATIVE_PRESENTATION", "NDS_BRAINAGE_CUSTOM_EXERCISE_ID", "NDS_TASK_J_CUSTOM_EXERCISE_PROBE", "NDS_TASK_N_DS_PRESENTATION") if name in environment}
     evidence["sdl_render_driver"] = environment.get("NDS_SDL_RENDER_DRIVER", "default")
     (root / "session.json").write_text(json.dumps(evidence, indent=2) + "\n")
     with (root / "stdout.log").open("wb") as stdout, (root / "stderr.log").open("wb") as stderr:
@@ -199,6 +204,29 @@ def main():
         metadata.update({"label": label, "expected_ds": [ds_x, ds_y]})
         return metadata
 
+    def stroke(points, index):
+        nonlocal queue_sequence
+        events = [(1, points[0]), *[(2, point) for point in points[1:]], (0, points[-1])]
+        for event_index, (kind, point) in enumerate(events):
+            metadata = helper("observe")
+            assert metadata["client"] == [512, 768]
+            client = (point[0] * 2, (192 + point[1]) * 2)
+            queue_sequence += 1
+            temporary = root / "window-control.next"
+            temporary.write_text(f"{queue_token} {queue_sequence} {kind} {client[0]} {client[1]}\n")
+            temporary.replace(root / "window-control.txt")
+            event_name = "sdl_queue_motion" if kind == 2 else "sdl_queue_button"
+            wait_for(lambda: any(row["event"] == event_name and row["control_sequence"] == queue_sequence for row in rows(root / "frontend-input.jsonl")))
+            time.sleep(0.12)
+            sample = control("sample")
+            metrics = sample["exercise_metrics"]
+            assert sample["exercise_id"] == "freehand-canvas" and sample["native_contact"] == (kind != 0)
+            assert metrics["completed_strokes"] == (index if kind == 0 else index - 1)
+            assert metrics["point_count"] == (index - 1) * 5 + min(event_index + 1, 5)
+            assert metrics["current_points"] == (0 if kind == 0 else event_index + 1)
+            evidence.setdefault("drawing_events", []).append({"stroke": index, "kind": "motion" if kind == 2 else "down" if kind else "up",
+                "control_sequence": queue_sequence, "client": client, "requested_ds": point, "source": "sdl-queue", "metrics": metrics})
+
     try:
         def connect():
             if process.poll() is not None:
@@ -255,12 +283,26 @@ def main():
         second = control("sample")
         capture("initial-later", second["native_sha1"])
         assert second["frontend_hold_presents"] > first["frontend_hold_presents"]
-        for answer, position, terminal, label in ((3, (54, 116), "incorrect_result", "incorrect"), (4, (128, 116), "correct_result", "correct")):
-            click(*position, label)
-            wait_for(lambda: any(row["event"] == terminal for row in rows(root / "native-probe.jsonl")))
-            phase = control("capture", label)
-            assert phase["answers"] == ([3] if answer == 3 else [3, 4])
-            capture(label, phase["native_sha1"])
+        if args.freehand:
+            stroke(((64, 48), (96, 72), (128, 96), (160, 120), (192, 132)), 1)
+            phase = control("capture", "stroke1")
+            assert not phase["continue_available"]
+            capture("stroke1", phase["native_sha1"])
+            click(128, 166, "premature_continue")
+            premature = control("sample")
+            assert premature["exercise_metrics"]["completed_strokes"] == 1 and premature["exercise_metrics"]["point_count"] == 5
+            assert not premature["continue_available"] and not any(row["event"] == "continue" for row in rows(root / "native-probe.jsonl"))
+            stroke(((192, 48), (160, 72), (128, 96), (96, 120), (64, 132)), 2)
+            phase = control("capture", "stroke2")
+            assert phase["continue_available"] and phase["exercise_metrics"]["point_count"] == 10
+            capture("stroke2", phase["native_sha1"])
+        else:
+            for answer, position, terminal, label in ((3, (54, 116), "incorrect_result", "incorrect"), (4, (128, 116), "correct_result", "correct")):
+                click(*position, label)
+                wait_for(lambda: any(row["event"] == terminal for row in rows(root / "native-probe.jsonl")))
+                phase = control("capture", label)
+                assert phase["answers"] == ([3] if answer == 3 else [3, 4])
+                capture(label, phase["native_sha1"])
         completed = control("sample")
         assert completed["completed"] and completed["continue_available"]
         frozen_keys = ("current", "requested", "selected", "cpu_cycles", "system_cycles", "cycles7", "insn9", "insn7", "r", "flash_sha1", "guest_top_sha1", "guest_bottom_sha1", "video_sha1", "guest_touch_deliveries")

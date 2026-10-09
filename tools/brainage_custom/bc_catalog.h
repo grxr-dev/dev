@@ -1,12 +1,24 @@
 #pragma once
 
 #include "bc_quiz.h"
+#include "bc_freehand.h"
+#include <cstdlib>
+#include <cstring>
+#include <stdexcept>
 
 namespace brainage_custom {
+inline const ExerciseDescriptor& exercise_descriptor(const char* id) {
+    static const ExerciseDescriptor descriptors[] = {
+        {"arithmetic-2plus2", []() -> std::unique_ptr<Exercise> { return std::make_unique<ArithmeticQuiz>(); }},
+        {"freehand-canvas", []() -> std::unique_ptr<Exercise> { return std::make_unique<FreehandCanvas>(); }}
+    };
+    if (!id || !*id) return descriptors[0];
+    for (const auto& descriptor : descriptors)
+        if (std::strcmp(descriptor.id, id) == 0) return descriptor;
+    throw std::runtime_error(std::string("unknown Brain Age custom exercise ID: ") + id);
+}
+
 inline const ExerciseDescriptor& launch_exercise() {
-    static const ExerciseDescriptor descriptor{"arithmetic-2plus2", []() -> std::unique_ptr<Exercise> {
-        return std::make_unique<ArithmeticQuiz>();
-    }};
-    return descriptor;
+    return exercise_descriptor(std::getenv("NDS_BRAINAGE_CUSTOM_EXERCISE_ID"));
 }
 }

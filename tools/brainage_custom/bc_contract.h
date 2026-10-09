@@ -7,12 +7,18 @@
 #include "bc_surface.h"
 
 namespace brainage_custom {
+struct DiagnosticMetric {
+    std::string name;
+    uint64_t value;
+};
+
 struct ExerciseStatus {
     std::string phase = "inactive";
     std::vector<unsigned> answers;
     bool completed = false;
     bool can_continue = false;
     bool contact_down = false;
+    std::vector<DiagnosticMetric> diagnostics;
 };
 
 struct ExerciseEvent {

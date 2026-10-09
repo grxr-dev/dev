@@ -83,7 +83,14 @@ inline void record(const char* event, const Hold& hold) {
             pixel_digest(nds_gpu2d_framebuffer(0)).c_str(), pixel_digest(nds_gpu2d_framebuffer(1)).c_str(), video_digest().c_str(), hold.audit.capture_name);
     }
     std::fprintf(trace, ",\"exercise_id\":\"%s\",\"exercise_present\":%s,\"begin_count\":%u,\"render_count\":%u,\"exercise_touch_count\":%u,\"status_queries\":%u", hold.exercise_id, hold.exercise ? "true" : "false", hold.begin_count, hold.render_count, hold.touch_count, hold.status_queries);
-    std::fprintf(trace, ",\"frontend_hold_presents\":%llu}\n", (unsigned long long)frontend_hold_presents());
+    std::fprintf(trace, ",\"exercise_metrics\":{");
+    for (unsigned index = 0; index < status.diagnostics.size(); ++index) {
+        const auto& metric = status.diagnostics[index];
+        if (metric.name.empty() || metric.name.find_first_not_of("abcdefghijklmnopqrstuvwxyz0123456789_") != std::string::npos)
+            throw std::runtime_error("invalid exercise diagnostic metric name");
+        std::fprintf(trace, "%s\"%s\":%llu", index ? "," : "", metric.name.c_str(), (unsigned long long)metric.value);
+    }
+    std::fprintf(trace, "},\"frontend_hold_presents\":%llu}\n", (unsigned long long)frontend_hold_presents());
     std::fflush(trace);
 }
 
@@ -186,7 +193,7 @@ inline void poll_control(HWND window, Hold* hold) {
             char checkpoint[16]{}, extra[2]{};
             const int capture_fields = std::sscanf(line, "%95s %u %15s %15s %1s", token, &number, command, checkpoint, extra);
             const bool capture = ds_presentation && std::strcmp(command, "capture") == 0;
-            const bool capture_format = capture_fields == 4 && (std::strcmp(checkpoint, "initial") == 0 || std::strcmp(checkpoint, "incorrect") == 0 || std::strcmp(checkpoint, "correct") == 0);
+            const bool capture_format = capture_fields == 4 && *checkpoint && std::strspn(checkpoint, "abcdefghijklmnopqrstuvwxyz0123456789-") == std::strlen(checkpoint);
             const bool raw_touch = std::strcmp(command, "touch") == 0;
             hold->audit.input_source = "diagnostic";
             hold->audit.input_sequence = number;
