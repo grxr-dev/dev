@@ -22,6 +22,7 @@
 #include "scheduler.h"
 #include "sha1.h"
 #include "mini_exercise_state.h"
+#include "touch_state.h"
 
 namespace brainage_task_j {
 inline bool identity_ok = false;
@@ -82,6 +83,12 @@ struct Hold {
     const char* rejection = "";
     unsigned input_sequence = 0;
     unsigned input_answer = 0;
+    brainage_native::TouchContact contact{};
+    unsigned touch_x = 0, touch_y = 0, touch_target = 0;
+    bool touch_down = false;
+    uint64_t touch_events = 0;
+    uint64_t delivery_before = 0;
+    bool consumed = false;
 };
 
 inline void record(const char* event, const Hold& hold) {
@@ -102,7 +109,13 @@ inline void record(const char* event, const Hold& hold) {
         hold.input_source, hold.input_action, hold.input_answer, hold.rejection);
     for (unsigned index = 0; index < hold.exercise.answers.size(); ++index)
         std::fprintf(trace, "%s%u", index ? "," : "", hold.exercise.answers[index]);
-    std::fputs("]}\n", trace);
+    const auto touch = nds_touch_observation();
+    std::fprintf(trace, "],\"touch_x\":%u,\"touch_y\":%u,\"touch_down\":%s,\"touch_target\":%u,\"touch_events\":%llu,\"consumed\":%s,\"touch_owner\":%s,\"native_contact\":%s,\"guest_pen_down\":%s,\"guest_adc_x\":%u,\"guest_adc_y\":%u,\"guest_touch_deliveries\":%llu,\"event_guest_deliveries\":%llu}\n",
+        hold.touch_x, hold.touch_y, hold.touch_down ? "true" : "false", hold.touch_target,
+        (unsigned long long)hold.touch_events, hold.consumed ? "true" : "false", touch.owned ? "true" : "false",
+        hold.contact.down ? "true" : "false", touch.down ? "true" : "false", touch.adc_x, touch.adc_y,
+        (unsigned long long)touch.guest_deliveries,
+        (unsigned long long)(touch.guest_deliveries - hold.delivery_before));
     std::fflush(trace);
 }
 
@@ -191,13 +204,34 @@ inline void apply_action(HWND window, Hold& hold, const char* action, unsigned a
         record("choose", hold);
         record(hold.exercise.completed ? "correct_result" : "incorrect_result", hold);
         refresh_panel(window, hold);
-    } else if (std::strcmp(action, "continue") == 0 && hold.exercise.resume()) {
+    } else if (std::strcmp(action, "continue") == 0 && !hold.contact.down && hold.exercise.resume()) {
         hold.continued = true;
         record("continue", hold);
     } else {
         hold.rejection = std::strcmp(action, "continue") == 0 ? "not_completed" : "invalid_action_or_phase";
         record("control_rejected", hold);
     }
+}
+
+inline bool consume_touch(void* context, uint16_t x, uint16_t y, bool down) {
+    HWND window = reinterpret_cast<HWND>(context);
+    auto& hold = *reinterpret_cast<Hold*>(GetWindowLongPtrW(window, GWLP_USERDATA));
+    hold.input_source = "ds_touch";
+    hold.input_action = "touch";
+    hold.input_answer = 0;
+    hold.rejection = "";
+    hold.touch_x = x;
+    hold.touch_y = y;
+    hold.touch_down = down;
+    hold.touch_target = brainage_native::touch_target(x, y);
+    hold.delivery_before = nds_touch_observation().guest_deliveries;
+    hold.consumed = true;
+    ++hold.touch_events;
+    const unsigned released = hold.contact.receive(x, y, down);
+    record("touch_consumed", hold);
+    if (released == 1) apply_action(window, hold, "continue", 0);
+    else if (released) apply_action(window, hold, "choose", released);
+    return true;
 }
 
 inline LRESULT CALLBACK panel_proc(HWND window, UINT message, WPARAM parameter, LPARAM detail) {
@@ -234,17 +268,22 @@ inline LRESULT CALLBACK panel_proc(HWND window, UINT message, WPARAM parameter, 
                 char token[96]{}, command[16]{}, trailing[2]{};
                 unsigned number = 0, answer = 0;
                 const int fields = std::sscanf(line, "%95s %u %15s %u %1s", token, &number, command, &answer, trailing);
+                unsigned x = 0, y = 0, down = 0;
+                const int touch_fields = std::sscanf(line, "%95s %u %15s %u %u %u %1s", token, &number, command, &x, &y, &down, trailing);
+                const bool raw_touch = std::strcmp(command, "touch") == 0;
                 hold->input_source = "diagnostic";
                 hold->input_sequence = number;
                 hold->input_action = "invalid";
                 hold->input_answer = answer;
                 const bool known_action = std::strcmp(command, "choose") == 0 || std::strcmp(command, "sample") == 0 || std::strcmp(command, "continue") == 0;
-                const bool format_ok = known_action && (std::strcmp(command, "choose") == 0 ? fields == 4 : fields == 3);
+                const bool format_ok = raw_touch ? touch_fields == 6 && x <= 255 && y <= 191 && down <= 1 :
+                    known_action && (std::strcmp(command, "choose") == 0 ? fields == 4 : fields == 3);
                 const char* rejected = format_ok ? hold->control.consume(token, number) : "invalid_format";
                 if (rejected) {
                     hold->rejection = rejected;
                     record("control_rejected", *hold);
-                } else apply_action(window, *hold, command, answer);
+                } else if (raw_touch) nds_set_touch(uint16_t(x), uint16_t(y), down != 0);
+                else apply_action(window, *hold, command, answer);
             }
         }
         return 0;
@@ -261,19 +300,19 @@ inline void show_panel(Hold& hold) {
     if (!RegisterClassW(&panel) && GetLastError() != ERROR_CLASS_ALREADY_EXISTS)
         throw std::runtime_error("Task J panel class creation failed");
     HWND window = CreateWindowExW(0, panel.lpszClassName, L"Brain Age Native Exercise Test",
-        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 500, 345,
+        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 518, 422,
         nullptr, nullptr, panel.hInstance, nullptr);
     if (!window) throw std::runtime_error("Task J native window creation failed");
     SetWindowLongPtrW(window, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(&hold));
     HWND button = CreateWindowExW(0, L"BUTTON", L"Continue to Calculations x20",
-        WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 110, 245, 280, 42,
+        WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 144, 296, 226, 74,
         window, reinterpret_cast<HMENU>(1), panel.hInstance, nullptr);
     if (!button) throw std::runtime_error("Task J Continue control creation failed");
     SendMessageW(button, WM_SETFONT, reinterpret_cast<WPARAM>(GetStockObject(DEFAULT_GUI_FONT)), TRUE);
     for (unsigned answer : {3u, 4u, 5u}) {
         const std::wstring label = std::to_wstring(answer);
         HWND choice = CreateWindowExW(0, L"BUTTON", label.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-            100 + int(answer - 3) * 110, 183, 80, 42, window, reinterpret_cast<HMENU>(uintptr_t(answer)), panel.hInstance, nullptr);
+            48 + int(answer - 3) * 148, 192, 122, 82, window, reinterpret_cast<HMENU>(uintptr_t(answer)), panel.hInstance, nullptr);
         if (!choice) throw std::runtime_error("Native answer control creation failed");
         SendMessageW(choice, WM_SETFONT, reinterpret_cast<WPARAM>(GetStockObject(DEFAULT_GUI_FONT)), TRUE);
     }
@@ -281,6 +320,14 @@ inline void show_panel(Hold& hold) {
     ShowWindow(window, SW_SHOWNORMAL);
     UpdateWindow(window);
     if (!SetTimer(window, 1, 50, nullptr)) throw std::runtime_error("Task J input polling failed");
+    const auto initial_touch = nds_touch_observation();
+    if (initial_touch.down || initial_touch.adc_x != 0 || initial_touch.adc_y != 0xfff || initial_touch.owned)
+        throw std::runtime_error("Native touch ownership requires clean guest contact");
+    hold.delivery_before = initial_touch.guest_deliveries;
+    nds_set_touch_owner(consume_touch, window);
+    struct OwnerScope {
+        ~OwnerScope() { nds_set_touch_owner(nullptr, nullptr); }
+    } owner_scope;
     record("panel_active", hold);
     capture_panel(window);
     MSG message{};
@@ -291,6 +338,13 @@ inline void show_panel(Hold& hold) {
         DispatchMessageW(&message);
     }
     KillTimer(window, 1);
+    const auto final_touch = nds_touch_observation();
+    if (hold.contact.down || final_touch.down || final_touch.adc_x != 0 || final_touch.adc_y != 0xfff ||
+        final_touch.guest_deliveries != initial_touch.guest_deliveries)
+        throw std::runtime_error("Native touch leaked or contact remains active");
+    record("touch_release_clean", hold);
+    nds_set_touch_owner(nullptr, nullptr);
+    record("touch_owner_released", hold);
     DestroyWindow(window);
 }
 #endif

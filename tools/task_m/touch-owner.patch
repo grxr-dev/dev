@@ -1,0 +1,34 @@
+*** Begin Patch
+*** Update File: local/ndsrecomp/runner/src/io.h
+@@
+ void     nds_set_touch(uint16_t x, uint16_t y, bool down);
++using NdsTouchOwner = bool(*)(void*, uint16_t, uint16_t, bool);
++struct NdsTouchObservation {
++    uint16_t adc_x, adc_y;
++    bool down, owned;
++    uint64_t guest_deliveries;
++};
++void nds_set_touch_owner(NdsTouchOwner callback, void* context);
++NdsTouchObservation nds_touch_observation();
+*** Update File: local/ndsrecomp/runner/src/io.cpp
+@@
+-void nds_set_touch(uint16_t x, uint16_t y, bool down) {
++static NdsTouchOwner g_touch_owner = nullptr;
++static void* g_touch_owner_context = nullptr;
++static uint64_t g_touch_guest_deliveries = 0;
++
++void nds_set_touch_owner(NdsTouchOwner callback, void* context) {
++    g_touch_owner = callback;
++    g_touch_owner_context = context;
++}
++
++NdsTouchObservation nds_touch_observation() {
++    return {g_tsc_x, g_tsc_y, (g_keyinput & (1u << 22)) == 0,
++        g_touch_owner != nullptr, g_touch_guest_deliveries};
++}
++
++void nds_set_touch(uint16_t x, uint16_t y, bool down) {
++    if (g_touch_owner && g_touch_owner(g_touch_owner_context, x, y, down)) return;
++    ++g_touch_guest_deliveries;
+     if (!down) {
+*** End Patch

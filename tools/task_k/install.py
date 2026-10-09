@@ -15,7 +15,8 @@ def main():
     assert subprocess.check_output(["git", "-C", str(framework), "rev-parse", "HEAD"], text=True).strip() == "3a57236bb23d25dcb4caad7d58d733311062ff5e"
     patches = []
     headers = (("tools/task_j/brainage_native_probe.h", "brainage_native_probe.h"),
-               ("tools/task_l/mini_exercise_state.h", "mini_exercise_state.h"))
+               ("tools/task_l/mini_exercise_state.h", "mini_exercise_state.h"),
+               ("tools/task_m/touch_state.h", "touch_state.h"))
     for filename, name in headers:
         source = (root / filename).read_text()
         destination = framework / "runner/src" / name
@@ -30,6 +31,10 @@ def main():
     if "nds_set_compiled_instruction_hook" not in (framework / "runner/src/io.h").read_text():
         body = (root / "tools/task_k/compiled-hook.patch").read_text().splitlines()[1:-1]
         patches.append("\n".join(body))
+    if "nds_set_touch_owner" not in (framework / "runner/src/io.h").read_text():
+        patches.append("\n".join((root / "tools/task_m/touch-owner.patch").read_text().splitlines()[1:-1]))
+    if 'cmd == "touch_state"' not in (framework / "runner/src/debug_server.cpp").read_text():
+        patches.append("\n".join((root / "tools/task_m/touch-debug.patch").read_text().splitlines()[1:-1]))
     if patches:
         patch = "*** Begin Patch\n" + "\n".join(patches) + "\n*** End Patch\n"
         subprocess.run([str(args.codex_executable.resolve()), "--codex-run-as-apply-patch", patch], cwd=root, check=True)

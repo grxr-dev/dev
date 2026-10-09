@@ -1,0 +1,15 @@
+*** Begin Patch
+*** Update File: local/ndsrecomp/runner/src/debug_server.cpp
+@@
+-    if (cmd == "touch") {
++    if (cmd == "touch_state") {
++        const auto touch = nds_touch_observation();
++        return "{\"adc_x\":" + std::to_string(touch.adc_x) +
++            ",\"adc_y\":" + std::to_string(touch.adc_y) +
++            ",\"down\":" + (touch.down ? "true" : "false") +
++            ",\"owned\":" + (touch.owned ? "true" : "false") +
++            ",\"guest_deliveries\":" + std::to_string(touch.guest_deliveries) + "}";
++    }
++    if (cmd == "touch") {
+         const uint16_t x = static_cast<uint16_t>(json_u64(line, "x", 0));
+*** End Patch

@@ -13,7 +13,7 @@ def records(root):
 def send_action(root, action, sequence, answer=None, expect_rejected=False):
     project = Path(__file__).resolve().parents[2]
     root = Path(root).resolve()
-    assert any(root.is_relative_to(project / name) for name in ("local/task-j", "local/task-k", "local/task-l"))
+    assert any(root.is_relative_to(project / name) for name in ("local/task-j", "local/task-k", "local/task-l", "local/task-m"))
     rows = records(root)
     assert rows and rows[-1]["enabled"] and any(row["event"] == "panel_active" for row in rows)
     assert not any(row["event"] in ("continue", "continue_original") for row in rows), "probe already resumed"
