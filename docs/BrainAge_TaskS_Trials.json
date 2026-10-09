@@ -1,0 +1,562 @@
+{
+  "classification": "FULL PASS",
+  "mechanism": "fixed-target interpreter redirect; original worker callsite not executed",
+  "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "target": "0x020A41A0",
+  "synthetic_return_gate": "0x02051AF8",
+  "context_and_output_snapshots_identical": true,
+  "baseline": {
+    "counts": [
+      9,
+      5
+    ],
+    "candidates": [
+      50,
+      52
+    ],
+    "returns": [
+      0,
+      0
+    ],
+    "metrics": [
+      500,
+      249
+    ]
+  },
+  "trials": [
+    {
+      "validated": true,
+      "variant": "A",
+      "objects": {
+        "kind": "resolved",
+        "exercise": 34511360,
+        "manager": 34580488,
+        "slot": 34581072,
+        "context": 34716052,
+        "points": 34757876,
+        "descriptors": 34586832,
+        "arena": 34774276,
+        "counts": 34587104
+      },
+      "source": [
+        [
+          [
+            190,
+            110
+          ],
+          [
+            190,
+            110
+          ],
+          [
+            156,
+            91
+          ],
+          [
+            156,
+            91
+          ],
+          [
+            121,
+            65
+          ],
+          [
+            121,
+            98
+          ],
+          [
+            121,
+            98
+          ],
+          [
+            121,
+            130
+          ],
+          [
+            121,
+            130
+          ]
+        ],
+        [
+          [
+            173,
+            114
+          ],
+          [
+            132,
+            114
+          ],
+          [
+            132,
+            114
+          ],
+          [
+            75,
+            114
+          ],
+          [
+            75,
+            114
+          ]
+        ]
+      ],
+      "stored": [
+        [
+          [
+            110,
+            65
+          ],
+          [
+            110,
+            65
+          ],
+          [
+            91,
+            99
+          ],
+          [
+            91,
+            99
+          ],
+          [
+            65,
+            134
+          ],
+          [
+            98,
+            134
+          ],
+          [
+            98,
+            134
+          ],
+          [
+            130,
+            134
+          ],
+          [
+            130,
+            134
+          ]
+        ],
+        [
+          [
+            114,
+            82
+          ],
+          [
+            114,
+            123
+          ],
+          [
+            114,
+            123
+          ],
+          [
+            114,
+            180
+          ],
+          [
+            114,
+            180
+          ]
+        ]
+      ],
+      "calls": [
+        {
+          "stroke": 0,
+          "point_count": 9,
+          "return_value": 0,
+          "candidate_code": 50,
+          "candidate": "2",
+          "group_counts": [
+            0,
+            1
+          ],
+          "registers": [
+            34716052,
+            34586832,
+            0,
+            34581300
+          ],
+          "stack": [
+            16,
+            34587104,
+            34581332,
+            16,
+            34587108
+          ],
+          "target": 34226592,
+          "return_gate": 33889016,
+          "metric": 500
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "return_value": 0,
+          "candidate_code": 52,
+          "candidate": "4",
+          "group_counts": [
+            0,
+            1
+          ],
+          "registers": [
+            34716052,
+            34586840,
+            1,
+            34581300
+          ],
+          "stack": [
+            16,
+            34587104,
+            34581332,
+            16,
+            34587108
+          ],
+          "target": 34226592,
+          "return_gate": 33889016,
+          "metric": 249
+        }
+      ],
+      "write_manifest": [
+        {
+          "kind": "write",
+          "id": 1,
+          "address": 34757876,
+          "length": 56,
+          "purpose": "adapter points",
+          "before_sha256": "97fc439fe77ccba1d37944a48d50bbb120edd9ca46450ab0f9da2e8af7c3fbf2",
+          "adapter_sha256": "a73fc72041f8785823a8221a038472100f75d79f28666793a4361ec57df39b49",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 2,
+          "address": 34586832,
+          "length": 16,
+          "purpose": "adapter descriptors",
+          "before_sha256": "302e8e2293d873f5c02eb7250e8c458f09d0dc79ab2b7f1b390b117d8bd084d0",
+          "adapter_sha256": "3b8caebb98f8bc67de5a8d383349b6c6cdfb2c8abd375f42119b9256ee0e7b42",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 3,
+          "address": 34774276,
+          "length": 256,
+          "purpose": "stack lower guard",
+          "before_sha256": "efcfd843623970d68bf6e6bccd2ca98296eb5cf9230d6239e382dbe04177c4eb",
+          "adapter_sha256": "2c41a1dd584e3773b95674841b685f36c76b48ec4db75863372c2fd6e19a61ce",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 4,
+          "address": 34587104,
+          "length": 8,
+          "purpose": "output count initialization",
+          "before_sha256": "ab0119524339fc4a2ea11e4da82d546baf6fcb27b5c093fc14b2f98d3a1bd64a",
+          "adapter_sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 5,
+          "address": 34790624,
+          "length": 20,
+          "purpose": "recognition ABI stack",
+          "before_sha256": "08a6625c918e041a20983ce99b6d715435af4a91a2b6c8abe1ec41bc97dbb94f",
+          "adapter_sha256": "b6c686ab72985f2075483473644900db41533a858189f9409e3aca348ad8501a",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 6,
+          "address": 34587104,
+          "length": 8,
+          "purpose": "output count initialization",
+          "before_sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d",
+          "adapter_sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 7,
+          "address": 34790624,
+          "length": 20,
+          "purpose": "recognition ABI stack",
+          "before_sha256": "b6c686ab72985f2075483473644900db41533a858189f9409e3aca348ad8501a",
+          "adapter_sha256": "b6c686ab72985f2075483473644900db41533a858189f9409e3aca348ad8501a",
+          "lifetime": "discarded with disposable process"
+        }
+      ],
+      "net_changed_bytes_by_region": {
+        "title_bss": 2,
+        "context": 829,
+        "slot": 3,
+        "points": 26,
+        "descriptors": 3,
+        "stack": 3325,
+        "counts": 8
+      },
+      "other_mainram_changes": [
+        [
+          37747772,
+          1
+        ]
+      ],
+      "exercise_unchanged": true,
+      "manager_unchanged": true,
+      "loaded_code_unchanged": true,
+      "min_sp": 34786952,
+      "save_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+      "logical_save_requests": 0,
+      "flash_commits": 0,
+      "changed_save_bytes": 0,
+      "trace_sha256": "011e3031821cf7b5edead582a5077b915747663c2046b426046fa4f7b8ae4b05"
+    },
+    {
+      "validated": true,
+      "variant": "B",
+      "objects": {
+        "kind": "resolved",
+        "exercise": 34511360,
+        "manager": 34580488,
+        "slot": 34581072,
+        "context": 34716052,
+        "points": 34757876,
+        "descriptors": 34586832,
+        "arena": 34774276,
+        "counts": 34587104
+      },
+      "source": [
+        [
+          [
+            190,
+            110
+          ],
+          [
+            156,
+            91
+          ],
+          [
+            121,
+            65
+          ],
+          [
+            121,
+            98
+          ],
+          [
+            121,
+            130
+          ]
+        ],
+        [
+          [
+            173,
+            114
+          ],
+          [
+            132,
+            114
+          ],
+          [
+            75,
+            114
+          ]
+        ]
+      ],
+      "stored": [
+        [
+          [
+            110,
+            65
+          ],
+          [
+            91,
+            99
+          ],
+          [
+            65,
+            134
+          ],
+          [
+            98,
+            134
+          ],
+          [
+            130,
+            134
+          ]
+        ],
+        [
+          [
+            114,
+            82
+          ],
+          [
+            114,
+            123
+          ],
+          [
+            114,
+            180
+          ]
+        ]
+      ],
+      "calls": [
+        {
+          "stroke": 0,
+          "point_count": 5,
+          "return_value": 0,
+          "candidate_code": 50,
+          "candidate": "2",
+          "group_counts": [
+            0,
+            1
+          ],
+          "registers": [
+            34716052,
+            34586832,
+            0,
+            34581300
+          ],
+          "stack": [
+            16,
+            34587104,
+            34581332,
+            16,
+            34587108
+          ],
+          "target": 34226592,
+          "return_gate": 33889016,
+          "metric": 500
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "return_value": 0,
+          "candidate_code": 52,
+          "candidate": "4",
+          "group_counts": [
+            0,
+            1
+          ],
+          "registers": [
+            34716052,
+            34586840,
+            1,
+            34581300
+          ],
+          "stack": [
+            16,
+            34587104,
+            34581332,
+            16,
+            34587108
+          ],
+          "target": 34226592,
+          "return_gate": 33889016,
+          "metric": 249
+        }
+      ],
+      "write_manifest": [
+        {
+          "kind": "write",
+          "id": 1,
+          "address": 34757876,
+          "length": 32,
+          "purpose": "adapter points",
+          "before_sha256": "6848568b55727d4706716cec78dcf78ea7f78e81e574b0482dbc954ed1ffe44e",
+          "adapter_sha256": "91829ec8082005bba1dfe910a39e959e54a6567bef719dc0dc1d97f676e9155b",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 2,
+          "address": 34586832,
+          "length": 16,
+          "purpose": "adapter descriptors",
+          "before_sha256": "302e8e2293d873f5c02eb7250e8c458f09d0dc79ab2b7f1b390b117d8bd084d0",
+          "adapter_sha256": "f1eb3d11b0077add5b92cbedbfcd281469dace9423c0cc9fe240a0f33b2fdd56",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 3,
+          "address": 34774276,
+          "length": 256,
+          "purpose": "stack lower guard",
+          "before_sha256": "efcfd843623970d68bf6e6bccd2ca98296eb5cf9230d6239e382dbe04177c4eb",
+          "adapter_sha256": "2c41a1dd584e3773b95674841b685f36c76b48ec4db75863372c2fd6e19a61ce",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 4,
+          "address": 34587104,
+          "length": 8,
+          "purpose": "output count initialization",
+          "before_sha256": "ab0119524339fc4a2ea11e4da82d546baf6fcb27b5c093fc14b2f98d3a1bd64a",
+          "adapter_sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 5,
+          "address": 34790624,
+          "length": 20,
+          "purpose": "recognition ABI stack",
+          "before_sha256": "08a6625c918e041a20983ce99b6d715435af4a91a2b6c8abe1ec41bc97dbb94f",
+          "adapter_sha256": "b6c686ab72985f2075483473644900db41533a858189f9409e3aca348ad8501a",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 6,
+          "address": 34587104,
+          "length": 8,
+          "purpose": "output count initialization",
+          "before_sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d",
+          "adapter_sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "lifetime": "discarded with disposable process"
+        },
+        {
+          "kind": "write",
+          "id": 7,
+          "address": 34790624,
+          "length": 20,
+          "purpose": "recognition ABI stack",
+          "before_sha256": "b6c686ab72985f2075483473644900db41533a858189f9409e3aca348ad8501a",
+          "adapter_sha256": "b6c686ab72985f2075483473644900db41533a858189f9409e3aca348ad8501a",
+          "lifetime": "discarded with disposable process"
+        }
+      ],
+      "net_changed_bytes_by_region": {
+        "title_bss": 2,
+        "context": 829,
+        "slot": 3,
+        "points": 15,
+        "descriptors": 3,
+        "stack": 3325,
+        "counts": 8
+      },
+      "other_mainram_changes": [
+        [
+          37747772,
+          1
+        ]
+      ],
+      "exercise_unchanged": true,
+      "manager_unchanged": true,
+      "loaded_code_unchanged": true,
+      "min_sp": 34786952,
+      "save_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+      "logical_save_requests": 0,
+      "flash_commits": 0,
+      "changed_save_bytes": 0,
+      "trace_sha256": "bcb907cfa03f6fa3656e7e967094ec60ab24107dbc744634aebb37eefc39afcb"
+    }
+  ]
+}
