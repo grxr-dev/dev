@@ -13,7 +13,7 @@ def main():
     parser.add_argument("--name", required=True)
     args = parser.parse_args()
     root = args.out.resolve()
-    assert any(root.is_relative_to(Path(__file__).resolve().parents[2] / name) for name in ("local/task-j", "local/task-k", "local/task-l", "local/task-m"))
+    assert any(root.is_relative_to(Path(__file__).resolve().parents[2] / name) for name in ("local/task-j", "local/task-k", "local/task-l", "local/task-m", "local/task-n"))
     assert re.fullmatch(r"[a-z0-9-]+", args.name)
     output = root / f"{args.name}-context.json"
     assert not output.exists()
@@ -38,7 +38,7 @@ def main():
                   "cpu9": request({"cmd": "regs", "cpu": 9}),
                   "cpu7": request({"cmd": "regs", "cpu": 7}),
                   "dispatch": request({"cmd": "dispatch_stats"})}
-        if root.is_relative_to(Path(__file__).resolve().parents[2] / "local/task-m"):
+        if any(root.is_relative_to(Path(__file__).resolve().parents[2] / name) for name in ("local/task-m", "local/task-n")):
             result["touch"] = request({"cmd": "touch_state"})
         if values["scene_object"]:
             result["scene_object_hex"] = request({"cmd": "read_mem", "cpu": 9,

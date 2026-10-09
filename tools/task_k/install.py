@@ -16,7 +16,8 @@ def main():
     patches = []
     headers = (("tools/task_j/brainage_native_probe.h", "brainage_native_probe.h"),
                ("tools/task_l/mini_exercise_state.h", "mini_exercise_state.h"),
-               ("tools/task_m/touch_state.h", "touch_state.h"))
+               ("tools/task_m/touch_state.h", "touch_state.h"),
+               ("tools/task_n/native_surface.h", "native_surface.h"))
     for filename, name in headers:
         source = (root / filename).read_text()
         destination = framework / "runner/src" / name
@@ -35,6 +36,8 @@ def main():
         patches.append("\n".join((root / "tools/task_m/touch-owner.patch").read_text().splitlines()[1:-1]))
     if 'cmd == "touch_state"' not in (framework / "runner/src/debug_server.cpp").read_text():
         patches.append("\n".join((root / "tools/task_m/touch-debug.patch").read_text().splitlines()[1:-1]))
+    if "nds_gpu2d_set_bottom_presentation" not in (framework / "runner/src/gpu2d.h").read_text():
+        patches.append("\n".join((root / "tools/task_n/presentation.patch").read_text().splitlines()[1:-1]))
     if patches:
         patch = "*** Begin Patch\n" + "\n".join(patches) + "\n*** End Patch\n"
         subprocess.run([str(args.codex_executable.resolve()), "--codex-run-as-apply-patch", patch], cwd=root, check=True)

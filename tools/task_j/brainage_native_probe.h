@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <memory>
+#include <thread>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -23,11 +25,16 @@
 #include "sha1.h"
 #include "mini_exercise_state.h"
 #include "touch_state.h"
+#include "native_surface.h"
+#include "gpu2d.h"
+#include "vram.h"
+#include "debug_server.h"
 
 namespace brainage_task_j {
 inline bool identity_ok = false;
 inline bool enabled = false;
 inline bool used = false;
+inline bool ds_presentation = false;
 inline FILE* trace = nullptr;
 inline unsigned sequence = 0;
 inline void compiled_instruction();
@@ -36,6 +43,8 @@ inline void initialize(const char* rom_sha1) {
     identity_ok = rom_sha1 && std::strcmp(rom_sha1, "b8a105bacc3234dede8d4465df0869f2b922a0e2") == 0;
     const char* activation = std::getenv("NDS_TASK_J_CUSTOM_EXERCISE_PROBE");
     enabled = identity_ok && activation && std::strcmp(activation, "1") == 0;
+    const char* presentation = std::getenv("NDS_TASK_N_DS_PRESENTATION");
+    ds_presentation = enabled && presentation && std::strcmp(presentation, "1") == 0;
     const char* path = std::getenv("NDS_TASK_J_TRACE");
     if (path && *path) {
         trace = std::fopen(path, "wb");
@@ -89,7 +98,31 @@ struct Hold {
     uint64_t touch_events = 0;
     uint64_t delivery_before = 0;
     bool consumed = false;
+    std::unique_ptr<brainage_native::NativeSurface> surface{};
+    const char* capture_name = "";
 };
+
+inline std::string pixel_digest(const uint32_t* pixels) {
+    std::vector<uint8_t> rgb;
+    rgb.reserve(256 * 192 * 3);
+    for (unsigned index = 0; index < 256 * 192; ++index) {
+        rgb.push_back(uint8_t(pixels[index] >> 16));
+        rgb.push_back(uint8_t(pixels[index] >> 8));
+        rgb.push_back(uint8_t(pixels[index]));
+    }
+    return gba::sha1(rgb.data(), rgb.size()).hex();
+}
+
+inline std::string video_digest() {
+    std::vector<uint8_t> bytes;
+    for (const char* region : {"vramA", "vramB", "vramC", "vramD", "vramE", "vramF", "vramG", "vramH", "vramI", "palA", "palB", "oam"}) {
+        const uint8_t* data = nullptr;
+        uint32_t size = 0;
+        if (!nds_video_get_region(region, &data, &size)) throw std::runtime_error("Task N graphics region missing");
+        bytes.insert(bytes.end(), data, data + size);
+    }
+    return gba::sha1(bytes.data(), bytes.size()).hex();
+}
 
 inline void record(const char* event, const Hold& hold) {
     if (!trace) return;
@@ -110,13 +143,43 @@ inline void record(const char* event, const Hold& hold) {
     for (unsigned index = 0; index < hold.exercise.answers.size(); ++index)
         std::fprintf(trace, "%s%u", index ? "," : "", hold.exercise.answers[index]);
     const auto touch = nds_touch_observation();
-    std::fprintf(trace, "],\"touch_x\":%u,\"touch_y\":%u,\"touch_down\":%s,\"touch_target\":%u,\"touch_events\":%llu,\"consumed\":%s,\"touch_owner\":%s,\"native_contact\":%s,\"guest_pen_down\":%s,\"guest_adc_x\":%u,\"guest_adc_y\":%u,\"guest_touch_deliveries\":%llu,\"event_guest_deliveries\":%llu}\n",
+    std::fprintf(trace, "],\"touch_x\":%u,\"touch_y\":%u,\"touch_down\":%s,\"touch_target\":%u,\"touch_events\":%llu,\"consumed\":%s,\"touch_owner\":%s,\"native_contact\":%s,\"guest_pen_down\":%s,\"guest_adc_x\":%u,\"guest_adc_y\":%u,\"guest_touch_deliveries\":%llu,\"event_guest_deliveries\":%llu",
         hold.touch_x, hold.touch_y, hold.touch_down ? "true" : "false", hold.touch_target,
         (unsigned long long)hold.touch_events, hold.consumed ? "true" : "false", touch.owned ? "true" : "false",
         hold.contact.down ? "true" : "false", touch.down ? "true" : "false", touch.adc_x, touch.adc_y,
         (unsigned long long)touch.guest_deliveries,
         (unsigned long long)(touch.guest_deliveries - hold.delivery_before));
+    if (ds_presentation) {
+        uint16_t width = 256;
+        const auto* bottom = nds_gpu2d_presented_framebuffer(1, &width, false);
+        std::fprintf(trace, ",\"presentation_owner\":%s,\"bottom_source\":\"%s\",\"top_source\":\"guest\",\"surface_width\":%u,\"surface_height\":192,\"native_sha1\":\"%s\",\"presented_bottom_sha1\":\"%s\",\"guest_top_sha1\":\"%s\",\"guest_bottom_sha1\":\"%s\",\"video_sha1\":\"%s\",\"capture\":\"%s\",\"popup\":false",
+            nds_gpu2d_bottom_presentation_owned() ? "true" : "false", nds_gpu2d_bottom_presentation_owned() ? "native" : "guest", width,
+            hold.surface ? pixel_digest(hold.surface->pixels.data()).c_str() : "", pixel_digest(bottom).c_str(),
+            pixel_digest(nds_gpu2d_framebuffer(0)).c_str(), pixel_digest(nds_gpu2d_framebuffer(1)).c_str(), video_digest().c_str(), hold.capture_name);
+    }
+    std::fputs("}\n", trace);
     std::fflush(trace);
+}
+
+inline void capture_presented(Hold& hold, const char* name) {
+    const char* root = std::getenv("NDS_TASK_N_CAPTURE_ROOT");
+    if (!root || !*root) throw std::runtime_error("Task N requires an isolated capture root");
+    for (unsigned screen = 0; screen < 2; ++screen) {
+        const std::string path = std::string(root) + "/surface-" + name + (screen ? "-B.json" : "-A.json");
+        if (FILE* previous = std::fopen(path.c_str(), "rb")) {
+            std::fclose(previous);
+            throw std::runtime_error("Task N will not overwrite a capture");
+        }
+        const std::string response = debug_framebuffer_response(screen);
+        FILE* output = std::fopen(path.c_str(), "wb");
+        if (!output) throw std::runtime_error("Task N readback capture cannot be written");
+        const bool written = std::fwrite(response.data(), 1, response.size(), output) == response.size();
+        std::fclose(output);
+        if (!written) throw std::runtime_error("Task N readback capture write failed");
+    }
+    hold.capture_name = name;
+    record("capture_complete", hold);
+    hold.capture_name = "";
 }
 
 #if defined(_WIN32)
@@ -201,9 +264,10 @@ inline void apply_action(HWND window, Hold& hold, const char* action, unsigned a
     if (std::strcmp(action, "sample") == 0) {
         record("held_sample", hold);
     } else if (std::strcmp(action, "choose") == 0 && hold.exercise.choose(answer)) {
+        if (hold.surface) hold.surface->paint(hold.exercise);
         record("choose", hold);
         record(hold.exercise.completed ? "correct_result" : "incorrect_result", hold);
-        refresh_panel(window, hold);
+        if (!hold.surface) refresh_panel(window, hold);
     } else if (std::strcmp(action, "continue") == 0 && !hold.contact.down && hold.exercise.resume()) {
         hold.continued = true;
         record("continue", hold);
@@ -213,9 +277,7 @@ inline void apply_action(HWND window, Hold& hold, const char* action, unsigned a
     }
 }
 
-inline bool consume_touch(void* context, uint16_t x, uint16_t y, bool down) {
-    HWND window = reinterpret_cast<HWND>(context);
-    auto& hold = *reinterpret_cast<Hold*>(GetWindowLongPtrW(window, GWLP_USERDATA));
+inline bool route_touch(Hold& hold, HWND window, uint16_t x, uint16_t y, bool down) {
     hold.input_source = "ds_touch";
     hold.input_action = "touch";
     hold.input_answer = 0;
@@ -232,6 +294,55 @@ inline bool consume_touch(void* context, uint16_t x, uint16_t y, bool down) {
     if (released == 1) apply_action(window, hold, "continue", 0);
     else if (released) apply_action(window, hold, "choose", released);
     return true;
+}
+
+inline bool consume_touch(void* context, uint16_t x, uint16_t y, bool down) {
+    HWND window = reinterpret_cast<HWND>(context);
+    auto& hold = *reinterpret_cast<Hold*>(GetWindowLongPtrW(window, GWLP_USERDATA));
+    return route_touch(hold, window, x, y, down);
+}
+
+inline bool consume_surface_touch(void* context, uint16_t x, uint16_t y, bool down) {
+    return route_touch(*static_cast<Hold*>(context), nullptr, x, y, down);
+}
+
+inline void poll_control(HWND window, Hold* hold) {
+    const char* path = std::getenv("NDS_TASK_J_CONTROL");
+    FILE* input = path && *path ? std::fopen(path, "rb") : nullptr;
+    if (input) {
+        char line[256]{};
+        const bool read = std::fgets(line, sizeof(line), input) != nullptr;
+        std::fclose(input);
+        if (read && hold->last_input != line) {
+            hold->last_input = line;
+            char token[96]{}, command[16]{}, trailing[2]{};
+            unsigned number = 0, answer = 0;
+            const int fields = std::sscanf(line, "%95s %u %15s %u %1s", token, &number, command, &answer, trailing);
+            unsigned x = 0, y = 0, down = 0;
+            const int touch_fields = std::sscanf(line, "%95s %u %15s %u %u %u %1s", token, &number, command, &x, &y, &down, trailing);
+            char checkpoint[16]{}, extra[2]{};
+            const int capture_fields = std::sscanf(line, "%95s %u %15s %15s %1s", token, &number, command, checkpoint, extra);
+            const bool capture = ds_presentation && std::strcmp(command, "capture") == 0;
+            const bool capture_format = capture_fields == 4 && (std::strcmp(checkpoint, "initial") == 0 || std::strcmp(checkpoint, "incorrect") == 0 || std::strcmp(checkpoint, "correct") == 0);
+            const bool raw_touch = std::strcmp(command, "touch") == 0;
+            hold->input_source = "diagnostic";
+            hold->input_sequence = number;
+            hold->input_action = "invalid";
+            hold->input_answer = answer;
+            const bool known_action = std::strcmp(command, "choose") == 0 || std::strcmp(command, "sample") == 0 || std::strcmp(command, "continue") == 0;
+            const bool format_ok = capture ? capture_format : raw_touch ? touch_fields == 6 && x <= 255 && y <= 191 && down <= 1 :
+                known_action && (std::strcmp(command, "choose") == 0 ? fields == 4 : fields == 3);
+            const char* rejected = format_ok ? hold->control.consume(token, number) : "invalid_format";
+            if (rejected) {
+                hold->rejection = rejected;
+                record("control_rejected", *hold);
+            } else if (capture) {
+                hold->input_action = "capture";
+                capture_presented(*hold, checkpoint);
+            } else if (raw_touch) nds_set_touch(uint16_t(x), uint16_t(y), down != 0);
+            else apply_action(window, *hold, command, answer);
+        }
+    }
 }
 
 inline LRESULT CALLBACK panel_proc(HWND window, UINT message, WPARAM parameter, LPARAM detail) {
@@ -257,38 +368,44 @@ inline LRESULT CALLBACK panel_proc(HWND window, UINT message, WPARAM parameter, 
         return 0;
     }
     if (hold && message == WM_TIMER) {
-        const char* path = std::getenv("NDS_TASK_J_CONTROL");
-        FILE* input = path && *path ? std::fopen(path, "rb") : nullptr;
-        if (input) {
-            char line[256]{};
-            const bool read = std::fgets(line, sizeof(line), input) != nullptr;
-            std::fclose(input);
-            if (read && hold->last_input != line) {
-                hold->last_input = line;
-                char token[96]{}, command[16]{}, trailing[2]{};
-                unsigned number = 0, answer = 0;
-                const int fields = std::sscanf(line, "%95s %u %15s %u %1s", token, &number, command, &answer, trailing);
-                unsigned x = 0, y = 0, down = 0;
-                const int touch_fields = std::sscanf(line, "%95s %u %15s %u %u %u %1s", token, &number, command, &x, &y, &down, trailing);
-                const bool raw_touch = std::strcmp(command, "touch") == 0;
-                hold->input_source = "diagnostic";
-                hold->input_sequence = number;
-                hold->input_action = "invalid";
-                hold->input_answer = answer;
-                const bool known_action = std::strcmp(command, "choose") == 0 || std::strcmp(command, "sample") == 0 || std::strcmp(command, "continue") == 0;
-                const bool format_ok = raw_touch ? touch_fields == 6 && x <= 255 && y <= 191 && down <= 1 :
-                    known_action && (std::strcmp(command, "choose") == 0 ? fields == 4 : fields == 3);
-                const char* rejected = format_ok ? hold->control.consume(token, number) : "invalid_format";
-                if (rejected) {
-                    hold->rejection = rejected;
-                    record("control_rejected", *hold);
-                } else if (raw_touch) nds_set_touch(uint16_t(x), uint16_t(y), down != 0);
-                else apply_action(window, *hold, command, answer);
-            }
-        }
+        poll_control(window, hold);
         return 0;
     }
     return DefWindowProcW(window, message, parameter, detail);
+}
+
+inline void show_surface(Hold& hold) {
+    const auto initial_touch = nds_touch_observation();
+    if (initial_touch.down || initial_touch.adc_x != 0 || initial_touch.adc_y != 0xfff ||
+        initial_touch.owned || nds_gpu2d_bottom_presentation_owned())
+        throw std::runtime_error("Task N requires clean input and no presentation owner");
+    hold.delivery_before = initial_touch.guest_deliveries;
+    hold.surface = std::make_unique<brainage_native::NativeSurface>();
+    hold.surface->paint(hold.exercise);
+    nds_gpu2d_set_bottom_presentation(hold.surface->pixels.data());
+    nds_set_touch_owner(consume_surface_touch, &hold);
+    struct OwnerScope {
+        ~OwnerScope() {
+            nds_set_touch_owner(nullptr, nullptr);
+            nds_gpu2d_set_bottom_presentation(nullptr);
+        }
+    } owner_scope;
+    record("panel_active", hold);
+    while (!hold.continued) {
+        poll_control(nullptr, &hold);
+        if (!hold.continued) std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    }
+    const auto final_touch = nds_touch_observation();
+    if (hold.contact.down || final_touch.down || final_touch.adc_x != 0 || final_touch.adc_y != 0xfff ||
+        final_touch.guest_deliveries != initial_touch.guest_deliveries)
+        throw std::runtime_error("Task N contact leaked");
+    record("touch_release_clean", hold);
+    nds_set_touch_owner(nullptr, nullptr);
+    record("touch_owner_released", hold);
+    nds_gpu2d_set_bottom_presentation(nullptr);
+    hold.surface.reset();
+    record("presentation_owner_released", hold);
+    capture_presented(hold, "handoff");
 }
 
 inline void show_panel(Hold& hold) {
@@ -373,7 +490,8 @@ inline void before_instruction(uint32_t pc, bool thumb, uint32_t raw, const uint
     record(enabled ? "intercept" : "boundary_disabled", hold);
     if (!enabled) return;
 #if defined(_WIN32)
-    show_panel(hold);
+    if (ds_presentation) show_surface(hold);
+    else show_panel(hold);
 #else
     throw std::runtime_error("Task J native panel currently requires Windows");
 #endif
