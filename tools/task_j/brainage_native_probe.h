@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -20,6 +21,7 @@
 #include "io.h"
 #include "scheduler.h"
 #include "sha1.h"
+#include "mini_exercise_state.h"
 
 namespace brainage_task_j {
 inline bool identity_ok = false;
@@ -71,8 +73,15 @@ struct Hold {
     uint64_t instruction7;
     std::string flash;
     bool continued = false;
-    unsigned control_sequence = 0;
     const char* backend = "tier3";
+    brainage_native::MiniExercise exercise{};
+    brainage_native::ControlOrder control{};
+    std::string last_input{};
+    const char* input_source = "none";
+    const char* input_action = "none";
+    const char* rejection = "";
+    unsigned input_sequence = 0;
+    unsigned input_answer = 0;
 };
 
 inline void record(const char* event, const Hold& hold) {
@@ -86,7 +95,14 @@ inline void record(const char* event, const Hold& hold) {
         hold.cpsr, g_nds_terminal ? "true" : "false", flash_digest().c_str());
     for (unsigned index = 0; index < 16; ++index)
         std::fprintf(trace, "%s%u", index ? "," : "", hold.registers[index]);
-    std::fprintf(trace, "],\"backend\":\"%s\",\"forced_tier3\":%s}\n", hold.backend, g_nds_force_tier3 ? "true" : "false");
+    std::fprintf(trace, "],\"backend\":\"%s\",\"forced_tier3\":%s,\"session\":\"%s\",\"phase\":\"%s\",\"attempts\":%u,\"completed\":%s,\"continue_available\":%s,\"control_sequence\":%u,\"action_sequence\":%u,\"source\":\"%s\",\"action\":\"%s\",\"answer\":%u,\"rejection\":\"%s\",\"answers\":[",
+        hold.backend, g_nds_force_tier3 ? "true" : "false", hold.control.session.c_str(),
+        hold.exercise.phase_name(), unsigned(hold.exercise.answers.size()), hold.exercise.completed ? "true" : "false",
+        hold.exercise.continue_available() ? "true" : "false", hold.control.sequence, hold.input_sequence,
+        hold.input_source, hold.input_action, hold.input_answer, hold.rejection);
+    for (unsigned index = 0; index < hold.exercise.answers.size(); ++index)
+        std::fprintf(trace, "%s%u", index ? "," : "", hold.exercise.answers[index]);
+    std::fputs("]}\n", trace);
     std::fflush(trace);
 }
 
@@ -103,9 +119,18 @@ inline void paint_panel(HWND window, HDC dc) {
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
         DEFAULT_PITCH, L"Segoe UI");
     HGDIOBJ previous = SelectObject(dc, font);
-    RECT text{24, 24, bounds.right - 24, 160};
-    DrawTextW(dc, L"Brain Age Native Hook Test\n\nCustom exercise slot reached\nGuest transition held until Continue", -1,
-        &text, DT_LEFT | DT_WORDBREAK);
+    const auto* hold = reinterpret_cast<const Hold*>(GetWindowLongPtrW(window, GWLP_USERDATA));
+    std::wstring content = L"Brain Age Native Exercise Test\n\n2 + 2 = ?\n";
+    if (hold) {
+        if (hold->exercise.completed) SetTextColor(dc, RGB(110, 245, 170));
+        else if (!hold->exercise.answers.empty()) SetTextColor(dc, RGB(255, 150, 150));
+        content += hold->exercise.completed ? L"Correct! Mini-exercise complete." :
+            hold->exercise.answers.empty() ? L"Choose an answer." : L"Incorrect. Try again.";
+        content += L"\nAttempts: " + std::to_wstring(hold->exercise.answers.size()) + L"  Answers:";
+        for (unsigned answer : hold->exercise.answers) content += L" " + std::to_wstring(answer);
+    }
+    RECT text{24, 18, bounds.right - 24, 172};
+    DrawTextW(dc, content.c_str(), -1, &text, DT_LEFT | DT_WORDBREAK);
     SelectObject(dc, previous);
     DeleteObject(font);
 }
@@ -140,12 +165,39 @@ inline void capture_panel(HWND window) {
     header.bfType = 0x4d42;
     header.bfOffBits = sizeof(header) + sizeof(info.bmiHeader);
     header.bfSize = header.bfOffBits + DWORD(pixels.size());
-    FILE* output = std::fopen(path, "wb");
+    const std::string checkpoint_path = std::string(path) + "." + std::to_string(sequence) + ".bmp";
+    FILE* output = std::fopen(checkpoint_path.c_str(), "wb");
     if (!output) throw std::runtime_error("Task J panel capture cannot be opened");
     std::fwrite(&header, sizeof(header), 1, output);
     std::fwrite(&info.bmiHeader, sizeof(info.bmiHeader), 1, output);
     std::fwrite(pixels.data(), pixels.size(), 1, output);
     std::fclose(output);
+}
+
+inline void refresh_panel(HWND window, const Hold& hold) {
+    EnableWindow(GetDlgItem(window, 1), hold.exercise.continue_available());
+    for (unsigned answer : {3u, 4u, 5u}) EnableWindow(GetDlgItem(window, answer), !hold.exercise.completed);
+    RedrawWindow(window, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN | RDW_UPDATENOW);
+    capture_panel(window);
+}
+
+inline void apply_action(HWND window, Hold& hold, const char* action, unsigned answer) {
+    hold.input_action = action;
+    hold.input_answer = answer;
+    hold.rejection = "";
+    if (std::strcmp(action, "sample") == 0) {
+        record("held_sample", hold);
+    } else if (std::strcmp(action, "choose") == 0 && hold.exercise.choose(answer)) {
+        record("choose", hold);
+        record(hold.exercise.completed ? "correct_result" : "incorrect_result", hold);
+        refresh_panel(window, hold);
+    } else if (std::strcmp(action, "continue") == 0 && hold.exercise.resume()) {
+        hold.continued = true;
+        record("continue", hold);
+    } else {
+        hold.rejection = std::strcmp(action, "continue") == 0 ? "not_completed" : "invalid_action_or_phase";
+        record("control_rejected", hold);
+    }
 }
 
 inline LRESULT CALLBACK panel_proc(HWND window, UINT message, WPARAM parameter, LPARAM detail) {
@@ -162,22 +214,37 @@ inline LRESULT CALLBACK panel_proc(HWND window, UINT message, WPARAM parameter, 
         return 0;
     }
     if (message == WM_CLOSE) return 0;
-    if (hold && message == WM_COMMAND && LOWORD(parameter) == 1 && HIWORD(parameter) == BN_CLICKED) {
-        hold->continued = true;
+    if (hold && message == WM_COMMAND && HIWORD(parameter) == BN_CLICKED) {
+        hold->input_source = "native_ui";
+        hold->input_sequence = 0;
+        const unsigned control = LOWORD(parameter);
+        if (control == 1) apply_action(window, *hold, "continue", 0);
+        else if (control >= 3 && control <= 5) apply_action(window, *hold, "choose", control);
         return 0;
     }
     if (hold && message == WM_TIMER) {
         const char* path = std::getenv("NDS_TASK_J_CONTROL");
         FILE* input = path && *path ? std::fopen(path, "rb") : nullptr;
         if (input) {
-            char command[16]{};
-            unsigned number = 0;
-            const bool parsed = std::fscanf(input, "%15s %u", command, &number) == 2;
+            char line[256]{};
+            const bool read = std::fgets(line, sizeof(line), input) != nullptr;
             std::fclose(input);
-            if (parsed && number > hold->control_sequence) {
-                hold->control_sequence = number;
-                if (std::strcmp(command, "sample") == 0) record("held_sample", *hold);
-                if (std::strcmp(command, "continue") == 0) hold->continued = true;
+            if (read && hold->last_input != line) {
+                hold->last_input = line;
+                char token[96]{}, command[16]{}, trailing[2]{};
+                unsigned number = 0, answer = 0;
+                const int fields = std::sscanf(line, "%95s %u %15s %u %1s", token, &number, command, &answer, trailing);
+                hold->input_source = "diagnostic";
+                hold->input_sequence = number;
+                hold->input_action = "invalid";
+                hold->input_answer = answer;
+                const bool known_action = std::strcmp(command, "choose") == 0 || std::strcmp(command, "sample") == 0 || std::strcmp(command, "continue") == 0;
+                const bool format_ok = known_action && (std::strcmp(command, "choose") == 0 ? fields == 4 : fields == 3);
+                const char* rejected = format_ok ? hold->control.consume(token, number) : "invalid_format";
+                if (rejected) {
+                    hold->rejection = rejected;
+                    record("control_rejected", *hold);
+                } else apply_action(window, *hold, command, answer);
             }
         }
         return 0;
@@ -193,21 +260,29 @@ inline void show_panel(Hold& hold) {
     panel.lpszClassName = L"BrainAgeTaskJNativeProbe";
     if (!RegisterClassW(&panel) && GetLastError() != ERROR_CLASS_ALREADY_EXISTS)
         throw std::runtime_error("Task J panel class creation failed");
-    HWND window = CreateWindowExW(0, panel.lpszClassName, L"Brain Age Native Hook Test",
-        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 500, 280,
+    HWND window = CreateWindowExW(0, panel.lpszClassName, L"Brain Age Native Exercise Test",
+        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 500, 345,
         nullptr, nullptr, panel.hInstance, nullptr);
     if (!window) throw std::runtime_error("Task J native window creation failed");
     SetWindowLongPtrW(window, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(&hold));
     HWND button = CreateWindowExW(0, L"BUTTON", L"Continue to Calculations x20",
-        WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 110, 178, 280, 42,
+        WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 110, 245, 280, 42,
         window, reinterpret_cast<HMENU>(1), panel.hInstance, nullptr);
     if (!button) throw std::runtime_error("Task J Continue control creation failed");
     SendMessageW(button, WM_SETFONT, reinterpret_cast<WPARAM>(GetStockObject(DEFAULT_GUI_FONT)), TRUE);
+    for (unsigned answer : {3u, 4u, 5u}) {
+        const std::wstring label = std::to_wstring(answer);
+        HWND choice = CreateWindowExW(0, L"BUTTON", label.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+            100 + int(answer - 3) * 110, 183, 80, 42, window, reinterpret_cast<HMENU>(uintptr_t(answer)), panel.hInstance, nullptr);
+        if (!choice) throw std::runtime_error("Native answer control creation failed");
+        SendMessageW(choice, WM_SETFONT, reinterpret_cast<WPARAM>(GetStockObject(DEFAULT_GUI_FONT)), TRUE);
+    }
+    EnableWindow(button, FALSE);
     ShowWindow(window, SW_SHOWNORMAL);
     UpdateWindow(window);
-    capture_panel(window);
     if (!SetTimer(window, 1, 50, nullptr)) throw std::runtime_error("Task J input polling failed");
     record("panel_active", hold);
+    capture_panel(window);
     MSG message{};
     while (!hold.continued) {
         if (GetMessageW(&message, nullptr, 0, 0) <= 0)
@@ -235,6 +310,12 @@ inline void before_instruction(uint32_t pc, bool thumb, uint32_t raw, const uint
         return;
     }
     used = true;
+    if (enabled) {
+        hold.control.session = std::to_string(std::chrono::steady_clock::now().time_since_epoch().count());
+#if defined(_WIN32)
+        hold.control.session += "-" + std::to_string(GetCurrentProcessId());
+#endif
+    }
     record(enabled ? "intercept" : "boundary_disabled", hold);
     if (!enabled) return;
 #if defined(_WIN32)

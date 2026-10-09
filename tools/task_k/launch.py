@@ -16,7 +16,7 @@ def main():
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
     output = args.out.resolve()
-    assert output.is_relative_to(root / "local/task-k")
+    assert any(output.is_relative_to(root / name) for name in ("local/task-k", "local/task-l"))
     environment = os.environ.copy()
     environment["NDS_TASK_J_CUSTOM_EXERCISE_PROBE"] = "1" if args.enabled else "0"
     environment["NDS_TASK_J_TRACE"] = str(output / "native-probe.jsonl")
