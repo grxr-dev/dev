@@ -1,0 +1,83 @@
+{
+  "status": "design-only; not implemented",
+  "identity": {
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "point": {
+    "layout": "two little-endian 16-bit coordinates",
+    "stride": 4,
+    "raw_ds_to_input": [
+      "x=raw_y",
+      "y=255-raw_x"
+    ],
+    "signedness": "positive observed domain; do not generalize out-of-range values",
+    "repeated_points": "retained by original frame sampling",
+    "pressure_or_timestamp": "none in observed point layout"
+  },
+  "stroke": {
+    "descriptor_stride": 8,
+    "fields": {
+      "0": "32-bit point count",
+      "4": "32-bit guest pointer to first point"
+    },
+    "termination": "count and pen-up state transition; no point sentinel",
+    "observed_points_per_stroke": [
+      9,
+      5
+    ],
+    "observed_total_points": 14,
+    "original_storage_limits_static": {
+      "points": 4096,
+      "stroke_descriptors": 32,
+      "queue_records": 16
+    },
+    "limits_tested": false
+  },
+  "invocation": {
+    "cpu": "ARM9",
+    "callsite": "0x02051AF4",
+    "target": "0x020A41A0",
+    "return_site": "0x02051AF8",
+    "r0": "existing initialized recognizer context",
+    "r1": "pointer to current finalized stroke descriptor",
+    "r2": "zero-based stroke identifier, observed 0 then 1",
+    "r3": "output group 0, uint16 character buffer",
+    "stack": [
+      "group0 capacity=16",
+      "group0 count output pointer",
+      "group1 uint16 character buffer",
+      "group1 capacity=16",
+      "group1 count output pointer"
+    ],
+    "lifetime": "retain guest-addressable context, points, descriptor and output buffers through worker completion; later reset through original lifecycle",
+    "execution": "guest queue asynchronous to UI; call synchronous within ARM9 worker",
+    "return_value_observed": 0
+  },
+  "output": {
+    "group_counts": [
+      0,
+      1
+    ],
+    "group1_codes": [
+      52,
+      0
+    ],
+    "selected_numeric_value": 4,
+    "encoding": "16-bit ASCII-compatible digit code; wider character encoding unproven",
+    "metric": {
+      "value": 249,
+      "meaning": "unknown; not a calibrated confidence"
+    },
+    "correctness": "separate exercise comparison at 0x02025728; do not include expected-answer policy in recognizer adapter"
+  },
+  "unknowns": [
+    "Full context size and standalone initialization lifecycle",
+    "Exact meanings of both output groups and their count semantics for multi-character/multi-candidate cases",
+    "Normalization and resampling inside middleware",
+    "Confidence/metric interpretation",
+    "Input limits accepted by middleware beyond the observed original title allocation",
+    "Compatibility of deduplicated Task Q strokes; no Task Q input was supplied",
+    "Safe Task Q canvas-to-book coordinate layout for a future custom UI"
+  ]
+}
