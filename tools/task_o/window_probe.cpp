@@ -73,9 +73,9 @@ void capture(HWND window, const RECT& client, const POINT& origin, const char* o
     HGDIOBJ previous = SelectObject(memory, bitmap);
     bool ok;
     if (screen) {
-        check(GetForegroundWindow() == window, "screen capture target not foreground");
-        for (POINT point : {POINT{origin.x + 1, origin.y + 1}, POINT{origin.x + width - 2, origin.y + height - 2}})
-            check(GetAncestor(WindowFromPoint(point), GA_ROOT) == window, "target client is obscured");
+        for (int row = 1; row < height; row += 16)
+            for (int column = 1; column < width; column += 16)
+                check(GetAncestor(WindowFromPoint(POINT{origin.x + column, origin.y + row}), GA_ROOT) == window, "target client is obscured");
         ok = BitBlt(memory, 0, 0, width, height, source, origin.x, origin.y, SRCCOPY | CAPTUREBLT);
     } else {
         ok = PrintWindow(window, memory, PW_CLIENTONLY | 2);
@@ -115,7 +115,11 @@ int main(int argc, char** argv) {
         DWORD_PTR result = 0;
         check(SendMessageTimeoutW(target.window, WM_NULL, 0, 0, SMTO_ABORTIFHUNG, 2000, &result), "runner window unresponsive");
         const std::string action = argv[1];
-        if (action != "observe" && !(action == "capture" && argc == 6 && std::string(argv[5]) == "print")) focus(target.window);
+        if (action == "expose") {
+            ShowWindow(target.window, SW_SHOWNOACTIVATE);
+            SetWindowPos(target.window, HWND_TOPMOST, 40, 40, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW | SWP_NOACTIVATE);
+            Sleep(250);
+        } else if (action != "observe" && action != "capture") focus(target.window);
         RECT client{}, window{};
         POINT origin{};
         check(GetClientRect(target.window, &client) && GetWindowRect(target.window, &window) && ClientToScreen(target.window, &origin), "window geometry unavailable");
@@ -151,7 +155,7 @@ int main(int argc, char** argv) {
             check(argc == 6, "capture requires output.bmp print|screen");
             check(std::string(argv[5]) == "print" || std::string(argv[5]) == "screen", "unknown capture method");
             capture(target.window, client, origin, argv[4], std::string(argv[5]) == "screen");
-        } else check(action == "observe" || action == "place", "unknown helper action");
+        } else check(action == "observe" || action == "place" || action == "expose", "unknown helper action");
         std::printf("{\"action\":\"%s\",\"pid\":%lu,\"hwnd\":%llu,\"title\":\"%s\",\"class\":\"%s\",\"dpi\":%u,\"client\":[%ld,%ld],\"origin\":[%ld,%ld],\"window\":[%ld,%ld,%ld,%ld],\"client_point\":[%d,%d],\"screen_point\":[%ld,%ld],\"foreground\":%s,\"foreground_hwnd\":%llu,\"source\":\"%s\"}\n",
             action.c_str(), target.pid, (unsigned long long)reinterpret_cast<uintptr_t>(target.window), escaped(title).c_str(), escaped(classname).c_str(), GetDpiForWindow(target.window), client.right, client.bottom, origin.x, origin.y, window.left, window.top, window.right, window.bottom, client_x, client_y, point.x, point.y, GetForegroundWindow() == target.window ? "true" : "false", (unsigned long long)reinterpret_cast<uintptr_t>(GetForegroundWindow()), action == "click" ? "win32_sendinput" : "win32_window_api");
         return 0;

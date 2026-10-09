@@ -17,7 +17,9 @@ def main():
     headers = (("tools/task_j/brainage_native_probe.h", "brainage_native_probe.h"),
                ("tools/task_l/mini_exercise_state.h", "mini_exercise_state.h"),
                ("tools/task_m/touch_state.h", "touch_state.h"),
-               ("tools/task_n/native_surface.h", "native_surface.h"))
+               ("tools/task_n/native_surface.h", "native_surface.h")) + tuple(
+                   (str(path.relative_to(root)), path.name)
+                   for path in sorted((root / "tools/brainage_custom").glob("bc_*.h")))
     for filename, name in headers:
         source = (root / filename).read_text()
         destination = framework / "runner/src" / name
@@ -26,6 +28,11 @@ def main():
                            "\n".join("+" + line for line in source.splitlines()))
         elif destination.read_text() != source:
             old = destination.read_text()
+            if name == "brainage_native_probe.h" and len(source) < 512 and len(old) > 20000:
+                patches.append(f"*** Delete File: local/ndsrecomp/runner/src/{name}")
+                patches.append(f"*** Add File: local/ndsrecomp/runner/src/{name}\n" +
+                               "\n".join("+" + line for line in source.splitlines()))
+                continue
             changes = list(difflib.unified_diff(old.splitlines(), source.splitlines(), n=3))[2:]
             patches.append(f"*** Update File: local/ndsrecomp/runner/src/{name}\n" +
                            "\n".join("@@" if line.startswith("@@") else line for line in changes))
@@ -39,8 +46,9 @@ def main():
     if "nds_gpu2d_set_bottom_presentation" not in (framework / "runner/src/gpu2d.h").read_text():
         patches.append("\n".join((root / "tools/task_n/presentation.patch").read_text().splitlines()[1:-1]))
     if patches:
-        patch = "*** Begin Patch\n" + "\n".join(patches) + "\n*** End Patch\n"
-        subprocess.run([str(args.codex_executable.resolve()), "--codex-run-as-apply-patch", patch], cwd=root, check=True)
+        for body in patches:
+            patch = "*** Begin Patch\n" + body + "\n*** End Patch\n"
+            subprocess.run([str(args.codex_executable.resolve()), "--codex-run-as-apply-patch", patch], cwd=root, check=True)
     for filename, name in headers:
         assert (framework / "runner/src" / name).read_text() == (root / filename).read_text()
     print("Task K compiled callback installed; activation unchanged and opt-in")

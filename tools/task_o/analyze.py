@@ -16,7 +16,7 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     root = args.out.resolve()
-    assert root.is_relative_to(Path(__file__).resolve().parents[2] / "local/task-o")
+    assert any(root.is_relative_to(Path(__file__).resolve().parents[2] / name) for name in ("local/task-o", "local/task-p"))
     result = json.loads((root / "result.json").read_text())
     assert result["pass"] and result["exit_code"] == 0 and not result.get("forced_cleanup")
     assert result["input_source"] in ("sdl-queue", "win32-sendinput")

@@ -44,10 +44,14 @@ def main():
     parser.add_argument("--port", type=int, default=19878)
     parser.add_argument("--observe-only", action="store_true")
     parser.add_argument("--input-source", choices=("win32-sendinput", "sdl-queue"), default="win32-sendinput")
+    parser.add_argument("--brainage-host", action="store_true")
+    parser.add_argument("--disabled-control", action="store_true")
     args = parser.parse_args()
+    if args.disabled_control and not args.brainage_host:
+        parser.error("--disabled-control requires --brainage-host")
     repository = Path(__file__).resolve().parents[2]
     root = args.out.resolve()
-    assert root.is_relative_to(repository / "local/task-o")
+    assert root.is_relative_to(repository / ("local/task-p" if args.brainage_host else "local/task-o"))
     source = repository / "local/task-g/session-001/04-training-menu"
     initial = (source / "after.sav").read_bytes()
     assert len(initial) == 262144 and digest(initial) == H0
@@ -65,7 +69,7 @@ def main():
     (root / "session.sav").write_bytes(initial)
     environment = os.environ.copy()
     for name in list(environment):
-        if name.startswith(("NDS_TASK_", "NDS_FRONTEND_")):
+        if name.startswith(("NDS_TASK_", "NDS_FRONTEND_", "NDS_BRAINAGE_")):
             environment.pop(name)
     environment.update({"NDS_TASK_J_CUSTOM_EXERCISE_PROBE": "1", "NDS_TASK_N_DS_PRESENTATION": "1",
         "NDS_TASK_F_RTC_PLUS_ONE_DAY": "1", "NDS_TASK_O_START_STATE": str(source / "checkpoint.state"),
@@ -73,6 +77,15 @@ def main():
         "NDS_TASK_J_TRACE": str(root / "native-probe.jsonl"), "NDS_TASK_K_TRACE": str(root / "entries.jsonl"),
         "NDS_TASK_O_FRONTEND_TRACE": str(root / "frontend-input.jsonl"),
         "NDS_TASK_C_TRACE": str(root / "requests.jsonl"), "NDS_FLASH_TRACE": str(root / "flash.jsonl")})
+    if args.brainage_host:
+        environment["NDS_SDL_RENDER_DRIVER"] = "software"
+        environment.pop("NDS_TASK_J_CUSTOM_EXERCISE_PROBE", None)
+        environment.pop("NDS_TASK_N_DS_PRESENTATION", None)
+        if not args.disabled_control:
+            environment.update({"NDS_BRAINAGE_CUSTOM_EXERCISE": "1", "NDS_BRAINAGE_NATIVE_PRESENTATION": "1"})
+        else:
+            environment.pop("NDS_BRAINAGE_CUSTOM_EXERCISE", None)
+            environment.pop("NDS_BRAINAGE_NATIVE_PRESENTATION", None)
     queue_token = uuid.uuid4().hex
     queue_sequence = 0
     if args.input_source == "sdl-queue":
@@ -81,6 +94,8 @@ def main():
         (root / name).touch()
     evidence = {"command": command, "input_source": args.input_source, "manual_input": False,
         "answer_specific_controls": False, "checkpoint": str(source / "checkpoint.state"), "samples": [], "window_actions": [], "captures": []}
+    evidence["activation"] = {name: environment[name] for name in ("NDS_BRAINAGE_CUSTOM_EXERCISE", "NDS_BRAINAGE_NATIVE_PRESENTATION", "NDS_TASK_J_CUSTOM_EXERCISE_PROBE", "NDS_TASK_N_DS_PRESENTATION") if name in environment}
+    evidence["sdl_render_driver"] = environment.get("NDS_SDL_RENDER_DRIVER", "default")
     (root / "session.json").write_text(json.dumps(evidence, indent=2) + "\n")
     with (root / "stdout.log").open("wb") as stdout, (root / "stderr.log").open("wb") as stderr:
         process = subprocess.Popen(command, cwd=repository, env=environment, stdout=stdout, stderr=stderr, creationflags=subprocess.CREATE_NO_WINDOW)
@@ -136,8 +151,9 @@ def main():
 
     def capture(label, expected=None):
         trials = []
-        for method in ("print", "screen"):
-            output = root / f"window-{label}-{method}.bmp"
+        for attempt, method in enumerate(("print",) * 12 + ("screen",)):
+            suffix = method if attempt == 0 else f"{method}-{attempt}"
+            output = root / f"window-{label}-{suffix}.bmp"
             metadata = helper("capture", output, method)
             bitmap = output.read_bytes()
             offset = struct.unpack_from("<I", bitmap, 10)[0]
@@ -158,6 +174,8 @@ def main():
                 write_frame(root / f"window-{label}-bottom.png", {"w": 256, "h": 192, "rgb": pixels.hex()})
                 evidence["captures"].append({"label": label, "trials": trials, "chosen": measured})
                 return measured
+            if method == "print":
+                time.sleep(0.25)
         raise RuntimeError("actual window pixels do not match expected presentation")
 
     def click(ds_x, ds_y, label):
@@ -194,12 +212,20 @@ def main():
         wire = connection.makefile("rwb")
         time.sleep(1)
         helper("observe")
+        if args.brainage_host:
+            helper("expose")
         if not args.observe_only and args.input_source == "win32-sendinput":
             helper("place")
         menu = context("menu")
         assert menu["globals"]["current"] == menu["globals"]["requested"] == 0x32
         assert not menu["force_tier3"]["forced_tier3"]
-        capture("menu")
+        if args.brainage_host:
+            time.sleep(2)
+            frame = request({"cmd": "framebuffer", "engine": "B"})
+            write_frame(root / "menu-readback.png", frame)
+            evidence["menu_readback_sha1"] = hashlib.sha1(bytes.fromhex(frame["rgb"])).hexdigest()
+        else:
+            capture("menu")
         if args.observe_only:
             evidence["close"] = request({"cmd": "frontend_exit"})
             evidence["exit_code"] = process.wait(timeout=20)
@@ -207,6 +233,20 @@ def main():
             evidence["observe_only"] = True
             return
         click(166, 75, "select_x20")
+        if args.disabled_control:
+            time.sleep(3)
+            rules = context("disabled-rules")
+            assert rules["globals"]["current"] == rules["globals"]["requested"] == 0x41
+            frame = request({"cmd": "framebuffer", "engine": "B"})
+            capture("disabled-rules", hashlib.sha1(bytes.fromhex(frame["rgb"])).hexdigest())
+            native = rows(root / "native-probe.jsonl")
+            assert any(row["event"] == "boundary_disabled" for row in native)
+            assert not any(row["event"] == "intercept" or row["exercise_present"] or row["render_count"] or row["touch_owner"] or row["frontend_hold_presents"] for row in native)
+            evidence["close"] = request({"cmd": "frontend_exit"})
+            evidence["exit_code"] = process.wait(timeout=20)
+            assert evidence["exit_code"] == 0
+            evidence["disabled_control_pass"] = True
+            return
         wait_for(lambda: any(row["event"] == "panel_active" for row in rows(root / "native-probe.jsonl")))
         initial = control("capture", "initial")
         capture("initial", initial["native_sha1"])
