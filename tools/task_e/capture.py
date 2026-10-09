@@ -17,6 +17,7 @@ def main():
     parser.add_argument("--label", required=True)
     parser.add_argument("--cycles", type=int, default=200000000)
     parser.add_argument("--tap", type=int, nargs=2)
+    parser.add_argument("--max-taps", type=int, choices=(1, 2, 3), default=1)
     parser.add_argument("--savestate", action="store_true")
     args = parser.parse_args()
     assert args.cycles >= 0
@@ -25,7 +26,7 @@ def main():
     monitor = session.setdefault("task_e", {"request_position": 0, "request_sequence": 0,
                                            "flash_position": 0, "flash_sequence": 0, "tap_count": 0})
     if args.tap:
-        assert monitor["tap_count"] == 0, "only one Task E tap per capture session"
+        assert monitor["tap_count"] < args.max_taps, "capture-session tap limit reached"
         assert 0 <= args.tap[0] <= 255 and 0 <= args.tap[1] <= 191
     checkpoint = root / args.label
     checkpoint.mkdir(exist_ok=False)
@@ -79,6 +80,7 @@ def main():
                     monitor[position] = trace.tell()
 
         initial = request({"cmd": "io_state"})
+        rtc_before = request({"cmd": "rtc_state"})
         assert bytes.fromhex(request({"cmd": "cart_save"})["hex"]) == before
         frames("before")
         consume()
@@ -104,6 +106,7 @@ def main():
             request({"cmd": "touch", "down": False})
         consume()
         final = request({"cmd": "io_state"})
+        rtc_after = request({"cmd": "rtc_state"})
         after = bytes.fromhex(request({"cmd": "cart_save"})["hex"])
         assert bytes(ledger) == after, "Flash replay differs from live image"
         save_info = request({"cmd": "cart_save_info"})
@@ -114,7 +117,7 @@ def main():
     event_times = [event["system_cycles"] for event in logical_events]
     event_times += [event["byte_origin"]["system_cycles"] for event in flash_events]
     summary = {"label": args.label, "tap": args.tap, "requested_cycles": args.cycles,
-               "initial": initial, "final": final, "save_sha256_before": digest(before),
+               "initial": initial, "final": final, "rtc_before": rtc_before, "rtc_after": rtc_after, "save_sha256_before": digest(before),
                "save_sha256_after": digest(after), "changed_bytes": changed,
                "changed_ranges_half_open": spans, "api_operations": sum(event["kind"] == "write_api" for event in logical_events),
                "submissions": sum(event["kind"] == "submit" for event in logical_events),

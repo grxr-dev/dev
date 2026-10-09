@@ -1,0 +1,21 @@
+diff --git a/runner/src/io.cpp b/runner/src/io.cpp
+--- a/runner/src/io.cpp
++++ b/runner/src/io.cpp
+@@ -8,6 +8,7 @@
+ #include <atomic>
+ #include <cstdint>
+ #include <cstdio>
++#include <cstdlib>
+ #include <cstring>
+ #include <ctime>
+ #include <vector>
+@@ -1865,6 +1866,9 @@ void nds_io_reset() {
+     if (g_nds_rtc_host) rtc_sync_host();
++    const char* task_f_rtc_offset = std::getenv("NDS_TASK_F_RTC_PLUS_ONE_DAY");
++    if (task_f_rtc_offset && std::strcmp(task_f_rtc_offset, "1") == 0)
++        rtc_count_day();
+     for (int i = 0; i < 2; ++i) {
+         g_fifo_cnt[i] = 0; g_fifo_head[i] = 0; g_fifocnt[i] = 0; g_fifo_lastrx[i] = 0;
+     }
+     for (auto& b : g_io_mem) b = 0;
+     // melonDS NDS::Reset / retail cold-boot value: both 2D engines and both
