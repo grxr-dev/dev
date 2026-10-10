@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "bc_surface.h"
+#include "bc_digit_recognizer.h"
 
 namespace brainage_custom {
 struct DiagnosticMetric {
@@ -41,6 +42,8 @@ public:
 
 struct ExerciseDescriptor {
     const char* id;
-    std::unique_ptr<Exercise> (*create)();
+    std::unique_ptr<Exercise> (*factory)(ExerciseServices&);
+    std::unique_ptr<Exercise> create(ExerciseServices& services) const { return factory(services); }
+    std::unique_ptr<Exercise> create() const { ExerciseServices services; return factory(services); }
 };
 }

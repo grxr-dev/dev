@@ -42,6 +42,7 @@ struct Surface {
             case '5': return {31,16,16,30,1,1,30};
             case '+': return {0,4,4,31,4,4,0};
             case '=': return {0,0,31,0,31,0,0};
+            case ':': return {0,4,4,0,4,4,0};
             case '?': return {14,17,1,2,4,0,4};
             default: return {};
         }

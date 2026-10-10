@@ -2,6 +2,7 @@
 
 #include "bc_quiz.h"
 #include "bc_freehand.h"
+#include "bc_digit_probe.h"
 #include <cstdlib>
 #include <cstring>
 #include <stdexcept>
@@ -9,8 +10,9 @@
 namespace brainage_custom {
 inline const ExerciseDescriptor& exercise_descriptor(const char* id) {
     static const ExerciseDescriptor descriptors[] = {
-        {"arithmetic-2plus2", []() -> std::unique_ptr<Exercise> { return std::make_unique<ArithmeticQuiz>(); }},
-        {"freehand-canvas", []() -> std::unique_ptr<Exercise> { return std::make_unique<FreehandCanvas>(); }}
+        {"arithmetic-2plus2", [](ExerciseServices&) -> std::unique_ptr<Exercise> { return std::make_unique<ArithmeticQuiz>(); }},
+        {"freehand-canvas", [](ExerciseServices&) -> std::unique_ptr<Exercise> { return std::make_unique<FreehandCanvas>(); }},
+        {"digit-recognition-probe", [](ExerciseServices& services) -> std::unique_ptr<Exercise> { return std::make_unique<DigitProbe>(services); }}
     };
     if (!id || !*id) return descriptors[0];
     for (const auto& descriptor : descriptors)

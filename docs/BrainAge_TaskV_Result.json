@@ -1,0 +1,173 @@
+{
+  "classification": "FULL PASS",
+  "production_private_bus_integration_proven": true,
+  "scope": "exact Brain Age ROM, one known two-stroke glyph; no arbitrary handwriting claim",
+  "evidence": "local\\task-v\\session-005",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "database": {
+    "source": "read-only view of runner already-selected verified ROM; title-specific FAT file 55",
+    "size": 113956,
+    "sha256": "2f237cc7009314df560311a7c026f2fcf6a47b039f6ad7a70443407ef56db0ad",
+    "pre_extracted_required": false,
+    "committed": false
+  },
+  "calls": [
+    {
+      "stroke": 0,
+      "return": 0,
+      "candidate": "2",
+      "metric": 500,
+      "wall_us": 23763,
+      "private_instructions_including_metric": 636745
+    },
+    {
+      "stroke": 1,
+      "return": 0,
+      "candidate": "4",
+      "metric": 249,
+      "wall_us": 58875,
+      "private_instructions_including_metric": 1561225
+    }
+  ],
+  "timings_us": {
+    "init": 3784,
+    "stroke0": 23763,
+    "stroke1": 58875,
+    "teardown": 613
+  },
+  "execution": {
+    "policy": "A",
+    "live_ram_sha256_before_after": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab",
+    "live_ram_equal": true,
+    "live_cpu_equal": true,
+    "guest_invariant": {
+      "current": 50,
+      "requested": 65,
+      "selected": 17,
+      "cpu_cycles": 2361597139,
+      "system_cycles": 1180798569,
+      "cycles7": 1180798512,
+      "insn9": 211109619,
+      "insn7": 69987893,
+      "r": [
+        65,
+        50,
+        16384,
+        34473920,
+        3,
+        0,
+        75,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        41827164,
+        33882728,
+        33871760
+      ],
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+      "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+      "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+      "guest_touch_deliveries": 3
+    },
+    "private_pointers_published": false,
+    "worker_queue_created": false,
+    "live_title_heap_used": false
+  },
+  "input": {
+    "source": "SDL_PushEvent before ordinary coordinate mapping -> nds_set_touch -> native owner",
+    "physical_input_claim": false,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "custom_events": 14,
+    "custom_guest_deliveries": 0
+  },
+  "ui": {
+    "window_readback_match": true,
+    "bottom_rgb_sha1": {
+      "initial": "b2189f1d43249b32d245da499423539862f99755",
+      "stroke1": "fd63d9d2d24d689bcf8f1c563d260a975949673f",
+      "stroke2": "0bb86ec8bd466a599c27abc19362e8b1c9703085",
+      "rules": "698377129c9428a6833e065eb09922ac81651d35",
+      "returned-menu": "9fa73ce218415464a1dbedd0c6616c990422ffce"
+    },
+    "rules_visual_wait_seconds": 4.149541300022975,
+    "back_training": true
+  },
+  "cleanup": {
+    "teardown_return": 0,
+    "teardown_instructions": 13160,
+    "session_active": false,
+    "owners_removed": true,
+    "exercise_destroyed": true,
+    "transition_0x41_count": 1,
+    "rules_initializer_count": 1,
+    "constructor_count": 0,
+    "candidate_submitted": false,
+    "correctness_progression_called": false
+  },
+  "save": {
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "changed_bytes": 0,
+    "before_after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+  },
+  "regression": {
+    "adapter_parity": true,
+    "fixed_service_two_fresh_sessions": true,
+    "invalid_input": true,
+    "error_exit": true,
+    "candidate_independent_exit": true,
+    "arithmetic_contract_and_pixels": true,
+    "freehand_capture_and_selection": true,
+    "default_unknown_new_selectors": true,
+    "disabled_path": true
+  },
+  "performance": {
+    "visibly_problematic_pause_observed": false,
+    "note": "Synchronous calls; recognition timings include the 120-instruction metric accessor. No realtime threshold imposed."
+  },
+  "runtime_build": {
+    "baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+    "runner_sha256": "2896f3ca99cdce71b0430c2067faa50448b34a98c0da854ba78606ea7fcf9def"
+  }
+}

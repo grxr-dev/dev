@@ -29,6 +29,7 @@
 #include "debug_server.h"
 #include "bc_activation.h"
 #include "bc_catalog.h"
+#include "bc_private_digit_recognizer.h"
 #include "bc_diagnostic_state.h"
 
 namespace brainage_custom {
@@ -88,7 +89,8 @@ inline void dispatch_action(Hold& hold, const char* action, unsigned value);
 #include "bc_diagnostics.h"
 
 namespace brainage_custom {
-inline void initialize(const char* rom_sha1) {
+inline void initialize(const char* rom_sha1, const uint8_t* rom_bytes = nullptr, size_t rom_size = 0) {
+    active_rom.bind(rom_sha1, rom_bytes, rom_size);
     identity_ok = rom_sha1 && std::strcmp(rom_sha1, "b8a105bacc3234dede8d4465df0869f2b922a0e2") == 0;
     const auto configuration = activation_from_environment();
     if (configuration.enabled && !identity_ok)
@@ -118,7 +120,7 @@ inline void apply_result(Hold& hold, const ExerciseStatus& before, const Exercis
         diagnostics::record(after.completed ? "correct_result" : "incorrect_result", hold);
     }
     if (result.request_exit) {
-        if (!before.can_continue || !after.completed || after.contact_down || hold.continued)
+        if ((!before.can_continue && !after.can_continue) || !after.completed || after.contact_down || hold.continued)
             throw std::runtime_error("custom exercise requested an unsafe or duplicate exit");
         hold.continued = true;
         diagnostics::record("continue", hold);
@@ -173,7 +175,11 @@ inline void run_exercise(Hold& hold) {
     const auto& descriptor = launch_exercise();
     hold.exercise_id = descriptor.id;
     diagnostics::record("host_entered", hold);
-    hold.exercise = descriptor.create();
+    diagnostics::service_isolation_begin();
+    digit_detail::PrivateDigitRecognizer recognizer;
+    ExerciseServices services{&recognizer};
+    struct ExerciseScope { Hold& hold; ~ExerciseScope(){hold.exercise.reset();} } exercise_scope{hold};
+    hold.exercise = descriptor.create(services);
     if (!hold.exercise) throw std::runtime_error("custom exercise factory returned no instance");
     diagnostics::record("exercise_instantiated", hold);
     hold.exercise->begin();
@@ -217,6 +223,9 @@ inline void run_exercise(Hold& hold) {
     diagnostics::record("exercise_end", hold);
     hold.exercise.reset();
     diagnostics::record("exercise_destroyed", hold);
+    const auto service_cleanup = recognizer.end_session();
+    if (recognizer.active() || !service_cleanup.success) throw std::runtime_error("custom service cleanup failed");
+    diagnostics::record_service_cleanup(service_cleanup);
     diagnostics::capture_presented(hold, "handoff");
     diagnostics::record("host_cleanup", hold);
 }

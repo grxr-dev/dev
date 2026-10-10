@@ -48,6 +48,22 @@ inline std::string video_digest() {
     return gba::sha1(bytes.data(), bytes.size()).hex();
 }
 
+inline std::vector<uint8_t> service_ram_before;
+inline decltype(g_cpu) service_cpu_before{};
+inline std::vector<uint8_t> mainram_snapshot() {
+    std::vector<uint8_t> bytes(0x400000);for(unsigned i=0;i<bytes.size();++i)bytes[i]=bus_debug_read8(9,0x02000000+i);return bytes;
+}
+inline void service_isolation_begin() {if(trace){service_ram_before=mainram_snapshot();service_cpu_before=g_cpu;}}
+inline void record_service_cleanup(const DigitResult& cleanup) {
+    if(!trace)return;
+    auto after=mainram_snapshot();
+    if(after!=service_ram_before || std::memcmp(&service_cpu_before,&g_cpu,sizeof(g_cpu)))throw std::runtime_error("custom service changed live RAM/CPU");
+    const auto* path=std::getenv("NDS_TASK_V_TRACE");
+    FILE* service_trace=path?std::fopen(path,"a"):nullptr;
+    if(service_trace)std::fprintf(service_trace,"{\"event\":\"service_cleanup\",\"active\":false,\"return\":%u,\"wall_us\":%llu,\"instructions\":%llu,\"ram_equal\":true,\"cpu_equal\":true,\"ram_sha256\":\"%s\"}\n",cleanup.error,(unsigned long long)cleanup.wall_us,(unsigned long long)cleanup.instructions,resource_detail::sha256(after.data(),after.size()).c_str());
+    if(service_trace)std::fclose(service_trace);
+    service_ram_before.clear();
+}
 inline void record(const char* event, const Hold& hold) {
     if (!trace) return;
     const auto status = exercise_status(hold);
