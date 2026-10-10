@@ -2,6 +2,8 @@
 #include "bc_decuma_adapter.h"
 #include <string>
 namespace brainage_custom {
+// success describes operation completion, independent of candidate availability.
+// candidate is meaningful only when candidate_available; metric is diagnostic.
 struct DigitResult {
     bool success = false;
     bool candidate_available = false;

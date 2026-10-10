@@ -1,0 +1,1906 @@
+{
+  "classification": "FULL PASS",
+  "scope": "One frozen title-oriented sample per digit; characterization, not arbitrary handwriting accuracy",
+  "task_v_commit": "9d2f35aa10f6adca396b77e3eedd2bb7ce7895c7",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+  "freeze": {
+    "canonical_representation": "UTF-8 json.dumps(sort_keys=True,separators=(comma,colon)); no trailing newline",
+    "sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+    "frozen_at_utc": "2026-10-10T07:33:56.665805+00:00",
+    "recognition_observed_before_freeze": false,
+    "anchor": "digit 4 is exact Task S/V deduplicated 5+3 source gesture",
+    "stroke_counts": {
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 3,
+      "8": 1,
+      "9": 2
+    }
+  },
+  "sessions": [
+    {
+      "target_label_offline_only": 0,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-0",
+      "stroke_count": 1,
+      "point_count": 12,
+      "strokes": [
+        [
+          [
+            195,
+            93
+          ],
+          [
+            191,
+            75
+          ],
+          [
+            172,
+            63
+          ],
+          [
+            140,
+            60
+          ],
+          [
+            100,
+            65
+          ],
+          [
+            78,
+            80
+          ],
+          [
+            75,
+            101
+          ],
+          [
+            89,
+            117
+          ],
+          [
+            116,
+            125
+          ],
+          [
+            155,
+            125
+          ],
+          [
+            183,
+            116
+          ],
+          [
+            195,
+            93
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 12,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 48,
+          "candidate": "0",
+          "metric": 227,
+          "return_error_code": 0,
+          "wall_us": 26113,
+          "private_instructions_including_metric": 650135
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 48,
+      "final_candidate": "0",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 635,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {
+        "initial": "4cc887ae6ac393a6934a79a6cfaae7c59ba37ed9",
+        "stroke1": "109c7c1b2886c3751e50d28a2e30a195354c6ad4"
+      }
+    },
+    {
+      "target_label_offline_only": 1,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-1",
+      "stroke_count": 1,
+      "point_count": 5,
+      "strokes": [
+        [
+          [
+            195,
+            90
+          ],
+          [
+            165,
+            90
+          ],
+          [
+            135,
+            90
+          ],
+          [
+            105,
+            90
+          ],
+          [
+            75,
+            90
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 49,
+          "candidate": "1",
+          "metric": 90,
+          "return_error_code": 0,
+          "wall_us": 24407,
+          "private_instructions_including_metric": 629264
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 49,
+      "final_candidate": "1",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 595,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    },
+    {
+      "target_label_offline_only": 2,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-2",
+      "stroke_count": 1,
+      "point_count": 11,
+      "strokes": [
+        [
+          [
+            170,
+            65
+          ],
+          [
+            188,
+            72
+          ],
+          [
+            195,
+            94
+          ],
+          [
+            187,
+            115
+          ],
+          [
+            169,
+            125
+          ],
+          [
+            147,
+            120
+          ],
+          [
+            125,
+            101
+          ],
+          [
+            102,
+            79
+          ],
+          [
+            76,
+            60
+          ],
+          [
+            76,
+            90
+          ],
+          [
+            76,
+            126
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 11,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 50,
+          "candidate": "2",
+          "metric": 191,
+          "return_error_code": 0,
+          "wall_us": 24622,
+          "private_instructions_including_metric": 648591
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 50,
+      "final_candidate": "2",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 577,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "6dd8335f5f9614f6e7ec470f74f533041fc97e6a2f269f79a470e920adfd59ec"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2360476791,
+          "system_cycles": 1180238395,
+          "cycles7": 1180238341,
+          "insn9": 211053169,
+          "insn7": 69958207,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    },
+    {
+      "target_label_offline_only": 3,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-3",
+      "stroke_count": 1,
+      "point_count": 13,
+      "strokes": [
+        [
+          [
+            190,
+            65
+          ],
+          [
+            195,
+            85
+          ],
+          [
+            191,
+            110
+          ],
+          [
+            173,
+            122
+          ],
+          [
+            152,
+            115
+          ],
+          [
+            139,
+            96
+          ],
+          [
+            137,
+            80
+          ],
+          [
+            132,
+            103
+          ],
+          [
+            116,
+            121
+          ],
+          [
+            96,
+            122
+          ],
+          [
+            78,
+            107
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            87,
+            63
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 13,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 51,
+          "candidate": "3",
+          "metric": 268,
+          "return_error_code": 0,
+          "wall_us": 24277,
+          "private_instructions_including_metric": 648287
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 51,
+      "final_candidate": "3",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 573,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    },
+    {
+      "target_label_offline_only": 4,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-4",
+      "stroke_count": 2,
+      "point_count": 8,
+      "strokes": [
+        [
+          [
+            190,
+            110
+          ],
+          [
+            156,
+            91
+          ],
+          [
+            121,
+            65
+          ],
+          [
+            121,
+            98
+          ],
+          [
+            121,
+            130
+          ]
+        ],
+        [
+          [
+            173,
+            114
+          ],
+          [
+            132,
+            114
+          ],
+          [
+            75,
+            114
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 50,
+          "candidate": "2",
+          "metric": 500,
+          "return_error_code": 0,
+          "wall_us": 23478,
+          "private_instructions_including_metric": 636745
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 52,
+          "candidate": "4",
+          "metric": 249,
+          "return_error_code": 0,
+          "wall_us": 58031,
+          "private_instructions_including_metric": 1561225
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 52,
+      "final_candidate": "4",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 582,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": true
+      },
+      "actual_window_readback_sha1": {
+        "initial": "4cc887ae6ac393a6934a79a6cfaae7c59ba37ed9",
+        "stroke1": "c8a7f208f25bcfa25f6df4e2b0a8848f41450993",
+        "stroke2": "71d70e89e4667fa0edc7d2f873b16a52ed107278",
+        "rules": "698377129c9428a6833e065eb09922ac81651d35",
+        "returned-menu": "9fa73ce218415464a1dbedd0c6616c990422ffce"
+      }
+    },
+    {
+      "target_label_offline_only": 5,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-5",
+      "stroke_count": 2,
+      "point_count": 13,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            167,
+            65
+          ],
+          [
+            141,
+            65
+          ],
+          [
+            145,
+            90
+          ],
+          [
+            135,
+            115
+          ],
+          [
+            115,
+            125
+          ],
+          [
+            95,
+            121
+          ],
+          [
+            77,
+            106
+          ],
+          [
+            75,
+            81
+          ],
+          [
+            86,
+            63
+          ]
+        ],
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 10,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 55,
+          "candidate": "7",
+          "metric": 416,
+          "return_error_code": 0,
+          "wall_us": 25395,
+          "private_instructions_including_metric": 686256
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 194,
+          "return_error_code": 0,
+          "wall_us": 66620,
+          "private_instructions_including_metric": 1754965
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 53,
+      "final_candidate": "5",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 567,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    },
+    {
+      "target_label_offline_only": 6,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-6",
+      "stroke_count": 1,
+      "point_count": 14,
+      "strokes": [
+        [
+          [
+            191,
+            118
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            186,
+            75
+          ],
+          [
+            155,
+            62
+          ],
+          [
+            121,
+            60
+          ],
+          [
+            92,
+            65
+          ],
+          [
+            75,
+            84
+          ],
+          [
+            79,
+            106
+          ],
+          [
+            98,
+            121
+          ],
+          [
+            122,
+            123
+          ],
+          [
+            139,
+            112
+          ],
+          [
+            143,
+            91
+          ],
+          [
+            132,
+            71
+          ],
+          [
+            121,
+            60
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 14,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 54,
+          "candidate": "6",
+          "metric": 255,
+          "return_error_code": 0,
+          "wall_us": 23906,
+          "private_instructions_including_metric": 644354
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 54,
+      "final_candidate": "6",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 613,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    },
+    {
+      "target_label_offline_only": 7,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-7",
+      "stroke_count": 3,
+      "point_count": 11,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ]
+        ],
+        [
+          [
+            195,
+            125
+          ],
+          [
+            165,
+            111
+          ],
+          [
+            135,
+            97
+          ],
+          [
+            105,
+            83
+          ],
+          [
+            75,
+            69
+          ]
+        ],
+        [
+          [
+            137,
+            74
+          ],
+          [
+            137,
+            98
+          ],
+          [
+            137,
+            120
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 49,
+          "candidate": "1",
+          "metric": 767,
+          "return_error_code": 0,
+          "wall_us": 30551,
+          "private_instructions_including_metric": 816999
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 415,
+          "return_error_code": 0,
+          "wall_us": 58482,
+          "private_instructions_including_metric": 1576462
+        },
+        {
+          "stroke": 2,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 615,
+          "return_error_code": 0,
+          "wall_us": 72358,
+          "private_instructions_including_metric": 1904810
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 53,
+      "final_candidate": "5",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 609,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {
+        "initial": "4cc887ae6ac393a6934a79a6cfaae7c59ba37ed9",
+        "stroke1": "9e6b477ef0b03ee0922e8a7fca785c6b18e6fe32",
+        "stroke2": "f4c437e5b19fbceb91cccfe190af2b0551cec0ec",
+        "stroke3": "862e70a15f3431c4bd0021ddadecbffd05fdd34a"
+      }
+    },
+    {
+      "target_label_offline_only": 8,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-8",
+      "stroke_count": 1,
+      "point_count": 18,
+      "strokes": [
+        [
+          [
+            195,
+            94
+          ],
+          [
+            190,
+            74
+          ],
+          [
+            176,
+            64
+          ],
+          [
+            157,
+            69
+          ],
+          [
+            142,
+            88
+          ],
+          [
+            129,
+            106
+          ],
+          [
+            110,
+            120
+          ],
+          [
+            93,
+            121
+          ],
+          [
+            78,
+            108
+          ],
+          [
+            75,
+            87
+          ],
+          [
+            89,
+            68
+          ],
+          [
+            109,
+            62
+          ],
+          [
+            129,
+            75
+          ],
+          [
+            142,
+            96
+          ],
+          [
+            157,
+            114
+          ],
+          [
+            177,
+            123
+          ],
+          [
+            191,
+            113
+          ],
+          [
+            195,
+            94
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 18,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 56,
+          "candidate": "8",
+          "metric": 233,
+          "return_error_code": 0,
+          "wall_us": 25794,
+          "private_instructions_including_metric": 659746
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 56,
+      "final_candidate": "8",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 581,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    },
+    {
+      "target_label_offline_only": 9,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "evidence": "local\\task-w\\session-001\\digit-9",
+      "stroke_count": 2,
+      "point_count": 15,
+      "strokes": [
+        [
+          [
+            159,
+            120
+          ],
+          [
+            182,
+            113
+          ],
+          [
+            195,
+            93
+          ],
+          [
+            188,
+            72
+          ],
+          [
+            168,
+            61
+          ],
+          [
+            145,
+            64
+          ],
+          [
+            131,
+            80
+          ],
+          [
+            135,
+            101
+          ],
+          [
+            151,
+            117
+          ],
+          [
+            159,
+            120
+          ]
+        ],
+        [
+          [
+            159,
+            120
+          ],
+          [
+            130,
+            120
+          ],
+          [
+            102,
+            116
+          ],
+          [
+            81,
+            105
+          ],
+          [
+            75,
+            85
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 10,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 48,
+          "candidate": "0",
+          "metric": 335,
+          "return_error_code": 0,
+          "wall_us": 24219,
+          "private_instructions_including_metric": 649095
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 52,
+          "candidate": "4",
+          "metric": 442,
+          "return_error_code": 0,
+          "wall_us": 58584,
+          "private_instructions_including_metric": 1576368
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 52,
+      "final_candidate": "4",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 619,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {}
+    }
+  ],
+  "accuracy": {
+    "correct": 8,
+    "total": 10,
+    "percent": 80,
+    "confusion_columns": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "NO CANDIDATE",
+      "OTHER"
+    ],
+    "confusion_counts": {
+      "0": {
+        "0": 1,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "1": {
+        "0": 0,
+        "1": 1,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "2": {
+        "0": 0,
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "3": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "4": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "5": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 1,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "6": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 1,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "7": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 1,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "8": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 1,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      },
+      "9": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "NO CANDIDATE": 0,
+        "OTHER": 0
+      }
+    },
+    "analysis_only": true
+  },
+  "no_candidate_proof": {
+    "path": "fake contract only; all real corpus strokes returned candidates",
+    "real_cases": [],
+    "fake_render": "local/task-w/fake-no-candidate.png",
+    "contract": {
+      "pass": true,
+      "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+      "no_candidate_evidence": "fake contract only; not authoritative recognizer output",
+      "no_candidate_non_error_render_safe_exit_and_later_candidate": true,
+      "candidate_replacement": true,
+      "eight_strokes_512_points": true,
+      "same_object_reset_0_1_0": true,
+      "arithmetic_freehand_legacy_v": true
+    }
+  },
+  "reset": {
+    "authoritative_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      0
+    ],
+    "fresh_processes": true,
+    "repeat_0_signature_equal": true,
+    "same_object_0_1_0_test_passed": true,
+    "active_after_teardown": false,
+    "stroke_index_and_point_ownership_reset": true
+  },
+  "task_v_regression": {
+    "target_label_offline_only": 4,
+    "exercise_id": "digit-recognition-probe",
+    "corpus_sha256": "23be6ac03c24141c191c0b80e5c18305c1f133847a4123cdb077173eb8d2144d",
+    "evidence": "local\\task-w\\session-001\\legacy-v-4",
+    "stroke_count": 2,
+    "point_count": 8,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "observations": [
+      {
+        "stroke": 0,
+        "point_count": 5,
+        "success": true,
+        "candidate_available": true,
+        "candidate_code": 50,
+        "candidate": "2",
+        "metric": 500,
+        "return_error_code": 0,
+        "wall_us": 24252,
+        "private_instructions_including_metric": 636745
+      },
+      {
+        "stroke": 1,
+        "point_count": 3,
+        "success": true,
+        "candidate_available": true,
+        "candidate_code": 52,
+        "candidate": "4",
+        "metric": 249,
+        "return_error_code": 0,
+        "wall_us": 58490,
+        "private_instructions_including_metric": 1561225
+      }
+    ],
+    "final_candidate_available": true,
+    "final_candidate_code": 52,
+    "final_candidate": "4",
+    "offline_target_match": true,
+    "safe_continue": true,
+    "teardown": {
+      "event": "service_cleanup",
+      "active": false,
+      "return": 0,
+      "wall_us": 601,
+      "instructions": 13160,
+      "ram_equal": true,
+      "cpu_equal": true,
+      "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+    },
+    "isolation": {
+      "policy": "A",
+      "guest_invariant": {
+        "current": 50,
+        "requested": 65,
+        "selected": 17,
+        "cpu_cycles": 2361597139,
+        "system_cycles": 1180798569,
+        "cycles7": 1180798512,
+        "insn9": 211109619,
+        "insn7": 69987893,
+        "r": [
+          65,
+          50,
+          16384,
+          34473920,
+          3,
+          0,
+          75,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          41827164,
+          33882728,
+          33871760
+        ],
+        "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+        "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+        "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+        "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+        "guest_touch_deliveries": 3
+      },
+      "live_cpu_equal": true,
+      "live_main_ram_equal": true,
+      "private_pointers_published": false,
+      "live_heap_worker_queue_used": false
+    },
+    "save": {
+      "logical_requests": 0,
+      "flash_commits": 0,
+      "changed_bytes": 0,
+      "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+    },
+    "handoff": {
+      "transition_count": 1,
+      "rules_initializer_count": 1,
+      "constructor_count": 0,
+      "owners_removed": true,
+      "session_active": false,
+      "back_training": false
+    },
+    "actual_window_readback_sha1": {}
+  },
+  "timing": {
+    "count": 15,
+    "units": "microseconds",
+    "recognition_includes_metric_accessor": true,
+    "min": 23478,
+    "median": 25794,
+    "max": 72358,
+    "slowest_digit": 7,
+    "slowest_stroke_zero_based": 2,
+    "repeat_legacy_calls_excluded": true
+  },
+  "runtime_sha256": "fc4bf3dee295f79e5152192c12b9b77094053ef2bd80555a39d21816e9602d34",
+  "integration_readiness": "investigate recognition input/generalization before answer-entry integration",
+  "remaining_blocker": null,
+  "no_scoring_answer_save_menu_integration": true
+}

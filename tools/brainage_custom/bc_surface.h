@@ -33,6 +33,7 @@ struct Surface {
             case 'U': return {17,17,17,17,17,17,14};
             case 'V': return {17,17,17,17,17,10,4};
             case 'W': return {17,17,17,21,21,21,10};
+            case 'Y': return {17,17,10,4,4,4,4};
             case 'X': return {17,17,10,4,10,17,17};
             case '0': return {14,17,19,21,25,17,14};
             case '1': return {4,12,4,4,4,4,14};
@@ -40,6 +41,10 @@ struct Surface {
             case '3': return {30,1,1,14,1,1,30};
             case '4': return {2,6,10,18,31,2,2};
             case '5': return {31,16,16,30,1,1,30};
+            case '6': return {14,16,16,30,17,17,14};
+            case '7': return {31,1,2,4,8,8,8};
+            case '8': return {14,17,17,14,17,17,14};
+            case '9': return {14,17,17,15,1,1,14};
             case '+': return {0,4,4,31,4,4,0};
             case '=': return {0,0,31,0,31,0,0};
             case ':': return {0,4,4,0,4,4,0};
