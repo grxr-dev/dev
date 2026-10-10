@@ -1,0 +1,2951 @@
+{
+  "classification": "FULL PASS",
+  "task_w_commit": "5ff5685806003dabd6d7a6d82265316466dc03fc",
+  "freeze_commit": "76e3d26e8078ac5e70e5540085202314c0fabe79",
+  "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+  "freeze": {
+    "sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+    "canonical_representation": "UTF-8 json.dumps(sort_keys=True,separators=(comma,colon)); no trailing newline",
+    "frozen_at_utc": "2026-10-10T14:21:06.073283+00:00",
+    "recognition_observed_before_freeze": false,
+    "samples": [
+      {
+        "id": "7-w-anchor",
+        "strokes": 3,
+        "points": 11
+      },
+      {
+        "id": "7-joined-cross",
+        "strokes": 2,
+        "points": 10
+      },
+      {
+        "id": "7-plain-one",
+        "strokes": 1,
+        "points": 7
+      },
+      {
+        "id": "7-plain-two",
+        "strokes": 2,
+        "points": 8
+      },
+      {
+        "id": "7-order-cross-first",
+        "strokes": 3,
+        "points": 11
+      },
+      {
+        "id": "9-w-anchor",
+        "strokes": 2,
+        "points": 15
+      },
+      {
+        "id": "9-joined",
+        "strokes": 1,
+        "points": 14
+      },
+      {
+        "id": "9-loop-reversed",
+        "strokes": 2,
+        "points": 15
+      },
+      {
+        "id": "9-tail-first",
+        "strokes": 2,
+        "points": 15
+      },
+      {
+        "id": "4-control",
+        "strokes": 2,
+        "points": 8
+      },
+      {
+        "id": "5-control",
+        "strokes": 2,
+        "points": 13
+      }
+    ]
+  },
+  "sessions": [
+    {
+      "target_label_offline_only": 7,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\7-w-anchor",
+      "stroke_count": 3,
+      "point_count": 11,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ]
+        ],
+        [
+          [
+            195,
+            125
+          ],
+          [
+            165,
+            111
+          ],
+          [
+            135,
+            97
+          ],
+          [
+            105,
+            83
+          ],
+          [
+            75,
+            69
+          ]
+        ],
+        [
+          [
+            137,
+            74
+          ],
+          [
+            137,
+            98
+          ],
+          [
+            137,
+            120
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 49,
+          "candidate": "1",
+          "metric": 767,
+          "return_error_code": 0,
+          "wall_us": 32295,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                49
+              ],
+              "accessor_codes": [
+                55
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              49
+            ],
+            "accessor_codes": [
+              55
+            ],
+            "primary_numeric": 1,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [
+              0
+            ],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 817210
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 415,
+          "return_error_code": 0,
+          "wall_us": 63608,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                53
+              ],
+              "accessor_codes": [
+                52
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              53
+            ],
+            "accessor_codes": [
+              52
+            ],
+            "primary_numeric": 5,
+            "original_consumer_numeric": 5,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1576673
+        },
+        {
+          "stroke": 2,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 615,
+          "return_error_code": 0,
+          "wall_us": 76765,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 2,
+              "codes": [
+                53,
+                49
+              ],
+              "accessor_codes": [
+                52,
+                55
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              53,
+              49
+            ],
+            "accessor_codes": [
+              52,
+              55
+            ],
+            "primary_numeric": 51,
+            "original_consumer_numeric": 51,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1905242
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 53,
+      "final_candidate": "5",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 653,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "2081114e96adf9d6f9eb13d2c867e50c7a40a8cec6dbe73636da5c045e3c80f8"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2362717551,
+          "system_cycles": 1181358775,
+          "cycles7": 1181358724,
+          "insn9": 211166027,
+          "insn7": 70014432,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "7-w-anchor",
+      "description": "Exact Task W crossed seven, three strokes",
+      "final_consumer": {
+        "primary_codes": [
+          53,
+          49
+        ],
+        "accessor_codes": [
+          52,
+          55
+        ],
+        "primary_numeric": 51,
+        "original_consumer_numeric": 51,
+        "substituted_positions": [],
+        "offline_target_match": false,
+        "target_code_occurs_anywhere": true,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": true
+    },
+    {
+      "target_label_offline_only": 7,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\7-joined-cross",
+      "stroke_count": 2,
+      "point_count": 10,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ],
+          [
+            165,
+            111
+          ],
+          [
+            135,
+            97
+          ],
+          [
+            105,
+            83
+          ],
+          [
+            75,
+            69
+          ]
+        ],
+        [
+          [
+            137,
+            74
+          ],
+          [
+            137,
+            98
+          ],
+          [
+            137,
+            120
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 7,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 55,
+          "candidate": "7",
+          "metric": 187,
+          "return_error_code": 0,
+          "wall_us": 28346,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                55
+              ],
+              "accessor_codes": [
+                49
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              55
+            ],
+            "accessor_codes": [
+              49
+            ],
+            "primary_numeric": 7,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 640712
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 55,
+          "candidate": "7",
+          "metric": 208,
+          "return_error_code": 0,
+          "wall_us": 74319,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                55
+              ],
+              "accessor_codes": [
+                49
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              55
+            ],
+            "accessor_codes": [
+              49
+            ],
+            "primary_numeric": 7,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1754336
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 55,
+      "final_candidate": "7",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 703,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "7-joined-cross",
+      "description": "Join top bar and diagonal; separate crossbar",
+      "final_consumer": {
+        "primary_codes": [
+          55
+        ],
+        "accessor_codes": [
+          49
+        ],
+        "primary_numeric": 7,
+        "original_consumer_numeric": 7,
+        "substituted_positions": [],
+        "offline_target_match": true,
+        "target_code_occurs_anywhere": true,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": true
+    },
+    {
+      "target_label_offline_only": 7,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\7-plain-one",
+      "stroke_count": 1,
+      "point_count": 7,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ],
+          [
+            165,
+            111
+          ],
+          [
+            135,
+            97
+          ],
+          [
+            105,
+            83
+          ],
+          [
+            75,
+            69
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 7,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 55,
+          "candidate": "7",
+          "metric": 187,
+          "return_error_code": 0,
+          "wall_us": 25810,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                55
+              ],
+              "accessor_codes": [
+                49
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              55
+            ],
+            "accessor_codes": [
+              49
+            ],
+            "primary_numeric": 7,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 640712
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 55,
+      "final_candidate": "7",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 621,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "7-plain-one",
+      "description": "Uncrossed seven, one continuous stroke",
+      "final_consumer": {
+        "primary_codes": [
+          55
+        ],
+        "accessor_codes": [
+          49
+        ],
+        "primary_numeric": 7,
+        "original_consumer_numeric": 7,
+        "substituted_positions": [],
+        "offline_target_match": true,
+        "target_code_occurs_anywhere": true,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": false
+    },
+    {
+      "target_label_offline_only": 7,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\7-plain-two",
+      "stroke_count": 2,
+      "point_count": 8,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ]
+        ],
+        [
+          [
+            195,
+            125
+          ],
+          [
+            165,
+            111
+          ],
+          [
+            135,
+            97
+          ],
+          [
+            105,
+            83
+          ],
+          [
+            75,
+            69
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 49,
+          "candidate": "1",
+          "metric": 767,
+          "return_error_code": 0,
+          "wall_us": 32707,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                49
+              ],
+              "accessor_codes": [
+                55
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              49
+            ],
+            "accessor_codes": [
+              55
+            ],
+            "primary_numeric": 1,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [
+              0
+            ],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 817210
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 415,
+          "return_error_code": 0,
+          "wall_us": 66414,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                53
+              ],
+              "accessor_codes": [
+                52
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              53
+            ],
+            "accessor_codes": [
+              52
+            ],
+            "primary_numeric": 5,
+            "original_consumer_numeric": 5,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1576673
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 53,
+      "final_candidate": "5",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 929,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "7-plain-two",
+      "description": "Uncrossed seven, separate top and diagonal",
+      "final_consumer": {
+        "primary_codes": [
+          53
+        ],
+        "accessor_codes": [
+          52
+        ],
+        "primary_numeric": 5,
+        "original_consumer_numeric": 5,
+        "substituted_positions": [],
+        "offline_target_match": false,
+        "target_code_occurs_anywhere": false,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": true
+    },
+    {
+      "target_label_offline_only": 7,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\7-order-cross-first",
+      "stroke_count": 3,
+      "point_count": 11,
+      "strokes": [
+        [
+          [
+            137,
+            74
+          ],
+          [
+            137,
+            98
+          ],
+          [
+            137,
+            120
+          ]
+        ],
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ]
+        ],
+        [
+          [
+            195,
+            125
+          ],
+          [
+            165,
+            111
+          ],
+          [
+            135,
+            97
+          ],
+          [
+            105,
+            83
+          ],
+          [
+            75,
+            69
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 49,
+          "candidate": "1",
+          "metric": 729,
+          "return_error_code": 0,
+          "wall_us": 33512,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                49
+              ],
+              "accessor_codes": [
+                55
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              49
+            ],
+            "accessor_codes": [
+              55
+            ],
+            "primary_numeric": 1,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [
+              0
+            ],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 819778
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 707,
+          "return_error_code": 0,
+          "wall_us": 70447,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                53
+              ],
+              "accessor_codes": [
+                56
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              53
+            ],
+            "accessor_codes": [
+              56
+            ],
+            "primary_numeric": 5,
+            "original_consumer_numeric": 5,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1754253
+        },
+        {
+          "stroke": 2,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 907,
+          "return_error_code": 0,
+          "wall_us": 69262,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 2,
+              "codes": [
+                53,
+                49
+              ],
+              "accessor_codes": [
+                56,
+                51
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              53,
+              49
+            ],
+            "accessor_codes": [
+              56,
+              51
+            ],
+            "primary_numeric": 51,
+            "original_consumer_numeric": 51,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1724053
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 53,
+      "final_candidate": "5",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 906,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "6dd8335f5f9614f6e7ec470f74f533041fc97e6a2f269f79a470e920adfd59ec"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2360476791,
+          "system_cycles": 1180238395,
+          "cycles7": 1180238341,
+          "insn9": 211053169,
+          "insn7": 69958207,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "7-order-cross-first",
+      "description": "Exact anchor geometry, crossbar first",
+      "final_consumer": {
+        "primary_codes": [
+          53,
+          49
+        ],
+        "accessor_codes": [
+          56,
+          51
+        ],
+        "primary_numeric": 51,
+        "original_consumer_numeric": 51,
+        "substituted_positions": [],
+        "offline_target_match": false,
+        "target_code_occurs_anywhere": false,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": true
+    },
+    {
+      "target_label_offline_only": 9,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\9-w-anchor",
+      "stroke_count": 2,
+      "point_count": 15,
+      "strokes": [
+        [
+          [
+            159,
+            120
+          ],
+          [
+            182,
+            113
+          ],
+          [
+            195,
+            93
+          ],
+          [
+            188,
+            72
+          ],
+          [
+            168,
+            61
+          ],
+          [
+            145,
+            64
+          ],
+          [
+            131,
+            80
+          ],
+          [
+            135,
+            101
+          ],
+          [
+            151,
+            117
+          ],
+          [
+            159,
+            120
+          ]
+        ],
+        [
+          [
+            159,
+            120
+          ],
+          [
+            130,
+            120
+          ],
+          [
+            102,
+            116
+          ],
+          [
+            81,
+            105
+          ],
+          [
+            75,
+            85
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 10,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 48,
+          "candidate": "0",
+          "metric": 335,
+          "return_error_code": 0,
+          "wall_us": 27211,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                48
+              ],
+              "accessor_codes": [
+                57
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              48
+            ],
+            "accessor_codes": [
+              57
+            ],
+            "primary_numeric": 0,
+            "original_consumer_numeric": 9,
+            "substituted_positions": [
+              0
+            ],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 649306
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 52,
+          "candidate": "4",
+          "metric": 442,
+          "return_error_code": 0,
+          "wall_us": 68848,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                52
+              ],
+              "accessor_codes": [
+                48
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              52
+            ],
+            "accessor_codes": [
+              48
+            ],
+            "primary_numeric": 4,
+            "original_consumer_numeric": 4,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1576579
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 52,
+      "final_candidate": "4",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 726,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "6dd8335f5f9614f6e7ec470f74f533041fc97e6a2f269f79a470e920adfd59ec"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2360476791,
+          "system_cycles": 1180238395,
+          "cycles7": 1180238341,
+          "insn9": 211053169,
+          "insn7": 69958207,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "9-w-anchor",
+      "description": "Exact Task W loop then tail",
+      "final_consumer": {
+        "primary_codes": [
+          52
+        ],
+        "accessor_codes": [
+          48
+        ],
+        "primary_numeric": 4,
+        "original_consumer_numeric": 4,
+        "substituted_positions": [],
+        "offline_target_match": false,
+        "target_code_occurs_anywhere": false,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": true
+    },
+    {
+      "target_label_offline_only": 9,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\9-joined",
+      "stroke_count": 1,
+      "point_count": 14,
+      "strokes": [
+        [
+          [
+            159,
+            120
+          ],
+          [
+            182,
+            113
+          ],
+          [
+            195,
+            93
+          ],
+          [
+            188,
+            72
+          ],
+          [
+            168,
+            61
+          ],
+          [
+            145,
+            64
+          ],
+          [
+            131,
+            80
+          ],
+          [
+            135,
+            101
+          ],
+          [
+            151,
+            117
+          ],
+          [
+            159,
+            120
+          ],
+          [
+            130,
+            120
+          ],
+          [
+            102,
+            116
+          ],
+          [
+            81,
+            105
+          ],
+          [
+            75,
+            85
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 14,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 57,
+          "candidate": "9",
+          "metric": 351,
+          "return_error_code": 0,
+          "wall_us": 27529,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                57
+              ],
+              "accessor_codes": [
+                53
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              57
+            ],
+            "accessor_codes": [
+              53
+            ],
+            "primary_numeric": 9,
+            "original_consumer_numeric": 9,
+            "substituted_positions": [],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 653026
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 57,
+      "final_candidate": "9",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 699,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "9-joined",
+      "description": "Exact anchor geometry joined at shared endpoint",
+      "final_consumer": {
+        "primary_codes": [
+          57
+        ],
+        "accessor_codes": [
+          53
+        ],
+        "primary_numeric": 9,
+        "original_consumer_numeric": 9,
+        "substituted_positions": [],
+        "offline_target_match": true,
+        "target_code_occurs_anywhere": true,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 0,
+      "later_releases_counterfactual_after_first_match": false
+    },
+    {
+      "target_label_offline_only": 9,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\9-loop-reversed",
+      "stroke_count": 2,
+      "point_count": 15,
+      "strokes": [
+        [
+          [
+            159,
+            120
+          ],
+          [
+            151,
+            117
+          ],
+          [
+            135,
+            101
+          ],
+          [
+            131,
+            80
+          ],
+          [
+            145,
+            64
+          ],
+          [
+            168,
+            61
+          ],
+          [
+            188,
+            72
+          ],
+          [
+            195,
+            93
+          ],
+          [
+            182,
+            113
+          ],
+          [
+            159,
+            120
+          ]
+        ],
+        [
+          [
+            159,
+            120
+          ],
+          [
+            130,
+            120
+          ],
+          [
+            102,
+            116
+          ],
+          [
+            81,
+            105
+          ],
+          [
+            75,
+            85
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 10,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 48,
+          "candidate": "0",
+          "metric": 337,
+          "return_error_code": 0,
+          "wall_us": 26501,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                48
+              ],
+              "accessor_codes": [
+                56
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              48
+            ],
+            "accessor_codes": [
+              56
+            ],
+            "primary_numeric": 0,
+            "original_consumer_numeric": 0,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 653038
+        },
+        {
+          "stroke": 1,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 48,
+          "candidate": "0",
+          "metric": 658,
+          "return_error_code": 0,
+          "wall_us": 64027,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                48
+              ],
+              "accessor_codes": [
+                52
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              48
+            ],
+            "accessor_codes": [
+              52
+            ],
+            "primary_numeric": 0,
+            "original_consumer_numeric": 0,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1574784
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 48,
+      "final_candidate": "0",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 658,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "9-loop-reversed",
+      "description": "Exact closed loop reversed; same second tail",
+      "final_consumer": {
+        "primary_codes": [
+          48
+        ],
+        "accessor_codes": [
+          52
+        ],
+        "primary_numeric": 0,
+        "original_consumer_numeric": 0,
+        "substituted_positions": [],
+        "offline_target_match": false,
+        "target_code_occurs_anywhere": false,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": null,
+      "later_releases_counterfactual_after_first_match": false
+    },
+    {
+      "target_label_offline_only": 9,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\9-tail-first",
+      "stroke_count": 2,
+      "point_count": 15,
+      "strokes": [
+        [
+          [
+            159,
+            120
+          ],
+          [
+            130,
+            120
+          ],
+          [
+            102,
+            116
+          ],
+          [
+            81,
+            105
+          ],
+          [
+            75,
+            85
+          ]
+        ],
+        [
+          [
+            159,
+            120
+          ],
+          [
+            182,
+            113
+          ],
+          [
+            195,
+            93
+          ],
+          [
+            188,
+            72
+          ],
+          [
+            168,
+            61
+          ],
+          [
+            145,
+            64
+          ],
+          [
+            131,
+            80
+          ],
+          [
+            135,
+            101
+          ],
+          [
+            151,
+            117
+          ],
+          [
+            159,
+            120
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 49,
+          "candidate": "1",
+          "metric": 335,
+          "return_error_code": 0,
+          "wall_us": 25919,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                49
+              ],
+              "accessor_codes": [
+                51
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              49
+            ],
+            "accessor_codes": [
+              51
+            ],
+            "primary_numeric": 1,
+            "original_consumer_numeric": 1,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 637637
+        },
+        {
+          "stroke": 1,
+          "point_count": 10,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 52,
+          "candidate": "4",
+          "metric": 439,
+          "return_error_code": 0,
+          "wall_us": 68709,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                52
+              ],
+              "accessor_codes": [
+                56
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              52
+            ],
+            "accessor_codes": [
+              56
+            ],
+            "primary_numeric": 4,
+            "original_consumer_numeric": 4,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1585111
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 52,
+      "final_candidate": "4",
+      "offline_target_match": false,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 696,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "9-tail-first",
+      "description": "Exact anchor geometry, tail before loop",
+      "final_consumer": {
+        "primary_codes": [
+          52
+        ],
+        "accessor_codes": [
+          56
+        ],
+        "primary_numeric": 4,
+        "original_consumer_numeric": 4,
+        "substituted_positions": [],
+        "offline_target_match": false,
+        "target_code_occurs_anywhere": false,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": null,
+      "later_releases_counterfactual_after_first_match": false
+    },
+    {
+      "target_label_offline_only": 4,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\4-control",
+      "stroke_count": 2,
+      "point_count": 8,
+      "strokes": [
+        [
+          [
+            190,
+            110
+          ],
+          [
+            156,
+            91
+          ],
+          [
+            121,
+            65
+          ],
+          [
+            121,
+            98
+          ],
+          [
+            121,
+            130
+          ]
+        ],
+        [
+          [
+            173,
+            114
+          ],
+          [
+            132,
+            114
+          ],
+          [
+            75,
+            114
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 5,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 50,
+          "candidate": "2",
+          "metric": 500,
+          "return_error_code": 0,
+          "wall_us": 25800,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                50
+              ],
+              "accessor_codes": [
+                48
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              50
+            ],
+            "accessor_codes": [
+              48
+            ],
+            "primary_numeric": 2,
+            "original_consumer_numeric": 2,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 636956
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 52,
+          "candidate": "4",
+          "metric": 249,
+          "return_error_code": 0,
+          "wall_us": 63232,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                52
+              ],
+              "accessor_codes": [
+                48
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              52
+            ],
+            "accessor_codes": [
+              48
+            ],
+            "primary_numeric": 4,
+            "original_consumer_numeric": 4,
+            "substituted_positions": [],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1561436
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 52,
+      "final_candidate": "4",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 644,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "4-control",
+      "description": "Exact Task V/W known 5+3 anchor",
+      "final_consumer": {
+        "primary_codes": [
+          52
+        ],
+        "accessor_codes": [
+          48
+        ],
+        "primary_numeric": 4,
+        "original_consumer_numeric": 4,
+        "substituted_positions": [],
+        "offline_target_match": true,
+        "target_code_occurs_anywhere": true,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 1,
+      "later_releases_counterfactual_after_first_match": false
+    },
+    {
+      "target_label_offline_only": 5,
+      "exercise_id": "digit-entry-probe",
+      "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+      "evidence": "local\\task-x\\session-001\\5-control",
+      "stroke_count": 2,
+      "point_count": 13,
+      "strokes": [
+        [
+          [
+            195,
+            65
+          ],
+          [
+            167,
+            65
+          ],
+          [
+            141,
+            65
+          ],
+          [
+            145,
+            90
+          ],
+          [
+            135,
+            115
+          ],
+          [
+            115,
+            125
+          ],
+          [
+            95,
+            121
+          ],
+          [
+            77,
+            106
+          ],
+          [
+            75,
+            81
+          ],
+          [
+            86,
+            63
+          ]
+        ],
+        [
+          [
+            195,
+            65
+          ],
+          [
+            195,
+            95
+          ],
+          [
+            195,
+            125
+          ]
+        ]
+      ],
+      "observations": [
+        {
+          "stroke": 0,
+          "point_count": 10,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 55,
+          "candidate": "7",
+          "metric": 416,
+          "return_error_code": 0,
+          "wall_us": 27451,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                55
+              ],
+              "accessor_codes": [
+                51
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              55
+            ],
+            "accessor_codes": [
+              51
+            ],
+            "primary_numeric": 7,
+            "original_consumer_numeric": 7,
+            "substituted_positions": [],
+            "offline_target_match": false,
+            "target_code_occurs_anywhere": false,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 686467
+        },
+        {
+          "stroke": 1,
+          "point_count": 3,
+          "success": true,
+          "candidate_available": true,
+          "candidate_code": 53,
+          "candidate": "5",
+          "metric": 194,
+          "return_error_code": 0,
+          "wall_us": 70766,
+          "groups": [
+            {
+              "returned_count": 0,
+              "codes": [],
+              "accessor_codes": []
+            },
+            {
+              "returned_count": 1,
+              "codes": [
+                53
+              ],
+              "accessor_codes": [
+                52
+              ]
+            }
+          ],
+          "consumer": {
+            "primary_codes": [
+              53
+            ],
+            "accessor_codes": [
+              52
+            ],
+            "primary_numeric": 5,
+            "original_consumer_numeric": 5,
+            "substituted_positions": [],
+            "offline_target_match": true,
+            "target_code_occurs_anywhere": true,
+            "ranked_candidate_set_exists": false
+          },
+          "private_instructions_including_accessors": 1755176
+        }
+      ],
+      "final_candidate_available": true,
+      "final_candidate_code": 53,
+      "final_candidate": "5",
+      "offline_target_match": true,
+      "safe_continue": true,
+      "teardown": {
+        "event": "service_cleanup",
+        "active": false,
+        "return": 0,
+        "wall_us": 662,
+        "instructions": 13160,
+        "ram_equal": true,
+        "cpu_equal": true,
+        "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+      },
+      "isolation": {
+        "policy": "A",
+        "guest_invariant": {
+          "current": 50,
+          "requested": 65,
+          "selected": 17,
+          "cpu_cycles": 2361597139,
+          "system_cycles": 1180798569,
+          "cycles7": 1180798512,
+          "insn9": 211109619,
+          "insn7": 69987893,
+          "r": [
+            65,
+            50,
+            16384,
+            34473920,
+            3,
+            0,
+            75,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            41827164,
+            33882728,
+            33871760
+          ],
+          "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+          "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+          "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+          "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+          "guest_touch_deliveries": 3
+        },
+        "live_cpu_equal": true,
+        "live_main_ram_equal": true,
+        "private_pointers_published": false,
+        "live_heap_worker_queue_used": false
+      },
+      "save": {
+        "logical_requests": 0,
+        "flash_commits": 0,
+        "changed_bytes": 0,
+        "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "handoff": {
+        "transition_count": 1,
+        "rules_initializer_count": 1,
+        "constructor_count": 0,
+        "owners_removed": true,
+        "session_active": false,
+        "back_training": false
+      },
+      "actual_window_readback_sha1": {},
+      "id": "5-control",
+      "description": "Exact Task W correctly recognized control",
+      "final_consumer": {
+        "primary_codes": [
+          53
+        ],
+        "accessor_codes": [
+          52
+        ],
+        "primary_numeric": 5,
+        "original_consumer_numeric": 5,
+        "substituted_positions": [],
+        "offline_target_match": true,
+        "target_code_occurs_anywhere": true,
+        "ranked_candidate_set_exists": false
+      },
+      "first_matching_release_zero_based": 1,
+      "later_releases_counterfactual_after_first_match": false
+    }
+  ],
+  "legacy_v": {
+    "target_label_offline_only": 4,
+    "exercise_id": "digit-recognition-probe",
+    "corpus_sha256": "d038f628d7f4ae483d52945c006100ca86a746fa92b336e9e60965c26eec61f4",
+    "evidence": "local\\task-x\\session-001\\legacy-v-4",
+    "stroke_count": 2,
+    "point_count": 8,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "observations": [
+      {
+        "stroke": 0,
+        "point_count": 5,
+        "success": true,
+        "candidate_available": true,
+        "candidate_code": 50,
+        "candidate": "2",
+        "metric": 500,
+        "return_error_code": 0,
+        "wall_us": 26472,
+        "private_instructions_including_metric": 636956
+      },
+      {
+        "stroke": 1,
+        "point_count": 3,
+        "success": true,
+        "candidate_available": true,
+        "candidate_code": 52,
+        "candidate": "4",
+        "metric": 249,
+        "return_error_code": 0,
+        "wall_us": 63879,
+        "private_instructions_including_metric": 1561436
+      }
+    ],
+    "final_candidate_available": true,
+    "final_candidate_code": 52,
+    "final_candidate": "4",
+    "offline_target_match": true,
+    "safe_continue": true,
+    "teardown": {
+      "event": "service_cleanup",
+      "active": false,
+      "return": 0,
+      "wall_us": 717,
+      "instructions": 13160,
+      "ram_equal": true,
+      "cpu_equal": true,
+      "ram_sha256": "e381676be923dc25e2497259c35391d9e84278698d37a429116db1e9aaf5a3ab"
+    },
+    "isolation": {
+      "policy": "A",
+      "guest_invariant": {
+        "current": 50,
+        "requested": 65,
+        "selected": 17,
+        "cpu_cycles": 2361597139,
+        "system_cycles": 1180798569,
+        "cycles7": 1180798512,
+        "insn9": 211109619,
+        "insn7": 69987893,
+        "r": [
+          65,
+          50,
+          16384,
+          34473920,
+          3,
+          0,
+          75,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          41827164,
+          33882728,
+          33871760
+        ],
+        "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+        "guest_top_sha1": "c8421512873a7bf2d9a265d4a57f46bb6aa8efcc",
+        "guest_bottom_sha1": "ffd9a948f22950f7593b34ad5c0db8f757d17537",
+        "video_sha1": "ce35ae3af7966327430a2110cff94253d76f8b15",
+        "guest_touch_deliveries": 3
+      },
+      "live_cpu_equal": true,
+      "live_main_ram_equal": true,
+      "private_pointers_published": false,
+      "live_heap_worker_queue_used": false
+    },
+    "save": {
+      "logical_requests": 0,
+      "flash_commits": 0,
+      "changed_bytes": 0,
+      "sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+    },
+    "handoff": {
+      "transition_count": 1,
+      "rules_initializer_count": 1,
+      "constructor_count": 0,
+      "owners_removed": true,
+      "session_active": false,
+      "back_training": false
+    },
+    "actual_window_readback_sha1": {}
+  },
+  "runtime_sha256": "be66285da018f8dfb9791075c9f70cee90688579cb6a5d1c941b13594b9fda3e",
+  "no_runtime_expected_label": true,
+  "no_original_answer_submission": true,
+  "consumer_policy": "offline mode 0, +31C=2 as configured by Calculations; not a claim of live submission or timing equivalence",
+  "semantics": {
+    "classification": "FULL PASS",
+    "groups": {
+      "group0": "Per-call output delta appended by original worker to retained prefix at slot+24; not a list of competing answers.",
+      "group1": "Current replaceable suffix at slot+104, concatenated after retained prefix in numeric consumption.",
+      "counts": "Group0 raw context signed halfword +94A8; group1 selected-chain depth minus group0 count minus one. Segment/output-position counts, not hypothesis ranks. In all observed numeric samples counts equal emitted code lengths.",
+      "capacity": "Each caller buffer has 16 uint16 slots; worker accessor loops consume at most 15 nonzero codes; consumer concatenation is bounded to 16 positions. Service fails closed on nonterminated 16-code output.",
+      "ordering": "Character/segment sequence order; no exposed rank ordering is established."
+    },
+    "consumer": {
+      "addresses": [
+        "02051AF4",
+        "02051B08..02051BAC",
+        "02051BD0..02051C50",
+        "02052780..0205284C",
+        "02052850..02052900",
+        "02052904..02052A74",
+        "02052F3C..02052FA4",
+        "0202668C..020266B4"
+      ],
+      "numeric_mapping": "Subtract 0x30 per returned code, then value=10*value+digit; values outside 0..99 become 0xFFFF. No other code normalization is present on this mode-0 path.",
+      "secondary": "020A3FFC(ctx,group,index,buffer,16-index,null,null) selects a second representation of the same segment; original consumer uses its first code per position. No second-best or probability claim.",
+      "expected_policy": "Calculations sets +31C=2 and +224=expected at 02026C6C..02026C7C through 02052260. With one position and expected<10, secondary may replace primary only when equal to expected and not 1. With two positions and expected>=10, per-position substitution uses expected tens/units; original guard on units is secondary tens !=1. No arbitrary candidate-set membership search.",
+      "metadata": "Worker also reads per-position metric via 020A3FB8 and contributing stroke IDs/count via 020A3F2C. Mode-0 selection does not rank by metric. Contribution count can affect a three-stroke/two-digit 4-or-5 delay rule.",
+      "publication": "After numeric selection, +364 countdown controls publication. For single-digit matching 7 or 9 it is 1 and decrements to zero in the same update; caller then reads +320 for submission. Matching 4/5 may delay 11 updates after one stroke; ordinary mismatch uses 41. Task X does not execute submission.",
+      "scalar_equivalence": "Legacy scalar first group-1 code is not generally equivalent to complete original consumption; preserved for compatibility.",
+      "no_runtime_target": true
+    },
+    "preprocessing": {
+      "original": "Once-per-update held sampling including identical positions; clamp to selected rectangle; transform (x,y)->(y,255-x); nonempty release creates count/pointer descriptor in recorded order, without sentinel/contact/timing payload. Limits 4096 points and 32 descriptors.",
+      "host_differences": "Deduplicates consecutive identical positions; rejects points outside host canvas instead of original rectangle clamping. All frozen points are interior to both rectangles. Task S A/B proves duplicate equivalence only for known 4, not all handwriting.",
+      "missing_step": "No additional title-side preprocessing proven between accumulation and 020A41A0. Internal conversion/normalization remains executed by the original recognizer; 020A4718 calls 020B387C with internal point limit 32.",
+      "changes": "None; preserve exact known-4 adapter/configuration. No universal claim that sampling density never matters."
+    },
+    "miss_classification": {
+      "7": "Combination: strong stroke-boundary/segmentation sensitivity on the same geometry; production scalar truncates final 51 to 5 and omits expected-dependent first-release 1/7 substitution. Crossbar-first ordering does not fix final 51. Not merely a ranked candidate-selection error.",
+      "9": "Combination: strong stroke-boundary sensitivity (joined identical loop/tail yields 9); direction sensitivity (reversed loop yields final 0); expected-dependent first-release 0/9 substitution omitted by scalar. Tail-first still ends as 4. Final W-anchor 4/0 does not contain 9.",
+      "limits": "No post-observation sample edits; this small corpus does not establish arbitrary handwriting accuracy or eliminate all density-related effects."
+    },
+    "readiness": "Yes for a separately authorized, narrowly bounded answer-entry integration experiment using this proven character/expected-policy contract and preserved isolation. Not general handwriting validation; original early-publication behavior must be an explicit design decision.",
+    "recommended_next_task": "Task Y (separate authorization): bounded answer-entry integration for one controlled Calculations problem, with explicit character-sequence/secondary-code policy and release/publication timing, frozen gestures, exact-title Policy A service, and no completion scoring, save/history, menu integration or optimization."
+  },
+  "static_ranges": [
+    {
+      "start": "0x2025698",
+      "end_exclusive": "0x2025834",
+      "sha256": "602b54f3d3cf77503000acc0fb35d75c061e6a8269fad41c723bdb59a9c09c3d"
+    },
+    {
+      "start": "0x2026510",
+      "end_exclusive": "0x2026710",
+      "sha256": "95fae61487ca72a0cdd372113504da659587f3faebe3a4b8f71b4dbfe16243c4"
+    },
+    {
+      "start": "0x2026c08",
+      "end_exclusive": "0x2026ca0",
+      "sha256": "0204e0eec6f408cdad42d667821fd13a6620afea408ec0b0ad231100d90e80bd"
+    },
+    {
+      "start": "0x2051a30",
+      "end_exclusive": "0x2051c58",
+      "sha256": "8aa56f010258c6ace2778f3a1caf80af90eed8c290b420b76e96c1cbc1a1d30a"
+    },
+    {
+      "start": "0x205204c",
+      "end_exclusive": "0x20520f8",
+      "sha256": "d6db964f9bfd712ceed2cc0c42161e64221f3fe0aa82e61754a6d36b8b4f89cf"
+    },
+    {
+      "start": "0x205213c",
+      "end_exclusive": "0x20521a0",
+      "sha256": "2181d2098991fa89fcc993618c18f3e9e3272d6e5a440a262f6ec990c50c637e"
+    },
+    {
+      "start": "0x2052260",
+      "end_exclusive": "0x2052424",
+      "sha256": "83056ab5513bf8ad4fde08350fdd08418accd4a4bbe768505279cdbff0d47c11"
+    },
+    {
+      "start": "0x2052424",
+      "end_exclusive": "0x2052a78",
+      "sha256": "a033764de5724cc7e613738a0f87af66b7c77aa3aacfe6f9ac0130e527828076"
+    },
+    {
+      "start": "0x2052f14",
+      "end_exclusive": "0x2052fc4",
+      "sha256": "8c71a092e3143a8cf72eac74e120c2981c434f366f59df4a1bf3543ba0fac33c"
+    },
+    {
+      "start": "0x20a3acc",
+      "end_exclusive": "0x20a3e9c",
+      "sha256": "6818642eb92ec2c819423e74b16ce6e0e9c6827a667cfc1b5f657a1e5273fbbd"
+    },
+    {
+      "start": "0x20a3f2c",
+      "end_exclusive": "0x20a4034",
+      "sha256": "d49054fa275c0da40aa72934ed7d3df17436db0f72956d0bb73c454edf0c9ce1"
+    },
+    {
+      "start": "0x20a41a0",
+      "end_exclusive": "0x20a437c",
+      "sha256": "806afe4e095db104f32655c4271c84e6ecd0c257c92e0fcb9e02ce1e3df885f3"
+    },
+    {
+      "start": "0x20a4718",
+      "end_exclusive": "0x20a4780",
+      "sha256": "0f6baf049409de7c13e6e46c846cba4c711957a95e060bb86d3fdbd786c8e7e8"
+    },
+    {
+      "start": "0x20a49b8",
+      "end_exclusive": "0x20a4c00",
+      "sha256": "6ea5d546937438067fbee36fa1ee26072c12a5c8e70e90df4c8983a4d46dc617"
+    },
+    {
+      "start": "0x20a5b70",
+      "end_exclusive": "0x20a5ce4",
+      "sha256": "05a7a3a1b22da9256e80dd296b52691d2413a04e4971ac06a0fc9d3cb15b3c53"
+    },
+    {
+      "start": "0x20a5fe8",
+      "end_exclusive": "0x20a606c",
+      "sha256": "d3b95152401951f3109faff2a73b18e1bf276ad52c55a73df7a229825d26f5d1"
+    },
+    {
+      "start": "0x20b387c",
+      "end_exclusive": "0x20b3938",
+      "sha256": "2ba44c44d6bbd0af5c8b511f6a0a7219777afa4773a321f72624d750ef50e4ac"
+    }
+  ],
+  "focused_tests": {
+    "pass": true,
+    "consumer_model": true,
+    "exact_anchors": true,
+    "bounded_groups_and_accessor_known_4": true,
+    "historical_W_V_P_Q": "local/task-w/focused-tests.json"
+  },
+  "final_matches": 5,
+  "release_timing_limit": "Original 7/9 would publish on first expected-matching release; all later probe releases remain valid recognition characterization but are counterfactual after original publication."
+}

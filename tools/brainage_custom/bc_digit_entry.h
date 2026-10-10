@@ -34,7 +34,16 @@ public:
     ExerciseStatus status() const override {
         auto copy=state;copy.diagnostics={{"completed_strokes",strokes.size()},{"point_count",total_points},{"current_points",current.size()},
             {"candidate",result.candidate_available?uint64_t(result.candidate):0u},{"candidate_available",result.candidate_available},{"recognition_return",result.error},{"recognition_success",result.success},
-            {"metric",result.metric},{"init_wall_us",init_us},{"call_wall_us",result.wall_us},{"private_instructions",result.instructions},{"recognition_error",failed}};return copy;
+            {"metric",result.metric},{"init_wall_us",init_us},{"call_wall_us",result.wall_us},{"private_instructions",result.instructions},{"recognition_error",failed}};
+        for(unsigned g=0;g<2;++g){const auto prefix="group"+std::to_string(g)+"_";const auto& output=result.groups[g];
+            copy.diagnostics.push_back({prefix+"count",output.returned_count});
+            copy.diagnostics.push_back({prefix+"code_count",output.code_count});
+            for(unsigned i=0;i<output.code_count;++i){
+                copy.diagnostics.push_back({prefix+"code_"+std::to_string(i),output.codes[i]});
+                copy.diagnostics.push_back({prefix+"accessor_"+std::to_string(i),output.accessor_codes[i]});
+            }
+        }
+        return copy;
     }
     ExerciseEvent touch(uint16_t x,uint16_t y,bool down) override {
         if(down){

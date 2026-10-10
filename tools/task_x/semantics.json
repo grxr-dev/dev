@@ -1,0 +1,42 @@
+{
+  "classification": "FULL PASS",
+  "groups": {
+    "group0": "Per-call output delta appended by original worker to retained prefix at slot+24; not a list of competing answers.",
+    "group1": "Current replaceable suffix at slot+104, concatenated after retained prefix in numeric consumption.",
+    "counts": "Group0 raw context signed halfword +94A8; group1 selected-chain depth minus group0 count minus one. Segment/output-position counts, not hypothesis ranks. In all observed numeric samples counts equal emitted code lengths.",
+    "capacity": "Each caller buffer has 16 uint16 slots; worker accessor loops consume at most 15 nonzero codes; consumer concatenation is bounded to 16 positions. Service fails closed on nonterminated 16-code output.",
+    "ordering": "Character/segment sequence order; no exposed rank ordering is established."
+  },
+  "consumer": {
+    "addresses": [
+      "02051AF4",
+      "02051B08..02051BAC",
+      "02051BD0..02051C50",
+      "02052780..0205284C",
+      "02052850..02052900",
+      "02052904..02052A74",
+      "02052F3C..02052FA4",
+      "0202668C..020266B4"
+    ],
+    "numeric_mapping": "Subtract 0x30 per returned code, then value=10*value+digit; values outside 0..99 become 0xFFFF. No other code normalization is present on this mode-0 path.",
+    "secondary": "020A3FFC(ctx,group,index,buffer,16-index,null,null) selects a second representation of the same segment; original consumer uses its first code per position. No second-best or probability claim.",
+    "expected_policy": "Calculations sets +31C=2 and +224=expected at 02026C6C..02026C7C through 02052260. With one position and expected<10, secondary may replace primary only when equal to expected and not 1. With two positions and expected>=10, per-position substitution uses expected tens/units; original guard on units is secondary tens !=1. No arbitrary candidate-set membership search.",
+    "metadata": "Worker also reads per-position metric via 020A3FB8 and contributing stroke IDs/count via 020A3F2C. Mode-0 selection does not rank by metric. Contribution count can affect a three-stroke/two-digit 4-or-5 delay rule.",
+    "publication": "After numeric selection, +364 countdown controls publication. For single-digit matching 7 or 9 it is 1 and decrements to zero in the same update; caller then reads +320 for submission. Matching 4/5 may delay 11 updates after one stroke; ordinary mismatch uses 41. Task X does not execute submission.",
+    "scalar_equivalence": "Legacy scalar first group-1 code is not generally equivalent to complete original consumption; preserved for compatibility.",
+    "no_runtime_target": true
+  },
+  "preprocessing": {
+    "original": "Once-per-update held sampling including identical positions; clamp to selected rectangle; transform (x,y)->(y,255-x); nonempty release creates count/pointer descriptor in recorded order, without sentinel/contact/timing payload. Limits 4096 points and 32 descriptors.",
+    "host_differences": "Deduplicates consecutive identical positions; rejects points outside host canvas instead of original rectangle clamping. All frozen points are interior to both rectangles. Task S A/B proves duplicate equivalence only for known 4, not all handwriting.",
+    "missing_step": "No additional title-side preprocessing proven between accumulation and 020A41A0. Internal conversion/normalization remains executed by the original recognizer; 020A4718 calls 020B387C with internal point limit 32.",
+    "changes": "None; preserve exact known-4 adapter/configuration. No universal claim that sampling density never matters."
+  },
+  "miss_classification": {
+    "7": "Combination: strong stroke-boundary/segmentation sensitivity on the same geometry; production scalar truncates final 51 to 5 and omits expected-dependent first-release 1/7 substitution. Crossbar-first ordering does not fix final 51. Not merely a ranked candidate-selection error.",
+    "9": "Combination: strong stroke-boundary sensitivity (joined identical loop/tail yields 9); direction sensitivity (reversed loop yields final 0); expected-dependent first-release 0/9 substitution omitted by scalar. Tail-first still ends as 4. Final W-anchor 4/0 does not contain 9.",
+    "limits": "No post-observation sample edits; this small corpus does not establish arbitrary handwriting accuracy or eliminate all density-related effects."
+  },
+  "readiness": "Yes for a separately authorized, narrowly bounded answer-entry integration experiment using this proven character/expected-policy contract and preserved isolation. Not general handwriting validation; original early-publication behavior must be an explicit design decision.",
+  "recommended_next_task": "Task Y (separate authorization): bounded answer-entry integration for one controlled Calculations problem, with explicit character-sequence/secondary-code policy and release/publication timing, frozen gestures, exact-title Policy A service, and no completion scoring, save/history, menu integration or optimization."
+}

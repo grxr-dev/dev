@@ -40,12 +40,13 @@ private:
  uint32_t coproc_read(uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)override{throw std::runtime_error("coprocessor read forbidden");}
  void coproc_cdp(uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)override{throw std::runtime_error("coprocessor operation forbidden");}
  // Private fixed sequence; no externally selectable PC or register RPC.
- uint32_t invoke(unsigned operation,unsigned stroke=0){
-  require(operation<4,"fixed operation only");const uint32_t targets[]={0x020a447c,0x020a41a0,0x020a3fb8,0x020a4440};
+ uint32_t invoke(unsigned operation,unsigned stroke=0,unsigned group=1,unsigned index=0){
+  require(operation<5&&group<2&&index<15,"fixed operation and bounded character only");const uint32_t targets[]={0x020a447c,0x020a41a0,0x020a3fb8,0x020a4440,0x020a3ffc};
   armv4t::CPUState c{};c.cpsr.mode=0x1f;c.cpsr.i=true;c.cpsr.f=true;c.R[0]=ctx;c.R[13]=sp;c.R[14]=gate;c.R[15]=targets[operation];
   if(operation==0){c.R[1]=config;c.R[2]=16;c.R[3]=1;}
   if(operation==1){c.R[1]=desc+stroke*8;c.R[2]=stroke;c.R[3]=out;unsigned j=0;for(uint32_t v:{16u,counts,out+32,16u,counts+4})write32(sp+4*j++,v);write32(counts,0);write32(counts+4,0);}
   if(operation==2){c.R[1]=1;c.R[2]=0;c.R[3]=out+64;}
+  if(operation==4){c.R[1]=group;c.R[2]=index;c.R[3]=out+96;write32(sp,16-index);write32(sp+4,0);write32(sp+8,0);for(unsigned j=0;j<32;++j)write8(out+96+j,0);}
   auto initial=c;auto start=steps;
   while(c.R[15]!=gate){
    require(++steps-start<10000000,"instruction bound");auto pc=c.R[15];require(pc>=0x02000000&&pc<0x020d2ba0,"execution outside live title code");
@@ -99,7 +100,20 @@ public:
         const auto candidate=available?s.read16(s.out+32):uint16_t(0);
         const auto metric_result=s.invoke(2);
         if(metric_result)return {false,false,0,0,metric_result,elapsed(start),s.steps-before,"metric returned error"};
-        return {true,available,candidate,s.read32(s.out+64),0,elapsed(start),s.steps-before,{}};
+        DigitResult value{true,available,candidate,s.read32(s.out+64),0,0,0,{}};
+        for(unsigned g=0;g<2;++g){
+            auto& output=value.groups[g];output.returned_count=s.read32(s.counts+4*g);
+            require(output.returned_count<=16,"output segment count bound");
+            for(unsigned i=0;i<16;++i)output.codes[i]=s.read16(s.out+32*g+2*i);
+            while(output.code_count<16&&output.codes[output.code_count])++output.code_count;
+            require(output.code_count<16,"unterminated output group");
+            for(unsigned i=0;i<output.code_count;++i){
+                const auto accessor_result=s.invoke(4,0,g,i);
+                if(accessor_result)return {false,false,0,0,accessor_result,elapsed(start),s.steps-before,"character accessor returned error"};
+                output.accessor_codes[i]=s.read16(s.out+96);
+            }
+        }
+        value.wall_us=elapsed(start);value.instructions=s.steps-before;return value;
     }
     DigitResult end_session() override {
         const auto start=Clock::now();uint32_t result=0;uint64_t count=0;
