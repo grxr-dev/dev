@@ -1,0 +1,733 @@
+{
+  "classification": "FULL PASS",
+  "task": "AB - one instruction beyond Task AA",
+  "predecessor": "6fad6ffde7b71e16fb3e1592287eccc24e9114fc",
+  "branch": "codex/brainage",
+  "evidence_tier": "Forced Tier-3 original ARM interpreter; no compiled acceptance parity claim",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "authoritative_path": "local\\task-ab\\session-001",
+  "disabled_path": "local\\task-ab\\disabled-001",
+  "runner_sha256": "e2d020934005cff518d0253faf0bc39e48b1b6fa4c555206f7e2df6af6c3bc74",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "62f843d29780b8e3a536f446739b19777e34e25d3fc2045b504e9e8e1289d751",
+    "guard.h": "f39c3d3b1360e0dcd01d082abf7ca825fcfae324e6c66eb124875c115b9209e3",
+    "task_ab_decision.inc": "9f766032f072baca7a5b158c6c200fc0b61dbf95d5393e99b59f276408906a87"
+  },
+  "pre_execution_decode": {
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "pc": "0x202573c",
+    "opcode": "0x05801504",
+    "decoded": "streq r1, [r0, #0x504]",
+    "condition": "EQ / Z == 1",
+    "base_register": 0,
+    "base_value": 34511360,
+    "source_register": 1,
+    "source_value": 1,
+    "immediate_offset": 1284,
+    "effective_address": "0x20e9f04",
+    "write_bytes": 4,
+    "addressing": "immediate positive pre-index, no writeback, word store",
+    "before": 0,
+    "expected_after": 1,
+    "expected_successor": "0x02025740",
+    "successor_opcode": "0x028DD004",
+    "static_evidence": "Retained local/task-z/static-001/02025698.txt agrees with independent exact-ROM Capstone decode",
+    "safe": true
+  },
+  "live_pre_execution_decode": {
+    "event": "instruction_identified",
+    "pc": 33707836,
+    "opcode": 92280068,
+    "condition": "EQ",
+    "decoded": "STREQ r1,[r0,#0x504]",
+    "source_register": 1,
+    "source_value": 1,
+    "target": 34512644,
+    "before": 0,
+    "width": 4,
+    "successor": 33707840
+  },
+  "pre_instruction_state": {
+    "event": "second_store_before",
+    "pc": 33707836,
+    "opcode": 92280068,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707836
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097877
+  },
+  "safe_stop": {
+    "event": "decision_step",
+    "pc": 33707840,
+    "opcode": 42848260,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707840
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097878
+  },
+  "boundary": {
+    "executed_pc": "0x0202573C",
+    "opcode": "0x05801504",
+    "decoded": "STREQ r1,[r0,#0x504]",
+    "condition": "EQ, Z=1",
+    "source": "r1 = 1",
+    "base": "r0 = 0x020E9A00",
+    "effective_address": "0x020E9F04",
+    "state_field": "exercise +0x504 / result flag",
+    "store_width_bytes": 4,
+    "writeback": false,
+    "before": 0,
+    "after": 1,
+    "successor_pc": "0x02025740",
+    "successor_opcode": "0x028DD004",
+    "successor_instruction_executed": false,
+    "new_instructions_beyond_AA": 1,
+    "decision_dispatches": 44,
+    "observations": 45,
+    "proof": "Fixed pre-dispatch allowlist rejects successor at every index; terminal hook halts and preserves unwind before instruction count/fetch/step; clean exit"
+  },
+  "trace": [
+    {
+      "event": "decision_step",
+      "pc": 33707828,
+      "opcode": 60821505,
+      "r": [
+        34511360,
+        4,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707828
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097875,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707832,
+      "opcode": 92278816,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707832
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097876,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707836,
+      "opcode": 92280068,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707836
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097877,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707840,
+      "opcode": 42848260,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707840
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097878,
+      "dispatch_permitted": false
+    }
+  ],
+  "immediate_fields": {
+    "result_delay": [
+      1,
+      1
+    ],
+    "result_flag": [
+      0,
+      1
+    ],
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ]
+  },
+  "decision_fields": {
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ],
+    "expected": [
+      4,
+      4
+    ],
+    "result_delay": [
+      0,
+      1
+    ],
+    "result_flag": [
+      0,
+      1
+    ],
+    "input_status": [
+      0,
+      0
+    ],
+    "submitted_tens": [
+      255,
+      255
+    ],
+    "submitted_units": [
+      255,
+      4
+    ],
+    "later_outcome": [
+      255,
+      255
+    ]
+  },
+  "immediate_ram_changes": [
+    {
+      "address": "0x020E9F04",
+      "before": 0,
+      "after": 1
+    }
+  ],
+  "immediate_dtcm_changed_bytes": 0,
+  "register_changes": [
+    "PC: 0x0202573C -> 0x02025740"
+  ],
+  "flags_unchanged": true,
+  "objects": {
+    "exercise": {
+      "before_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "after_sha256": "fa5f46ad9f8493ff7d122b1f0ef478ad5cf8640243128ee65101191c7b367ef4",
+      "changes": [
+        {
+          "address": "0x020E9A20",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F04",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F14",
+          "before": 255,
+          "after": 4
+        }
+      ]
+    },
+    "manager": {
+      "before_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "after_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "changes": []
+    },
+    "slot": {
+      "before_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "after_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "changes": []
+    }
+  },
+  "decision_mainram_changes": [
+    {
+      "address": "0x020E9A20",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F04",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F14",
+      "before": 255,
+      "after": 4
+    }
+  ],
+  "decision_dtcm_changes": [
+    {
+      "address": "0x027E3B08",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B09",
+      "before": 154,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0A",
+      "before": 14,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0B",
+      "before": 2,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0D",
+      "before": 0,
+      "after": 154
+    },
+    {
+      "address": "0x027E3B0E",
+      "before": 0,
+      "after": 14
+    },
+    {
+      "address": "0x027E3B0F",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B10",
+      "before": 0,
+      "after": 48
+    },
+    {
+      "address": "0x027E3B11",
+      "before": 0,
+      "after": 88
+    },
+    {
+      "address": "0x027E3B12",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B13",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B14",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B18",
+      "before": 144,
+      "after": 184
+    }
+  ],
+  "task_aa_prefix_exact_register_flags_opcode_ordinal_match": true,
+  "immediate_before_ram_equals_task_aa_stop": true,
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "input": {
+    "problem": "11 - 7",
+    "expected": 4,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "source": "unchanged Task V/W known 4",
+    "input": "SDL queue before frontend mapping"
+  },
+  "input_source": "SDL_PushEvent -> frontend mapping -> nds_set_touch -> native owner -> isolated recognizer -> original publication/correctness",
+  "custom_events": 10,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 24383,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 56362,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "private_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "decision": {
+    "event": "decision_stopped",
+    "correct": true,
+    "accepted": false,
+    "correctness_entries": 1,
+    "comparison_entries": 1,
+    "forbidden_entries": 0,
+    "acceptance_stores_executed": 2,
+    "progression_entries": 0,
+    "save_entries": 0,
+    "instructions": 44
+  },
+  "decision_samples": [
+    {
+      "event": "decision_before_sample",
+      "pc": 33711796,
+      "cycle9": 3416875293,
+      "cycle7": 1708437638,
+      "insn9": 281097834,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 159
+    },
+    {
+      "event": "second_store_before_sample",
+      "pc": 33707836,
+      "cycle9": 3416875383,
+      "cycle7": 1708437638,
+      "insn9": 281097877,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 159
+    },
+    {
+      "event": "decision_stop_sample",
+      "pc": 33707840,
+      "cycle9": 3416875386,
+      "cycle7": 1708437638,
+      "insn9": 281097878,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 159
+    }
+  ],
+  "prohibited_state": {
+    "result_delay_unchanged_from_AA": true,
+    "correct_count_unchanged": true,
+    "phase_unchanged": true,
+    "mainram_outside_single_direct_store_changed_bytes": 0,
+    "dtcm_changed_bytes_during_AB": 0,
+    "score_progression_history": "No bytes changed outside decoded direct target; no downstream entry; no invented offsets",
+    "downstream_routine_entries": 0,
+    "ARM7_cycles_and_ordinal_unchanged": true,
+    "guest_video_touch_scene_unchanged": true
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "hashes": {
+    "immediate_mainram_before": "ea7de8687cb8e75b75b7f9bceb62d9b18530e3f2654c62fe42ca25cbf90136a7",
+    "immediate_mainram_after": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "decision_dtcm_before": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "decision_dtcm_after": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "immediate_dtcm_before": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "immediate_dtcm_after": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff"
+  },
+  "disabled_control": {
+    "pass": true,
+    "recognition_entries": 0,
+    "publication_entries": 0,
+    "correctness_entries": 0,
+    "ram_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "exit_code": 0
+  },
+  "focused_tests": {
+    "second_store_guard": {
+      "pass": true,
+      "output": "PASS: Task AA prefix parity; exactly 44 dispatches; successor never dispatchable; fixed store operands/decode; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: Task Z prefix parity; exactly 43 dispatches; second store never dispatchable; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "source_checkpoint_and_save_unchanged": true,
+  "gameplay_resumed": false,
+  "answer_completed": false,
+  "deviations_from_task_aa": [
+    "Fresh authorized SDL replay, exact prefix and immediate pre-RAM match",
+    "One more ARM instruction; result flag low byte 0 -> 1",
+    "Host hold presentation count may vary; no guest divergence"
+  ],
+  "limitations": [
+    "One exact 11 - 7 / recognized 4 context",
+    "Forced Tier-3 only; no compiled parity",
+    "Score/progression/history excluded by exhaustive RAM/DTCM audit and exact path, no speculative field names"
+  ],
+  "reproduction": [
+    "python tools/task_ab/preflight.py",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools/task_ab/build.ps1",
+    "python tools/task_ab/check.py",
+    "python tools/task_ab/run.py --out local/task-ab/disabled-FRESH --disabled --port 19911",
+    "python tools/task_ab/run.py --out local/task-ab/session-FRESH --port 19912",
+    "python tools/task_ab/analyze.py --out local/task-ab/session-FRESH --disabled local/task-ab/disabled-FRESH --export docs/BrainAge_TaskAB_Result.json"
+  ],
+  "stop": "No successor instruction, answer completion, count/phase progression, score/history/save/menu/optimization integration or Task AC"
+}
