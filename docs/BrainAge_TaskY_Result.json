@@ -1,0 +1,320 @@
+{
+  "classification": "FULL PASS (bounded original publication only; forced Tier-3)",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "predecessor": "b08cb211687368e4ca9f089f7dfb3f71a5c8b1d6",
+  "problem": "11 - 7",
+  "expected": 4,
+  "prior_correct_count": 1,
+  "phase_before_and_after": 1,
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "freeze": {
+    "sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+    "frozen_utc": "2026-10-10T14:47:55.828191+00:00",
+    "canonical": "UTF-8 JSON sort_keys=True separators=(',',':'), no newline",
+    "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f"
+  },
+  "authoritative_path": "local\\task-y\\session-001",
+  "disabled_path": "local\\task-y\\disabled-004",
+  "input_source": "SDL_PushEvent -> normal frontend mapping -> nds_set_touch -> native owner",
+  "custom_events": 10,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 26935,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 63662,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "publication": {
+    "event": "publication_blocked",
+    "pc": 33711796,
+    "integer": 4,
+    "slot": 34581072,
+    "exercise": 34511360,
+    "manager": 34580488,
+    "publication_entries": 1,
+    "slot_reads": 1,
+    "correctness_entries": 0,
+    "exercise_equal": true,
+    "manager_equal": true
+  },
+  "staged_transient_writes": [
+    {
+      "event": "stage",
+      "address": 34581872,
+      "before": 4294967295,
+      "after": 4
+    },
+    {
+      "event": "stage",
+      "address": 34581940,
+      "before": 0,
+      "after": 1
+    }
+  ],
+  "private_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "hold_samples": [
+    {
+      "event": "panel_active",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": true,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 0
+    },
+    {
+      "event": "released_stroke",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": true,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 131
+    },
+    {
+      "event": "released_stroke",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": true,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    },
+    {
+      "event": "owners_removed",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 161
+    }
+  ],
+  "terminal_sample": {
+    "event": "terminal_publication",
+    "pc": 33711796,
+    "cycle9": 3416875293,
+    "cycle7": 1708437638,
+    "insn9": 281097834,
+    "insn7": 96026779,
+    "guest_deliveries": 1,
+    "owner": false,
+    "down": false,
+    "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+    "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+    "current": 17,
+    "requested": 17,
+    "selected": 17,
+    "presents": 161
+  },
+  "objects": {
+    "exercise": {
+      "before_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "after_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "changed_bytes": 0,
+      "changed_ranges": []
+    },
+    "manager": {
+      "before_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "after_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "changed_bytes": 0,
+      "changed_ranges": []
+    },
+    "slot": {
+      "before_sha256": "7a228568f985a7cbd84c35a794765e34a0faa72eccd0b16922f67c9ad8533c50",
+      "after_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "changed_bytes": 4,
+      "changed_ranges": [
+        {
+          "start": "0x20fad70",
+          "end_inclusive": "0x20fad73",
+          "length": 4
+        }
+      ]
+    }
+  },
+  "mainram": {
+    "before_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "after_private_service_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "at_block_sha256": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "changed_bytes_at_block": 4,
+    "changed_ranges_at_block": [
+      {
+        "start": "0x20fad70",
+        "end_inclusive": "0x20fad73",
+        "length": 4
+      }
+    ]
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "focused_tests": {
+    "policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "legacy_v_contract": {
+      "pass": true,
+      "output": "PASS: adapter parity/bounds/SHA256, selector, candidate-independent exit, error exit and no third stroke"
+    },
+    "generic_w_contract": {
+      "pass": true,
+      "output": "PASS: successful no-candidate phase/render/continued capture/safe exit, later candidate replacement, 8 strokes/512 points, error exit, selectors"
+    },
+    "arithmetic": {
+      "pass": true,
+      "output": "PASS: activation aliases/precedence, unchanged quiz pixels, touch/exit contract and non-quiz mock"
+    },
+    "freehand": {
+      "pass": true,
+      "output": "PASS: line endpoints/bounds/interpolation, two strokes, motion/release, exit and bounded storage"
+    },
+    "legacy_v_service": {
+      "pass": true,
+      "output": "PASS: production service 2 -> 4 twice, session reset, invalid input, fixed original teardown and untouched source snapshot"
+    },
+    "groups_secondary": {
+      "pass": true,
+      "output": "PASS: production service 2 -> 4 twice, session reset, invalid input, fixed original teardown and untouched source snapshot"
+    },
+    "selectors": {
+      "pass": true,
+      "ids": [
+        "arithmetic-2plus2",
+        "freehand-canvas",
+        "digit-recognition-probe",
+        "digit-entry-probe"
+      ]
+    },
+    "unchanged_host_service_exercises": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "source_unchanged": true,
+  "no_counter_restoration": true,
+  "no_rom_or_generated_code_edit": true,
+  "limits": [
+    "Controlled problem uses forced Tier-3, not compiled answer-publication parity.",
+    "No correctness, progression, scoring, history or gameplay resume.",
+    "No emulation of elapsed answer-delay frames while host gesture is held. Countdown=1 is discharged by the original publication update.",
+    "Three-stroke two-digit 4/5 contributor-dependent timing is deliberately unsupported.",
+    "No physical pen/SendInput or unseen-handwriting accuracy claim."
+  ],
+  "recommended_next_task": "Separately authorize one guarded correctness-consumer invocation for this same published 4, stopping before count/phase/progression mutation; map its first store before allowing it."
+}
