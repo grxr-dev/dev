@@ -1,0 +1,764 @@
+{
+  "classification": "FULL PASS",
+  "task": "AA - first original acceptance mutation only",
+  "predecessor": "343a3daf41f05ab5ff14ea05124da2045cafe6cb",
+  "branch": "codex/brainage",
+  "evidence_tier": "Forced Tier-3 original ARM interpreter; no compiled acceptance parity claim",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "authoritative_path": "local\\task-aa\\session-001",
+  "disabled_path": "local\\task-aa\\disabled-001",
+  "runner_sha256": "128c27a0c77e173d386b491e87b1907f02b9c0ecef33e6f51826c82eef396397",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "3bfb367444b95d53d391a7349f7cb57c9a593142936bfc33395ee480152a9c80",
+    "guard.h": "e3d3e71129c5587c8e9f603192e0a7f789ad36391318dd9633a0137821570440",
+    "task_aa_decision.inc": "2e5cbe70700275aaf69adee341c4335fd0f7d451ac32cb759c704ba4a77fcb52"
+  },
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "input": {
+    "problem": "11 - 7",
+    "expected": 4,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "source": "unchanged Task V/W known 4",
+    "input": "SDL queue before frontend mapping"
+  },
+  "input_source": "SDL_PushEvent -> normal frontend mapping -> nds_set_touch -> native owner -> private recognizer -> original publication/correctness",
+  "custom_events": 10,
+  "button_edges": 4,
+  "motion_events": 6,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 27515,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 60005,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "publication": {
+    "event": "publication_blocked",
+    "pc": 33711796,
+    "integer": 4,
+    "slot": 34581072,
+    "exercise": 34511360,
+    "manager": 34580488,
+    "publication_entries": 1,
+    "slot_reads": 1,
+    "correctness_entries": 0,
+    "exercise_equal": true,
+    "manager_equal": true
+  },
+  "private_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "decision": {
+    "event": "decision_stopped",
+    "correct": true,
+    "accepted": false,
+    "correctness_entries": 1,
+    "comparison_entries": 1,
+    "forbidden_entries": 0,
+    "acceptance_stores_executed": 1,
+    "progression_entries": 0,
+    "save_entries": 0,
+    "instructions": 43
+  },
+  "correct_predicate": {
+    "event": "decision_step",
+    "pc": 33707828,
+    "opcode": 60821505,
+    "r": [
+      34511360,
+      4,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707828
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097875
+  },
+  "first_store_before": {
+    "event": "decision_step",
+    "pc": 33707832,
+    "opcode": 92278816,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707832
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097876
+  },
+  "safe_stop": {
+    "event": "decision_step",
+    "pc": 33707836,
+    "opcode": 92280068,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707836
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097877
+  },
+  "boundary": {
+    "allowed_instructions": [
+      "0x02025734 / 03A01001 MOVEQ r1,#1",
+      "0x02025738 / 05801020 STREQ r1,[r0,#0x20]"
+    ],
+    "first_acceptance_store_executed": 1,
+    "next_pc": "0x0202573C",
+    "next_opcode": "0x05801504",
+    "next_instruction_executed": false,
+    "decision_dispatch_count": 43,
+    "pre_dispatch_observations": 44,
+    "proof": "Exact allowlist; terminal dispatches() is false; hook returns 2 and preserves unwind before interpreter count/fetch/step; clean process exit, no resume"
+  },
+  "trace": [
+    {
+      "event": "decision_step",
+      "pc": 33707816,
+      "opcode": 3780182021,
+      "r": [
+        34511360,
+        4,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707816
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097872,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707820,
+      "opcode": 329265153,
+      "r": [
+        34511360,
+        4,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707820
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097873,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707824,
+      "opcode": 3813867520,
+      "r": [
+        34511360,
+        4,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707824
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097874,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707828,
+      "opcode": 60821505,
+      "r": [
+        34511360,
+        4,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707828
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097875,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707832,
+      "opcode": 92278816,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707832
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097876,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707836,
+      "opcode": 92280068,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707836
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097877,
+      "dispatch_permitted": false
+    }
+  ],
+  "fields": {
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ],
+    "expected": [
+      4,
+      4
+    ],
+    "result_delay": [
+      0,
+      1
+    ],
+    "result_flag": [
+      0,
+      0
+    ],
+    "input_status": [
+      0,
+      0
+    ],
+    "submitted_tens": [
+      255,
+      255
+    ],
+    "submitted_units": [
+      255,
+      4
+    ],
+    "later_outcome": [
+      255,
+      255
+    ]
+  },
+  "objects": {
+    "exercise": {
+      "before_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "after_sha256": "803812d329a3581087340c0e5bb3d47ceeaa3f86c8479ba51c3b5b6915f9ac4d",
+      "changes": [
+        {
+          "address": "0x020E9A20",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F14",
+          "before": 255,
+          "after": 4
+        }
+      ]
+    },
+    "manager": {
+      "before_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "after_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "changes": []
+    },
+    "slot": {
+      "before_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "after_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "changes": []
+    }
+  },
+  "decision_mainram_changes": [
+    {
+      "address": "0x020E9A20",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F14",
+      "before": 255,
+      "after": 4
+    }
+  ],
+  "decision_dtcm_changes": [
+    {
+      "address": "0x027E3B08",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B09",
+      "before": 154,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0A",
+      "before": 14,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0B",
+      "before": 2,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0D",
+      "before": 0,
+      "after": 154
+    },
+    {
+      "address": "0x027E3B0E",
+      "before": 0,
+      "after": 14
+    },
+    {
+      "address": "0x027E3B0F",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B10",
+      "before": 0,
+      "after": 48
+    },
+    {
+      "address": "0x027E3B11",
+      "before": 0,
+      "after": 88
+    },
+    {
+      "address": "0x027E3B12",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B13",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B14",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B18",
+      "before": 144,
+      "after": 184
+    }
+  ],
+  "immediate_store_changes": [
+    {
+      "address": "0x020E9A20",
+      "before": 0,
+      "after": 1
+    }
+  ],
+  "immediate_store_dtcm_changed_bytes": 0,
+  "prohibited_state": {
+    "result_flag_0x504_unchanged": true,
+    "correct_count_unchanged": true,
+    "phase_unchanged": true,
+    "score_progression_history": "No additional main-RAM changes anywhere; exact call path contains no downstream routine entry",
+    "downstream_entries": 0,
+    "manager_changed_bytes": 0,
+    "slot_changed_bytes": 0,
+    "exercise_other_than_input_units_and_delay_changed_bytes": 0,
+    "mainram_other_than_input_units_and_delay_changed_bytes": 0,
+    "no_scheduler_or_ARM7_advancement_during_decision": true,
+    "guest_video_unchanged": true
+  },
+  "decision_samples": [
+    {
+      "event": "decision_before_sample",
+      "pc": 33711796,
+      "cycle9": 3416875293,
+      "cycle7": 1708437638,
+      "insn9": 281097834,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 159
+    },
+    {
+      "event": "decision_stop_sample",
+      "pc": 33707836,
+      "cycle9": 3416875383,
+      "cycle7": 1708437638,
+      "insn9": 281097877,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 159
+    }
+  ],
+  "decision_memory_hashes": {
+    "mainram_before": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "mainram_immediately_before_store": "6f9381ff8e12de322985ec992652f1e718c3d267182049e2144b27ae6ad98af5",
+    "mainram_after": "ea7de8687cb8e75b75b7f9bceb62d9b18530e3f2654c62fe42ca25cbf90136a7",
+    "dtcm_before": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "dtcm_after": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff"
+  },
+  "stack_write_footprint": {
+    "bytes_written": 20,
+    "bytes_changed": 13,
+    "reconstructed_pushes_equal_full_dtcm": true,
+    "reserved_unwritten_bytes": 4
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "disabled_control": {
+    "pass": true,
+    "input_events": 0,
+    "recognition_entries": 0,
+    "publication_entries": 0,
+    "correctness_entries": 0,
+    "mainram_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "exit_code": 0
+  },
+  "task_z_prefix_exact_register_flags_opcode_ordinal_match": true,
+  "deviations_from_task_z": [
+    "Fresh explicitly authorized run; extends terminal boundary by exactly two dispatched ARM instructions",
+    "Result-delay byte at +0x20 changes 0 to 1",
+    "SDL hold presentation count can differ with host timing"
+  ],
+  "focused_tests": {
+    "first_store_guard": {
+      "pass": true,
+      "output": "PASS: Task Z prefix parity; exactly 43 dispatches; second store never dispatchable; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: exact sequence, repeated-entry, wrong-path, acceptance/progression/save/budget rejection and correct predicate"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "source_checkpoint_save_unchanged": true,
+  "no_counter_restoration": true,
+  "no_rom_or_generated_code_edit": true,
+  "gameplay_resumed": false,
+  "answer_completed": false,
+  "limitations": [
+    "One exact 11 - 7 / recognized 4 context only",
+    "Tier-3 evidence; no compiled acceptance parity",
+    "Score/progression/history are bounded by exhaustive main-RAM audit and exact-entry exclusion; no invented field offsets",
+    "Task Z input is two strokes / four button edges; no additional gestures introduced"
+  ],
+  "reproduction": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools/task_aa/build.ps1",
+    "python tools/task_aa/check.py",
+    "python tools/task_aa/run.py --out local/task-aa/disabled-<fresh> --disabled --port 19901",
+    "python tools/task_aa/run.py --out local/task-aa/session-<fresh> --port 19902",
+    "python tools/task_aa/analyze.py --out local/task-aa/session-<fresh> --disabled local/task-aa/disabled-<fresh> --export docs/BrainAge_TaskAA_Result.json"
+  ],
+  "stop": "No second store, answer completion, count/phase progression, history/save integration or Task AB"
+}
