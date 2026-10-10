@@ -1,0 +1,49 @@
+{
+  "classification": "BLOCKED: mapped context absent at custom-host boundary",
+  "exact_entry": {
+    "boundary_pc": "0x204d790",
+    "scenes": [
+      50,
+      65,
+      17
+    ],
+    "mapped_shape_matches": {
+      "contexts": [],
+      "slots": [],
+      "managers": []
+    },
+    "positive_control": {
+      "contexts": [
+        "0x211b994"
+      ],
+      "slots": [
+        "0x20faa50"
+      ],
+      "managers": [
+        "0x20fa808",
+        "0x20fa840"
+      ]
+    },
+    "scan_limit": "Known initialized shape in all canonical 4 MiB main RAM; does not prove absence of every conceivable alternative context format",
+    "mainram_sha256": "34c4307521d05dad103a7020eeb7ecf209c710c823c50cddef4c786233417b7f",
+    "save_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "logical_save_requests": 0,
+    "flash_commits": 0,
+    "changed_save_bytes": 0
+  },
+  "compiled_corroboration": {
+    "sequence": 1,
+    "kind": "lifecycle",
+    "pc": 33871760,
+    "backend": "compiled",
+    "forced_tier3": false,
+    "cycles": 2320143205,
+    "instruction": 209065880,
+    "r0": 65,
+    "r1": 50,
+    "lr": 33882728
+  },
+  "implementation_changed": false,
+  "service_calls": 0,
+  "task_u_begun": false
+}
