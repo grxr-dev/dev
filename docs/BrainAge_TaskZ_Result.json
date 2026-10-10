@@ -1,0 +1,635 @@
+{
+  "classification": "FULL PASS (original correct decision only; not accepted; forced Tier-3)",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "predecessor": "256c4412f5052ddd17ad307f5c6c66a65515653f",
+  "problem": "11 - 7",
+  "expected": 4,
+  "prior_correct_count": 1,
+  "phase_before_and_after": 1,
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "freeze": {
+    "sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+    "frozen_utc": "2026-10-10T14:47:55.828191+00:00",
+    "canonical": "UTF-8 JSON sort_keys=True separators=(',',':'), no newline",
+    "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f"
+  },
+  "authoritative_path": "local\\task-z\\session-001",
+  "disabled_path": "local\\task-z\\disabled-001",
+  "input_source": "SDL_PushEvent -> normal frontend mapping -> nds_set_touch -> native owner",
+  "custom_events": 10,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 24817,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 60671,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "publication": {
+    "event": "publication_blocked",
+    "pc": 33711796,
+    "integer": 4,
+    "slot": 34581072,
+    "exercise": 34511360,
+    "manager": 34580488,
+    "publication_entries": 1,
+    "slot_reads": 1,
+    "correctness_entries": 0,
+    "exercise_equal": true,
+    "manager_equal": true
+  },
+  "staged_transient_writes": [
+    {
+      "event": "stage",
+      "address": 34581872,
+      "before": 4294967295,
+      "after": 4
+    },
+    {
+      "event": "stage",
+      "address": 34581940,
+      "before": 0,
+      "after": 1
+    }
+  ],
+  "private_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "hold_samples": [
+    {
+      "event": "panel_active",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": true,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 0
+    },
+    {
+      "event": "released_stroke",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": true,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 129
+    },
+    {
+      "event": "released_stroke",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": true,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 159
+    },
+    {
+      "event": "owners_removed",
+      "pc": 33711756,
+      "cycle9": 3416875127,
+      "cycle7": 1708437504,
+      "insn9": 281097760,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    }
+  ],
+  "terminal_sample": {
+    "event": "terminal_publication",
+    "pc": 33711796,
+    "cycle9": 3416875293,
+    "cycle7": 1708437638,
+    "insn9": 281097834,
+    "insn7": 96026779,
+    "guest_deliveries": 1,
+    "owner": false,
+    "down": false,
+    "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+    "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+    "current": 17,
+    "requested": 17,
+    "selected": 17,
+    "presents": 160
+  },
+  "objects": {
+    "exercise": {
+      "before_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "after_sha256": "5746b58282dc4497ae6a26889bf9a2b41128a63fcab3a796ea5687b69ea89a39",
+      "changes": [
+        {
+          "address": "0x020E9F14",
+          "before": 255,
+          "after": 4
+        }
+      ]
+    },
+    "manager": {
+      "before_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "after_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "changes": []
+    },
+    "slot": {
+      "before_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "after_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "changes": []
+    }
+  },
+  "mainram": {
+    "before_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "after_private_service_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "at_block_sha256": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "changed_bytes_at_block": 4,
+    "changed_ranges_at_block": [
+      {
+        "start": "0x20fad70",
+        "end_inclusive": "0x20fad73",
+        "length": 4
+      }
+    ]
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "focused_tests": {
+    "decision_guard": {
+      "pass": true,
+      "output": "PASS: exact sequence, repeated-entry, wrong-path, acceptance/progression/save/budget rejection and correct predicate"
+    },
+    "policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "legacy_v_contract": {
+      "pass": true,
+      "output": "PASS: adapter parity/bounds/SHA256, selector, candidate-independent exit, error exit and no third stroke"
+    },
+    "generic_w_contract": {
+      "pass": true,
+      "output": "PASS: successful no-candidate phase/render/continued capture/safe exit, later candidate replacement, 8 strokes/512 points, error exit, selectors"
+    },
+    "arithmetic": {
+      "pass": true,
+      "output": "PASS: activation aliases/precedence, unchanged quiz pixels, touch/exit contract and non-quiz mock"
+    },
+    "freehand": {
+      "pass": true,
+      "output": "PASS: line endpoints/bounds/interpolation, two strokes, motion/release, exit and bounded storage"
+    },
+    "legacy_v_service": {
+      "pass": true,
+      "output": "PASS: production service 2 -> 4 twice, session reset, invalid input, fixed original teardown and untouched source snapshot"
+    },
+    "groups_secondary": {
+      "pass": true,
+      "output": "PASS: production service 2 -> 4 twice, session reset, invalid input, fixed original teardown and untouched source snapshot"
+    },
+    "selectors": {
+      "pass": true,
+      "ids": [
+        "arithmetic-2plus2",
+        "freehand-canvas",
+        "digit-recognition-probe",
+        "digit-entry-probe"
+      ]
+    },
+    "unchanged_host_service_exercises": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "source_unchanged": true,
+  "no_counter_restoration": true,
+  "no_rom_or_generated_code_edit": true,
+  "limits": [
+    "Retained single authoritative run audited; no second correctness invocation.",
+    "Forced Tier-3; no compiled correctness parity.",
+    "Exercise +0x514 is submitted units, changes FF to 04 before comparison; it is not stack scratch or acceptance.",
+    "Correct decision only, no answer acceptance or gameplay resume."
+  ],
+  "recommended_next_task": "Separately authorize Task AA: same causal input, execute only MOVEQ at 0x02025734 then first acceptance STREQ at 0x02025738; halt before 0x0202573C and audit only +0x20=1. Count, phase, result flag, progression, history and save must remain unchanged. Do not execute under Task Z.",
+  "evidence_provenance": "Existing untracked Task Z sources and completed session-001 discovered in fresh Astra Medium thread; independently audited, without repeating the authoritative invocation.",
+  "runner_sha256": "f3ccf4cd4c377d0f345d1b943e47f134ecedd6d475da43038f50b203b62b4e28",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "15b3fc7f0e11b571444ee899a82d2fe46bbf969c588d9e69b02eb1e5201fb4e3",
+    "guard.h": "ccdb896ae2bd33f2312b055cbf4da69d2756e4bef30efbc86f8e7269989f55fd",
+    "task_z_decision.inc": "6b1c0fd07a5980a1150829a0cef3bfc0c8f7ea9c7c6ee47d6fee57b92ddf070e"
+  },
+  "static_ranges": [
+    {
+      "start": "0x2025698",
+      "end_exclusive": "0x202583c",
+      "sha256": "9bb82d605ddda2fea32e5fe4bce42338cb1aec9d3d168609f0d553d92d7716e3"
+    },
+    {
+      "start": "0x2026510",
+      "end_exclusive": "0x2026710",
+      "sha256": "95fae61487ca72a0cdd372113504da659587f3faebe3a4b8f71b4dbfe16243c4"
+    },
+    {
+      "start": "0x2026be4",
+      "end_exclusive": "0x2026c08",
+      "sha256": "c6250e7e9bf573957c981479d45686e994c3ab7738f43393765a8a2d2a259ade"
+    }
+  ],
+  "decision_before": {
+    "event": "decision_before",
+    "pc": 33711796,
+    "opcode": 3959421999,
+    "r": [
+      34511360,
+      0,
+      4,
+      0,
+      1,
+      34511360,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827100,
+      33711760,
+      33711796
+    ],
+    "n": 0,
+    "z": 0,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097834
+  },
+  "comparison": {
+    "event": "decision_step",
+    "pc": 33707816,
+    "opcode": 3780182021,
+    "r": [
+      34511360,
+      4,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707816
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097872
+  },
+  "safe_stop": {
+    "event": "decision_step",
+    "pc": 33707828,
+    "opcode": 60821505,
+    "r": [
+      34511360,
+      4,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707828
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097875
+  },
+  "decision": {
+    "event": "decision_stopped",
+    "correct": true,
+    "accepted": false,
+    "correctness_entries": 1,
+    "comparison_entries": 1,
+    "forbidden_entries": 0,
+    "acceptance_stores_executed": 0,
+    "progression_entries": 0,
+    "save_entries": 0,
+    "instructions": 41
+  },
+  "first_forbidden": {
+    "pc": "0x02025738",
+    "opcode": "0x05801020",
+    "behavior": "STREQ r1,[r0,#0x20] writes 1 to 0x020E9A20; next 0x0202573C sets +0x504=1."
+  },
+  "fields": {
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ],
+    "expected": [
+      4,
+      4
+    ],
+    "result_delay": [
+      0,
+      0
+    ],
+    "result_flag": [
+      0,
+      0
+    ],
+    "input_status": [
+      0,
+      0
+    ],
+    "submitted_tens": [
+      255,
+      255
+    ],
+    "submitted_units": [
+      255,
+      4
+    ],
+    "later_outcome": [
+      255,
+      255
+    ]
+  },
+  "decision_mainram_changes": [
+    {
+      "address": "0x020E9F14",
+      "before": 255,
+      "after": 4
+    }
+  ],
+  "decision_dtcm_changes": [
+    {
+      "address": "0x027E3B08",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B09",
+      "before": 154,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0A",
+      "before": 14,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0B",
+      "before": 2,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0D",
+      "before": 0,
+      "after": 154
+    },
+    {
+      "address": "0x027E3B0E",
+      "before": 0,
+      "after": 14
+    },
+    {
+      "address": "0x027E3B0F",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B10",
+      "before": 0,
+      "after": 48
+    },
+    {
+      "address": "0x027E3B11",
+      "before": 0,
+      "after": 88
+    },
+    {
+      "address": "0x027E3B12",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B13",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B14",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B18",
+      "before": 144,
+      "after": 184
+    }
+  ],
+  "decision_samples": [
+    {
+      "event": "decision_before_sample",
+      "pc": 33711796,
+      "cycle9": 3416875293,
+      "cycle7": 1708437638,
+      "insn9": 281097834,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    },
+    {
+      "event": "decision_stop_sample",
+      "pc": 33707828,
+      "cycle9": 3416875379,
+      "cycle7": 1708437638,
+      "insn9": 281097875,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    }
+  ],
+  "disabled_control": {
+    "pass": true,
+    "recognition_entries": 0,
+    "publication_entries": 0,
+    "correctness_entries": 0,
+    "mainram_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "exit_code": 0
+  },
+  "decision_memory_hashes": {
+    "mainram_before": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "mainram_after": "6f9381ff8e12de322985ec992652f1e718c3d267182049e2144b27ae6ad98af5",
+    "dtcm_before": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "dtcm_after": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff"
+  },
+  "earliest_fixed_context_proof": {
+    "pc": "0x0202572C",
+    "opcode": "0x13A03001",
+    "condition": "CMP submitted units 4 against expected units 4 has Z=1; r3 mismatch remains 0. Chosen stop additionally observes final CMP r3,0."
+  },
+  "stack_write_footprint": {
+    "bytes_written": 20,
+    "bytes_changed": 13,
+    "ranges": [
+      "0x027E3B08..0x027E3B13",
+      "0x027E3B14..0x027E3B1B"
+    ],
+    "reserved_unwritten_bytes": 4,
+    "reconstructed_pushes_equal_full_dtcm": true
+  }
+}
