@@ -1,0 +1,170 @@
+{
+  "classification": "BLOCKED",
+  "cause_category": "E",
+  "established_failure": "New stable USER UUID observed but no canonical payload match; deadline expiry while URL bound. Trace cannot prove that UUID belongs to target or what text differed. No concurrency/navigation cause established.",
+  "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+  "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+  "result_sha256_from_delivery_id": "55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+  "wrapped_payload_sha256": "0aaad13386e096e8a926d91bd99b3c6ae7c6835e6b14fb59ba177270c766235f",
+  "build": "inbox-v1-trace-20261011-01",
+  "queue_state_observed": "NEEDS_REVIEW",
+  "attempt_count": 1,
+  "samples": 252,
+  "sample_range": [
+    1,
+    252
+  ],
+  "all_samples_bound": true,
+  "baseline_ids": [
+    "9092be6f-a8ef-442a-b89b-bbe174ae4ab3",
+    "a8af8144-05b6-4769-b9ec-ebd5897abb07",
+    "1147a71b-1134-4793-8212-57cebf92806e",
+    "247b4f05-d709-4e08-80a8-bd1188b3754b"
+  ],
+  "new_uuids": [
+    "8e8126f2-eb9b-41a7-8b02-746dfc18f07d"
+  ],
+  "new_first_observed_utc": "2026-10-11T07:46:46.954000+00:00",
+  "candidate_source": "bubble",
+  "canonical_matches": 0,
+  "hash_checks_for_new_candidate": 0,
+  "timeline": [
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "start",
+      "ts_ms": 1791704806556,
+      "bound": true,
+      "payload_sha256": "0aaad13386e096e8a926d91bd99b3c6ae7c6835e6b14fb59ba177270c766235f",
+      "native_received_ms": 1791704806557,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:46:46.556000+00:00"
+    },
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "baseline",
+      "ts_ms": 1791704806565,
+      "baseline_ids": [
+        "9092be6f-a8ef-442a-b89b-bbe174ae4ab3",
+        "a8af8144-05b6-4769-b9ec-ebd5897abb07",
+        "1147a71b-1134-4793-8212-57cebf92806e",
+        "247b4f05-d709-4e08-80a8-bd1188b3754b"
+      ],
+      "baseline_count": 4,
+      "baseline_truncated": false,
+      "bound": true,
+      "native_received_ms": 1791704806566,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:46:46.565000+00:00"
+    },
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "outcome",
+      "ts_ms": 1791704806670,
+      "state": "NEEDS_REVIEW",
+      "reason": "Send initiated; outcome pending",
+      "pre_send": false,
+      "bound": true,
+      "native_received_ms": 1791704806671,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:46:46.670000+00:00"
+    },
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "send",
+      "ts_ms": 1791704806670,
+      "bound": true,
+      "native_received_ms": 1791704806672,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:46:46.670000+00:00"
+    },
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "deadline",
+      "ts_ms": 1791704806693,
+      "deadline_ms": 1791704896693,
+      "bound": true,
+      "native_received_ms": 1791704806694,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:46:46.693000+00:00"
+    },
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "terminal",
+      "ts_ms": 1791704896867,
+      "reason": "deadline_expired",
+      "bound": true,
+      "deadline_ms": 1791704896693,
+      "state": "NEEDS_REVIEW",
+      "native_received_ms": 1791704896868,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:48:16.867000+00:00"
+    },
+    {
+      "build": "inbox-v1-trace-20261011-01",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "event": "outcome",
+      "ts_ms": 1791704896868,
+      "state": "NEEDS_REVIEW",
+      "reason": "Send may have occurred; no stable exact-payload new USER identity within verification deadline",
+      "pre_send": false,
+      "bound": true,
+      "native_received_ms": 1791704896869,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:48:16.868000+00:00"
+    },
+    {
+      "event": "native_outcome",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "state": "NEEDS_REVIEW",
+      "ts_ms": 1791704896870,
+      "native_received_ms": 1791704896870,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:48:16.870000+00:00"
+    },
+    {
+      "event": "ack_committed",
+      "delivery_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01:55d335770f74c7ad496cb4c85b9e125eea0789221f065efff24788dffb9979f5",
+      "state": "NEEDS_REVIEW",
+      "ts_ms": 1791704896922,
+      "native_received_ms": 1791704896922,
+      "request_id": "jarvis-inbox-v1-seq57-readonly-diagnostic-20261010-01",
+      "utc": "2026-10-11T07:48:16.922000+00:00"
+    }
+  ],
+  "missing_trace_fields": [
+    "extracted canonical text or mismatch position",
+    "candidate hash when canonical_match=false",
+    "actual URL/conversation ID",
+    "tab identity"
+  ],
+  "browser_access_errors": [
+    "node_repl: windows sandbox failed: helper_unknown_error: setup refresh had errors",
+    "cua_repl: trusted Node process exited unexpectedly"
+  ],
+  "production_code_changed": false,
+  "historical_state_changed": false,
+  "live_smoke_run": false,
+  "tests": {
+    "content": {
+      "passed": 45
+    },
+    "background": {
+      "passed": 10
+    },
+    "native_queue": {
+      "passed": 30
+    },
+    "full_hardening": {
+      "passed": false,
+      "note": "HandlerTests setUpClass error; cleanup reported locked temporary completions.sqlite3. NativeTests/QueueTests isolated rerun passed."
+    }
+  },
+  "reload_restart_required": false,
+  "remaining_access": "Working live Firefox DOM/extension inspection, or a narrowly captured DOM/text/hash snapshot of UUID 8e8126f2-eb9b-41a7-8b02-746dfc18f07d in the permanent conversation. Then establish exact mismatch before patching."
+}
