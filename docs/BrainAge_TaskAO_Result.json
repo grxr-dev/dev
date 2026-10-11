@@ -1,0 +1,432 @@
+{
+  "task": "AO - single second value-changing object store",
+  "classification": "FULL PASS",
+  "authoritative_an_commit": "0f3d697861a8d52f569ec051915258e02915d878",
+  "authoritative_am_commit": "cb2126cfa0c2e75714b993cdc0124c49c8e1b680",
+  "authoritative_al_commit": "7fe0ee8abba3ff487971c1ff4fb4ab6a45775e70",
+  "branch": "codex/brainage",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "evidence_tier": "Forced Tier-3 exact-context original ARM interpreter; no compiled parity",
+  "authoritative_path": "local/task-ao/session-001",
+  "disabled_path": "local/task-ao/disabled-001",
+  "complete_AN_prefix_exact": true,
+  "an_cpu_images_save_ordinals_revalidated": true,
+  "ao_start": {
+    "event": "ao_before",
+    "pc": 33979460,
+    "opcode": 3850633808,
+    "r": [
+      34809680,
+      34807076,
+      0,
+      31,
+      34512752,
+      0,
+      218,
+      34511360,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      33710096,
+      33979460
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097944
+  },
+  "ao_stop": {
+    "event": "decision_step",
+    "pc": 33979464,
+    "opcode": 3785359364,
+    "r": [
+      34809680,
+      34807076,
+      0,
+      31,
+      34512752,
+      0,
+      218,
+      34511360,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      33710096,
+      33979464
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097945
+  },
+  "executed_pcs": [
+    "0x02067C44"
+  ],
+  "terminal_pc": "0x02067C48",
+  "terminal_dispatched": false,
+  "store_event": {
+    "event": "ao_write_event",
+    "path": "Interpreter::step -> RtBus::write32 -> bus_write_u32",
+    "pc": 33979460,
+    "opcode": 3850633808,
+    "address": 34513344,
+    "width": 4,
+    "source_register": 0,
+    "value": 34809680,
+    "before": 34814488,
+    "after": 34809680
+  },
+  "register_deltas": [
+    {
+      "register": "PC",
+      "before": "0x02067C44",
+      "after": "0x02067C48"
+    }
+  ],
+  "flags_before": [
+    0,
+    0,
+    1,
+    0
+  ],
+  "flags_after": [
+    0,
+    0,
+    1,
+    0
+  ],
+  "memory": {
+    "mainram_changed_bytes": 2,
+    "dtcm_changed_bytes": 0,
+    "write_events": 1,
+    "byte_changes": [
+      {
+        "address": "0x020EA1C0",
+        "before": 24,
+        "after": 80
+      },
+      {
+        "address": "0x020EA1C1",
+        "before": 58,
+        "after": 39
+      }
+    ],
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x630",
+        "address": "0x020EA030",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x5f0",
+        "address": "0x020E9FF0",
+        "width": 4,
+        "before": 68,
+        "after": 68
+      },
+      {
+        "offset": "0x5d0",
+        "address": "0x020E9FD0",
+        "width": 4,
+        "before": 34807076,
+        "after": 34807076
+      },
+      {
+        "offset": "0x7c0",
+        "address": "0x020EA1C0",
+        "width": 4,
+        "before": 34814488,
+        "after": 34809680
+      },
+      {
+        "offset": "0x7bc",
+        "address": "0x020EA1BC",
+        "width": 4,
+        "before": 34512948,
+        "after": 34512948
+      },
+      {
+        "offset": "0x7e8",
+        "address": "0x020EA1E8",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7c8",
+        "address": "0x020EA1C8",
+        "width": 4,
+        "before": 184320,
+        "after": 184320
+      },
+      {
+        "offset": "0x7cc",
+        "address": "0x020EA1CC",
+        "width": 4,
+        "before": 393216,
+        "after": 393216
+      },
+      {
+        "offset": "0x7d0",
+        "address": "0x020EA1D0",
+        "width": 4,
+        "before": 4096,
+        "after": 4096
+      },
+      {
+        "offset": "0x7d4",
+        "address": "0x020EA1D4",
+        "width": 4,
+        "before": 4096,
+        "after": 4096
+      },
+      {
+        "offset": "0x7f8",
+        "address": "0x020EA1F8",
+        "width": 2,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7dc",
+        "address": "0x020EA1DC",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7e0",
+        "address": "0x020EA1E0",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7fa",
+        "address": "0x020EA1FA",
+        "width": 2,
+        "before": 65535,
+        "after": 65535
+      },
+      {
+        "offset": "0x7ec",
+        "address": "0x020EA1EC",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7f0",
+        "address": "0x020EA1F0",
+        "width": 4,
+        "before": 4294967295,
+        "after": 4294967295
+      },
+      {
+        "offset": "0x7d8",
+        "address": "0x020EA1D8",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7e4",
+        "address": "0x020EA1E4",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7f4",
+        "address": "0x020EA1F4",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      }
+    ],
+    "mainram_before_sha256": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "mainram_after_sha256": "541991ee1d577324f15893effad69140c1aa0e2d7aeb3a8d302eabbae01e24bd",
+    "dtcm_before_sha256": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dtcm_after_sha256": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716"
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "state_effects": {
+    "MMIO_accesses": 0,
+    "unexpected_writes": 0,
+    "video_touch_scene_unchanged": true,
+    "gameplay_resumed": false,
+    "additional_effect_beyond_isolated_store": false
+  },
+  "accounting": {
+    "insn9": {
+      "before": 281097944,
+      "after": 281097945,
+      "delta": 1
+    },
+    "cycle9": {
+      "before": 3416875550,
+      "after": 3416875553,
+      "delta": 3
+    },
+    "insn7": {
+      "before": 96026779,
+      "after": 96026779,
+      "delta": 0
+    },
+    "cycle7": {
+      "before": 1708437767,
+      "after": 1708437767,
+      "delta": 0
+    }
+  },
+  "focused_tests": {
+    "AO_guard": "PASS 11 AO dispatch/store guard assertions",
+    "AN_guard": "PASS: ordered 19-dispatch budget, terminal non-dispatch, all CPU/opcode negatives, exactly 22 reads and zero allowed writes",
+    "policy": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing",
+    "hook_order_and_single_bus_call": "PASS"
+  },
+  "disabled_control_pass": true,
+  "runner_sha256": "030fd99a685fd31fbeb0599d70cff042be04308626f3c61d0503842476d5c904",
+  "installed_source_sha256": {
+    "diagnostic.h": "512a9fb93c4d464c536edd40fdcc08e6eed603dae894a8cc05047b0cf62d927d",
+    "guard.h": "fc1e8944423b2df049101c1311b65af0703486102a7722d13e5c2bf342c07349",
+    "task_ao_decision.inc": "e1525df8db59aa29b6c19db21dedb81604c32f71e2df56328aef3ee06d016f6b"
+  },
+  "limitations": [
+    "Forced Tier-3 frozen context; no compiled parity",
+    "Semantic role of exercise +0x7C0 unproven",
+    "No successor dispatch or helper return"
+  ],
+  "next_smallest_task": "Read-only audit of successor at 0x02067C48 and its smallest safe boundary; AP not started"
+}
