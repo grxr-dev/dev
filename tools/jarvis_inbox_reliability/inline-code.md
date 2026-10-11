@@ -1,0 +1,11 @@
+# Seq55 proven inline-code comparison mismatch
+
+Phase1: exact supplied payload versus identical observed text with inline-code delimiters removed tested against unchanged installed verifier. Raw canonical strings and SHA-256 unequal; delivery NEEDS_REVIEW. First difference UTF-16 index 139. Complete differences: seven delimiter pairs (14 backticks) around data-chatgpt-search-message-ids, innerText, two installed paths, commit SHA, dev, and /chatgpt-inbox. All contents and other Markdown punctuation remain identical. Phase1 content tests 35/35 passed before production changes.
+
+Fix: preserve raw LF-only canonicalization, submission hash, composer checks and payload. For bubble-only discovery (not markdown-tone or legacy), allow exactly the expected rendering of simple single-line single-backtick spans in the submitted payload. Strip only paired delimiters, preserve contents byte-for-byte, compare complete candidate text and hash against that expected rendering. Documents containing backslashes, multiple backticks or tilde fences stay exact-only. Exact raw matching is still preferred. Stable new UUID and consecutive samples remain required. Existing native result schema retains the submitted payload hash following proof of its expected rendering; raw bubble hash may differ. No visible payload changes or resend logic changes.
+
+Installed changes: ../bridge/inbox-v1/extension/chatgpt_content.js and ../bridge/inbox-v1/tests/test_content.js. inline-code.patch captures their complete incremental diff from df75a2a installed source. seq55-inline-code-fixture.json stores the exact supplied raw/observed strings. Bridge is outside dev Git; commit contains artifacts under this directory following prior convention.
+
+Validation after fix: 41/41 content; 8/8 background. Covers exact seq55, changed inline-code contents, unrelated bubbles, prior UUID, multiple normalized matches, idempotency, delayed render, unchanged markdown-tone path and excluded syntax. An initial helper escaping defect was caught and corrected by focused tests.
+
+No browser, live smoke, held seq55 state, watcher, cursor, outbound or Brain Age operations. Reload Firefox extension and bound tab; perform a separately authorized NEW production smoke. Do not resend held seq55. Live validation remains outstanding.
