@@ -1,0 +1,743 @@
+{
+  "classification": "FULL PASS",
+  "task": "AC - one instruction beyond Task AB",
+  "predecessor": "9b3396619e0b853ea8445929428beee6919aa15d",
+  "branch": "codex/brainage",
+  "evidence_tier": "Forced Tier-3 original ARM interpreter; no compiled acceptance parity claim",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "authoritative_path": "local\\task-ac\\session-001",
+  "disabled_path": "local\\task-ac\\disabled-001",
+  "runner_sha256": "e825395136476c1008f665ca7b9caa1131f0be38c4683ceb394a53205429ecfe",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "40f8a2ac430208fedf0f3017458f4811f75f773bb20161b796bddc2ef145c5be",
+    "guard.h": "917550f8f00db80b0faa1f91a779f91a546e4471b58d00676fd0f3de51ba0a48",
+    "task_ac_decision.inc": "58c61fd8f1a2a91e48aeb7e2cf21f1ba09439cf3a1e450c311862c66d3ae38d3"
+  },
+  "pre_execution_decode": {
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "pc": "0x2025740",
+    "opcode": "0x028DD004",
+    "decoded": "addeq sp, sp, #4",
+    "condition": "EQ / Z == 1",
+    "source_register": 13,
+    "destination_register": 13,
+    "source_value": 41827076,
+    "immediate": 4,
+    "rotate": 0,
+    "expected_value": 41827080,
+    "flags_updated": false,
+    "memory_write": false,
+    "effective_memory_address": null,
+    "branch_or_call": false,
+    "branch_call_target": null,
+    "lr_before": 0,
+    "lr_expected": 0,
+    "expected_successor": "0x02025744",
+    "successor_opcode": "0x08BD8030",
+    "static_evidence": "Retained local/task-z/static-001/02025698.txt agrees with independent exact-ROM Capstone decode",
+    "safe": true
+  },
+  "live_pre_execution_decode": {
+    "event": "instruction_identified",
+    "pc": 33707840,
+    "opcode": 42848260,
+    "condition": "EQ",
+    "decoded": "ADDEQ sp,sp,#4",
+    "source_register": 13,
+    "destination_register": 13,
+    "source_value": 41827076,
+    "immediate": 4,
+    "expected_value": 41827080,
+    "memory_write": false,
+    "branch_or_call": false,
+    "lr": 0,
+    "successor": 33707844
+  },
+  "pre_instruction_state": {
+    "event": "stack_adjust_before",
+    "pc": 33707840,
+    "opcode": 42848260,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      0,
+      33707840
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097878
+  },
+  "safe_stop": {
+    "event": "decision_step",
+    "pc": 33707844,
+    "opcode": 146636848,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      10,
+      4,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827080,
+      0,
+      33707844
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097879
+  },
+  "boundary": {
+    "executed_pc": "0x02025740",
+    "opcode": "0x028DD004",
+    "decoded": "ADDEQ sp,sp,#4",
+    "condition": "EQ, Z=1",
+    "source_and_destination_register": "r13 / SP",
+    "source_value": "0x027E3B04",
+    "destination_value": "0x027E3B08",
+    "immediate": 4,
+    "memory_write": false,
+    "branch_or_call": false,
+    "branch_call_target": null,
+    "lr_before": 0,
+    "lr_after": 0,
+    "successor_pc": "0x02025744",
+    "successor_opcode": "0x08BD8030",
+    "successor_instruction_executed": false,
+    "new_instructions_beyond_AB": 1,
+    "decision_dispatches": 45,
+    "observations": 46,
+    "proof": "Fixed pre-dispatch allowlist rejects successor at every index; terminal hook halts and preserves unwind before instruction count/fetch/step; clean exit"
+  },
+  "trace": [
+    {
+      "event": "decision_step",
+      "pc": 33707832,
+      "opcode": 92278816,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707832
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097876,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707836,
+      "opcode": 92280068,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707836
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097877,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707840,
+      "opcode": 42848260,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        0,
+        33707840
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097878,
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33707844,
+      "opcode": 146636848,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        10,
+        4,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827080,
+        0,
+        33707844
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097879,
+      "dispatch_permitted": false
+    }
+  ],
+  "immediate_fields": {
+    "result_delay": [
+      1,
+      1
+    ],
+    "result_flag": [
+      1,
+      1
+    ],
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ]
+  },
+  "decision_fields": {
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ],
+    "expected": [
+      4,
+      4
+    ],
+    "result_delay": [
+      0,
+      1
+    ],
+    "result_flag": [
+      0,
+      1
+    ],
+    "input_status": [
+      0,
+      0
+    ],
+    "submitted_tens": [
+      255,
+      255
+    ],
+    "submitted_units": [
+      255,
+      4
+    ],
+    "later_outcome": [
+      255,
+      255
+    ]
+  },
+  "immediate_ram_changes": [],
+  "immediate_ram_changed_bytes": 0,
+  "immediate_dtcm_changed_bytes": 0,
+  "register_changes": [
+    {
+      "register": "SP",
+      "before": "0x027E3B04",
+      "after": "0x027E3B08"
+    },
+    {
+      "register": "PC",
+      "before": "0x02025740",
+      "after": "0x02025744"
+    }
+  ],
+  "flags_unchanged": true,
+  "objects": {
+    "exercise": {
+      "before_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "after_sha256": "fa5f46ad9f8493ff7d122b1f0ef478ad5cf8640243128ee65101191c7b367ef4",
+      "changes": [
+        {
+          "address": "0x020E9A20",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F04",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F14",
+          "before": 255,
+          "after": 4
+        }
+      ]
+    },
+    "manager": {
+      "before_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "after_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "changes": []
+    },
+    "slot": {
+      "before_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "after_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "changes": []
+    }
+  },
+  "decision_mainram_changes": [
+    {
+      "address": "0x020E9A20",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F04",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F14",
+      "before": 255,
+      "after": 4
+    }
+  ],
+  "decision_dtcm_changes": [
+    {
+      "address": "0x027E3B08",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B09",
+      "before": 154,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0A",
+      "before": 14,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0B",
+      "before": 2,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0D",
+      "before": 0,
+      "after": 154
+    },
+    {
+      "address": "0x027E3B0E",
+      "before": 0,
+      "after": 14
+    },
+    {
+      "address": "0x027E3B0F",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B10",
+      "before": 0,
+      "after": 48
+    },
+    {
+      "address": "0x027E3B11",
+      "before": 0,
+      "after": 88
+    },
+    {
+      "address": "0x027E3B12",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B13",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B14",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B18",
+      "before": 144,
+      "after": 184
+    }
+  ],
+  "task_ab_prefix_exact_register_flags_opcode_ordinal_match": true,
+  "immediate_before_ram_and_dtcm_equal_task_ab_stop": true,
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "input": {
+    "problem": "11 - 7",
+    "expected": 4,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "source": "unchanged Task V/W known 4",
+    "input": "SDL queue before frontend mapping"
+  },
+  "input_source": "SDL_PushEvent -> frontend mapping -> nds_set_touch -> native owner -> isolated recognizer -> original publication/correctness",
+  "custom_events": 10,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 22953,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 54660,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "private_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "decision": {
+    "event": "decision_stopped",
+    "correct": true,
+    "accepted": false,
+    "correctness_entries": 1,
+    "comparison_entries": 1,
+    "forbidden_entries": 0,
+    "acceptance_stores_executed": 2,
+    "progression_entries": 0,
+    "save_entries": 0,
+    "instructions": 45
+  },
+  "decision_samples": [
+    {
+      "event": "decision_before_sample",
+      "pc": 33711796,
+      "cycle9": 3416875293,
+      "cycle7": 1708437638,
+      "insn9": 281097834,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    },
+    {
+      "event": "stack_adjust_before_sample",
+      "pc": 33707840,
+      "cycle9": 3416875386,
+      "cycle7": 1708437638,
+      "insn9": 281097878,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    },
+    {
+      "event": "decision_stop_sample",
+      "pc": 33707844,
+      "cycle9": 3416875387,
+      "cycle7": 1708437638,
+      "insn9": 281097879,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    }
+  ],
+  "prohibited_state": {
+    "result_delay_unchanged_from_AB": true,
+    "result_flag_unchanged_from_AB": true,
+    "correct_count_unchanged": true,
+    "phase_unchanged": true,
+    "mainram_changed_bytes_during_AC": 0,
+    "dtcm_changed_bytes_during_AC": 0,
+    "score_progression_history": "No RAM/DTCM bytes changed; no downstream entry; no invented offsets",
+    "downstream_routine_entries": 0,
+    "ARM7_cycles_and_ordinal_unchanged": true,
+    "guest_video_touch_scene_unchanged": true
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "hashes": {
+    "immediate_mainram_before": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "immediate_mainram_after": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "immediate_dtcm_before": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "immediate_dtcm_after": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff"
+  },
+  "disabled_control": {
+    "pass": true,
+    "recognition_entries": 0,
+    "publication_entries": 0,
+    "correctness_entries": 0,
+    "ram_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "exit_code": 0
+  },
+  "focused_tests": {
+    "stack_adjust_guard": {
+      "pass": true,
+      "output": "PASS: Task AB prefix parity; exactly 45 dispatches; successor never dispatchable; fixed store/stack-adjust operands/decode; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: Task AA prefix parity; exactly 44 dispatches; successor never dispatchable; fixed store operands/decode; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "source_checkpoint_and_save_unchanged": true,
+  "gameplay_resumed": false,
+  "answer_completed": false,
+  "deviations_from_task_ab": [
+    "Fresh authorized SDL replay, exact prefix and immediate pre-RAM/DTCM match",
+    "One more ARM instruction; SP adds four; no new RAM mutation",
+    "Host hold presentation count may vary; no guest divergence"
+  ],
+  "limitations": [
+    "One exact 11 - 7 / recognized 4 context",
+    "Forced Tier-3 only; no compiled parity",
+    "Score/progression/history excluded by exhaustive RAM/DTCM audit and exact path, no speculative field offsets"
+  ],
+  "reproduction": [
+    "python tools/task_ac/preflight.py",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools/task_ac/build.ps1",
+    "python tools/task_ac/check.py",
+    "python tools/task_ac/run.py --out local/task-ac/disabled-FRESH --disabled --port 19921",
+    "python tools/task_ac/run.py --out local/task-ac/session-FRESH --port 19922",
+    "python tools/task_ac/analyze.py --out local/task-ac/session-FRESH --disabled local/task-ac/disabled-FRESH --export docs/BrainAge_TaskAC_Result.json"
+  ],
+  "stop": "No successor POP, answer completion, count/phase progression, score/history/save/menu/optimization integration or Task AD"
+}
