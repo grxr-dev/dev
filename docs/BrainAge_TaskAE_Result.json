@@ -1,0 +1,1345 @@
+{
+  "classification": "FULL PASS",
+  "task": "AE - bounded original caller slice after Task AD",
+  "predecessor": "a8502da4a156cf4cee756ee85afc2e016533bab8",
+  "branch": "codex/brainage",
+  "evidence_tier": "Forced Tier-3 original ARM interpreter; no compiled acceptance parity claim",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "authoritative_path": "local\\task-ae\\session-001",
+  "disabled_path": "local\\task-ae\\disabled-001",
+  "runner_sha256": "b80e50dea69df69420d10a96d944a7108d900c9e56ce099fb96e707611fe18f7",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "6504c73eb6a33d0e04b07c2a624558f8204eb33a0d257420e2a7be0a2e11760b",
+    "guard.h": "fc2467f76d1dffba212676477a1d4b09d67995c14fae33f1eebe686aa7263fe9",
+    "task_ae_decision.inc": "6c1242fd03016b2a3851bb0744227bf59c372a146a24a6c6c3332520a8a953b2"
+  },
+  "pre_execution_analysis": {
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "start": "0x02025830",
+    "stop": "0x02026B90",
+    "stop_opcode": "0xEBFFFDA0",
+    "call_target": "0x02026218",
+    "expected_lr_if_call_executed": "0x02026B94",
+    "call_executed": false,
+    "safe": true,
+    "new_dispatches": 9,
+    "states": [
+      {
+        "pc": 33708080,
+        "opcode": 3904733200,
+        "decoded": "pop {r4, pc}",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          1,
+          34511360,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827092,
+          0,
+          33708080
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33711800,
+        "opcode": 3925868559,
+        "decoded": "b #0x20266fc",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          1,
+          34511360,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827100,
+          0,
+          33711800
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33711868,
+        "opcode": 3818913793,
+        "decoded": "mov r0, #1",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          1,
+          34511360,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827100,
+          0,
+          33711868
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33711872,
+        "opcode": 3800944648,
+        "decoded": "add sp, sp, #8",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          1,
+          34511360,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827100,
+          0,
+          33711872
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33711876,
+        "opcode": 3904733296,
+        "decoded": "pop {r4, r5, r6, pc}",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          1,
+          34511360,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827108,
+          0,
+          33711876
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33712520,
+        "opcode": 3789029872,
+        "decoded": "ldrsh r0, [r8, #0x10]",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          0,
+          33712520
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33712524,
+        "opcode": 3813670914,
+        "decoded": "cmp r0, #2",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          0,
+          33712524
+        ],
+        "nzcv": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33712528,
+        "opcode": 436207741,
+        "decoded": "bne #0x2026b8c",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          0,
+          33712528
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33713036,
+        "opcode": 3785359368,
+        "decoded": "mov r0, r8",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          0,
+          33713036
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33713040,
+        "opcode": 3959422368,
+        "decoded": "bl #0x2026218",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          0,
+          33713040
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": false
+      }
+    ],
+    "stack_reads": [
+      {
+        "address": 41827092,
+        "value": 1
+      },
+      {
+        "address": 41827096,
+        "value": 33711800
+      },
+      {
+        "address": 41827108,
+        "value": 3
+      },
+      {
+        "address": 41827112,
+        "value": 0
+      },
+      {
+        "address": 41827116,
+        "value": 114
+      },
+      {
+        "address": 41827120,
+        "value": 33712520
+      }
+    ],
+    "phase_read": {
+      "address": "0x020E9A10",
+      "signed_halfword": 1
+    },
+    "boundary_reason": "First new semantic routine after correctness/publication returns and phase-one branch. Callee phase-dispatch can write +0x34; stop before BL, no callee body."
+  },
+  "slice_before": {
+    "event": "slice_before",
+    "pc": 33708080,
+    "opcode": 3904733200,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      1,
+      34511360,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827092,
+      0,
+      33708080
+    ],
+    "n": 0,
+    "z": 1,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097880
+  },
+  "safe_stop": {
+    "event": "decision_step",
+    "pc": 33713040,
+    "opcode": 3959422368,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      3,
+      0,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827124,
+      0,
+      33713040
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097889
+  },
+  "boundary": {
+    "start_pc": "0x02025830",
+    "stop_before_pc": "0x02026B90",
+    "stop_opcode": "0xEBFFFDA0",
+    "decoded": "BL 0x02026218",
+    "call_executed": false,
+    "call_target": "0x02026218",
+    "call_target_dispatches": 0,
+    "call_arguments": [
+      34511360,
+      1,
+      4,
+      0
+    ],
+    "r0_meaning": "exercise pointer",
+    "r1_r2_r3_semantic_status": "Residual registers; callee ABI beyond r0 not established",
+    "expected_lr_if_call_executed": "0x02026B94",
+    "actual_lr": 0,
+    "new_instructions_beyond_AD": 9,
+    "decision_dispatches": 55,
+    "observations": 56,
+    "reason": "First new semantic routine after correctness/publication returns and phase-one branch. Callee phase-dispatch can write +0x34; stop before BL, no callee body.",
+    "proof": "Exact fixed path and opcode allowlist; stop before bank handoff/count/fetch/step. No call or save/MMIO routine entered."
+  },
+  "slice_trace": [
+    {
+      "event": "decision_step",
+      "pc": 33708080,
+      "opcode": 3904733200,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        1,
+        34511360,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827092,
+        0,
+        33708080
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097880,
+      "decoded": "pop {r4, pc}",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33711800,
+      "opcode": 3925868559,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        1,
+        34511360,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827100,
+        0,
+        33711800
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097881,
+      "decoded": "b #0x20266fc",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33711868,
+      "opcode": 3818913793,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        1,
+        34511360,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827100,
+        0,
+        33711868
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097882,
+      "decoded": "mov r0, #1",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33711872,
+      "opcode": 3800944648,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        1,
+        34511360,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827100,
+        0,
+        33711872
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097883,
+      "decoded": "add sp, sp, #8",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33711876,
+      "opcode": 3904733296,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        1,
+        34511360,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827108,
+        0,
+        33711876
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097884,
+      "decoded": "pop {r4, r5, r6, pc}",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33712520,
+      "opcode": 3789029872,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33712520
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097885,
+      "decoded": "ldrsh r0, [r8, #0x10]",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33712524,
+      "opcode": 3813670914,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33712524
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097886,
+      "decoded": "cmp r0, #2",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33712528,
+      "opcode": 436207741,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33712528
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097887,
+      "decoded": "bne #0x2026b8c",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33713036,
+      "opcode": 3785359368,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33713036
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097888,
+      "decoded": "mov r0, r8",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33713040,
+      "opcode": 3959422368,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33713040
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097889,
+      "decoded": "bl #0x2026218",
+      "dispatch_permitted": false
+    }
+  ],
+  "slice_stack_reads": [
+    {
+      "address": 41827092,
+      "value": 1
+    },
+    {
+      "address": 41827096,
+      "value": 33711800
+    },
+    {
+      "address": 41827108,
+      "value": 3
+    },
+    {
+      "address": 41827112,
+      "value": 0
+    },
+    {
+      "address": 41827116,
+      "value": 114
+    },
+    {
+      "address": 41827120,
+      "value": 33712520
+    }
+  ],
+  "phase_read": {
+    "address": "0x020E9A10",
+    "signed_halfword": 1
+  },
+  "immediate_fields": {
+    "result_delay": [
+      1,
+      1
+    ],
+    "result_flag": [
+      1,
+      1
+    ],
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ]
+  },
+  "decision_fields": {
+    "correct_count": [
+      1,
+      1
+    ],
+    "phase": [
+      1,
+      1
+    ],
+    "expected": [
+      4,
+      4
+    ],
+    "result_delay": [
+      0,
+      1
+    ],
+    "result_flag": [
+      0,
+      1
+    ],
+    "input_status": [
+      0,
+      0
+    ],
+    "submitted_tens": [
+      255,
+      255
+    ],
+    "submitted_units": [
+      255,
+      4
+    ],
+    "later_outcome": [
+      255,
+      255
+    ]
+  },
+  "immediate_ram_changes": [],
+  "immediate_ram_changed_bytes": 0,
+  "immediate_dtcm_changed_bytes": 0,
+  "register_changes": [
+    {
+      "register": "r4",
+      "before": "0x00000001",
+      "after": "0x00000003"
+    },
+    {
+      "register": "r5",
+      "before": "0x020E9A00",
+      "after": "0x00000000"
+    },
+    {
+      "register": "SP",
+      "before": "0x027E3B14",
+      "after": "0x027E3B34"
+    },
+    {
+      "register": "PC",
+      "before": "0x02025830",
+      "after": "0x02026B90"
+    }
+  ],
+  "flags": {
+    "before": [
+      0,
+      1,
+      1,
+      0
+    ],
+    "after": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "changed_at": "0x0202698C CMP r0,#2; 1-2"
+  },
+  "objects": {
+    "exercise": {
+      "before_sha256": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+      "after_sha256": "fa5f46ad9f8493ff7d122b1f0ef478ad5cf8640243128ee65101191c7b367ef4",
+      "changes": [
+        {
+          "address": "0x020E9A20",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F04",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "address": "0x020E9F14",
+          "before": 255,
+          "after": 4
+        }
+      ]
+    },
+    "manager": {
+      "before_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "after_sha256": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+      "changes": []
+    },
+    "slot": {
+      "before_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "after_sha256": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+      "changes": []
+    }
+  },
+  "decision_mainram_changes": [
+    {
+      "address": "0x020E9A20",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F04",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x020E9F14",
+      "before": 255,
+      "after": 4
+    }
+  ],
+  "decision_dtcm_changes": [
+    {
+      "address": "0x027E3B08",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B09",
+      "before": 154,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0A",
+      "before": 14,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0B",
+      "before": 2,
+      "after": 0
+    },
+    {
+      "address": "0x027E3B0D",
+      "before": 0,
+      "after": 154
+    },
+    {
+      "address": "0x027E3B0E",
+      "before": 0,
+      "after": 14
+    },
+    {
+      "address": "0x027E3B0F",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B10",
+      "before": 0,
+      "after": 48
+    },
+    {
+      "address": "0x027E3B11",
+      "before": 0,
+      "after": 88
+    },
+    {
+      "address": "0x027E3B12",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B13",
+      "before": 0,
+      "after": 2
+    },
+    {
+      "address": "0x027E3B14",
+      "before": 0,
+      "after": 1
+    },
+    {
+      "address": "0x027E3B18",
+      "before": 144,
+      "after": 184
+    }
+  ],
+  "task_ad_prefix_exact_register_flags_opcode_ordinal_match": true,
+  "immediate_before_ram_and_dtcm_equal_task_ad_stop": true,
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "input": {
+    "problem": "11 - 7",
+    "expected": 4,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "source": "unchanged Task V/W known 4",
+    "input": "SDL queue before frontend mapping"
+  },
+  "input_source": "SDL_PushEvent -> frontend mapping -> nds_set_touch -> native owner -> isolated recognizer -> original publication/correctness -> original caller slice",
+  "custom_events": 10,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 22271,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 56927,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "private_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "decision": {
+    "event": "decision_stopped",
+    "correct": true,
+    "accepted": false,
+    "correctness_entries": 1,
+    "comparison_entries": 1,
+    "forbidden_entries": 0,
+    "acceptance_stores_executed": 2,
+    "progression_entries": 0,
+    "save_entries": 0,
+    "instructions": 55
+  },
+  "decision_samples": [
+    {
+      "event": "decision_before_sample",
+      "pc": 33711796,
+      "cycle9": 3416875293,
+      "cycle7": 1708437638,
+      "insn9": 281097834,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    },
+    {
+      "event": "slice_before_sample",
+      "pc": 33708080,
+      "cycle9": 3416875394,
+      "cycle7": 1708437638,
+      "insn9": 281097880,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    },
+    {
+      "event": "decision_stop_sample",
+      "pc": 33713040,
+      "cycle9": 3416875425,
+      "cycle7": 1708437703,
+      "insn9": 281097889,
+      "insn7": 96026779,
+      "guest_deliveries": 1,
+      "owner": false,
+      "down": false,
+      "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+      "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+      "current": 17,
+      "requested": 17,
+      "selected": 17,
+      "presents": 160
+    }
+  ],
+  "state_classification": {
+    "result_delay": {
+      "before": 1,
+      "after": 1
+    },
+    "result_flag": {
+      "before": 1,
+      "after": 1
+    },
+    "correct_count": {
+      "before": 1,
+      "after": 1
+    },
+    "phase": {
+      "before": 1,
+      "after": 1
+    },
+    "score_progression_history_result_completion": "No new RAM/DTCM mutations or semantic callee entry; no speculative score/history offsets",
+    "gameplay_resumed": false,
+    "new_phase_dispatch_call_executed": false,
+    "ARM7_ordinal_unchanged": true,
+    "ARM7_cycles_before": 1708437638,
+    "ARM7_cycles_after": 1708437703,
+    "ARM7_cycle_delta": 65,
+    "guest_video_touch_scene_unchanged": true
+  },
+  "runtime_timing": {
+    "arm9_cycles_before": 3416875394,
+    "arm9_cycles_after": 3416875425,
+    "arm9_cycle_delta": 31,
+    "arm7_cycles_before": 1708437638,
+    "arm7_cycles_after": 1708437703,
+    "arm7_cycle_delta": 65,
+    "arm7_instruction_delta": 0,
+    "note": "Normal scheduler slice/idle cycle accounting advances ARM7 time without ARM7 instruction retirement; no counters restored"
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "hashes": {
+    "immediate_mainram_before": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "immediate_mainram_after": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "immediate_dtcm_before": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "immediate_dtcm_after": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff"
+  },
+  "disabled_control": {
+    "pass": true,
+    "recognition_entries": 0,
+    "publication_entries": 0,
+    "correctness_entries": 0,
+    "ram_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "exit_code": 0
+  },
+  "focused_tests": {
+    "caller_slice_guard": {
+      "pass": true,
+      "output": "PASS: Task AD prefix parity; exactly 55 dispatches; downstream call never dispatchable; fixed POP operands/decode; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: Task AC prefix parity; exactly 46 dispatches; return target never dispatchable; fixed POP operands/decode; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "source_checkpoint_and_save_unchanged": true,
+  "gameplay_resumed": false,
+  "answer_completed": false,
+  "deviations_from_task_ad": [
+    "Fresh authorized SDL replay, exact 47-observation prefix and immediate pre-RAM/DTCM match",
+    "Nine original instructions across two returns and a phase-one branch; no new memory mutation",
+    "ARM7 scheduler cycle accounting advances 65 with zero ARM7 instructions; RAM/DTCM/video unchanged",
+    "Host presentation count may vary; no prefix divergence"
+  ],
+  "limitations": [
+    "One exact 11 - 7 / recognized 4 context",
+    "Forced Tier-3 only; no compiled parity",
+    "Exhaustive 4 MiB RAM/16 KiB DTCM diff, no speculative score/history field labels",
+    "Call at 0x02026B90 and callee at 0x02026218 remain unexecuted"
+  ],
+  "next_phase_one_store": {
+    "pc": "0x0202624C",
+    "address": "0x020E9A34",
+    "value": 218,
+    "current_value_at_AE_stop": 218,
+    "executed": false
+  },
+  "recommended_task_af": "Read-only bound 0x02026218 phase-one path before authorizing BL at 0x02026B90; first visible phase-one store is 0x0202624C to exercise +0x34. Bound its later call separately.",
+  "reproduction": [
+    "python tools/task_ae/preflight.py",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools/task_ae/build.ps1",
+    "python tools/task_ae/check.py",
+    "python tools/task_ae/run.py --out local/task-ae/disabled-FRESH --disabled --port 19941",
+    "python tools/task_ae/run.py --out local/task-ae/session-FRESH --port 19942",
+    "python tools/task_ae/analyze.py --out local/task-ae/session-FRESH --disabled local/task-ae/disabled-FRESH --export docs/BrainAge_TaskAE_Result.json"
+  ],
+  "stop": "Before phase-dispatch BL, no gameplay resume, later progression, scoring/history/save/menu/optimization integration or Task AF"
+}
