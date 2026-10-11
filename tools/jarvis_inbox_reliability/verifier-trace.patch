@@ -1,0 +1,293 @@
+--- a/bridge/inbox-v1/extension/chatgpt_content.js
++++ b/bridge/inbox-v1/extension/chatgpt_content.js
+@@ -1,5 +1,12 @@
+ "use strict";
+ const BOUND_CONVERSATION_ID='6acab580-d218-83ea-9598-0ff64dc33aa7';
++const VERIFIER_BUILD='inbox-v1-trace-20261011-01';
++function verifierTrace(d,event,fields={}){
++ try{
++  const pending=browser.runtime.sendMessage({cmd:'verifier_trace',event:{build:VERIFIER_BUILD,delivery_id:d.delivery_id,event,ts_ms:Date.now(),...fields}});
++  if(pending&&pending.catch)pending.catch(()=>{});
++ }catch(_){} // Diagnostics must never affect delivery or add a wait.
++}
+ const canonicalText=s=>s.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+ // Narrow observed rendering variant: simple, single-line, single-backtick spans.
+ // Leave fenced/multi-backtick documents untouched; preserve every content byte.
+@@ -67,7 +74,7 @@
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id||'')?id:null;
+ }
+ function userMessages(doc=document,{historical=false}={}){
+- const messages=new Map(),bubbleOnlyIds=new Set(),markdownIds=new Set();
++ const messages=new Map(),bubbleOnlyIds=new Set(),markdownIds=new Set(),legacyIds=new Set();
+  function visible(el){if(!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;if(historical)return true;const style=doc.defaultView.getComputedStyle(el);return el.getClientRects().length>0&&style.display!=="none"&&style.visibility!=="hidden"&&style.opacity!=="0";}
+  for(const el of doc.querySelectorAll(CURRENT_USER_SELECTOR)){
+   const id=currentUserIdentity(el);
+@@ -92,9 +99,9 @@
+   const id=el.getAttribute('data-message-id');
+   if(!id||messages.has(id))continue;
+   const body=el.querySelector('.whitespace-pre-wrap')||el,text=logicalText(body);
+-  if(text!==null)messages.set(id,text);
+- }
+- return Array.from(messages,([id,text])=>({id,text,bubbleOnly:bubbleOnlyIds.has(id)&&!markdownIds.has(id)})).filter(turn=>turn.text!==null);
++  if(text!==null){messages.set(id,text);legacyIds.add(id);}
++ }
++ return Array.from(messages,([id,text])=>({id,text,bubbleOnly:bubbleOnlyIds.has(id)&&!markdownIds.has(id),source:markdownIds.has(id)?'markdown-tone':legacyIds.has(id)?'legacy':'bubble'})).filter(turn=>turn.text!==null);
+ }
+ function sendButton(doc=document){
+  const selectors='button[type="submit"][aria-label="Send"],button[data-testid="send-button"],button[aria-label="Send prompt"],button[aria-label="Send message"]';
+@@ -135,8 +142,9 @@
+ let busy=false;
+ const seen=new Map();
+ async function deliver(d){
+-  if(seen.has(d.delivery_id)){const old=seen.get(d.delivery_id);return old.payload_sha256===d.text_sha256?Object.fromEntries(Object.entries(old).filter(([k])=>k!=='payload_sha256')):{state:'NEEDS_REVIEW',delivery_id:d.delivery_id,error:'duplicate ID/hash conflict'};}
+-  const fail=(state,error,pre_send=false)=>({state,error,pre_send,delivery_id:d.delivery_id});
++  verifierTrace(d,'start',{bound:bound(),payload_sha256:d.text_sha256});
++  if(seen.has(d.delivery_id)){verifierTrace(d,'terminal',{reason:'cached_idempotent_outcome',bound:bound()});const old=seen.get(d.delivery_id);return old.payload_sha256===d.text_sha256?Object.fromEntries(Object.entries(old).filter(([k])=>k!=='payload_sha256')):{state:'NEEDS_REVIEW',delivery_id:d.delivery_id,error:'duplicate ID/hash conflict'};}
++  const fail=(state,error,pre_send=false)=>{verifierTrace(d,'outcome',{state,reason:error,pre_send,bound:bound()});return {state,error,pre_send,delivery_id:d.delivery_id};};
+   if(busy)return fail('FAILED_RETRYABLE','another delivery active',true);
+   if(!bound())return fail('FAILED_RETRYABLE','bound conversation not open',true);
+   if(typeof d.text!=='string'||d.text!==canonicalText(d.text)||await hash(d.text)!==d.text_sha256)return fail('FAILED_PERMANENT','canonical text/hash mismatch',true);
+@@ -148,6 +156,7 @@
+     if(composerText(editor)!=='')return fail('FAILED_RETRYABLE','composer contains a draft',true);
+     if(document.querySelector('button[data-testid="stop-button"],button[aria-label="Stop streaming"]'))return fail('FAILED_RETRYABLE','generation active',true);
+     const ids=userMessageIds(document);
++    verifierTrace(d,'baseline',{baseline_ids:Array.from(ids).slice(0,256),baseline_count:ids.size,baseline_truncated:ids.size>256,bound:bound()});
+     if(!bound()||composer()!==editor||composerText(editor)!=='')return fail('FAILED_RETRYABLE','composer changed before insertion',true);
+     insert(editor,d.text);
+     let exact=false;
+@@ -161,33 +170,44 @@
+     // Mark BEFORE click: even a thrown click or lost page is ambiguous.
+     mayHaveSent=true;
+     const pending=fail('NEEDS_REVIEW','Send initiated; outcome pending');seen.set(d.delivery_id,{...pending,payload_sha256:d.text_sha256});
++    verifierTrace(d,'send',{bound:bound()});
+     button.click(); // the sole Send site
+     // Exact payload identity, not viewport visibility or the first new turn.
+     // Stay within the background's 120 s deadline and never click again.
+-    const end=Date.now()+90000;let matchingId=null;
++    const end=Date.now()+90000;let matchingId=null,exitReason='deadline_expired',sample=0;
++    verifierTrace(d,'deadline',{deadline_ms:end,bound:bound()});
+     while(Date.now()<end){
+-      if(!bound())break;
+-      const matches=new Map();
++      if(!bound()){exitReason='page_unbound_before_sample';break;}
++      const matches=new Map(),candidates=[];let candidateCount=0;sample++;
+       for(const turn of userMessages(document,{historical:true})){
+-        if(ids.has(turn.id))continue;
++        const inBaseline=ids.has(turn.id);
+         const observed=canonicalText(turn.text);
+         const expected=observed===d.text?d.text:turn.bubbleOnly?inlineCodeBubbleText(d.text):d.text;
++        const candidate={uuid:turn.id,in_baseline:inBaseline,canonical_match:observed===expected,hash_match:null,source:turn.source||'synthetic'};
++        candidateCount++;if(candidates.length<64)candidates.push(candidate);
++        if(inBaseline)continue;
+         if(observed!==expected)continue;
+-        if(await hash(observed)===await hash(expected))matches.set(turn.id,turn);
++        const observedHash=await hash(observed),expectedHash=await hash(expected);
++        candidate.hash_match=observedHash===expectedHash;candidate.observed_sha256=observedHash;candidate.expected_sha256=expectedHash;
++        if(candidate.hash_match)matches.set(turn.id,turn);
+       }
+-      if(!bound())break;
+-      if(matches.size>1){const r=fail('NEEDS_REVIEW','multiple new USER identities match this exact payload');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
++      verifierTrace(d,'sample',{sample,bound:bound(),candidates,candidate_count:candidateCount,candidates_truncated:candidateCount>64,match_count:matches.size});
++      if(!bound()){exitReason='page_unbound_after_sample';break;}
++      if(matches.size>1){verifierTrace(d,'terminal',{reason:'multiple_exact_new_identities',state:'NEEDS_REVIEW',bound:bound()});const r=fail('NEEDS_REVIEW','multiple new USER identities match this exact payload');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
+       const id=matches.size===1?matches.keys().next().value:null;
+       // Require the same new message identity and exact canonical text/hash on
+       // consecutive samples; transient partial/replaced DOM is not terminal.
+       if(id&&id===matchingId){
++        verifierTrace(d,'terminal',{reason:'stable_exact_match',uuid:id,bound:bound(),state:'DELIVERED'});
+         const r={state:'DELIVERED',delivery_id:d.delivery_id,observed_sha256:d.text_sha256,send_count:1,new_user_turns:1,composer_empty:true};seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+       }
+       matchingId=id;
+       await sleep(250);
+     }
++    verifierTrace(d,'terminal',{reason:exitReason,bound:bound(),deadline_ms:end,state:'NEEDS_REVIEW'});
+     const r=fail('NEEDS_REVIEW','Send may have occurred; no stable exact-payload new USER identity within verification deadline');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+   }catch(_){
++    verifierTrace(d,'terminal',{reason:mayHaveSent?'exception_after_send':'exception_before_send',bound:bound()});
+     const r=fail(mayHaveSent?'NEEDS_REVIEW':'FAILED_PERMANENT',mayHaveSent?'exception after Send intent; manual review':'pre-Send insertion exception; draft retained',!mayHaveSent);
+     if(mayHaveSent)seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+   }finally{busy=false;}
+--- a/bridge/inbox-v1/extension/background.js
++++ b/bridge/inbox-v1/extension/background.js
+@@ -49,3 +49,9 @@
+   busy=false;schedulePoll(port?30000:15000);
+ }
+ connectNative();
++
++// One-way observational events only; no reconnect, poll, claim or delivery here.
++if(browser.runtime.onMessage)browser.runtime.onMessage.addListener((msg,sender)=>{
++ if(!msg||msg.cmd!=='verifier_trace'||!sender||!sender.tab||!port)return;
++ try{port.postMessage({cmd:'verifier_trace',event:msg.event});}catch(_){}
++});
+--- a/bridge/inbox-v1/native-host/jarvis_inbox_host.py
++++ b/bridge/inbox-v1/native-host/jarvis_inbox_host.py
+@@ -8,6 +8,8 @@
+ import struct
+ import sys
+ import urllib.request
++import time
++import re
+ sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
+ from inbox_wire import encoded,unique_json,MAX_NATIVE_BYTES,delivery_message,validate_text,sha256_text
+ HERE=Path(__file__).resolve().parent
+@@ -47,10 +49,47 @@
+         json.dump(value,f,ensure_ascii=False,allow_nan=False);f.flush();os.fsync(f.fileno())
+     os.replace(tmp,path)
+
++TRACE_MAX_BYTES=262144
++TRACE_FILES=4
++TRACE_FIELDS={'build','delivery_id','event','ts_ms','payload_sha256','bound','state','reason','pre_send','deadline_ms','baseline_ids','baseline_count','baseline_truncated','sample','candidates','candidate_count','candidates_truncated','match_count','uuid'}
++CANDIDATE_FIELDS={'uuid','in_baseline','canonical_match','hash_match','source','observed_sha256','expected_sha256'}
++def trace_event(path,event):
++    """Bounded metadata-only sink. All failures are observational and swallowed."""
++    try:
++        if not isinstance(event,dict) or not set(event)<=TRACE_FIELDS:return
++        clean={}
++        for k,v in event.items():
++            if k=='baseline_ids':
++                if not isinstance(v,list):return
++                clean[k]=[x for x in v[:256] if isinstance(x,str) and re.fullmatch(r'[0-9a-fA-F-]{36}',x)]
++            elif k=='candidates':
++                if not isinstance(v,list):return
++                clean[k]=[]
++                for c in v[:64]:
++                    if not isinstance(c,dict) or not set(c)<=CANDIDATE_FIELDS:return
++                    if any(not (x is None or isinstance(x,(bool,int,float)) or isinstance(x,str) and len(x)<=80) for x in c.values()):return
++                    clean[k].append(c)
++            elif v is None or isinstance(v,(bool,int,float)):clean[k]=v
++            elif isinstance(v,str) and len(v)<=256:clean[k]=v
++            else:return
++        clean['native_received_ms']=int(time.time()*1000)
++        did=clean.get('delivery_id','')
++        clean['request_id']=did.rsplit(':',1)[0] if re.search(r':[0-9a-f]{64}$',did) else did
++        data=(json.dumps(clean,separators=(',',':'),allow_nan=False)+'\n').encode('utf-8')
++        if len(data)>TRACE_MAX_BYTES:return
++        path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
++        if path.exists() and path.stat().st_size+len(data)>TRACE_MAX_BYTES:
++            for n in range(TRACE_FILES-1,0,-1):
++                src=path if n==1 else Path(str(path)+'.'+str(n-1))
++                dst=Path(str(path)+'.'+str(n))
++                if src.exists():os.replace(src,dst)
++        with path.open('ab') as f:f.write(data);f.flush()
++    except Exception:pass
++
+ class Transport:
+     def __init__(self,base,journal,http=request):
+         if base!='http://127.0.0.1:18741':raise ValueError('fixed local transport required')
+-        self.base=base;self.path=Path(journal);self.http=http;self.pending=None
++        self.base=base;self.path=Path(journal);self.trace_path=self.path.parent/'inbox_verifier_trace.jsonl';self.http=http;self.pending=None
+         if self.path.exists():
+             self.pending=unique_json(self.path.read_text(encoding='utf-8'))
+             if self.pending is not None:
+@@ -71,11 +110,17 @@
+             status,body=self.http(self.base,'/local/inbox/ack',ack)
+             if status!=200 or not body.get('ok'):raise ValueError('durable ACK rejected')
+         except Exception:
++            trace_event(self.trace_path,{'event':'ack_pending','delivery_id':d['delivery_id'],'ts_ms':int(time.time()*1000)})
+             return {'cmd':'ack_pending','delivery_id':d['delivery_id'],'error':'durable ACK pending; no resend'}
++        trace_event(self.trace_path,{'event':'ack_committed','delivery_id':d['delivery_id'],'state':body['state'],'ts_ms':int(time.time()*1000)})
+         # If clearing fails, a duplicate idempotent ACK after restart is safe.
+         journal_write(self.path,None);self.pending=None
+         return {'cmd':'acked','delivery_id':d['delivery_id'],'state':body['state']}
+     def handle(self,msg):
++        if msg.get('cmd')=='verifier_trace':
++            trace_event(self.trace_path,msg.get('event'))
++            return {'cmd':'trace_recorded'}
++
+         if msg=={'cmd':'poll'}:
+             if self.pending is not None:return self.recover_ack()
+             try:status,body=self.http(self.base,'/local/inbox/next')
+@@ -94,6 +139,7 @@
+                 raise ValueError('invalid outcome schema')
+             if msg.get('state')=='FAILED_RETRYABLE' and msg.get('pre_send') is not True:raise ValueError('unproven retry')
+             outcome={k:v for k,v in msg.items() if k not in ('cmd','delivery_id')}
++            trace_event(self.trace_path,{'event':'native_outcome','delivery_id':msg['delivery_id'],'state':outcome['state'],'ts_ms':int(time.time()*1000)})
+             self.set_outcome(outcome)
+             return self.recover_ack()
+         return {'cmd':'error','error':'only poll and delivery outcome are supported'}
+--- a/bridge/inbox-v1/tests/test_content.js
++++ b/bridge/inbox-v1/tests/test_content.js
+@@ -6,12 +6,13 @@
+ async function test(name,fn){await fn();count++;console.log('PASS '+name);}
+ function harness(opts={}){
+  const state={draft:opts.draft||'',sends:0,inserts:0,users:[{id:'old',text:'existing user turn'}],now:0};
+- const ctx={document:{querySelector:()=>null},URL,console,TextEncoder,crypto:crypto.webcrypto,location:{origin:'https://chatgpt.com',pathname:'/c/'+bound},Date:{now:()=>state.now},setTimeout:fn=>{state.now+=1000;queueMicrotask(fn);},getComputedStyle:()=>({display:'block',visibility:'visible'})};
++ const traces=[];
++ const ctx={browser:{runtime:{sendMessage:msg=>{traces.push(msg.event);return Promise.resolve();},onMessage:{addListener:()=>{}}}},document:{querySelector:()=>null},URL,console,TextEncoder,crypto:crypto.webcrypto,location:{origin:'https://chatgpt.com',pathname:'/c/'+bound},Date:{now:()=>state.now},setTimeout:fn=>{state.now+=1000;queueMicrotask(fn);},getComputedStyle:()=>({display:'block',visibility:'visible'})};
+  vm.createContext(ctx);vm.runInContext(source,ctx);ctx.actualIds=vm.runInContext("userMessageIds",ctx);ctx.actualMessages=vm.runInContext("userMessages",ctx);
+  ctx.state=state;
+  vm.runInContext(`composer=()=>state;composerText=()=>state.draft;userMessages=()=>state.users;userMessageIds=()=>new Set(state.users.map(x=>x.id));insert=(editor,text)=>{state.draft=text;state.inserts++;};sendButton=()=>({click:()=>{state.sends++;if(!state.noTurn)state.users.push({id:'fresh',text:state.observed===undefined?state.draft:state.observed});}});`,ctx);
+  function send(text,id='a'){ctx.msg={cmd:'deliver',delivery_id:id,text,text_sha256:hash(text)};return vm.runInContext('deliver(msg)',ctx);}
+- return {ctx,state,send};
++ return {ctx,state,send,traces};
+ }
+ function node(tag,children=[],attrs={}){
+  const n={nodeType:1,tagName:tag,nodeName:tag,childNodes:children,getAttribute:k=>attrs[k]??null,hasAttribute:k=>k in attrs,classList:{contains:k=>(attrs.class||'').split(' ').includes(k)},closest:()=>null};
+@@ -73,5 +74,9 @@
+  await test('paragraphs/hard breaks preserve blank lines and Markdown',async()=>{const h=harness();h.ctx.el=node('DIV',[node('P',[text('```python'),node('BR'),text('x  '),node('BR'),node('BR'),text('```')])]);assert.equal(vm.runInContext('logicalText(el)',h.ctx),'```python\nx  \n\n```');});
+  await test('editor caret break excluded, real terminal LF retained',async()=>{const h=harness();h.ctx.el=node('DIV',[node('P',[text('a'),node('BR'),node('BR',[],{class:'ProseMirror-trailingBreak'})])]);assert.equal(vm.runInContext('logicalText(el,{editor:true})',h.ctx),'a\n');});
+  await test('unsupported rich structure rejected, not flattened',async()=>{const h=harness();h.ctx.el=node('DIV',[node('P',[node('STRONG',[text('bold')])])]);assert.equal(vm.runInContext('logicalText(el)',h.ctx),null);});
++ await test('trace positive match reconstructs UUID, baseline, timestamps and payload proof without text',async()=>{const h=bubbleHarness(bubbleOnlyDoc(seq55.observed));assert.equal((await h.send(seq55.submitted)).state,'DELIVERED');const events=h.traces;for(const event of ['start','baseline','send','deadline','sample','terminal'])assert.ok(events.some(e=>e.event===event));const candidate=events.find(e=>e.event==='sample').candidates[0];assert.equal(candidate.uuid,seq55.uuid);assert.equal(candidate.in_baseline,false);assert.equal(candidate.canonical_match,true);assert.equal(candidate.hash_match,true);assert.equal(candidate.source,'bubble');assert.ok(events.every(e=>typeof e.ts_ms==='number'));assert.equal(events.find(e=>e.event==='terminal').reason,'stable_exact_match');assert.ok(!JSON.stringify(events).includes(seq55.submitted));assert.ok(!JSON.stringify(events).includes('deterministic patch and focused tests'));});
++ await test('trace deadline expiry differs from page unbound exit',async()=>{const h=harness();h.state.noTurn=true;assert.equal((await h.send('timeout')).state,'NEEDS_REVIEW');assert.equal(h.traces.find(e=>e.event==='terminal').reason,'deadline_expired');assert.ok(h.traces.find(e=>e.event==='terminal').ts_ms>=h.traces.find(e=>e.event==='deadline').deadline_ms);const u=harness();u.state.noTurn=true;vm.runInContext(`userMessages=()=>{location.pathname='/c/other';return [];}`,u.ctx);assert.equal((await u.send('unbound')).state,'NEEDS_REVIEW');const terminal=u.traces.find(e=>e.event==='terminal');assert.equal(terminal.reason,'page_unbound_after_sample');assert.equal(terminal.bound,false);assert.ok(terminal.ts_ms<u.traces.find(e=>e.event==='deadline').deadline_ms);});
++ await test('trace baseline truncation retains candidate membership proof',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessageIds=()=>new Set(Array.from({length:300},(_,i)=>'old-'+i));userMessages=()=>[{id:'old-299',text:state.draft}];`,h.ctx);assert.equal((await h.send('old payload')).state,'NEEDS_REVIEW');const base=h.traces.find(e=>e.event==='baseline');assert.equal(base.baseline_ids.length,256);assert.equal(base.baseline_truncated,true);assert.equal(h.traces.find(e=>e.event==='sample').candidates[0].in_baseline,true);});
++ await test('trace sink exceptions cannot change delivery or idempotency',async()=>{const h=harness();h.ctx.browser.runtime.sendMessage=()=>{throw Error('trace unavailable');};assert.equal((await h.send('text')).state,'DELIVERED');await h.send('text');assert.equal(h.state.sends,1);});
+  console.log(`${count} synthetic content/DOM contract tests passed (not live Firefox)`);
+ })().catch(e=>{console.error(e);process.exitCode=1;});
+--- a/bridge/inbox-v1/tests/test_background.js
++++ b/bridge/inbox-v1/tests/test_background.js
+@@ -6,7 +6,7 @@
+ function harness(){
+  const timers=new Map(),ports=[];let next=0,tabs=[],response=null,sends=0;
+  const context={URL,console,setTimeout:(fn,ms)=>{const id=++next;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),browser:{
+-   runtime:{connectNative:()=>{const listeners={},p={sent:[],onMessage:{addListener:fn=>listeners.message=fn},onDisconnect:{addListener:fn=>listeners.disconnect=fn},postMessage:msg=>p.sent.push(msg),disconnect:()=>listeners.disconnect(),listeners};ports.push(p);return p;}},
++   runtime:{onMessage:{addListener:fn=>context.traceListener=fn},connectNative:()=>{const listeners={},p={sent:[],onMessage:{addListener:fn=>listeners.message=fn},onDisconnect:{addListener:fn=>listeners.disconnect=fn},postMessage:msg=>p.sent.push(msg),disconnect:()=>listeners.disconnect(),listeners};ports.push(p);return p;}},
+    tabs:{query:async()=>tabs,sendMessage:async()=>{sends++;return typeof response==='function'?response():response;}}}};
+  vm.createContext(context);vm.runInContext(source,context);
+  async function tick(ms){const pair=Array.from(timers).find(([id,t])=>t.ms===ms);assert.ok(pair,'scheduled '+ms);timers.delete(pair[0]);await pair[1].fn();}
+@@ -21,5 +21,7 @@
+  await test('forwarded timeout/exception never becomes retry',async()=>{const h=harness();h.setTabs([{id:1,url:'https://chatgpt.com/c/6acab580-d218-83ea-9598-0ff64dc33aa7'}]);h.setResponse(()=>{throw Error('lost reply');});await h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});assert.equal(h.ports[0].sent[0].state,'NEEDS_REVIEW');assert.equal(h.sends,1);});
+  await test('ACK pending polls recovery without another browser send',async()=>{const h=harness();await h.ports[0].listeners.message({cmd:'ack_pending'});await h.tick(15000);assert.equal(h.ports[0].sent[0].cmd,'poll');assert.equal(h.sends,0);});
+  await test('disconnect during delivery never replays that attempt',async()=>{const h=harness();h.setTabs([{id:1,url:'https://chatgpt.com/c/6acab580-d218-83ea-9598-0ff64dc33aa7'}]);let resolve;h.setResponse(()=>new Promise(r=>resolve=r));const pending=h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});for(let i=0;i<10&&!resolve;i++)await Promise.resolve();assert.equal(typeof resolve,"function");h.ports[0].disconnect();resolve({delivery_id:'a',state:'DELIVERED'});await pending;await h.tick(15000);await h.tick(100);assert.equal(h.sends,1);assert.equal(h.ports[1].sent[0].cmd,'poll');});
++ await test('trace forwarding never sends a delivery or triggers poll',async()=>{const h=harness();h.context.traceListener({cmd:'verifier_trace',event:{event:'sample'}},{tab:{id:1}});assert.equal(h.ports[0].sent[0].cmd,'verifier_trace');assert.equal(h.sends,0);assert.equal(h.ports[0].sent.length,1);});
++ await test('trace port failure is swallowed without reconnect or replay',async()=>{const h=harness();h.ports[0].postMessage=()=>{throw Error('gone');};h.context.traceListener({cmd:'verifier_trace',event:{}},{tab:{id:1}});assert.equal(h.ports.length,1);assert.equal(h.sends,0);});
+  console.log(`${count} background contract tests passed`);
+ })().catch(e=>{console.error(e);process.exitCode=1;});
+--- /dev/null
++++ b/bridge/inbox-v1/tests/test_trace.py
+@@ -0,0 +1,36 @@
++import importlib.util
++import json
++from pathlib import Path
++import tempfile
++import unittest
++spec=importlib.util.spec_from_file_location('trace_native',Path(__file__).resolve().parents[1]/'native-host/jarvis_inbox_host.py')
++native=importlib.util.module_from_spec(spec);spec.loader.exec_module(native)
++class TraceTests(unittest.TestCase):
++ def setUp(self):
++  self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
++  self.path=Path(self.tmp.name)/'inbox_verifier_trace.jsonl'
++ def test_metadata_persisted_no_payload(self):
++  event={'event':'sample','build':'inbox-v1-trace-20261011-01','delivery_id':'request:'+('a'*64),'ts_ms':1,'bound':True,'candidates':[{'uuid':'21a73100-224f-4068-b3a5-d2e10d1e3a53','in_baseline':False,'canonical_match':True,'hash_match':True,'source':'bubble'}]}
++  native.trace_event(self.path,event);record=json.loads(self.path.read_text())
++  self.assertEqual(record['request_id'],'request');self.assertIn('native_received_ms',record)
++  native.trace_event(self.path,dict(event,text='PRIVATE PAYLOAD'))
++  self.assertNotIn('PRIVATE PAYLOAD',self.path.read_text());self.assertEqual(len(self.path.read_text().splitlines()),1)
++ def test_rotation_bounds(self):
++  old=native.TRACE_MAX_BYTES;native.TRACE_MAX_BYTES=512;self.addCleanup(setattr,native,'TRACE_MAX_BYTES',old)
++  for i in range(100):native.trace_event(self.path,{'event':'sample','delivery_id':'a','ts_ms':i,'reason':'x'*100})
++  files=list(self.path.parent.glob('inbox_verifier_trace.jsonl*'));self.assertEqual(len(files),4)
++  self.assertTrue(all(p.stat().st_size<=512 for p in files))
++  self.assertEqual(json.loads(self.path.read_text().splitlines()[-1])['ts_ms'],99)
++ def test_failure_does_not_affect_native_transport(self):
++  journal=Path(self.tmp.name)/'journal.json';transport=native.Transport('http://127.0.0.1:18741',journal,lambda *args:(204,None))
++  self.path.mkdir();before=transport.pending
++  self.assertEqual(transport.handle({'cmd':'verifier_trace','event':{'event':'sample'}}),{'cmd':'trace_recorded'})
++  self.assertIs(transport.pending,before);self.assertFalse(journal.exists());self.assertEqual(transport.handle({'cmd':'poll'}),{'cmd':'idle'})
++ def test_ack_and_outcome_timestamps_without_journal_changes(self):
++  journal=Path(self.tmp.name)/'journal.json';transport=native.Transport('http://127.0.0.1:18741',journal,lambda *args:(200,{'ok':True,'state':'NEEDS_REVIEW'}))
++  transport.pending={'delivery':{'delivery_id':'test','claim_token':'secret'},'outcome':None}
++  self.assertEqual(transport.handle({'cmd':'result','delivery_id':'test','state':'NEEDS_REVIEW','error':'timeout'})['cmd'],'acked')
++  events=[json.loads(x) for x in self.path.read_text().splitlines()]
++  self.assertEqual([x['event'] for x in events],['native_outcome','ack_committed'])
++  self.assertTrue(all('ts_ms' in x for x in events));self.assertNotIn('secret',self.path.read_text())
++if __name__=='__main__':unittest.main()
