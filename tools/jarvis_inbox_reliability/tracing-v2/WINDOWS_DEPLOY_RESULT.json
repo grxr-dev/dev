@@ -1,0 +1,100 @@
+{
+  "classification": "PARTIAL",
+  "package_commit": "babd3357c1e490fac7d045e4742fb0629a8980e6",
+  "package_verified": "Git blob identities match after Windows checkout line-ending filters; all six original package files unchanged",
+  "installed_build_id": "inbox-v1-trace2-20261011-01",
+  "active_Firefox_build_id": "not positively verified; no reload performed",
+  "production_files_changed": [
+    {
+      "file": "bridge\\inbox-v1\\extension\\chatgpt_content.js",
+      "before_sha256": "59a525643124b22a5e5cd062065adf477e87858b89d2634881b11a68e20079e9",
+      "after_sha256": "1bbb42f8d0a7d6e47c587cfa4ce4ad8709adce7d972d1703ba6eaa9b36f3fd57"
+    },
+    {
+      "file": "bridge\\inbox-v1\\extension\\manifest.json",
+      "before_sha256": "01854337eef04227a834433f71156df65e19699e22aaa3b0c48911f49da8ab31",
+      "after_sha256": "5db6662729b88a3641057f200a06d13f33b000f88dcb3132ee4e4b7d4bb27d6a"
+    },
+    {
+      "file": "bridge\\inbox-v1\\native-host\\jarvis_inbox_host.py",
+      "before_sha256": "ec5a50bbb30df3c63d2f4773fb85025aebf0bfa245d6fa26dd96fa061adb5717",
+      "after_sha256": "7df05490b2e513d1a86735e9c3d15941c377d038d5e222617957161b104e5ac7"
+    },
+    {
+      "file": "bridge\\inbox-v1\\tests\\test_content.js",
+      "before_sha256": "0af0216fab8b4465780d67f363fa27fcccd93a6bf80262d06af96885e636c566",
+      "after_sha256": "ca299a170535009cc9f744023c020077025530bf96e4a3665ae4c757f20dfb97"
+    },
+    {
+      "file": "bridge/inbox-v1/extension/candidate_analysis.js",
+      "after_sha256": "6fac084de43858cb2ba2227ea7da20f8f53ef40f5a5f0c4d4718b3e212e6e083",
+      "source": "exact committed shared helper"
+    }
+  ],
+  "backup_path": "bridge/.runtime/inbox-trace2-backup-20261011T082319Z",
+  "patches_applied_cleanly": false,
+  "adaptations": [
+    "Malformed patches applied by exact baseline anchors",
+    "Shared committed candidate_analysis.js loaded first through manifest",
+    "Diagnostic analysis/hash errors isolated from original delivery gates",
+    "Conversation URL observations support existing project URL form and terminal unbind events",
+    "Documented Python v2 test absent; add equivalent Windows production-schema tests"
+  ],
+  "test_counts": {
+    "production_content": 49,
+    "background": 10,
+    "existing_native_trace": 4,
+    "committed_candidate_analysis": 25,
+    "added_Windows_native_v2": 8,
+    "native_queue_idempotency": 30
+  },
+  "all_tests_passed": true,
+  "test_total": 126,
+  "test_evidence": "bridge/inbox-v1/test-evidence/trace2-tests.json",
+  "queue_DELIVERING_count_before_reload_attempt": 0,
+  "queue_DELIVERING_count_final": 0,
+  "native_recovery_empty": true,
+  "queue_cursor_history_mutated_by_task": false,
+  "production_delivery_smoke_or_resend": false,
+  "bridge_restart_performed_or_required": false,
+  "Firefox_restart_performed_or_required": false,
+  "extension_reload_completed": false,
+  "native_reconnect_completed": false,
+  "native_v2_schema_acceptance": "installed host exercised in isolated tests; live process activation unverified",
+  "browser_access_errors": [
+    "node_repl: windows sandbox failed: helper_unknown_error: setup refresh had errors",
+    "cua_repl: trusted Node process exited unexpectedly"
+  ],
+  "trace_path": "C:\\Users\\rustg\\Documents\\Codex\\Muse\\bridge\\.runtime\\inbox_verifier_trace.jsonl",
+  "rotation_unchanged": {
+    "TRACE_MAX_BYTES": 262144,
+    "TRACE_FILES": 4
+  },
+  "old_trace_readability": [
+    {
+      "file": "inbox_verifier_trace.jsonl",
+      "records": 159,
+      "all_readable": true
+    },
+    {
+      "file": "inbox_verifier_trace.jsonl.1",
+      "records": 258,
+      "all_readable": true
+    },
+    {
+      "file": "inbox_verifier_trace.jsonl.2",
+      "records": 254,
+      "all_readable": true
+    },
+    {
+      "file": "inbox_verifier_trace.jsonl.3",
+      "records": 257,
+      "all_readable": true
+    }
+  ],
+  "manual_step": "When no delivery is in flight, Firefox about:debugging -> This Firefox -> Jarvis Inbox V1 -> Reload. This respawns native messaging host; do not resend held/historical items.",
+  "natural_delivery_expectation": "After reload, the next ordinary completion should produce inbox-v1-trace2-20261011-01 sample records with mismatch hashes/lengths/window/normalization and conversation identity fields. Until reload, existing loaded v1 may continue. No synthetic smoke requested or sent.",
+  "rollback": "While idle, restore four backed-up files (content, manifest, host, content test); leave added candidate_analysis.js unreferenced or remove it; reload extension. Preserve queue, journal and trace records.",
+  "Brain_Age_runtime_changed": false,
+  "Task_AN_started": false
+}
