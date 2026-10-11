@@ -1,0 +1,1749 @@
+{
+  "task": "AK - dynamic 25-instruction inner-helper prefix",
+  "classification": "FULL PASS",
+  "branch": "codex/brainage",
+  "authoritative_aj_commit": "a1d2c76baedc0ae841086eeccaf9aa5daebe8d16",
+  "authoritative_ai_commit": "5e086cb667a87d41eda1aec016e6418a57f64356",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "evidence_tier": "Forced Tier-3 exact-context original ARM interpreter; no compiled parity",
+  "authoritative_path": "local/task-ak/session-001",
+  "disabled_path": "local/task-ak/disabled-001",
+  "runner_sha256": "d81d894a766fef6d22658858ec8103ce8fdf2d01d0254a80167bf2cc94d22505",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "e3a10c37af0078849673f6ab1a7928c4e3f1299585eff7e1db38ce1831f4ecc6",
+    "guard.h": "b47c15887562a6346b961e57a3fe8d032def591f990ac7b37007e23229998a04",
+    "task_ak_decision.inc": "28ca6eb4d2d918c4ce8d7ee8008086a1dc910253ac5d0581aa0d5b1a20280d34"
+  },
+  "complete_AI_prefix_exact": true,
+  "AI_CPU_RAM_DTCM_save_ROM_ordinals_revalidated": true,
+  "ai_start": {
+    "event": "ak_before",
+    "pc": 33710676,
+    "opcode": 3959422791,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      34511360,
+      0,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827116,
+      33713044,
+      33710676
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097899
+  },
+  "ak_stop": {
+    "event": "decision_step",
+    "pc": 33979356,
+    "opcode": 3850642004,
+    "r": [
+      34512752,
+      0,
+      0,
+      31,
+      34512752,
+      0,
+      218,
+      34511360,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      33710096,
+      33979356
+    ],
+    "n": 0,
+    "z": 0,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097924
+  },
+  "trace": [
+    {
+      "event": "decision_step",
+      "pc": 33710676,
+      "opcode": 3959422791,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710676
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097899,
+      "decoded": "bl #0x2025f78",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709944,
+      "opcode": 3912057328,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33710680,
+        33709944
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097900,
+      "decoded": "push {r4, r5, r6, r7, r8, lr}",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709948,
+      "opcode": 3796750344,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827092,
+        33710680,
+        33709948
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097901,
+      "decoded": "sub sp, sp, #8",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709952,
+      "opcode": 3785388032,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709952
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097902,
+      "decoded": "mov r7, r0",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709956,
+      "opcode": 3851882560,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709956
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097903,
+      "decoded": "ldr r1, [r7, #0x40]",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709960,
+      "opcode": 3851878428,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709960
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097904,
+      "decoded": "ldr r0, [r7, #0x1c]",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709964,
+      "opcode": 3795931137,
+      "r": [
+        0,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709964
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097905,
+      "decoded": "sub r5, r1, #1",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709968,
+      "opcode": 3813670912,
+      "r": [
+        0,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709968
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097906,
+      "decoded": "cmp r0, #0",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709972,
+      "opcode": 3851903028,
+      "r": [
+        0,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709972
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097907,
+      "decoded": "ldr r6, [r7, #0x34]",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33709976,
+      "opcode": 167772172,
+      "r": [
+        0,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33709976
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097908,
+      "decoded": "beq #0x2025fd0",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710032,
+      "opcode": 3851882560,
+      "r": [
+        0,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710032
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097909,
+      "decoded": "ldr r1, [r7, #0x40]",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710036,
+      "opcode": 3851878460,
+      "r": [
+        0,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710036
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097910,
+      "decoded": "ldr r0, [r7, #0x3c]",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710040,
+      "opcode": 3780182016,
+      "r": [
+        20,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710040
+      ],
+      "n": 0,
+      "z": 1,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097911,
+      "decoded": "cmp r1, r0",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710044,
+      "opcode": 2852126745,
+      "r": [
+        20,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710044
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097912,
+      "decoded": "bge #0x2026048",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710048,
+      "opcode": 3766948097,
+      "r": [
+        20,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710048
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097913,
+      "decoded": "add r1, r7, r1, lsl #2",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710052,
+      "opcode": 3851485268,
+      "r": [
+        20,
+        34511364,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710052
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097914,
+      "decoded": "ldr r0, [r1, #0x54]",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710056,
+      "opcode": 3813670921,
+      "r": [
+        11,
+        34511364,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710056
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097915,
+      "decoded": "cmp r0, #9",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710060,
+      "opcode": 3388997634,
+      "r": [
+        11,
+        34511364,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710060
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097916,
+      "decoded": "bgt #0x2025ffc",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710076,
+      "opcode": 3818917888,
+      "r": [
+        11,
+        34511364,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710076
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097917,
+      "decoded": "mov r1, #0",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710080,
+      "opcode": 3785367553,
+      "r": [
+        11,
+        0,
+        4,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710080
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097918,
+      "decoded": "mov r2, r1",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710084,
+      "opcode": 3800501847,
+      "r": [
+        11,
+        0,
+        0,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710084
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097919,
+      "decoded": "add r0, r7, #0x570",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710088,
+      "opcode": 3818926111,
+      "r": [
+        34512752,
+        0,
+        0,
+        0,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710088
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097920,
+      "decoded": "mov r3, #0x1f",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710092,
+      "opcode": 3942713072,
+      "r": [
+        34512752,
+        0,
+        0,
+        31,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710680,
+        33710092
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097921,
+      "decoded": "bl #0x2067bd4",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33979348,
+      "opcode": 3912056848,
+      "r": [
+        34512752,
+        0,
+        0,
+        31,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827084,
+        33710096,
+        33979348
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097922,
+      "decoded": "push {r4, lr}",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33979352,
+      "opcode": 3785375744,
+      "r": [
+        34512752,
+        0,
+        0,
+        31,
+        34511360,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        33710096,
+        33979352
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097923,
+      "decoded": "mov r4, r0",
+      "dispatched": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33979356,
+      "opcode": 3850642004,
+      "r": [
+        34512752,
+        0,
+        0,
+        31,
+        34512752,
+        0,
+        218,
+        34511360,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827076,
+        33710096,
+        33979356
+      ],
+      "n": 0,
+      "z": 0,
+      "c": 1,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097924,
+      "decoded": "str r2, [r4, #0x254]",
+      "dispatched": false
+    }
+  ],
+  "executed_pcs": [
+    "0x02026254",
+    "0x02025F78",
+    "0x02025F7C",
+    "0x02025F80",
+    "0x02025F84",
+    "0x02025F88",
+    "0x02025F8C",
+    "0x02025F90",
+    "0x02025F94",
+    "0x02025F98",
+    "0x02025FD0",
+    "0x02025FD4",
+    "0x02025FD8",
+    "0x02025FDC",
+    "0x02025FE0",
+    "0x02025FE4",
+    "0x02025FE8",
+    "0x02025FEC",
+    "0x02025FFC",
+    "0x02026000",
+    "0x02026004",
+    "0x02026008",
+    "0x0202600C",
+    "0x02067BD4",
+    "0x02067BD8"
+  ],
+  "terminal_pc": "0x02067BDC",
+  "terminal_dispatched": false,
+  "AK_instruction_count": 25,
+  "decision_observations": 91,
+  "decision_dispatches": 90,
+  "register_deltas": [
+    {
+      "register": "r0",
+      "before": "0x020E9A00",
+      "after": "0x020E9F70"
+    },
+    {
+      "register": "r1",
+      "before": "0x00000001",
+      "after": "0x00000000"
+    },
+    {
+      "register": "r2",
+      "before": "0x00000004",
+      "after": "0x00000000"
+    },
+    {
+      "register": "r3",
+      "before": "0x00000000",
+      "after": "0x0000001F"
+    },
+    {
+      "register": "r4",
+      "before": "0x020E9A00",
+      "after": "0x020E9F70"
+    },
+    {
+      "register": "r6",
+      "before": "0x00000072",
+      "after": "0x000000DA"
+    },
+    {
+      "register": "r7",
+      "before": "0x00000000",
+      "after": "0x020E9A00"
+    },
+    {
+      "register": "SP",
+      "before": "0x027E3B2C",
+      "after": "0x027E3B04"
+    },
+    {
+      "register": "LR",
+      "before": "0x02026B94",
+      "after": "0x02026010"
+    },
+    {
+      "register": "PC",
+      "before": "0x02026254",
+      "after": "0x02067BDC"
+    }
+  ],
+  "flags_before": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "flags_after": [
+    0,
+    0,
+    1,
+    0
+  ],
+  "memory": {
+    "mainram_changed_bytes": 0,
+    "object_global_writes": 0,
+    "dtcm_changed_bytes": 28,
+    "architectural_word_writes": 8,
+    "written_bytes": 32,
+    "write_events": [
+      {
+        "event": "ak_write_event",
+        "pc": 33709944,
+        "opcode": 3912057328,
+        "address": 41827092,
+        "width": 4,
+        "source_register": 4,
+        "before": 1,
+        "after": 34511360
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33709944,
+        "opcode": 3912057328,
+        "address": 41827096,
+        "width": 4,
+        "source_register": 5,
+        "before": 33711800,
+        "after": 0
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33709944,
+        "opcode": 3912057328,
+        "address": 41827100,
+        "width": 4,
+        "source_register": 6,
+        "before": 0,
+        "after": 114
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33709944,
+        "opcode": 3912057328,
+        "address": 41827104,
+        "width": 4,
+        "source_register": 7,
+        "before": 33977636,
+        "after": 0
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33709944,
+        "opcode": 3912057328,
+        "address": 41827108,
+        "width": 4,
+        "source_register": 8,
+        "before": 3,
+        "after": 34511360
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33709944,
+        "opcode": 3912057328,
+        "address": 41827112,
+        "width": 4,
+        "source_register": 14,
+        "before": 0,
+        "after": 33710680
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33979348,
+        "opcode": 3912056848,
+        "address": 41827076,
+        "width": 4,
+        "source_register": 4,
+        "before": 0,
+        "after": 34511360
+      },
+      {
+        "event": "ak_write_event",
+        "pc": 33979348,
+        "opcode": 3912056848,
+        "address": 41827080,
+        "width": 4,
+        "source_register": 14,
+        "before": 1,
+        "after": 33710096
+      }
+    ],
+    "dtcm_byte_changes": [
+      {
+        "address": "0x027E3B05",
+        "before": 0,
+        "after": 154
+      },
+      {
+        "address": "0x027E3B06",
+        "before": 0,
+        "after": 14
+      },
+      {
+        "address": "0x027E3B07",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B08",
+        "before": 1,
+        "after": 16
+      },
+      {
+        "address": "0x027E3B09",
+        "before": 0,
+        "after": 96
+      },
+      {
+        "address": "0x027E3B0A",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B0B",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B14",
+        "before": 1,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B15",
+        "before": 0,
+        "after": 154
+      },
+      {
+        "address": "0x027E3B16",
+        "before": 0,
+        "after": 14
+      },
+      {
+        "address": "0x027E3B17",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B18",
+        "before": 184,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B19",
+        "before": 102,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B1A",
+        "before": 2,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B1B",
+        "before": 2,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B1C",
+        "before": 0,
+        "after": 114
+      },
+      {
+        "address": "0x027E3B20",
+        "before": 36,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B21",
+        "before": 117,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B22",
+        "before": 6,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B23",
+        "before": 2,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B24",
+        "before": 3,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B25",
+        "before": 0,
+        "after": 154
+      },
+      {
+        "address": "0x027E3B26",
+        "before": 0,
+        "after": 14
+      },
+      {
+        "address": "0x027E3B27",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B28",
+        "before": 0,
+        "after": 88
+      },
+      {
+        "address": "0x027E3B29",
+        "before": 0,
+        "after": 98
+      },
+      {
+        "address": "0x027E3B2A",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B2B",
+        "before": 0,
+        "after": 2
+      }
+    ],
+    "read_events": [
+      {
+        "event": "ak_read_event",
+        "pc": 33710676,
+        "address": 33710676,
+        "width": 4,
+        "value": 3959422791
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709944,
+        "address": 33709944,
+        "width": 4,
+        "value": 3912057328
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709948,
+        "address": 33709948,
+        "width": 4,
+        "value": 3796750344
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709952,
+        "address": 33709952,
+        "width": 4,
+        "value": 3785388032
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709956,
+        "address": 33709956,
+        "width": 4,
+        "value": 3851882560
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709956,
+        "address": 34511424,
+        "width": 4,
+        "value": 1
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709960,
+        "address": 33709960,
+        "width": 4,
+        "value": 3851878428
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709960,
+        "address": 34511388,
+        "width": 4,
+        "value": 0
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709964,
+        "address": 33709964,
+        "width": 4,
+        "value": 3795931137
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709968,
+        "address": 33709968,
+        "width": 4,
+        "value": 3813670912
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709972,
+        "address": 33709972,
+        "width": 4,
+        "value": 3851903028
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709972,
+        "address": 34511412,
+        "width": 4,
+        "value": 218
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33709976,
+        "address": 33709976,
+        "width": 4,
+        "value": 167772172
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710032,
+        "address": 33710032,
+        "width": 4,
+        "value": 3851882560
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710032,
+        "address": 34511424,
+        "width": 4,
+        "value": 1
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710036,
+        "address": 33710036,
+        "width": 4,
+        "value": 3851878460
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710036,
+        "address": 34511420,
+        "width": 4,
+        "value": 20
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710040,
+        "address": 33710040,
+        "width": 4,
+        "value": 3780182016
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710044,
+        "address": 33710044,
+        "width": 4,
+        "value": 2852126745
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710048,
+        "address": 33710048,
+        "width": 4,
+        "value": 3766948097
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710052,
+        "address": 33710052,
+        "width": 4,
+        "value": 3851485268
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710052,
+        "address": 34511448,
+        "width": 4,
+        "value": 11
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710056,
+        "address": 33710056,
+        "width": 4,
+        "value": 3813670921
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710060,
+        "address": 33710060,
+        "width": 4,
+        "value": 3388997634
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710076,
+        "address": 33710076,
+        "width": 4,
+        "value": 3818917888
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710080,
+        "address": 33710080,
+        "width": 4,
+        "value": 3785367553
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710084,
+        "address": 33710084,
+        "width": 4,
+        "value": 3800501847
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710088,
+        "address": 33710088,
+        "width": 4,
+        "value": 3818926111
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33710092,
+        "address": 33710092,
+        "width": 4,
+        "value": 3942713072
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33979348,
+        "address": 33979348,
+        "width": 4,
+        "value": 3912056848
+      },
+      {
+        "event": "ak_read_event",
+        "pc": 33979352,
+        "address": 33979352,
+        "width": 4,
+        "value": 3785375744
+      }
+    ],
+    "instruction_fetches": 25,
+    "object_reads": 6,
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "name": "phase",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "name": "result_delay",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "name": "unknown phase-one-assigned word",
+        "value": 218,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "name": "correct_count",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "name": "unknown zero-tested word",
+        "value": 0,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "name": "unknown comparison bound",
+        "value": 20,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "name": "unknown index word",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "name": "indexed +0x54 element",
+        "value": 11,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "name": "expected",
+        "value": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "name": "result_flag",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "name": "later_outcome",
+        "value": 255,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 1,
+        "after": 1,
+        "name": "retained previously mapped field"
+      }
+    ],
+    "mainram_before_sha256": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "mainram_after_sha256": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dtcm_before_sha256": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dtcm_after_sha256": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "local_unwritten_range": [
+      "0x027E3B0C",
+      "0x027E3B13"
+    ]
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "state_effects": {
+    "MMIO_accesses": 0,
+    "unexpected_writes": 0,
+    "peripheral_effect_attributable_to_AK": false,
+    "gameplay_resumed": false,
+    "score_count_phase_progression_history_result_completion_effect": false,
+    "video_touch_scene_unchanged": true,
+    "full_helper_return": false
+  },
+  "accounting": {
+    "arm9_ordinal_before": 281097899,
+    "arm9_ordinal_after": 281097924,
+    "arm9_cycles_before": 3416875451,
+    "arm9_cycles_after": 3416875512,
+    "arm9_instruction_delta": 25,
+    "arm9_cycle_delta": 61,
+    "arm7_ordinal_before": 96026779,
+    "arm7_ordinal_after": 96026779,
+    "arm7_cycles_before": 1708437703,
+    "arm7_cycles_after": 1708437703,
+    "arm7_instruction_delta": 0,
+    "arm7_cycle_delta": 0
+  },
+  "source_checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "native_SDL_events": 10,
+  "custom_guest_touch_deliveries": 0,
+  "disabled_control": {
+    "pass": true,
+    "input_events": 0,
+    "RAM_save_changes": 0,
+    "exit_code": 0
+  },
+  "focused_tests": {
+    "inner_prefix_guard": {
+      "pass": true,
+      "output": "PASS: 25-instruction budget, terminal non-dispatch, ordered writes and read/MMIO firewall negatives"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: complete AH prefix; exactly one AI MOV; terminal never dispatched; all registers/opcodes/ordinals and write-event operands fail closed"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    },
+    "actual_interpreter_bus_hook": {
+      "pass": true,
+      "widths": [
+        1,
+        2,
+        4
+      ],
+      "underlying_bus_call_once": true,
+      "unexpected_MMIO_reads_rejected": true
+    },
+    "terminal_guard_before_AI_and_dispatch": {
+      "pass": true
+    },
+    "AK_bus_firewall": {
+      "pass": true
+    },
+    "full_26_CPU_states_and_opcodes_match_frozen_model": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "forced_cleanup": false,
+  "limitations": [
+    "Exact frozen 11 - 7 / recognized-4 context only",
+    "Original interpreter only; no compiled parity",
+    "No forbidden object store, full helper return or gameplay-completion proof",
+    "Unknown fields retain offset-based descriptions"
+  ],
+  "recommended_next_smallest_task": "Separately authorize and audit only the first value-changing store at 0x02067BDC to exercise+0x7C4 (1 -> 0), with a stop before its successor. Task AL not started.",
+  "stop": "Stopped after AK; forbidden STR and Task AL not executed"
+}
