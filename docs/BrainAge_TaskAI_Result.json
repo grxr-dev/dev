@@ -1,0 +1,362 @@
+{
+  "task": "AI - one original MOV and stop before inner BL",
+  "classification": "FULL PASS",
+  "branch": "codex/brainage",
+  "authoritative_ah_commit": "2b846d5ddeb751c59f02caa1aacd227d016a9b24",
+  "authoritative_ag_commit": "e2bc0765d9d70f8d3e8b12dbc7fbf5c42ac3b5a5",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "evidence_tier": "Forced Tier-3 exact-context original ARM interpreter; no compiled parity",
+  "authoritative_path": "local/task-ai/session-001",
+  "disabled_path": "local/task-ai/disabled-001",
+  "runner_sha256": "9290c5c7fa8ce5ff44be5f818e60ddd8abddbac81250c3cafb202e0782d801fd",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "1827c4a73755926e9539d9db152dac66b1e0aa9cd02bc4e2fdca0ec7df00c91e",
+    "guard.h": "7f02c8073e36da3c91f8a8a08c039eb3e286d0a16aec30398b8c9b0b62c7d0e5",
+    "task_ai_decision.inc": "821557558ba188cd71bf4949e6799d5a13669c66eec9811e6bd50cd2bf0d54b0"
+  },
+  "complete_ah_prefix_exact": true,
+  "ah_cpu_ram_dtcm_save_revalidated_before_MOV": true,
+  "ah_start": {
+    "event": "ai_before",
+    "pc": 33710672,
+    "opcode": 3785359364,
+    "r": [
+      218,
+      1,
+      4,
+      0,
+      34511360,
+      0,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827116,
+      33713044,
+      33710672
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097898
+  },
+  "ai_stop": {
+    "event": "decision_step",
+    "pc": 33710676,
+    "opcode": 3959422791,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      34511360,
+      0,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827116,
+      33713044,
+      33710676
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097899
+  },
+  "executed_pcs": [
+    "0x02026250"
+  ],
+  "opcode": "0xE1A00004",
+  "terminal_pc": "0x02026254",
+  "terminal_opcode": "0xEBFFFF47",
+  "terminal_inner_BL_target": "0x02025F78",
+  "terminal_dispatched": false,
+  "inner_BL_dispatched": false,
+  "AI_instruction_count": 1,
+  "decision_observations": 66,
+  "decision_dispatches": 65,
+  "reconstructed_AH_store_event": {
+    "event": "ah_write_event",
+    "path": "Interpreter::step -> RtBus::write32 -> bus_write_u32",
+    "pc": 33710668,
+    "opcode": 3850633268,
+    "address": 34511412,
+    "width": 4,
+    "source_register": 0,
+    "value": 218,
+    "before": 218,
+    "after": 218
+  },
+  "AI_write_events": 0,
+  "register_deltas": [
+    {
+      "register": "r0",
+      "before": "0x000000DA",
+      "after": "0x020E9A00"
+    },
+    {
+      "register": "PC",
+      "before": "0x02026250",
+      "after": "0x02026254"
+    }
+  ],
+  "flags_before": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "flags_after": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "memory": {
+    "mainram_changed_bytes": 0,
+    "dtcm_changed_bytes": 0,
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "name": "phase",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "name": "result_delay",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "name": "unknown phase-one-assigned word",
+        "value": 218,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "name": "correct_count",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "name": "unknown zero-tested word",
+        "value": 0,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "name": "unknown comparison bound",
+        "value": 20,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "name": "unknown index word",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "name": "indexed +0x54 element",
+        "value": 11,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "name": "expected",
+        "value": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "name": "result_flag",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "name": "later_outcome",
+        "value": 255,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 1,
+        "after": 1,
+        "name": "retained previously mapped field"
+      }
+    ],
+    "mainram_before_sha256": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "mainram_after_sha256": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dtcm_before_sha256": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dtcm_after_sha256": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547"
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "state_effects": {
+    "AI_mmio_accesses": 0,
+    "AI_unexpected_writes": 0,
+    "peripheral_effect_attributable_to_AI": false,
+    "gameplay_resumed": false,
+    "score_count_phase_progression_history_result_completion_effect": false,
+    "video_touch_scene_unchanged": true,
+    "AI_inner_calls": 0
+  },
+  "accounting": {
+    "arm9_ordinal_before": 281097898,
+    "arm9_ordinal_after": 281097899,
+    "arm9_instruction_delta": 1,
+    "arm9_cycles_before": 3416875450,
+    "arm9_cycles_after": 3416875451,
+    "arm9_cycle_delta": 1,
+    "arm7_ordinal_before": 96026779,
+    "arm7_ordinal_after": 96026779,
+    "arm7_instruction_delta": 0,
+    "arm7_cycles_before": 1708437703,
+    "arm7_cycles_after": 1708437703,
+    "arm7_cycle_delta": 0,
+    "counters_restored": false
+  },
+  "source_checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "native_SDL_events": 10,
+  "custom_guest_touch_deliveries": 0,
+  "disabled_control": {
+    "pass": true,
+    "input_events": 0,
+    "RAM_save_changes": 0,
+    "exit_code": 0
+  },
+  "focused_tests": {
+    "outer_dispatch_guard": {
+      "pass": true,
+      "output": "PASS: complete AH prefix; exactly one AI MOV; terminal never dispatched; all registers/opcodes/ordinals and write-event operands fail closed"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: complete AG prefix; exactly one AH store; terminal never dispatched; all registers/opcodes/ordinals and write-event operands fail closed"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    },
+    "actual_interpreter_bus_hook": {
+      "pass": true,
+      "widths": [
+        1,
+        2,
+        4
+      ],
+      "underlying_bus_call_once": true,
+      "unexpected_MMIO_reads_rejected": true
+    },
+    "terminal_guard_before_AG_and_dispatch": {
+      "pass": true
+    },
+    "AI_all_writes_forbidden_and_MMIO_read_gate": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "forced_cleanup": false,
+  "limitations": [
+    "One frozen 11 - 7 / recognized-4 context",
+    "Original interpreter only; no compiled parity",
+    "No inner BL execution or full routine/gameplay-completion claim",
+    "No claim all scheduler bookkeeping is frozen"
+  ],
+  "recommended_next_smallest_task": "Read-only exact-state audit of the pending inner BL entry, argument ABI and minimum first-instruction boundary before proposing any separately authorized dynamic call. Do not start AJ.",
+  "stop": "Stopped after Task AI; Task AJ not started"
+}
