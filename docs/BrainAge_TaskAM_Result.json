@@ -1,0 +1,971 @@
+{
+  "task": "AM",
+  "classification": "FULL PASS",
+  "authoritative_al_commit": "7fe0ee8abba3ff487971c1ff4fb4ab6a45775e70",
+  "authoritative_ak_commit": "dd29b71e182611fb73016aa1a13367e70c9cd290",
+  "authoritative_aj_commit": "a1d2c76baedc0ae841086eeccaf9aa5daebe8d16",
+  "initial_head": "c5b5c5c545e4974f174dfa299370c917b539fa06",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "entry": {
+    "event": "decision_step",
+    "pc": 33979360,
+    "opcode": 3813736448,
+    "r": [
+      34512752,
+      0,
+      0,
+      31,
+      34512752,
+      0,
+      218,
+      34511360,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827076,
+      33710096,
+      33979360
+    ],
+    "n": 0,
+    "z": 0,
+    "c": 1,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097925
+  },
+  "prefix": [
+    {
+      "pc": "0x02067BE0",
+      "opcode": "0xE3510000",
+      "decoded": "cmp r1, #0",
+      "effect": "CMP 0,0 -> NZCV=0110"
+    },
+    {
+      "pc": "0x02067BE4",
+      "opcode": "0xE3A00000",
+      "decoded": "mov r0, #0",
+      "effect": "r0=0; flags unchanged"
+    },
+    {
+      "pc": "0x02067BE8",
+      "opcode": "0x0A000004",
+      "decoded": "beq #0x2067c00",
+      "effect": "EQ true Z=1 -> 02067C00; skips alternate r1 cases"
+    },
+    {
+      "pc": "0x02067C00",
+      "opcode": "0xE3520000",
+      "decoded": "cmp r2, #0",
+      "effect": "CMP 0,0 -> NZCV=0110"
+    },
+    {
+      "pc": "0x02067C04",
+      "opcode": "0xBA00000D",
+      "decoded": "blt #0x2067c40",
+      "effect": "LT false N=V=0; target 02067C40 not taken -> 02067C08"
+    },
+    {
+      "pc": "0x02067C08",
+      "opcode": "0xE3520008",
+      "decoded": "cmp r2, #8",
+      "effect": "CMP 0,8 -> NZCV=1000"
+    },
+    {
+      "pc": "0x02067C0C",
+      "opcode": "0xAA00000B",
+      "decoded": "bge #0x2067c40",
+      "effect": "GE false N=1 V=0; target 02067C40 not taken -> 02067C10"
+    },
+    {
+      "pc": "0x02067C10",
+      "opcode": "0xE3A00001",
+      "decoded": "mov r0, #1",
+      "effect": "r0=1"
+    },
+    {
+      "pc": "0x02067C14",
+      "opcode": "0xE1A00210",
+      "decoded": "lsl r0, r0, r2",
+      "effect": "r0=1 << r2(0) = 1; no flags"
+    },
+    {
+      "pc": "0x02067C18",
+      "opcode": "0xE59410C0",
+      "decoded": "ldr r1, [r4, #0xc0]",
+      "effect": "object read [020EA030] (+630)=1 -> r1"
+    },
+    {
+      "pc": "0x02067C1C",
+      "opcode": "0xE0110000",
+      "decoded": "ands r0, r1, r0",
+      "effect": "r0=1 & 1=1; NZ=00; zero-shift carry preserved C=0, V=0"
+    },
+    {
+      "pc": "0x02067C20",
+      "opcode": "0x0A000006",
+      "decoded": "beq #0x2067c40",
+      "effect": "EQ false Z=0; target 02067C40 not taken -> 02067C24"
+    },
+    {
+      "pc": "0x02067C24",
+      "opcode": "0xE0841102",
+      "decoded": "add r1, r4, r2, lsl #2",
+      "effect": "r1=020E9F70+(0 << 2)=020E9F70"
+    },
+    {
+      "pc": "0x02067C28",
+      "opcode": "0xE5910080",
+      "decoded": "ldr r0, [r1, #0x80]",
+      "effect": "object read [020E9FF0] (+5F0)=44 hex -> r0"
+    },
+    {
+      "pc": "0x02067C2C",
+      "opcode": "0xE1530000",
+      "decoded": "cmp r3, r0",
+      "effect": "CMP 1F,44 -> NZCV=1000; signed 31 < 68"
+    },
+    {
+      "pc": "0x02067C30",
+      "opcode": "0xB5911060",
+      "decoded": "ldrlt r1, [r1, #0x60]",
+      "effect": "LT true; object read [020E9FD0] (+5D0)=02131D24 -> r1"
+    },
+    {
+      "pc": "0x02067C34",
+      "opcode": "0xB3A00054",
+      "decoded": "movlt r0, #0x54",
+      "effect": "LT true; r0=54 hex"
+    },
+    {
+      "pc": "0x02067C38",
+      "opcode": "0xB0201093",
+      "decoded": "mlalt r0, r3, r0, r1",
+      "effect": "LT true; r0=1F*54+02131D24=02132750; no flags"
+    },
+    {
+      "pc": "0x02067C3C",
+      "opcode": "0xBA000000",
+      "decoded": "blt #0x2067c44",
+      "effect": "LT true N=1 V=0 -> 02067C44; skips MOV r0,0"
+    }
+  ],
+  "first_next_meaningful_action": {
+    "pc": "0x02067C44",
+    "opcode": "0xE5840250",
+    "decoded": "str r0, [r4, #0x250]",
+    "effect": "",
+    "address": "0x020EA1C0",
+    "exercise_offset": "0x7C0",
+    "subobject_offset": "0x250",
+    "width": 4,
+    "source": "r0",
+    "before": "0x02133A18",
+    "after": "0x02132750",
+    "changed_bytes": 2,
+    "semantics": "unknown pointer-valued field",
+    "executed": false
+  },
+  "lookahead_instruction_facts": [
+    {
+      "pc": "0x02067C44",
+      "opcode": "0xE5840250",
+      "decoded": "str r0, [r4, #0x250]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067C48",
+      "opcode": "0xE1A00004",
+      "decoded": "mov r0, r4",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067C4C",
+      "opcode": "0xE1A01002",
+      "decoded": "mov r1, r2",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067C50",
+      "opcode": "0xE584424C",
+      "decoded": "str r4, [r4, #0x24c]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067C54",
+      "opcode": "0xEBFFFD95",
+      "decoded": "bl #0x20672b0",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067C58",
+      "opcode": "0xEA00002C",
+      "decoded": "b #0x2067d10",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672B0",
+      "opcode": "0xE3510000",
+      "decoded": "cmp r1, #0",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672B4",
+      "opcode": "0xBA000008",
+      "decoded": "blt #0x20672dc",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672B8",
+      "opcode": "0xE3510008",
+      "decoded": "cmp r1, #8",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672BC",
+      "opcode": "0xAA000006",
+      "decoded": "bge #0x20672dc",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672C0",
+      "opcode": "0xE3A02001",
+      "decoded": "mov r2, #1",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672C4",
+      "opcode": "0xE1A02112",
+      "decoded": "lsl r2, r2, r1",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672C8",
+      "opcode": "0xE59030C0",
+      "decoded": "ldr r3, [r0, #0xc0]",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672CC",
+      "opcode": "0xE0132002",
+      "decoded": "ands r2, r3, r2",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672D0",
+      "opcode": "0x10800101",
+      "decoded": "addne r0, r0, r1, lsl #2",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672D4",
+      "opcode": "0x159000A0",
+      "decoded": "ldrne r0, [r0, #0xa0]",
+      "effect": ""
+    },
+    {
+      "pc": "0x020672D8",
+      "opcode": "0x112FFF1E",
+      "decoded": "bxne lr",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067C58",
+      "opcode": "0xEA00002C",
+      "decoded": "b #0x2067d10",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D10",
+      "opcode": "0xE5840278",
+      "decoded": "str r0, [r4, #0x278]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D14",
+      "opcode": "0xE3A02000",
+      "decoded": "mov r2, #0",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D18",
+      "opcode": "0xE5842258",
+      "decoded": "str r2, [r4, #0x258]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D1C",
+      "opcode": "0xE584225C",
+      "decoded": "str r2, [r4, #0x25c]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D20",
+      "opcode": "0xE3A00A01",
+      "decoded": "mov r0, #0x1000",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D24",
+      "opcode": "0xE5840260",
+      "decoded": "str r0, [r4, #0x260]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D28",
+      "opcode": "0xE5840264",
+      "decoded": "str r0, [r4, #0x264]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D2C",
+      "opcode": "0xE2840C02",
+      "decoded": "add r0, r4, #0x200",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D30",
+      "opcode": "0xE1C028B8",
+      "decoded": "strh r2, [r0, #0x88]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D34",
+      "opcode": "0xE584226C",
+      "decoded": "str r2, [r4, #0x26c]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D38",
+      "opcode": "0xE59F1024",
+      "decoded": "ldr r1, [pc, #0x24]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D3C",
+      "opcode": "0xE5842270",
+      "decoded": "str r2, [r4, #0x270]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D40",
+      "opcode": "0xE1C018BA",
+      "decoded": "strh r1, [r0, #0x8a]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D44",
+      "opcode": "0xE584227C",
+      "decoded": "str r2, [r4, #0x27c]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D48",
+      "opcode": "0xE3E00000",
+      "decoded": "mvn r0, #0",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D4C",
+      "opcode": "0xE5840280",
+      "decoded": "str r0, [r4, #0x280]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D50",
+      "opcode": "0xE5842268",
+      "decoded": "str r2, [r4, #0x268]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D54",
+      "opcode": "0xE5940278",
+      "decoded": "ldr r0, [r4, #0x278]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D58",
+      "opcode": "0xE5840274",
+      "decoded": "str r0, [r4, #0x274]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D5C",
+      "opcode": "0xE5842284",
+      "decoded": "str r2, [r4, #0x284]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02067D60",
+      "opcode": "0xE8BD8010",
+      "decoded": "pop {r4, pc}",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026010",
+      "opcode": "0xEA000004",
+      "decoded": "b #0x2026028",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026028",
+      "opcode": "0xE3A00001",
+      "decoded": "mov r0, #1",
+      "effect": ""
+    },
+    {
+      "pc": "0x0202602C",
+      "opcode": "0xE58707F4",
+      "decoded": "str r0, [r7, #0x7f4]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026030",
+      "opcode": "0xE3A00702",
+      "decoded": "mov r0, #0x80000",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026034",
+      "opcode": "0xE58707C8",
+      "decoded": "str r0, [r7, #0x7c8]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026038",
+      "opcode": "0xE3A01806",
+      "decoded": "mov r1, #0x60000",
+      "effect": ""
+    },
+    {
+      "pc": "0x0202603C",
+      "opcode": "0xE2870E57",
+      "decoded": "add r0, r7, #0x570",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026040",
+      "opcode": "0xE58717CC",
+      "decoded": "str r1, [r7, #0x7cc]",
+      "effect": ""
+    },
+    {
+      "pc": "0x02026044",
+      "opcode": "0xEB01053C",
+      "decoded": "bl #0x206753c",
+      "effect": ""
+    }
+  ],
+  "all_helper_tail_stores": [
+    {
+      "pc": "0x02067C44",
+      "opcode": "0xE5840250",
+      "decoded": "str r0, [r4, #0x250]",
+      "effect": "",
+      "address": "0x020EA1C0",
+      "exercise_offset": "0x7c0",
+      "width": 4,
+      "source": "r0",
+      "before": "0x02133A18",
+      "after": "0x02132750",
+      "value_changing": true,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067C50",
+      "opcode": "0xE584424C",
+      "decoded": "str r4, [r4, #0x24c]",
+      "effect": "",
+      "address": "0x020EA1BC",
+      "exercise_offset": "0x7bc",
+      "width": 4,
+      "source": "r4",
+      "before": "0x020EA034",
+      "after": "0x020E9F70",
+      "value_changing": true,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D10",
+      "opcode": "0xE5840278",
+      "decoded": "str r0, [r4, #0x278]",
+      "effect": "",
+      "address": "0x020EA1E8",
+      "exercise_offset": "0x7e8",
+      "width": 4,
+      "source": "r0",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D18",
+      "opcode": "0xE5842258",
+      "decoded": "str r2, [r4, #0x258]",
+      "effect": "",
+      "address": "0x020EA1C8",
+      "exercise_offset": "0x7c8",
+      "width": 4,
+      "source": "r2",
+      "before": "0x0002D000",
+      "after": "0x00000000",
+      "value_changing": true,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D1C",
+      "opcode": "0xE584225C",
+      "decoded": "str r2, [r4, #0x25c]",
+      "effect": "",
+      "address": "0x020EA1CC",
+      "exercise_offset": "0x7cc",
+      "width": 4,
+      "source": "r2",
+      "before": "0x00060000",
+      "after": "0x00000000",
+      "value_changing": true,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D24",
+      "opcode": "0xE5840260",
+      "decoded": "str r0, [r4, #0x260]",
+      "effect": "",
+      "address": "0x020EA1D0",
+      "exercise_offset": "0x7d0",
+      "width": 4,
+      "source": "r0",
+      "before": "0x00001000",
+      "after": "0x00001000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D28",
+      "opcode": "0xE5840264",
+      "decoded": "str r0, [r4, #0x264]",
+      "effect": "",
+      "address": "0x020EA1D4",
+      "exercise_offset": "0x7d4",
+      "width": 4,
+      "source": "r0",
+      "before": "0x00001000",
+      "after": "0x00001000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D30",
+      "opcode": "0xE1C028B8",
+      "decoded": "strh r2, [r0, #0x88]",
+      "effect": "",
+      "address": "0x020EA1F8",
+      "exercise_offset": "0x7f8",
+      "width": 2,
+      "source": "r2",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D34",
+      "opcode": "0xE584226C",
+      "decoded": "str r2, [r4, #0x26c]",
+      "effect": "",
+      "address": "0x020EA1DC",
+      "exercise_offset": "0x7dc",
+      "width": 4,
+      "source": "r2",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D3C",
+      "opcode": "0xE5842270",
+      "decoded": "str r2, [r4, #0x270]",
+      "effect": "",
+      "address": "0x020EA1E0",
+      "exercise_offset": "0x7e0",
+      "width": 4,
+      "source": "r2",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D40",
+      "opcode": "0xE1C018BA",
+      "decoded": "strh r1, [r0, #0x8a]",
+      "effect": "",
+      "address": "0x020EA1FA",
+      "exercise_offset": "0x7fa",
+      "width": 2,
+      "source": "r1",
+      "before": "0x0000FFFF",
+      "after": "0x0000FFFF",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D44",
+      "opcode": "0xE584227C",
+      "decoded": "str r2, [r4, #0x27c]",
+      "effect": "",
+      "address": "0x020EA1EC",
+      "exercise_offset": "0x7ec",
+      "width": 4,
+      "source": "r2",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D4C",
+      "opcode": "0xE5840280",
+      "decoded": "str r0, [r4, #0x280]",
+      "effect": "",
+      "address": "0x020EA1F0",
+      "exercise_offset": "0x7f0",
+      "width": 4,
+      "source": "r0",
+      "before": "0xFFFFFFFF",
+      "after": "0xFFFFFFFF",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D50",
+      "opcode": "0xE5842268",
+      "decoded": "str r2, [r4, #0x268]",
+      "effect": "",
+      "address": "0x020EA1D8",
+      "exercise_offset": "0x7d8",
+      "width": 4,
+      "source": "r2",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D58",
+      "opcode": "0xE5840274",
+      "decoded": "str r0, [r4, #0x274]",
+      "effect": "",
+      "address": "0x020EA1E4",
+      "exercise_offset": "0x7e4",
+      "width": 4,
+      "source": "r0",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    },
+    {
+      "pc": "0x02067D5C",
+      "opcode": "0xE5842284",
+      "decoded": "str r2, [r4, #0x284]",
+      "effect": "",
+      "address": "0x020EA1F4",
+      "exercise_offset": "0x7f4",
+      "width": 4,
+      "source": "r2",
+      "before": "0x00000000",
+      "after": "0x00000000",
+      "value_changing": false,
+      "semantics": "unproven; offset only"
+    }
+  ],
+  "an": {
+    "start_pc": "0x02067BE0",
+    "stop_pc": "0x02067C44",
+    "stop_before": "STR r0,[r4,#0x250], before fetch/dispatch",
+    "instruction_count": 19,
+    "pc_sequence": [
+      "0x02067BE0",
+      "0x02067BE4",
+      "0x02067BE8",
+      "0x02067C00",
+      "0x02067C04",
+      "0x02067C08",
+      "0x02067C0C",
+      "0x02067C10",
+      "0x02067C14",
+      "0x02067C18",
+      "0x02067C1C",
+      "0x02067C20",
+      "0x02067C24",
+      "0x02067C28",
+      "0x02067C2C",
+      "0x02067C30",
+      "0x02067C34",
+      "0x02067C38",
+      "0x02067C3C"
+    ],
+    "r": [
+      "0x02132750",
+      "0x02131D24",
+      "0x00000000",
+      "0x0000001F",
+      "0x020E9F70",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x020E9A00",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x027E3B04",
+      "0x02026010",
+      "0x02067C44"
+    ],
+    "nzcv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "predicted_arm9_ordinal": 281097944,
+    "ram_writes": 0,
+    "dtcm_writes": 0,
+    "ram_changed_bytes": 0,
+    "dtcm_changed_bytes": 0,
+    "mainram_sha256": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "dtcm_sha256": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      }
+    ],
+    "save_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "save_changed_bytes": 0,
+    "logical_save_requests": 0,
+    "flash_commits": 0,
+    "mmio_accesses": 0,
+    "calls": 0,
+    "returns": 0
+  },
+  "safety": {
+    "guest_dispatches": 0,
+    "guest_mutation": false,
+    "an_started": false,
+    "input_hashes_unchanged": true
+  },
+  "input_sha256": {
+    "dev\\docs\\BrainAge_TaskAL_FirstValueChangingObjectStore.md": "8fa8ac410c12a216c01969c1b505a080e9ebeeee771d3d7cc9b72beb897ef58c",
+    "dev\\docs\\BrainAge_TaskAL_Result.json": "9e3d0bb70a103d65cd39bd0a027f8f6cd16a28941e0b796fc21505fcdee1cdd0",
+    "dev\\tools\\task_al\\analyze.py": "3a84f80d139a64a167d8b7729b4f1469224abd0539c0e7ce8bdf38f075b19572",
+    "dev\\tools\\task_al\\build.ps1": "e45976542df9a8a920458038afff030979813932ade49ad3ee02a4d58104e8b2",
+    "dev\\tools\\task_al\\check.py": "d7f0c43daece81d360124378eee69ba79f06a6c8963df264abfdad0d136448a2",
+    "dev\\tools\\task_al\\diagnostic.h": "d6181555dd351e014761fbdc0ad38c1b82da26be6686f1a78d5be379a17b7b6c",
+    "dev\\tools\\task_al\\guard.h": "25b7d0c3ad78293a8201849364b016f29b3f6a884eb09bfffb79515ea48c7c3e",
+    "dev\\tools\\task_al\\guard_test.cpp": "fbd163a0adefcf5c6104e23090a6181620544cac860911b8f2bee47146b6ff10",
+    "dev\\tools\\task_al\\install.py": "b4484447b3a92c90ec684c545616a7d0d8c1750d94f5bc60715fd01771ffd500",
+    "dev\\tools\\task_al\\preflight.py": "849ac08fb18edc56d6db6df93159e679f0efcd7296dd402d5f00ee6e706c3164",
+    "dev\\tools\\task_al\\run.py": "f8c3d926bd061edc09d451ffe21cffbab51b03bbf2e2d70fbcced1780a561d65",
+    "dev\\tools\\task_al\\task_al_decision.inc": "f9a52db9b5a691dc666ee204016f43847375d130429b0cb1396ef417e5d66062",
+    "dev\\docs\\BrainAge_TaskAK_DynamicInnerHelperBoundary.md": "2db5326afddf9694ff7e0b7b82e34af539067538bcc9c583486e621d31096dc7",
+    "dev\\docs\\BrainAge_TaskAK_Result.json": "e7645b453e69d323a10a873e2b3b125196afe4316dd1b514148c1277071aaf7b",
+    "dev\\tools\\task_ak\\analyze.py": "65553adc5da3c8fb8c00cd3cbaef364eb4bb935da72524e210d43b8789509649",
+    "dev\\tools\\task_ak\\build.ps1": "2d5fa36076cf51554b46fa5acf03f58e4eb2f49c02bfa3fad6309b7be0cbd826",
+    "dev\\tools\\task_ak\\check.py": "acbe6f7e7465d9d436a38e5bec356e8db07cc34cffe4ded912fde95de3be9078",
+    "dev\\tools\\task_ak\\diagnostic.h": "cd4d22303b442bf92bb5a066bc65579917f3c93ca406f16c5382935d71f65063",
+    "dev\\tools\\task_ak\\expected.json": "de92e5455b3f1ad607144be2e29c6647117c4692f2926b9703f17fc43cc84f81",
+    "dev\\tools\\task_ak\\guard.h": "6809ed1373093c0c0d6c937b0d714b7526ead233ad448db56d9c5ee731812dae",
+    "dev\\tools\\task_ak\\guard_test.cpp": "72ee16e28e68b265467b6e79d760b14c73dcd28ccb18054147205c49dac0cb0f",
+    "dev\\tools\\task_ak\\install.py": "c08cb34b87fbd96d207442641d240a5cb1209a0d3c52fa799d51f1a6a73f70f9",
+    "dev\\tools\\task_ak\\preflight.py": "5f10e442a0203cc8fb9cfaefe79a79887a3d34af62866cba87d8d920f5e25e94",
+    "dev\\tools\\task_ak\\run.py": "685dc1a3ecb53c9cfc909dec64d1e84a4cc2f8738f2a1bca5f1df0737b0bc752",
+    "dev\\tools\\task_ak\\task_ak_decision.inc": "3373b9304cab5b47bba66a1a213e129cb75d8f1659b4394e9fc7bc7a8512c1ba",
+    "dev\\docs\\BrainAge_TaskAJ_InnerHelperStaticMap.md": "a7dc804215aff68fc8cc8ee246263a79cccfd3609d06e42c27d08d2f74fd9fbd",
+    "dev\\docs\\BrainAge_TaskAJ_Result.json": "31cc1dd0986753c7266264905711de727362206648dea94e64a8638a7ffbad66",
+    "dev\\tools\\task_aj\\analyze.py": "0b9adf411498fe004f1431dc7f07727fe312f99f4151f63c6b26296dba6c41dd",
+    "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "dev\\local\\task-al\\session-002\\ah-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-al\\session-002\\ah-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\ah-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\ai-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-al\\session-002\\ai-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\ai-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\ak-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-al\\session-002\\ak-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\ak-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\al-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-al\\session-002\\al-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\al-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\audit.jsonl": "514f6049bfc0a6e5170e2ea931eeb23b53ef331ffe73b424048d31181fe5b01b",
+    "dev\\local\\task-al\\session-002\\decision-after-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-al\\session-002\\decision-after-mainram.bin": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "dev\\local\\task-al\\session-002\\decision-after.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\decision-before-dtcm.bin": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "dev\\local\\task-al\\session-002\\decision-before-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-al\\session-002\\decision-before-stack.bin": "04fd4f2ae97cb9659f5d9dc74ce3012072d40f6acab1f4f73d642729b2c7b7e4",
+    "dev\\local\\task-al\\session-002\\decision-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\disabled-entry-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-al\\session-002\\exercise-after.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-al\\session-002\\exercise-before.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-al\\session-002\\final.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\first-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-al\\session-002\\first-store-before-mainram.bin": "6f9381ff8e12de322985ec992652f1e718c3d267182049e2144b27ae6ad98af5",
+    "dev\\local\\task-al\\session-002\\flash.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-al\\session-002\\frontend-input.jsonl": "fd86ef2ff691b7acb28bfa520d7e60951a17ea6e9f5ac5fbd057b6bb7c7fabd5",
+    "dev\\local\\task-al\\session-002\\hold-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-al\\session-002\\initial-window.bmp": "0c1b372a8f86848df4eed8d5101b2696da9e27aabecb066970144ad03768d7eb",
+    "dev\\local\\task-al\\session-002\\initial.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\manager-after.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-al\\session-002\\manager-before.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-al\\session-002\\outer-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-al\\session-002\\outer-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\outer-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\pop-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-al\\session-002\\pop-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\pop-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\publication-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-al\\session-002\\requests.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-al\\session-002\\second-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-al\\session-002\\second-store-before-mainram.bin": "ea7de8687cb8e75b75b7f9bceb62d9b18530e3f2654c62fe42ca25cbf90136a7",
+    "dev\\local\\task-al\\session-002\\second-store-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\service-clean-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-al\\session-002\\session.json": "9b0788e762e26020481ec24acc93dd9e1b1c0d4ba0f9ccd65d4b3c6108e4705d",
+    "dev\\local\\task-al\\session-002\\session.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\slice-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-al\\session-002\\slice-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\slice-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\slot-after.bin": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+    "dev\\local\\task-al\\session-002\\slot-before.bin": "7a228568f985a7cbd84c35a794765e34a0faa72eccd0b16922f67c9ad8533c50",
+    "dev\\local\\task-al\\session-002\\source.state": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+    "dev\\local\\task-al\\session-002\\stack-adjust-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-al\\session-002\\stack-adjust-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-al\\session-002\\stack-adjust-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-al\\session-002\\stderr.log": "fe93cb209d26a4e95ef07c56b6daca33d0d0a622836d80d88cc2ccad18ae50c2",
+    "dev\\local\\task-al\\session-002\\stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-al\\session-002\\stroke1-window.bmp": "eeb11263eff95a5b235a9a0590acf6e021d01738ab7dee3b1b678e2c34f76140",
+    "dev\\local\\task-al\\session-002\\window-control.txt": "b22809c99a97c774eeb3c0c5d295892a6d28ba352c5c2c20794604e6078200b7"
+  },
+  "evidence_tier": "Static exact-ROM analysis anchored in retained forced Tier-3 AL interpreter evidence; no compiled parity",
+  "contradictions": [],
+  "limitations": [
+    "Predictions conditional on exact AL context and future fail-closed gates",
+    "Lookahead stores/return/caller are static only and excluded from AN",
+    "Unknown fields retain mechanical offset descriptions",
+    "No cycle or scheduler prediction"
+  ]
+}
