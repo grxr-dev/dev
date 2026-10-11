@@ -1,0 +1,1291 @@
+{
+  "task": "AV",
+  "classification": "PARTIAL",
+  "reason": "Current runtime source and ARM path identified; AU omitted live scheduler cap, timing and peripheral entry snapshots, and its terminal halt does not suppress scheduler tail. Conditional AW candidate is specified but eligibility is unproven.",
+  "authoritative_AU_commit": "f17f95ae2b2a15f7fced6f04d82d2593350d37a4",
+  "authoritative_AT_commit": "6478bd11b386799a3f4e03f923c39227e982c51d",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "evidence_tier": "Committed forced Tier-3 exact-context original ARM evidence plus file-only ROM/source inspection; no new execution or compiled parity",
+  "au_stop": {
+    "event": "au_step",
+    "pc": 33560960,
+    "opcode": 3787534512,
+    "r": [
+      4096,
+      67109504,
+      67109520,
+      1,
+      34513340,
+      0,
+      218,
+      34511360,
+      4096,
+      4096,
+      34590732,
+      0,
+      1164,
+      41825876,
+      33561120,
+      33560960
+    ],
+    "n": 0,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281098008
+  },
+  "au_stop_counters": {
+    "event": "decision_stop_sample",
+    "pc": 33560960,
+    "cycle9": 3416875721,
+    "cycle7": 1708437825,
+    "insn9": 281098008,
+    "insn7": 96026779,
+    "guest_deliveries": 1,
+    "owner": false,
+    "down": false,
+    "video_sha1": "d3f4367c0f34a5ce1a876c419a1aeb927c17b499",
+    "flash_sha1": "a8a960103e51212efdc5bdcb5cbc28d862deb860",
+    "current": 17,
+    "requested": 17,
+    "selected": 17,
+    "presents": 160
+  },
+  "entry_images": {
+    "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+    "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+  },
+  "mapped_fields": [
+    {
+      "offset": "0x10",
+      "address": "0x020E9A10",
+      "width": 2,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x20",
+      "address": "0x020E9A20",
+      "width": 4,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x34",
+      "address": "0x020E9A34",
+      "width": 4,
+      "before": 218,
+      "after": 218
+    },
+    {
+      "offset": "0x44",
+      "address": "0x020E9A44",
+      "width": 4,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x1C",
+      "address": "0x020E9A1C",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x3C",
+      "address": "0x020E9A3C",
+      "width": 4,
+      "before": 20,
+      "after": 20
+    },
+    {
+      "offset": "0x40",
+      "address": "0x020E9A40",
+      "width": 4,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x58",
+      "address": "0x020E9A58",
+      "width": 4,
+      "before": 11,
+      "after": 11
+    },
+    {
+      "offset": "0x4C",
+      "address": "0x020E9A4C",
+      "width": 4,
+      "before": 4,
+      "after": 4
+    },
+    {
+      "offset": "0x504",
+      "address": "0x020E9F04",
+      "width": 4,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x51C",
+      "address": "0x020E9F1C",
+      "width": 4,
+      "before": 255,
+      "after": 255
+    },
+    {
+      "offset": "0x38",
+      "address": "0x020E9A38",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x50c",
+      "address": "0x020E9F0C",
+      "width": 4,
+      "before": 255,
+      "after": 255
+    },
+    {
+      "offset": "0x514",
+      "address": "0x020E9F14",
+      "width": 4,
+      "before": 4,
+      "after": 4
+    },
+    {
+      "offset": "0x7c4",
+      "address": "0x020EA1C4",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x630",
+      "address": "0x020EA030",
+      "width": 4,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x5f0",
+      "address": "0x020E9FF0",
+      "width": 4,
+      "before": 68,
+      "after": 68
+    },
+    {
+      "offset": "0x5d0",
+      "address": "0x020E9FD0",
+      "width": 4,
+      "before": 34807076,
+      "after": 34807076
+    },
+    {
+      "offset": "0x7c0",
+      "address": "0x020EA1C0",
+      "width": 4,
+      "before": 34809680,
+      "after": 34809680
+    },
+    {
+      "offset": "0x7bc",
+      "address": "0x020EA1BC",
+      "width": 4,
+      "before": 34512752,
+      "after": 34512752
+    },
+    {
+      "offset": "0x7e8",
+      "address": "0x020EA1E8",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7c8",
+      "address": "0x020EA1C8",
+      "width": 4,
+      "before": 524288,
+      "after": 524288
+    },
+    {
+      "offset": "0x7cc",
+      "address": "0x020EA1CC",
+      "width": 4,
+      "before": 393216,
+      "after": 393216
+    },
+    {
+      "offset": "0x7d0",
+      "address": "0x020EA1D0",
+      "width": 4,
+      "before": 4096,
+      "after": 4096
+    },
+    {
+      "offset": "0x7d4",
+      "address": "0x020EA1D4",
+      "width": 4,
+      "before": 4096,
+      "after": 4096
+    },
+    {
+      "offset": "0x7f8",
+      "address": "0x020EA1F8",
+      "width": 2,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7dc",
+      "address": "0x020EA1DC",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7e0",
+      "address": "0x020EA1E0",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7fa",
+      "address": "0x020EA1FA",
+      "width": 2,
+      "before": 65535,
+      "after": 65535
+    },
+    {
+      "offset": "0x7ec",
+      "address": "0x020EA1EC",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7f0",
+      "address": "0x020EA1F0",
+      "width": 4,
+      "before": 4294967295,
+      "after": 4294967295
+    },
+    {
+      "offset": "0x7d8",
+      "address": "0x020EA1D8",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7e4",
+      "address": "0x020EA1E4",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    },
+    {
+      "offset": "0x7f4",
+      "address": "0x020EA1F4",
+      "width": 4,
+      "before": 1,
+      "after": 1
+    },
+    {
+      "offset": "0x610",
+      "address": "0x020EA010",
+      "width": 4,
+      "before": 0,
+      "after": 0
+    }
+  ],
+  "code_facts": [
+    {
+      "pc": "0x02001980",
+      "opcode": "0xE1C130B0",
+      "decode": "strh r3, [r1]"
+    },
+    {
+      "pc": "0x02001984",
+      "opcode": "0xE3A0C000",
+      "decode": "mov ip, #0"
+    },
+    {
+      "pc": "0x02001988",
+      "opcode": "0xE582C000",
+      "decode": "str ip, [r2]"
+    },
+    {
+      "pc": "0x0200198C",
+      "opcode": "0xE3A03A01",
+      "decode": "mov r3, #0x1000"
+    },
+    {
+      "pc": "0x02001990",
+      "opcode": "0xE59F1014",
+      "decode": "ldr r1, [pc, #0x14]"
+    },
+    {
+      "pc": "0x02001994",
+      "opcode": "0xE5823004",
+      "decode": "str r3, [r2, #4]"
+    },
+    {
+      "pc": "0x02001998",
+      "opcode": "0xE5810000",
+      "decode": "str r0, [r1]"
+    },
+    {
+      "pc": "0x0200199C",
+      "opcode": "0xE581C004",
+      "decode": "str ip, [r1, #4]"
+    },
+    {
+      "pc": "0x020019A0",
+      "opcode": "0xE12FFF1E",
+      "decode": "bx lr"
+    },
+    {
+      "pc": "0x020019B0",
+      "opcode": "0xE59F102C",
+      "decode": "ldr r1, [pc, #0x2c]"
+    },
+    {
+      "pc": "0x020019B4",
+      "opcode": "0xE1D100B0",
+      "decode": "ldrh r0, [r1]"
+    },
+    {
+      "pc": "0x020019B8",
+      "opcode": "0xE2100902",
+      "decode": "ands r0, r0, #0x8000"
+    },
+    {
+      "pc": "0x020019BC",
+      "opcode": "0x1AFFFFFC",
+      "decode": "bne #0x20019b4"
+    },
+    {
+      "pc": "0x020019C0",
+      "opcode": "0xE59F1020",
+      "decode": "ldr r1, [pc, #0x20]"
+    },
+    {
+      "pc": "0x020019C4",
+      "opcode": "0xE3A00702",
+      "decode": "mov r0, #0x80000"
+    },
+    {
+      "pc": "0x020019C8",
+      "opcode": "0xE5912000",
+      "decode": "ldr r2, [r1]"
+    },
+    {
+      "pc": "0x020019CC",
+      "opcode": "0xE5911004",
+      "decode": "ldr r1, [r1, #4]"
+    },
+    {
+      "pc": "0x02001A20",
+      "opcode": "0xEBFFFFE2",
+      "decode": "bl #0x20019b0"
+    }
+  ],
+  "literals": {
+    "0x020019A4": "0x04000280",
+    "0x020019A8": "0x04000290",
+    "0x020019AC": "0x04000298",
+    "0x020019E4": "0x04000280",
+    "0x020019E8": "0x040002A0"
+  },
+  "source_functions_baseline_identical": [
+    "uint64_t active_system_timestamp()",
+    "void start_div()",
+    "void finish_div()",
+    "uint32_t math_reg_read32(",
+    "bool math_addr(",
+    "void math_reg_write(",
+    "uint64_t nds_next_system_event_time()",
+    "void nds_run_system_events("
+  ],
+  "input_sha256": {
+    "dev\\docs\\BrainAge_TaskAU_DynamicPreMMIOBoundary.md": "ea4ed26b93a67eb4fe5ebdb48babb81bd7a5b130e2feb63236a78864697d37da",
+    "dev\\docs\\BrainAge_TaskAU_Result.json": "c8ab59e5860c2bf405d19f9f97ad24175c3bab7bc051b6c22f8c4bd709038809",
+    "dev\\tools\\task_au\\analyze.py": "34815052b985437bfe40c5f588e9d2392eac8a3978cd6fd46f6e64e4594dce08",
+    "dev\\tools\\task_au\\build.ps1": "300e976cceb48c28199f54e0485a22edcf0779100ec3f01ab8d6370d5bf26012",
+    "dev\\tools\\task_au\\check.py": "1f25dba58a16b6db7ba05477efd51bf05b6a603e7152057a5c65faec4d8ddd6f",
+    "dev\\tools\\task_au\\diagnostic.h": "4963208e8184fdf89c19ed448d0e44e88e214101a67f381ae0fc74fb6edd3e80",
+    "dev\\tools\\task_au\\entry.inc": "0b86f45c1ae074aac097007aa90ac505e24b0250e3530525683f30b0f8018976",
+    "dev\\tools\\task_au\\entry_guard.h": "25e5be29196a3565944ad3564ffa308d5aea477313f81c8b79b58bcdfc2e7abb",
+    "dev\\tools\\task_au\\expected.json": "ea572d6713aebf4bf163e24e31d252d448e2be52c0d6209348e01627eaa3768a",
+    "dev\\tools\\task_au\\generate_guard.py": "7c2b698ed4df4e527f5c16708a5cf073ab2efa842152cb44ef714afa5c890fff",
+    "dev\\tools\\task_au\\guard.h": "a06f4e84c0a757f19b520261c122d1b99d9ecf952387d996dbdbc936edb0e1d9",
+    "dev\\tools\\task_au\\guard_test.cpp": "99f3ce1b40dabbf066a422ab0af3308227674c37e83499e8c108f32adcec6205",
+    "dev\\tools\\task_au\\install.py": "4bfe86f9ab356d5b9328574a526191a2da97484dfd8d9926ce5b8441d3b52e9c",
+    "dev\\tools\\task_au\\preflight.py": "0cd5ca98032bdb83027fc53ebaf660840674786191f5ae826bb71c9515585d32",
+    "dev\\tools\\task_au\\run.py": "81d161176b3a2aa35b35d0c9b3797813602e5a4581a0abf908426e25874488c2",
+    "dev\\tools\\task_au\\setup.inc": "c5afcb60434e44e7111f9ff523a2505d2d47d635b349663660b61478b394e539",
+    "dev\\tools\\task_au\\setup_guard.h": "65914634bf767ec2583523911cf7fdde04a242b9b53ae8efa31b1f3556d967fd",
+    "dev\\tools\\task_au\\slice.inc": "9603674787c93ef8828eb43b8e81438379f9cc6159e38e33764ad42060d4fdac",
+    "dev\\tools\\task_au\\slice_guard.h": "50e310d8f0f2de80e2dc8bd0e7a2c9b2797acf481c64decded74b6697ff2be42",
+    "dev\\tools\\task_au\\task_au_decision.inc": "18faae156724beea3be2666c9548ea810b53eb93a883567eeb66ce71c8570a8b",
+    "dev\\docs\\BrainAge_TaskAT_NestedMMIOStaticMap.md": "f871e1ddcbb39d9a31aff346840d51d47d996b01f12586ae1e6e299b46f676ab",
+    "dev\\docs\\BrainAge_TaskAT_Result.json": "ea572d6713aebf4bf163e24e31d252d448e2be52c0d6209348e01627eaa3768a",
+    "dev\\tools\\task_at\\README.md": "631ee13234eb483458625d9a355e4403aee1911f445168ea6871a626127192d0",
+    "dev\\tools\\task_at\\analyze.py": "b68bde9ce612230ad6aeeb60378ebc111fe7edc0e1d9d81d4e367bbcad81f117",
+    "dev\\tools\\task_at\\check.py": "8cbbf6b4e43e1d30e924e7ddcead6807bd531769d76d227428c0ace945dcc780",
+    "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "dev\\local\\task-au\\session-001\\ah-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-au\\session-001\\ah-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\ah-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\ai-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-au\\session-001\\ai-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\ai-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\ak-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-au\\session-001\\ak-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\ak-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\al-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-au\\session-001\\al-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\al-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\an-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-au\\session-001\\an-before-mainram.bin": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "dev\\local\\task-au\\session-001\\an-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\ao-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-au\\session-001\\ao-before-mainram.bin": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "dev\\local\\task-au\\session-001\\ao-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\aq-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-au\\session-001\\aq-before-mainram.bin": "541991ee1d577324f15893effad69140c1aa0e2d7aeb3a8d302eabbae01e24bd",
+    "dev\\local\\task-au\\session-001\\aq-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\as-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-au\\session-001\\as-before-mainram.bin": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dev\\local\\task-au\\session-001\\as-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\au-before-dtcm.bin": "48b89027a274b3268219cdc6a8cd1f7fe15bf442a78b3931d79c4e6ae3ea36e4",
+    "dev\\local\\task-au\\session-001\\au-before-mainram.bin": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dev\\local\\task-au\\session-001\\au-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\audit.jsonl": "db38f28cfc966f88f33e4160364f566334b6749e44baf62ed4606ea32dbcba5a",
+    "dev\\local\\task-au\\session-001\\decision-after-dtcm.bin": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+    "dev\\local\\task-au\\session-001\\decision-after-mainram.bin": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dev\\local\\task-au\\session-001\\decision-after.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\decision-before-dtcm.bin": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "dev\\local\\task-au\\session-001\\decision-before-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-au\\session-001\\decision-before-stack.bin": "04fd4f2ae97cb9659f5d9dc74ce3012072d40f6acab1f4f73d642729b2c7b7e4",
+    "dev\\local\\task-au\\session-001\\decision-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\disabled-entry-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-au\\session-001\\exercise-after.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-au\\session-001\\exercise-before.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-au\\session-001\\final.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\first-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-au\\session-001\\first-store-before-mainram.bin": "6f9381ff8e12de322985ec992652f1e718c3d267182049e2144b27ae6ad98af5",
+    "dev\\local\\task-au\\session-001\\flash.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-au\\session-001\\frontend-input.jsonl": "fd86ef2ff691b7acb28bfa520d7e60951a17ea6e9f5ac5fbd057b6bb7c7fabd5",
+    "dev\\local\\task-au\\session-001\\hold-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-au\\session-001\\initial-window.bmp": "0c1b372a8f86848df4eed8d5101b2696da9e27aabecb066970144ad03768d7eb",
+    "dev\\local\\task-au\\session-001\\initial.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\manager-after.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-au\\session-001\\manager-before.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-au\\session-001\\outer-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-au\\session-001\\outer-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\outer-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\pop-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-au\\session-001\\pop-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\pop-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\publication-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-au\\session-001\\requests.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-au\\session-001\\second-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-au\\session-001\\second-store-before-mainram.bin": "ea7de8687cb8e75b75b7f9bceb62d9b18530e3f2654c62fe42ca25cbf90136a7",
+    "dev\\local\\task-au\\session-001\\second-store-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\service-clean-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-au\\session-001\\session.json": "0e34dda2f94f800362c30136e8aa036b5d6ae205b5c9b1c05df128c5bf616253",
+    "dev\\local\\task-au\\session-001\\session.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\slice-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-au\\session-001\\slice-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\slice-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\slot-after.bin": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+    "dev\\local\\task-au\\session-001\\slot-before.bin": "7a228568f985a7cbd84c35a794765e34a0faa72eccd0b16922f67c9ad8533c50",
+    "dev\\local\\task-au\\session-001\\source.state": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+    "dev\\local\\task-au\\session-001\\stack-adjust-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-au\\session-001\\stack-adjust-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-au\\session-001\\stack-adjust-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-au\\session-001\\stderr.log": "e97c35b1d46a701847562523dab8b336ce07a8c1bc8ab46874d19a1b89460a91",
+    "dev\\local\\task-au\\session-001\\stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-au\\session-001\\stroke1-window.bmp": "eeb11263eff95a5b235a9a0590acf6e021d01738ab7dee3b1b678e2c34f76140",
+    "dev\\local\\task-au\\session-001\\window-control.txt": "afdf86d1341b5526a46d26a30d8a17c5852a4304ea2cce71f9a1fe87f31b98e1",
+    "dev\\local\\ndsrecomp\\runner\\src\\io.cpp": "76bd92beb74cb46e2421b0d6237e0318c61a630c6674f0729091b436b51b3df2",
+    "dev\\local\\ndsrecomp\\runner\\src\\bus.cpp": "6510490c95e7458fa483cc01f82eb64b65a7a4d7d4dcb735c4fa9610ac3ea571",
+    "dev\\local\\ndsrecomp\\runner\\src\\tier3.cpp": "a6c7c45edea108e9ffdfc869a2efe2ed03d7a6214fee7042137e8b7ba982b35c",
+    "dev\\local\\ndsrecomp\\runner\\src\\runtime_arm.cpp": "166d06094e2adc19070f145a6c0f50de9d62cb9412eb1f07eb69c3be25d34198",
+    "dev\\local\\ndsrecomp\\runner\\src\\scheduler.cpp": "591037677a40c40b0f412e39e5102c664c5408411599753eada6ab11cfe35984",
+    "dev\\local\\ndsrecomp\\runner\\src\\frontend.cpp": "baed5a936a83ce21815b018cc9eff2e9bd561e67f9dc8c1f39388007c2f385e9",
+    "dev\\local\\ndsrecomp\\runner\\src\\main.cpp": "9a7e3566ad63670ad226b43b38baab6242d7d604c9a58cf0e3ae1d4e19391d00",
+    "dev\\local\\ndsrecomp\\recompiler\\armv4t\\runtime_arm.h": "637c90e196353d53bd8076554747878ebbc6ad454502d713f02ad0711247f38e",
+    "dev\\local\\ndsrecomp\\external\\arm-recomp-core\\common\\interpreter.cpp": "679c5a459593c83f611e7fedfbd3c34ef052c6ab064b77689401659cc7a76ead"
+  },
+  "AW": {
+    "status": "CONDITIONAL DESIGN ONLY; not ready to execute",
+    "start_pc": "0x02001980",
+    "stop_pc": "0x020019B8",
+    "stop": "before fetch/accounting/dispatch of ANDS, after exactly one status read",
+    "instruction_count": 12,
+    "pc_sequence": [
+      "0x02001980",
+      "0x02001984",
+      "0x02001988",
+      "0x0200198C",
+      "0x02001990",
+      "0x02001994",
+      "0x02001998",
+      "0x0200199C",
+      "0x020019A0",
+      "0x02001A20",
+      "0x020019B0",
+      "0x020019B4"
+    ],
+    "conditional_trace": [
+      {
+        "pc": "0x02001980",
+        "opcode": "0xE1C130B0",
+        "decode": "STRH r3,[r1]",
+        "r_before": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x0000048C",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001980"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x0000048C",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001984"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 8,
+        "cycle9_before": 3416875721,
+        "cycle9_after": 3416875729
+      },
+      {
+        "pc": "0x02001984",
+        "opcode": "0xE3A0C000",
+        "decode": "MOV r12,#0",
+        "r_before": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x0000048C",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001984"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001988"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 1,
+        "cycle9_before": 3416875729,
+        "cycle9_after": 3416875730
+      },
+      {
+        "pc": "0x02001988",
+        "opcode": "0xE582C000",
+        "decode": "STR r12,[r2]",
+        "r_before": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001988"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x0200198C"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 8,
+        "cycle9_before": 3416875730,
+        "cycle9_after": 3416875738
+      },
+      {
+        "pc": "0x0200198C",
+        "opcode": "0xE3A03A01",
+        "decode": "MOV r3,#0x1000",
+        "r_before": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00000001",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x0200198C"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001990"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 1,
+        "cycle9_before": 3416875738,
+        "cycle9_after": 3416875739
+      },
+      {
+        "pc": "0x02001990",
+        "opcode": "0xE59F1014",
+        "decode": "LDR r1,[pc,#0x14]",
+        "r_before": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001990"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001994"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 3,
+        "cycle9_before": 3416875739,
+        "cycle9_after": 3416875742
+      },
+      {
+        "pc": "0x02001994",
+        "opcode": "0xE5823004",
+        "decode": "STR r3,[r2,#4]",
+        "r_before": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001994"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001998"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 8,
+        "cycle9_before": 3416875742,
+        "cycle9_after": 3416875750
+      },
+      {
+        "pc": "0x02001998",
+        "opcode": "0xE5810000",
+        "decode": "STR r0,[r1]",
+        "r_before": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001998"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x0200199C"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 8,
+        "cycle9_before": 3416875750,
+        "cycle9_after": 3416875758
+      },
+      {
+        "pc": "0x0200199C",
+        "opcode": "0xE581C004",
+        "decode": "STR r12,[r1,#4]",
+        "r_before": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x0200199C"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x020019A0"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 8,
+        "cycle9_before": 3416875758,
+        "cycle9_after": 3416875766
+      },
+      {
+        "pc": "0x020019A0",
+        "opcode": "0xE12FFF1E",
+        "decode": "BX lr",
+        "r_before": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x020019A0"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001A20"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 4,
+        "cycle9_before": 3416875766,
+        "cycle9_after": 3416875770
+      },
+      {
+        "pc": "0x02001A20",
+        "opcode": "0xEBFFFFE2",
+        "decode": "BL 0x020019B0",
+        "r_before": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A20",
+          "0x02001A20"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A24",
+          "0x020019B0"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 4,
+        "cycle9_before": 3416875770,
+        "cycle9_after": 3416875774
+      },
+      {
+        "pc": "0x020019B0",
+        "opcode": "0xE59F102C",
+        "decode": "LDR r1,[pc,#0x2c]",
+        "r_before": [
+          "0x00001000",
+          "0x04000298",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A24",
+          "0x020019B0"
+        ],
+        "r_after": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A24",
+          "0x020019B4"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 3,
+        "cycle9_before": 3416875774,
+        "cycle9_after": 3416875777
+      },
+      {
+        "pc": "0x020019B4",
+        "opcode": "0xE1D100B0",
+        "decode": "LDRH r0,[r1]",
+        "r_before": [
+          "0x00001000",
+          "0x04000280",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A24",
+          "0x020019B4"
+        ],
+        "r_after": [
+          "0x00008001",
+          "0x04000280",
+          "0x04000290",
+          "0x00001000",
+          "0x020EA1BC",
+          "0x00000000",
+          "0x000000DA",
+          "0x020E9A00",
+          "0x00001000",
+          "0x00001000",
+          "0x020FD00C",
+          "0x00000000",
+          "0x00000000",
+          "0x027E3654",
+          "0x02001A24",
+          "0x020019B8"
+        ],
+        "nzcv": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "conditional_cost": 8,
+        "cycle9_before": 3416875777,
+        "cycle9_after": 3416875785
+      }
+    ],
+    "mmio_ledger": [
+      {
+        "pc": "0x02001980",
+        "address": "0x04000280",
+        "width": 2,
+        "direction": "write",
+        "value": "0x00000001",
+        "pre_instruction_cycle9": 3416875721,
+        "system_deadline": 1708437894
+      },
+      {
+        "pc": "0x02001988",
+        "address": "0x04000290",
+        "width": 4,
+        "direction": "write",
+        "value": "0x00000000",
+        "pre_instruction_cycle9": 3416875730,
+        "system_deadline": 1708437899
+      },
+      {
+        "pc": "0x02001994",
+        "address": "0x04000294",
+        "width": 4,
+        "direction": "write",
+        "value": "0x00001000",
+        "pre_instruction_cycle9": 3416875742,
+        "system_deadline": 1708437905
+      },
+      {
+        "pc": "0x02001998",
+        "address": "0x04000298",
+        "width": 4,
+        "direction": "write",
+        "value": "0x00001000",
+        "pre_instruction_cycle9": 3416875750,
+        "system_deadline": 1708437909
+      },
+      {
+        "pc": "0x0200199C",
+        "address": "0x0400029C",
+        "width": 4,
+        "direction": "write",
+        "value": "0x00000000",
+        "pre_instruction_cycle9": 3416875758,
+        "system_deadline": 1708437913
+      },
+      {
+        "pc": "0x020019B4",
+        "address": "0x04000280",
+        "width": 2,
+        "direction": "read",
+        "value": "0x00008001",
+        "pre_instruction_cycle9": 3416875777,
+        "system_deadline": null
+      }
+    ],
+    "required_timing": "cached code at all mapped PCs/branch targets; literal data numD=3; MMIO numD=8; deferred cycles=0; preexisting cap is zero or strictly greater than C0+64; no pending IRQ/halt/DMA/event break; no scheduler service/ARM7 dispatch; stop cannot return into scheduler tail",
+    "final_registers": [
+      "0x00008001",
+      "0x04000280",
+      "0x04000290",
+      "0x00001000",
+      "0x020EA1BC",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x00001000",
+      "0x00001000",
+      "0x020FD00C",
+      "0x00000000",
+      "0x00000000",
+      "0x027E3654",
+      "0x02001A24",
+      "0x020019B8"
+    ],
+    "nzcv": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "conditional_cycle9": 3416875785,
+    "insn9": 281098020,
+    "final_divcnt": "0x00008001",
+    "final_numer": [
+      0,
+      4096
+    ],
+    "final_denom": [
+      4096,
+      0
+    ],
+    "quotient_remainder": "unchanged from REQUIRED entry snapshot, values not recorded by AU",
+    "final_deadline": 1708437913,
+    "retained_cap": "min(nonzero entry cap,3416875788); zero entry cap becomes 3416875788",
+    "mainram_changed_bytes": 0,
+    "dtcm_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "logical_save_requests": 0,
+    "flash_commits": 0,
+    "forbidden_next": {
+      "pc": "0x020019B8",
+      "opcode": "0xE2100902",
+      "effect": "ANDS at conditional +67 cycles reaches retained first-write cap, permitting scheduler return before next PC guard"
+    }
+  },
+  "polling": {
+    "program_local_bound": null,
+    "mode1_delay_system_cycles": 34,
+    "deadline_arm9_distance": "67 for odd pre-write cycle; 68 for even; cycle cost is committed after write",
+    "guaranteed_poll_iteration_bound": null,
+    "conditional_completion_quotient": [
+      0,
+      1
+    ],
+    "conditional_completion_remainder": [
+      0,
+      0
+    ],
+    "single_read": "8001 only under stated no-event guards",
+    "single_iteration": "Not approved; ANDS reaches retained slice cap under candidate timing"
+  },
+  "safety": {
+    "guest_dispatches": 0,
+    "runtime_mmio_accesses": 0,
+    "guest_image_writes": 0,
+    "event_service_calls": 0,
+    "AW_started": false,
+    "input_hashes_unchanged": true
+  },
+  "limitations": [
+    "Astra Medium fresh-thread setting could not be selected; current thread used",
+    "No exact AU divider operands/result/remainder/deadline or live cap captured",
+    "Conditional timing prerequisites not established as facts of AU",
+    "No runtime instrumentation installed; fail-closed AW gates remain to be implemented/reviewed",
+    "No hardware timing parity, compiled parity, gameplay attribution or whole-call termination claim"
+  ]
+}
