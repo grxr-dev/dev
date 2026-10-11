@@ -1,0 +1,61 @@
+{
+  "classification": "PARTIAL",
+  "production_files_changed": [
+    "inbox-v1/extension/chatgpt_content.js",
+    "inbox-v1/tests/test_content.js",
+    "inbox-v1/tests/test_background.js"
+  ],
+  "backups": "C:\\Users\\rustg\\Documents\\Codex\\Muse\\bridge\\.runtime\\inbox-reliability-backup-20261011T003730Z",
+  "verification_patch_on_disk": true,
+  "extension_reloaded": false,
+  "permanent_conversation": "6acab580-d218-83ea-9598-0ff64dc33aa7",
+  "watcher_changed": false,
+  "ordering_tests_run": false,
+  "live_smoke": {
+    "run": false,
+    "delivery_id": null,
+    "token": null,
+    "final_state": null
+  },
+  "historical_replay": false,
+  "queue_or_cursor_modified": false,
+  "tests": {
+    "queue_native": {
+      "tests": 30,
+      "passed": true
+    },
+    "github_outbound": {
+      "tests": 2,
+      "passed": true
+    },
+    "ordering": {
+      "run": false,
+      "reason": "production watcher helper absent"
+    },
+    "live": {
+      "run": false,
+      "reason": "browser/computer-use initialization failed; extension reload unverified"
+    },
+    "content": {
+      "tests": 26,
+      "passed": true,
+      "stdout": "PASS exact logical text/hash one Send/one NEW USER fixture 0\nPASS exact logical text/hash one Send/one NEW USER fixture 1\nPASS exact logical text/hash one Send/one NEW USER fixture 2\nPASS exact logical text/hash one Send/one NEW USER fixture 3\nPASS exact logical text/hash one Send/one NEW USER fixture 4\nPASS duplicate delivery cannot Send twice\nPASS duplicate ID changed hash requires review\nPASS human whitespace draft never overwritten\nPASS unrecognized draft DOM protected\nPASS wrong URL never reads/writes composer\nPASS hash disagreement never inserts\nPASS post-forward no new user turn needs review, no retry\nPASS post-Send changed visible text needs review\nPASS real identity snapshot includes unparseable and offscreen turns\nPASS render delayed beyond old 30s deadline verifies exact delivery once\nPASS partial new turn is not an immediate terminal mismatch\nPASS unrelated new turn does not hide unique exact payload evidence\nPASS old unparseable identity cannot become new delivery evidence\nPASS verification uses historical connected turns rather than viewport\nPASS multiple exact new identities stay ambiguous with no resend\nPASS identity changes must stabilize before success\nPASS Python-generated live-plan canonical hashes agree with JavaScript\nPASS LF conversion is the only canonical transform\nPASS paragraphs/hard breaks preserve blank lines and Markdown\nPASS editor caret break excluded, real terminal LF retained\nPASS unsupported rich structure rejected, not flattened\n26 synthetic content/DOM contract tests passed (not live Firefox)\n"
+    },
+    "background": {
+      "tests": 8,
+      "passed": true,
+      "stdout": "PASS initial connection schedules and performs poll\nPASS disconnect reconnect schedules a new poll\nPASS only exact bound conversation URL accepted\nPASS missing bound tab is proven pre-Send retryable\nPASS two exact tabs fail closed before send\nPASS forwarded timeout/exception never becomes retry\nPASS ACK pending polls recovery without another browser send\nPASS disconnect during delivery never replays that attempt\n8 background contract tests passed\n"
+    }
+  },
+  "remaining_blockers": [
+    "Production watcher helper was not found under Muse or Windows user directory; need actual host/path/access to inspect and patch durable cursor transaction",
+    "Both UI interfaces fail initialization: windows sandbox failed: helper_unknown_error: setup refresh had errors; cannot inspect current DOM/reload extension or prove smoke uses new code"
+  ],
+  "limits": [
+    "Exact production DOM cause is unconfirmed; audited code has viewport/new-turn/30-second and transient-mismatch weaknesses",
+    "No blind retries added; genuine ambiguity remains NEEDS_REVIEW",
+    "Wrong/unsupported DOM structures or turns never mounted in the document remain unverifiable",
+    "No ordering guarantee claimed without actual watcher code"
+  ],
+  "patch_sha256": "63b8b2a1f7c2a7c5d808a715556bae4524edeb9e83825cc565d904a40fe75dcc"
+}

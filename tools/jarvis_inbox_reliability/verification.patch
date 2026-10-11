@@ -1,0 +1,120 @@
+--- a/inbox-v1/extension/chatgpt_content.js
++++ b/inbox-v1/extension/chatgpt_content.js
+@@ -40,6 +40,16 @@
+  return inline(el);
+ }
+ function composerText(el){return el.tagName==="TEXTAREA"?el.value:logicalText(el,{editor:true});}
++// Snapshot identities even when an existing turn is offscreen or its text is
++// temporarily unparseable. Never accept an old turn merely because it renders later.
++function userMessageIds(doc=document){
++ const ids=new Set();
++ for(const el of doc.querySelectorAll('[data-chatgpt-search-unit-key$=":user"][data-chatgpt-search-message-ids],[data-message-author-role="user"][data-message-id]')){
++  const id=el.getAttribute('data-chatgpt-search-message-ids')||el.getAttribute('data-message-id');
++  if(id)ids.add(id);
++ }
++ return ids;
++}
+ function userMessages(doc=document,{historical=false}={}){
+  const selector='[data-chatgpt-search-unit-key$=":user"][data-chatgpt-search-message-ids]',messages=[];
+  function visible(el){if(!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;if(historical)return true;const style=doc.defaultView.getComputedStyle(el);return el.getClientRects().length>0&&style.display!=="none"&&style.visibility!=="hidden"&&style.opacity!=="0";}
+@@ -110,8 +120,7 @@
+     // Whitespace and unsupported rich DOM count as a draft. Never overwrite them.
+     if(composerText(editor)!=='')return fail('FAILED_RETRYABLE','composer contains a draft',true);
+     if(document.querySelector('button[data-testid="stop-button"],button[aria-label="Stop streaming"]'))return fail('FAILED_RETRYABLE','generation active',true);
+-    const baseline=userMessages(document,{historical:true});
+-    const ids=new Set(baseline.map(x=>x.id));
++    const ids=userMessageIds(document);
+     if(!bound()||composer()!==editor||composerText(editor)!=='')return fail('FAILED_RETRYABLE','composer changed before insertion',true);
+     insert(editor,d.text);
+     let exact=false;
+@@ -126,19 +135,28 @@
+     mayHaveSent=true;
+     const pending=fail('NEEDS_REVIEW','Send initiated; outcome pending');seen.set(d.delivery_id,{...pending,payload_sha256:d.text_sha256});
+     button.click(); // the sole Send site
+-    const end=Date.now()+30000;
++    // Exact payload identity, not viewport visibility or the first new turn.
++    // Stay within the background's 120 s deadline and never click again.
++    const end=Date.now()+90000;let matchingId=null;
+     while(Date.now()<end){
+       if(!bound())break;
+-      const fresh=userMessages(document).filter(x=>!ids.has(x.id));
+-      if(fresh.length>1){const r=fail('NEEDS_REVIEW','more than one new USER turn');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
+-      if(fresh.length===1){
+-        const observed=await hash(fresh[0].text);
+-        if(observed!==d.text_sha256){const r=fail('NEEDS_REVIEW','post-Send exact text/hash mismatch');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
+-        const r={state:'DELIVERED',delivery_id:d.delivery_id,observed_sha256:observed,send_count:1,new_user_turns:1,composer_empty:true};seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
++      const matches=new Map();
++      for(const turn of userMessages(document,{historical:true})){
++        if(ids.has(turn.id)||canonicalText(turn.text)!==d.text)continue;
++        if(await hash(turn.text)===d.text_sha256)matches.set(turn.id,turn);
+       }
++      if(!bound())break;
++      if(matches.size>1){const r=fail('NEEDS_REVIEW','multiple new USER identities match this exact payload');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
++      const id=matches.size===1?matches.keys().next().value:null;
++      // Require the same new message identity and exact canonical text/hash on
++      // consecutive samples; transient partial/replaced DOM is not terminal.
++      if(id&&id===matchingId){
++        const r={state:'DELIVERED',delivery_id:d.delivery_id,observed_sha256:d.text_sha256,send_count:1,new_user_turns:1,composer_empty:true};seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
++      }
++      matchingId=id;
+       await sleep(250);
+     }
+-    const r=fail('NEEDS_REVIEW','Send may have occurred; no verified new USER turn');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
++    const r=fail('NEEDS_REVIEW','Send may have occurred; no stable exact-payload new USER identity within verification deadline');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+   }catch(_){
+     const r=fail(mayHaveSent?'NEEDS_REVIEW':'FAILED_PERMANENT',mayHaveSent?'exception after Send intent; manual review':'pre-Send insertion exception; draft retained',!mayHaveSent);
+     if(mayHaveSent)seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+--- a/inbox-v1/tests/test_content.js
++++ b/inbox-v1/tests/test_content.js
+@@ -1,15 +1,15 @@
+ 'use strict';
+ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+ const source=fs.readFileSync(__dirname+'/../extension/chatgpt_content.js','utf8');
+-const bound='6ac7d7f2-b474-83e9-83c8-1a1cd9ad2b4f';let count=0;
++const bound='6acab580-d218-83ea-9598-0ff64dc33aa7';let count=0;
+ const hash=s=>crypto.createHash('sha256').update(s.replace(/\r\n/g,'\n').replace(/\r/g,'\n')).digest('hex');
+ async function test(name,fn){await fn();count++;console.log('PASS '+name);}
+ function harness(opts={}){
+  const state={draft:opts.draft||'',sends:0,inserts:0,users:[{id:'old',text:'existing user turn'}],now:0};
+  const ctx={document:{querySelector:()=>null},URL,console,TextEncoder,crypto:crypto.webcrypto,location:{origin:'https://chatgpt.com',pathname:'/c/'+bound},Date:{now:()=>state.now},setTimeout:fn=>{state.now+=1000;queueMicrotask(fn);},getComputedStyle:()=>({display:'block',visibility:'visible'})};
+- vm.createContext(ctx);vm.runInContext(source,ctx);
++ vm.createContext(ctx);vm.runInContext(source,ctx);ctx.actualIds=vm.runInContext("userMessageIds",ctx);
+  ctx.state=state;
+- vm.runInContext(`composer=()=>state;composerText=()=>state.draft;userMessages=()=>state.users;insert=(editor,text)=>{state.draft=text;state.inserts++;};sendButton=()=>({click:()=>{state.sends++;if(!state.noTurn)state.users.push({id:'fresh',text:state.observed===undefined?state.draft:state.observed});}});`,ctx);
++ vm.runInContext(`composer=()=>state;composerText=()=>state.draft;userMessages=()=>state.users;userMessageIds=()=>new Set(state.users.map(x=>x.id));insert=(editor,text)=>{state.draft=text;state.inserts++;};sendButton=()=>({click:()=>{state.sends++;if(!state.noTurn)state.users.push({id:'fresh',text:state.observed===undefined?state.draft:state.observed});}});`,ctx);
+  function send(text,id='a'){ctx.msg={cmd:'deliver',delivery_id:id,text,text_sha256:hash(text)};return vm.runInContext('deliver(msg)',ctx);}
+  return {ctx,state,send};
+ }
+@@ -29,6 +29,14 @@
+  await test('hash disagreement never inserts',async()=>{const h=harness();h.ctx.msg={delivery_id:'a',text:'text',text_sha256:'wrong'};assert.equal((await vm.runInContext('deliver(msg)',h.ctx)).state,'FAILED_PERMANENT');assert.equal(h.state.inserts,0);});
+  await test('post-forward no new user turn needs review, no retry',async()=>{const h=harness();h.state.noTurn=true;const r=await h.send('text');assert.equal(r.state,'NEEDS_REVIEW');await h.send('text');assert.equal(h.state.sends,1);});
+  await test('post-Send changed visible text needs review',async()=>{const h=harness();h.state.observed='changed';assert.equal((await h.send('text')).state,'NEEDS_REVIEW');assert.equal(h.state.sends,1);});
++ await test('real identity snapshot includes unparseable and offscreen turns',async()=>{const h=harness();h.ctx.document.querySelectorAll=()=>[{getAttribute:key=>key==='data-chatgpt-search-message-ids'?'hidden-old':null},{getAttribute:key=>key==='data-message-id'?'fallback-old':null}];assert.deepEqual([...h.ctx.actualIds(h.ctx.document)],['hidden-old','fallback-old']);});
++ await test('render delayed beyond old 30s deadline verifies exact delivery once',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>state.now<45000?state.users:[...state.users,{id:'delayed',text:state.draft}];`,h.ctx);const r=await h.send('delayed exact payload');assert.equal(r.state,'DELIVERED');assert.ok(h.state.now>=45000);assert.equal(r.observed_sha256,hash('delayed exact payload'));assert.equal(h.state.sends,1);await h.send('delayed exact payload');assert.equal(h.state.sends,1);});
++ await test('partial new turn is not an immediate terminal mismatch',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[...state.users,{id:'rendering',text:state.now<15000?'partial':state.draft}];`,h.ctx);const r=await h.send('complete exact payload');assert.equal(r.state,'DELIVERED');assert.equal(h.state.sends,1);});
++ await test('unrelated new turn does not hide unique exact payload evidence',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[...state.users,{id:'other',text:'unrelated'},{id:'ours',text:state.draft}];`,h.ctx);assert.equal((await h.send('ours')).state,'DELIVERED');assert.equal(h.state.sends,1);});
++ await test('old unparseable identity cannot become new delivery evidence',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessageIds=()=>new Set(['old','not-yet-rendered']);userMessages=()=>[{id:'not-yet-rendered',text:state.draft}];`,h.ctx);const r=await h.send('exact but old');assert.equal(r.state,'NEEDS_REVIEW');await h.send('exact but old');assert.equal(h.state.sends,1);});
++ await test('verification uses historical connected turns rather than viewport',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=(doc,options)=>options&&options.historical?[...state.users,{id:'offscreen',text:state.draft}]:state.users;`,h.ctx);assert.equal((await h.send('offscreen exact text')).state,'DELIVERED');assert.equal(h.state.sends,1);});
++ await test('multiple exact new identities stay ambiguous with no resend',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[{id:'one',text:state.draft},{id:'two',text:state.draft}];`,h.ctx);assert.equal((await h.send('same text')).state,'NEEDS_REVIEW');await h.send('same text');assert.equal(h.state.sends,1);});
++ await test('identity changes must stabilize before success',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[{id:state.now<10000?'transient-'+state.now:'stable',text:state.draft}];`,h.ctx);assert.equal((await h.send('stable payload')).state,'DELIVERED');assert.ok(h.state.now>=11000);assert.equal(h.state.sends,1);});
+  await test('Python-generated live-plan canonical hashes agree with JavaScript',async()=>{const plan=JSON.parse(fs.readFileSync(__dirname+'/../live-validation-plan.json','utf8'));for(const item of [...plan.disposable_cases,plan.permanent_smoke])assert.equal(hash(item.text),item.text_sha256);});
+  await test('LF conversion is the only canonical transform',async()=>{const h=harness();h.ctx.s='a\r\n\r\ncode  \r\t';assert.equal(vm.runInContext('canonicalText(s)',h.ctx),'a\n\ncode  \n\t');});
+  await test('paragraphs/hard breaks preserve blank lines and Markdown',async()=>{const h=harness();h.ctx.el=node('DIV',[node('P',[text('```python'),node('BR'),text('x  '),node('BR'),node('BR'),text('```')])]);assert.equal(vm.runInContext('logicalText(el)',h.ctx),'```python\nx  \n\n```');});
+--- a/inbox-v1/tests/test_background.js
++++ b/inbox-v1/tests/test_background.js
+@@ -15,11 +15,11 @@
+ (async()=>{
+  await test('initial connection schedules and performs poll',async()=>{const h=harness();await h.tick(100);assert.equal(h.ports[0].sent[0].cmd,'poll');});
+  await test('disconnect reconnect schedules a new poll',async()=>{const h=harness();h.ports[0].disconnect();await h.tick(15000);assert.equal(h.ports.length,2);await h.tick(100);assert.equal(h.ports[1].sent[0].cmd,'poll');});
+- await test('only exact bound conversation URL accepted',async()=>{const h=harness();for(const suffix of ('/other','-suffix'))assert.equal(vm.runInContext(`exactBoundUrl('https://chatgpt.com/c/6ac7d7f2-b474-83e9-83c8-1a1cd9ad2b4f${suffix}')`,h.context),false);assert.equal(vm.runInContext("exactBoundUrl('https://evil.example/c/6ac7d7f2-b474-83e9-83c8-1a1cd9ad2b4f')",h.context),false);});
++ await test('only exact bound conversation URL accepted',async()=>{const h=harness();for(const suffix of ('/other','-suffix'))assert.equal(vm.runInContext(`exactBoundUrl('https://chatgpt.com/c/6acab580-d218-83ea-9598-0ff64dc33aa7${suffix}')`,h.context),false);assert.equal(vm.runInContext("exactBoundUrl('https://evil.example/c/6acab580-d218-83ea-9598-0ff64dc33aa7')",h.context),false);});
+  await test('missing bound tab is proven pre-Send retryable',async()=>{const h=harness();await h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});const r=h.ports[0].sent[0];assert.equal(r.state,'FAILED_RETRYABLE');assert.equal(r.pre_send,true);assert.equal(h.sends,0);});
+- await test('two exact tabs fail closed before send',async()=>{const h=harness();h.setTabs([1,2].map(id=>({id,url:'https://chatgpt.com/c/6ac7d7f2-b474-83e9-83c8-1a1cd9ad2b4f'})));await h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});assert.equal(h.sends,0);assert.equal(h.ports[0].sent[0].pre_send,true);});
+- await test('forwarded timeout/exception never becomes retry',async()=>{const h=harness();h.setTabs([{id:1,url:'https://chatgpt.com/c/6ac7d7f2-b474-83e9-83c8-1a1cd9ad2b4f'}]);h.setResponse(()=>{throw Error('lost reply');});await h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});assert.equal(h.ports[0].sent[0].state,'NEEDS_REVIEW');assert.equal(h.sends,1);});
++ await test('two exact tabs fail closed before send',async()=>{const h=harness();h.setTabs([1,2].map(id=>({id,url:'https://chatgpt.com/c/6acab580-d218-83ea-9598-0ff64dc33aa7'})));await h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});assert.equal(h.sends,0);assert.equal(h.ports[0].sent[0].pre_send,true);});
++ await test('forwarded timeout/exception never becomes retry',async()=>{const h=harness();h.setTabs([{id:1,url:'https://chatgpt.com/c/6acab580-d218-83ea-9598-0ff64dc33aa7'}]);h.setResponse(()=>{throw Error('lost reply');});await h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});assert.equal(h.ports[0].sent[0].state,'NEEDS_REVIEW');assert.equal(h.sends,1);});
+  await test('ACK pending polls recovery without another browser send',async()=>{const h=harness();await h.ports[0].listeners.message({cmd:'ack_pending'});await h.tick(15000);assert.equal(h.ports[0].sent[0].cmd,'poll');assert.equal(h.sends,0);});
+- await test('disconnect during delivery never replays that attempt',async()=>{const h=harness();h.setTabs([{id:1,url:'https://chatgpt.com/c/6ac7d7f2-b474-83e9-83c8-1a1cd9ad2b4f'}]);let resolve;h.setResponse(()=>new Promise(r=>resolve=r));const pending=h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});for(let i=0;i<10&&!resolve;i++)await Promise.resolve();assert.equal(typeof resolve,"function");h.ports[0].disconnect();resolve({delivery_id:'a',state:'DELIVERED'});await pending;await h.tick(15000);await h.tick(100);assert.equal(h.sends,1);assert.equal(h.ports[1].sent[0].cmd,'poll');});
++ await test('disconnect during delivery never replays that attempt',async()=>{const h=harness();h.setTabs([{id:1,url:'https://chatgpt.com/c/6acab580-d218-83ea-9598-0ff64dc33aa7'}]);let resolve;h.setResponse(()=>new Promise(r=>resolve=r));const pending=h.ports[0].listeners.message({cmd:'delivery',delivery_id:'a'});for(let i=0;i<10&&!resolve;i++)await Promise.resolve();assert.equal(typeof resolve,"function");h.ports[0].disconnect();resolve({delivery_id:'a',state:'DELIVERED'});await pending;await h.tick(15000);await h.tick(100);assert.equal(h.sends,1);assert.equal(h.ports[1].sent[0].cmd,'poll');});
+  console.log(`${count} background contract tests passed`);
+ })().catch(e=>{console.error(e);process.exitCode=1;});
