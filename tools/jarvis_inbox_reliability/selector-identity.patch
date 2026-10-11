@@ -1,0 +1,90 @@
+--- a/bridge/inbox-v1/extension/chatgpt_content.js
++++ b/bridge/inbox-v1/extension/chatgpt_content.js
+@@ -44,30 +44,43 @@
+ // temporarily unparseable. Never accept an old turn merely because it renders later.
+ function userMessageIds(doc=document){
+  const ids=new Set();
++ for(const el of doc.querySelectorAll('[data-user-message-bubble="true"],[data-markdown-text-tone="user-message"]')){
++  const id=currentUserIdentity(el);if(id)ids.add(id);
++ }
+  for(const el of doc.querySelectorAll('[data-chatgpt-search-unit-key$=":user"][data-chatgpt-search-message-ids],[data-message-author-role="user"][data-message-id]')){
+   const id=el.getAttribute('data-chatgpt-search-message-ids')||el.getAttribute('data-message-id');
+   if(id)ids.add(id);
+  }
+  return ids;
+ }
++const CURRENT_USER_SELECTOR='[data-user-message-bubble="true"],[data-markdown-text-tone="user-message"]';
++function currentUserIdentity(el){
++ const owner=el.closest('[data-chatgpt-search-message-ids]');
++ const id=owner&&owner.getAttribute('data-chatgpt-search-message-ids');
++ return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id||'')?id:null;
++}
+ function userMessages(doc=document,{historical=false}={}){
+- const selector='[data-chatgpt-search-unit-key$=":user"][data-chatgpt-search-message-ids]',messages=[];
++ const messages=new Map();
+  function visible(el){if(!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;if(historical)return true;const style=doc.defaultView.getComputedStyle(el);return el.getClientRects().length>0&&style.display!=="none"&&style.visibility!=="hidden"&&style.opacity!=="0";}
+- for(const el of doc.querySelectorAll(selector)){
+-  const id=el.getAttribute('data-chatgpt-search-message-ids'),turn=el.closest('[data-turn-key]');
+-  if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id||'')||!turn||turn.getAttribute('data-turn-key')!==id||!visible(el))continue;
+-  const bubbles=el.querySelectorAll('[data-user-message-bubble="true"]');
+-  if(bubbles.length!==1)continue;
+-  const texts=bubbles[0].querySelectorAll('.whitespace-pre-wrap');
+-  if(texts.length!==1||!visible(texts[0]))continue;
+-  const text=logicalText(texts[0]);
+-  if(text!==null)messages.push({id,text});
++ for(const el of doc.querySelectorAll(CURRENT_USER_SELECTOR)){
++  const id=currentUserIdentity(el);
++  if(!id||!visible(el))continue;
++  const texts=el.getAttribute('data-markdown-text-tone')==='user-message'?[el]:Array.from(el.querySelectorAll('[data-markdown-text-tone="user-message"]'));
++  const body=texts.length===0?el:texts.length===1?texts[0]:null;
++  if(!body||currentUserIdentity(body)!==id||!visible(body)||typeof body.innerText!=='string')continue;
++  const text=canonicalText(body.innerText);
++  // Conflicting representations of one UUID cannot establish exact proof.
++  if(messages.has(id)&&messages.get(id)!==text)messages.set(id,null);
++  else if(!messages.has(id))messages.set(id,text);
+  }
+  for(const el of doc.querySelectorAll('[data-message-author-role="user"][data-message-id]')){
+-  if(el.closest(selector)||!visible(el))continue;
+-  const id=el.getAttribute('data-message-id');if(id){const body=el.querySelector('.whitespace-pre-wrap')||el,text=logicalText(body);if(text!==null)messages.push({id,text});}
++  if(!visible(el))continue;
++  const id=el.getAttribute('data-message-id');
++  if(!id||messages.has(id))continue;
++  const body=el.querySelector('.whitespace-pre-wrap')||el,text=logicalText(body);
++  if(text!==null)messages.set(id,text);
+  }
+- return messages;
++ return Array.from(messages,([id,text])=>({id,text})).filter(turn=>turn.text!==null);
+ }
+ function sendButton(doc=document){
+  const selectors='button[type="submit"][aria-label="Send"],button[data-testid="send-button"],button[aria-label="Send prompt"],button[aria-label="Send message"]';
+--- a/bridge/inbox-v1/tests/test_content.js
++++ b/bridge/inbox-v1/tests/test_content.js
+@@ -7,7 +7,7 @@
+ function harness(opts={}){
+  const state={draft:opts.draft||'',sends:0,inserts:0,users:[{id:'old',text:'existing user turn'}],now:0};
+  const ctx={document:{querySelector:()=>null},URL,console,TextEncoder,crypto:crypto.webcrypto,location:{origin:'https://chatgpt.com',pathname:'/c/'+bound},Date:{now:()=>state.now},setTimeout:fn=>{state.now+=1000;queueMicrotask(fn);},getComputedStyle:()=>({display:'block',visibility:'visible'})};
+- vm.createContext(ctx);vm.runInContext(source,ctx);ctx.actualIds=vm.runInContext("userMessageIds",ctx);
++ vm.createContext(ctx);vm.runInContext(source,ctx);ctx.actualIds=vm.runInContext("userMessageIds",ctx);ctx.actualMessages=vm.runInContext("userMessages",ctx);
+  ctx.state=state;
+  vm.runInContext(`composer=()=>state;composerText=()=>state.draft;userMessages=()=>state.users;userMessageIds=()=>new Set(state.users.map(x=>x.id));insert=(editor,text)=>{state.draft=text;state.inserts++;};sendButton=()=>({click:()=>{state.sends++;if(!state.noTurn)state.users.push({id:'fresh',text:state.observed===undefined?state.draft:state.observed});}});`,ctx);
+  function send(text,id='a'){ctx.msg={cmd:'deliver',delivery_id:id,text,text_sha256:hash(text)};return vm.runInContext('deliver(msg)',ctx);}
+@@ -29,7 +29,18 @@
+  await test('hash disagreement never inserts',async()=>{const h=harness();h.ctx.msg={delivery_id:'a',text:'text',text_sha256:'wrong'};assert.equal((await vm.runInContext('deliver(msg)',h.ctx)).state,'FAILED_PERMANENT');assert.equal(h.state.inserts,0);});
+  await test('post-forward no new user turn needs review, no retry',async()=>{const h=harness();h.state.noTurn=true;const r=await h.send('text');assert.equal(r.state,'NEEDS_REVIEW');await h.send('text');assert.equal(h.state.sends,1);});
+  await test('post-Send changed visible text needs review',async()=>{const h=harness();h.state.observed='changed';assert.equal((await h.send('text')).state,'NEEDS_REVIEW');assert.equal(h.state.sends,1);});
+- await test('real identity snapshot includes unparseable and offscreen turns',async()=>{const h=harness();h.ctx.document.querySelectorAll=()=>[{getAttribute:key=>key==='data-chatgpt-search-message-ids'?'hidden-old':null},{getAttribute:key=>key==='data-message-id'?'fallback-old':null}];assert.deepEqual([...h.ctx.actualIds(h.ctx.document)],['hidden-old','fallback-old']);});
++ await test('baseline snapshots unparseable old identities',async()=>{const h=harness();h.ctx.document.querySelectorAll=s=>s.includes('data-message-author-role')?[{getAttribute:key=>key==='data-chatgpt-search-message-ids'?'hidden-old':null},{getAttribute:key=>key==='data-message-id'?'fallback-old':null}]:[];assert.deepEqual([...h.ctx.actualIds(h.ctx.document)],['hidden-old','fallback-old']);});
++ const uuid='ce697087-3521-4cbf-9da4-db508ee7a742';
++ function currentDoc(payload,id=uuid){
++  const owner={getAttribute:k=>k==='data-chatgpt-search-message-ids'?id:null};
++  const markdown={isConnected:true,innerText:payload,getAttribute:k=>k==='data-markdown-text-tone'?'user-message':null,closest:s=>s==='[data-chatgpt-search-message-ids]'?owner:null};
++  const bubble={...markdown,getAttribute:k=>k==='data-user-message-bubble'?'true':null,querySelectorAll:s=>s==='[data-markdown-text-tone="user-message"]'?[markdown]:[]};
++  return {querySelector:()=>null,querySelectorAll:s=>s.includes('data-user-message-bubble')?[bubble,markdown]:[]};
++ }
++ await test('current DOM uses exact UUID and canonical Markdown innerText without data-turn-key',async()=>{const h=harness(),payload='[CODEX ? CHATGPT]\n\n**bold**\n| a | b |\n[link](https://example.com)';const doc=currentDoc(payload);assert.deepEqual([...h.ctx.actualIds(doc)],[uuid]);const turns=h.ctx.actualMessages(doc,{historical:true});assert.equal(turns.length,1);assert.equal(turns[0].id,uuid);assert.equal(turns[0].text,payload);h.ctx.document=currentDoc('old','11111111-1111-1111-1111-111111111111');h.ctx.userMessageIds=h.ctx.actualIds;h.ctx.userMessages=h.ctx.actualMessages;vm.runInContext(`sendButton=()=>({click:()=>{state.sends++;document=fixture;}})`,h.ctx);h.ctx.fixture=doc;assert.equal((await h.send(payload)).state,'DELIVERED');await h.send(payload);assert.equal(h.state.sends,1);});
++ await test('current DOM unrelated payload remains review without resend',async()=>{const h=harness();h.ctx.document=currentDoc('unrelated');h.ctx.userMessages=h.ctx.actualMessages;assert.equal((await h.send('expected')).state,'NEEDS_REVIEW');await h.send('expected');assert.equal(h.state.sends,1);});
++ await test('current DOM missing stable UUID remains unverifiable',async()=>{const h=harness();assert.equal(h.ctx.actualMessages(currentDoc('text','fallback-turn-23:0:user'),{historical:true}).length,0);});
++ await test('old role selector compatibility preserves logical payload',async()=>{const h=harness(),el=node('DIV',[text('legacy')],{'data-message-id':'legacy-id'});el.isConnected=true;el.querySelector=()=>null;const doc={querySelectorAll:s=>s.includes('data-message-author-role')?[el]:[]};const turns=h.ctx.actualMessages(doc,{historical:true});assert.equal(turns[0].id,'legacy-id');assert.equal(turns[0].text,'legacy');});
+  await test('render delayed beyond old 30s deadline verifies exact delivery once',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>state.now<45000?state.users:[...state.users,{id:'delayed',text:state.draft}];`,h.ctx);const r=await h.send('delayed exact payload');assert.equal(r.state,'DELIVERED');assert.ok(h.state.now>=45000);assert.equal(r.observed_sha256,hash('delayed exact payload'));assert.equal(h.state.sends,1);await h.send('delayed exact payload');assert.equal(h.state.sends,1);});
+  await test('partial new turn is not an immediate terminal mismatch',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[...state.users,{id:'rendering',text:state.now<15000?'partial':state.draft}];`,h.ctx);const r=await h.send('complete exact payload');assert.equal(r.state,'DELIVERED');assert.equal(h.state.sends,1);});
+  await test('unrelated new turn does not hide unique exact payload evidence',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[...state.users,{id:'other',text:'unrelated'},{id:'ours',text:state.draft}];`,h.ctx);assert.equal((await h.send('ours')).state,'DELIVERED');assert.equal(h.state.sends,1);});
