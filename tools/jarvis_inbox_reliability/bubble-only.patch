@@ -1,0 +1,39 @@
+--- a/bridge/inbox-v1/extension/chatgpt_content.js
++++ b/bridge/inbox-v1/extension/chatgpt_content.js
+@@ -65,8 +65,13 @@
+  for(const el of doc.querySelectorAll(CURRENT_USER_SELECTOR)){
+   const id=currentUserIdentity(el);
+   if(!id||!visible(el))continue;
+-  const texts=el.getAttribute('data-markdown-text-tone')==='user-message'?[el]:Array.from(el.querySelectorAll('[data-markdown-text-tone="user-message"]'));
+-  const body=texts.length===0?el:texts.length===1?texts[0]:null;
++  let body=el;
++  if(el.getAttribute('data-user-message-bubble')==='true'){
++   const texts=el.querySelectorAll('[data-markdown-text-tone="user-message"]');
++   if(texts.length>1)continue;
++   // Bubble-only turns expose exact payload innerText; no content class required.
++   body=texts.length===1?texts[0]:el;
++  }
+   if(!body||currentUserIdentity(body)!==id||!visible(body)||typeof body.innerText!=='string')continue;
+   const text=canonicalText(body.innerText);
+   // Conflicting representations of one UUID cannot establish exact proof.
+--- a/bridge/inbox-v1/tests/test_content.js
++++ b/bridge/inbox-v1/tests/test_content.js
+@@ -40,6 +40,18 @@
+  await test('current DOM uses exact UUID and canonical Markdown innerText without data-turn-key',async()=>{const h=harness(),payload='[CODEX ? CHATGPT]\n\n**bold**\n| a | b |\n[link](https://example.com)';const doc=currentDoc(payload);assert.deepEqual([...h.ctx.actualIds(doc)],[uuid]);const turns=h.ctx.actualMessages(doc,{historical:true});assert.equal(turns.length,1);assert.equal(turns[0].id,uuid);assert.equal(turns[0].text,payload);h.ctx.document=currentDoc('old','11111111-1111-1111-1111-111111111111');h.ctx.userMessageIds=h.ctx.actualIds;h.ctx.userMessages=h.ctx.actualMessages;vm.runInContext(`sendButton=()=>({click:()=>{state.sends++;document=fixture;}})`,h.ctx);h.ctx.fixture=doc;assert.equal((await h.send(payload)).state,'DELIVERED');await h.send(payload);assert.equal(h.state.sends,1);});
+  await test('current DOM unrelated payload remains review without resend',async()=>{const h=harness();h.ctx.document=currentDoc('unrelated');h.ctx.userMessages=h.ctx.actualMessages;assert.equal((await h.send('expected')).state,'NEEDS_REVIEW');await h.send('expected');assert.equal(h.state.sends,1);});
+  await test('current DOM missing stable UUID remains unverifiable',async()=>{const h=harness();assert.equal(h.ctx.actualMessages(currentDoc('text','fallback-turn-23:0:user'),{historical:true}).length,0);});
++ function bubbleOnlyDoc(payload,id='21a73100-224f-4068-b3a5-d2e10d1e3a53'){
++  const owner={getAttribute:k=>k==='data-chatgpt-search-message-ids'?id:null};
++  const content={className:'text-size-chat whitespace-pre-wrap',innerText:payload};
++  const bubble={isConnected:true,innerText:content.innerText,getAttribute:k=>k==='data-user-message-bubble'?'true':null,closest:s=>s==='[data-chatgpt-search-message-ids]'?owner:null,querySelectorAll:()=>[]};
++  return {querySelector:()=>null,querySelectorAll:s=>s.includes('data-user-message-bubble')?[bubble]:[]};
++ }
++ const formatted='[CODEX \u2192 CHATGPT]\n\n**FULL PASS \u2014 deterministic patch and focused tests.**\n\n| Test | Result |\n| --- | --- |\n| caf\u00e9 | PASS |\n[link](https://example.com)\n```text\nexact  spaces\n```';
++ function bubbleHarness(fixture,baseline=bubbleOnlyDoc('old','11111111-1111-1111-1111-111111111111')){const h=harness();h.ctx.document=baseline;h.ctx.userMessageIds=h.ctx.actualIds;h.ctx.userMessages=h.ctx.actualMessages;h.ctx.fixture=fixture;vm.runInContext(`sendButton=()=>({click:()=>{state.sends++;document=fixture;}})`,h.ctx);return h;}
++ await test('seq55 bubble-only exact formatted payload verifies UUID and one Send',async()=>{const doc=bubbleOnlyDoc(formatted),h=bubbleHarness(doc),turns=h.ctx.actualMessages(doc,{historical:true});assert.equal(turns.length,1);assert.equal(turns[0].id,'21a73100-224f-4068-b3a5-d2e10d1e3a53');assert.equal(turns[0].text,formatted);const r=await h.send(formatted);assert.equal(r.state,'DELIVERED');assert.equal(r.observed_sha256,hash(formatted));await h.send(formatted);assert.equal(h.state.sends,1);});
++ await test('unrelated bubble-only turn remains review with no resend',async()=>{const h=bubbleHarness(bubbleOnlyDoc('unrelated'));assert.equal((await h.send(formatted)).state,'NEEDS_REVIEW');await h.send(formatted);assert.equal(h.state.sends,1);});
++ await test('existing bubble-only UUID with same payload stays baseline',async()=>{const doc=bubbleOnlyDoc(formatted),h=bubbleHarness(doc,doc);assert.deepEqual([...h.ctx.actualIds(doc)],['21a73100-224f-4068-b3a5-d2e10d1e3a53']);assert.equal((await h.send(formatted)).state,'NEEDS_REVIEW');await h.send(formatted);assert.equal(h.state.sends,1);});
++ await test('two bubble-only exact new UUIDs remain ambiguous',async()=>{const a=bubbleOnlyDoc(formatted),b=bubbleOnlyDoc(formatted,'22222222-2222-2222-2222-222222222222'),h=bubbleHarness({querySelector:()=>null,querySelectorAll:s=>[...a.querySelectorAll(s),...b.querySelectorAll(s)]});assert.equal((await h.send(formatted)).state,'NEEDS_REVIEW');await h.send(formatted);assert.equal(h.state.sends,1);});
+  await test('old role selector compatibility preserves logical payload',async()=>{const h=harness(),el=node('DIV',[text('legacy')],{'data-message-id':'legacy-id'});el.isConnected=true;el.querySelector=()=>null;const doc={querySelectorAll:s=>s.includes('data-message-author-role')?[el]:[]};const turns=h.ctx.actualMessages(doc,{historical:true});assert.equal(turns[0].id,'legacy-id');assert.equal(turns[0].text,'legacy');});
+  await test('render delayed beyond old 30s deadline verifies exact delivery once',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>state.now<45000?state.users:[...state.users,{id:'delayed',text:state.draft}];`,h.ctx);const r=await h.send('delayed exact payload');assert.equal(r.state,'DELIVERED');assert.ok(h.state.now>=45000);assert.equal(r.observed_sha256,hash('delayed exact payload'));assert.equal(h.state.sends,1);await h.send('delayed exact payload');assert.equal(h.state.sends,1);});
+  await test('partial new turn is not an immediate terminal mismatch',async()=>{const h=harness();h.state.noTurn=true;vm.runInContext(`userMessages=()=>[...state.users,{id:'rendering',text:state.now<15000?'partial':state.draft}];`,h.ctx);const r=await h.send('complete exact payload');assert.equal(r.state,'DELIVERED');assert.equal(h.state.sends,1);});
