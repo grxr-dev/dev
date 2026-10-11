@@ -1,0 +1,45 @@
+{
+  "classification": "FULL PASS",
+  "extension_build": "inbox-v1-trace2-20261011-01",
+  "native_retention_build": "inbox-v1-incidents-20261011-01",
+  "activation": {
+    "marker_ts_ms": 1791710092298,
+    "launcher_pid": 283248,
+    "python_pid": 340100,
+    "queue_byte_identical": true,
+    "queue_sha256": "ebd6e03ff0e399a4080c0c32217e8be7f435f4a79ba25866bc7af6216aa037e5"
+  },
+  "tests": {
+    "content": 49,
+    "background": 10,
+    "trace_v1": 4,
+    "analysis_v2": 25,
+    "trace_v2": 8,
+    "hardening": 36,
+    "incident_retention": 12,
+    "total": 144
+  },
+  "limits": {
+    "incident_bytes": 16777216,
+    "finalized_count": 32,
+    "finalized_bytes": 134217728,
+    "expiry_seconds": 604800,
+    "protected_seconds": 86400,
+    "active_count": 8,
+    "active_expiry_seconds": 86400
+  },
+  "initial_fixture_failures": [
+    "Production port18741 already occupied; full suite rerun in isolated ephemeral-port fixture",
+    "Candidate analysis test is at tracing-v2/test_candidate_analysis.js, not extension/",
+    "Existing real-native fixture asserted production journal absence; now asserts only isolated fixture journal is null"
+  ],
+  "production_files": [
+    "bridge/inbox-v1/native-host/jarvis_inbox_host.py",
+    "bridge/inbox-v1/native-host/incident_retention.py",
+    "bridge/inbox-v1/tests/test_incident_retention.py",
+    "bridge/inbox-v1/tests/test_hardening.py"
+  ],
+  "no_smoke": true,
+  "no_historical_mutation": true,
+  "linux_or_brainage_changes": false
+}

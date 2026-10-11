@@ -1,0 +1,46 @@
+--- a/jarvis_inbox_host.py
++++ b/jarvis_inbox_host.py
+@@ -13,6 +13,8 @@
+ sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
+ from inbox_wire import encoded,unique_json,MAX_NATIVE_BYTES,delivery_message,validate_text,sha256_text
+ HERE=Path(__file__).resolve().parent
++sys.path.insert(0,str(HERE))
++from incident_retention import retain, VERSION as INCIDENT_RETENTION_BUILD
+ 
+ def read_message(stream):
+     raw=stream.read(4)
+@@ -83,6 +85,7 @@
+         clean['request_id']=did.rsplit(':',1)[0] if re.search(r':[0-9a-f]{64}$',did) else did
+         data=(json.dumps(clean,separators=(',',':'),allow_nan=False)+'\n').encode('utf-8')
+         if len(data)>TRACE_MAX_BYTES:return
++        retain(path,clean)
+         path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
+         if path.exists() and path.stat().st_size+len(data)>TRACE_MAX_BYTES:
+             for n in range(TRACE_FILES-1,0,-1):
+@@ -107,6 +110,8 @@
+     def set_outcome(self,outcome):
+         pending={'delivery':self.pending['delivery'],'outcome':outcome}
+         journal_write(self.path,pending);self.pending=pending
++        if outcome.get('state')=='NEEDS_REVIEW':
++            trace_event(self.trace_path,{'event':'native_outcome','delivery_id':pending['delivery']['delivery_id'],'state':'NEEDS_REVIEW','reason':str(outcome.get('error',''))[:256],'ts_ms':int(time.time()*1000)})
+     def recover_ack(self):
+         if self.pending is None:return {'cmd':'idle'}
+         outcome=self.pending['outcome']
+@@ -145,7 +150,8 @@
+                 raise ValueError('invalid outcome schema')
+             if msg.get('state')=='FAILED_RETRYABLE' and msg.get('pre_send') is not True:raise ValueError('unproven retry')
+             outcome={k:v for k,v in msg.items() if k not in ('cmd','delivery_id')}
+-            trace_event(self.trace_path,{'event':'native_outcome','delivery_id':msg['delivery_id'],'state':outcome['state'],'ts_ms':int(time.time()*1000)})
++            if outcome['state']!='NEEDS_REVIEW':
++                trace_event(self.trace_path,{'event':'native_outcome','delivery_id':msg['delivery_id'],'state':outcome['state'],'ts_ms':int(time.time()*1000)})
+             self.set_outcome(outcome)
+             return self.recover_ack()
+         return {'cmd':'error','error':'only poll and delivery outcome are supported'}
+@@ -165,6 +171,7 @@
+     lock=(journal.with_suffix('.lock')).open('a+b');lock.seek(0)
+     if os.name=='nt':msvcrt.locking(lock.fileno(),msvcrt.LK_NBLCK,1)
+     transport=Transport('http://127.0.0.1:18741',journal)
++    trace_event(transport.trace_path,{'event':'native_retention_ready','build':INCIDENT_RETENTION_BUILD,'ts_ms':int(time.time()*1000)})
+     try:
+         while True:
+             msg=read_message(sys.stdin.buffer)

@@ -1,0 +1,8 @@
+--- a/test_hardening.py
++++ b/test_hardening.py
+@@ -210,1 +210,1 @@
+-        for name in ('jarvis_inbox_host.exe','jarvis_inbox_host.py','config.json','python-path.txt'):
++        for name in ('jarvis_inbox_host.exe','jarvis_inbox_host.py','incident_retention.py','config.json','python-path.txt'):
+@@ -246,1 +246,1 @@
+-        self.assertFalse((ROOT/'.runtime/inbox_native_recovery.json').exists())
++        self.assertIsNone(json.loads((test_bridge/'.runtime/inbox_native_recovery.json').read_text()))
