@@ -1,0 +1,1351 @@
+{
+  "task": "AT",
+  "classification": "FULL PASS",
+  "authoritative_AS_commit": "72c93f2eb0a561ff4b047d171e904477d8553e7b",
+  "authoritative_AR_commit": "7b2cbdb1347d5eb639c60f6573f249dd3bb8e3ad",
+  "branch": "codex/brainage",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "evidence_tier": "Exact-ROM static proof anchored in committed forced Tier-3 AS original-ARM evidence; no compiled parity",
+  "entry": {
+    "event": "as_step",
+    "pc": 33977700,
+    "opcode": 3959318826,
+    "r": [
+      4096,
+      34809680,
+      0,
+      1,
+      34513340,
+      0,
+      218,
+      34511360,
+      4096,
+      4096,
+      34590732,
+      0,
+      1164,
+      41825884,
+      33710152,
+      33977700
+    ],
+    "n": 0,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281098001
+  },
+  "entry_hashes": {
+    "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dtcm": "48b89027a274b3268219cdc6a8cd1f7fe15bf442a78b3931d79c4e6ae3ea36e4",
+    "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+  },
+  "AS_revalidation": {
+    "observations": 12,
+    "reads": 16,
+    "writes": 10,
+    "mapped_fields": 35,
+    "terminal_not_fetched": true
+  },
+  "call": {
+    "pc": "0x02067564",
+    "opcode": "0xEBFE692A",
+    "target": "0x02001A14",
+    "r0_r3": [
+      "0x00001000",
+      "0x02132750",
+      "0x00000000",
+      "0x00000001"
+    ],
+    "sp": "0x027E365C",
+    "lr_before": "0x02026048",
+    "lr_created": "0x02067568",
+    "frame_bytes": 8,
+    "saved_lr_address": "0x027E3658"
+  },
+  "prefix": [
+    {
+      "pc": "0x02067564",
+      "opcode": "0xEBFE692A",
+      "decode": "bl #0x2001a14",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 0,
+      "r_before": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E365C",
+        "0x02026048",
+        "0x02067564"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "BL creates LR; enters wrapper",
+      "r_after": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E365C",
+        "0x02067568",
+        "0x02001A14"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "pc": "0x02001A14",
+      "opcode": "0xE92D4000",
+      "decode": "stmdb sp!, {lr}",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 1,
+      "r_before": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E365C",
+        "0x02067568",
+        "0x02001A14"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "DTCM [027E3658] := LR=02067568",
+      "r_after": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3658",
+        "0x02067568",
+        "0x02001A18"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "pc": "0x02001A18",
+      "opcode": "0xE24DD004",
+      "decode": "sub sp, sp, #4",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 2,
+      "r_before": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3658",
+        "0x02067568",
+        "0x02001A18"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "allocate 4 bytes; no initialization",
+      "r_after": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02067568",
+        "0x02001A1C"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "pc": "0x02001A1C",
+      "opcode": "0xEBFFFFD4",
+      "decode": "bl #0x2001974",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 3,
+      "r_before": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02067568",
+        "0x02001A1C"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "BL enters divider setup leaf",
+      "r_after": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x02001974"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "pc": "0x02001974",
+      "opcode": "0xE59F1028",
+      "decode": "ldr r1, [pc, #0x28]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 4,
+      "r_before": [
+        "0x00001000",
+        "0x02132750",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x02001974"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "r1 := main-RAM literal [020019A4]",
+      "data_read": {
+        "address": "0x020019A4",
+        "width": 4,
+        "value": "0x04000280",
+        "space": "main RAM literal"
+      },
+      "r_after": [
+        "0x00001000",
+        "0x04000280",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x02001978"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "pc": "0x02001978",
+      "opcode": "0xE3A03001",
+      "decode": "mov r3, #1",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 5,
+      "r_before": [
+        "0x00001000",
+        "0x04000280",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x02001978"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "r3 := 1 (idempotent register assignment)",
+      "r_after": [
+        "0x00001000",
+        "0x04000280",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x0200197C"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "pc": "0x0200197C",
+      "opcode": "0xE59F2024",
+      "decode": "ldr r2, [pc, #0x24]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL",
+      "index": 6,
+      "r_before": [
+        "0x00001000",
+        "0x04000280",
+        "0x00000000",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x0200197C"
+      ],
+      "nzcv_before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "effect": "r2 := main-RAM literal [020019A8]",
+      "data_read": {
+        "address": "0x020019A8",
+        "width": 4,
+        "value": "0x04000290",
+        "space": "main RAM literal"
+      },
+      "r_after": [
+        "0x00001000",
+        "0x04000280",
+        "0x04000290",
+        "0x00000001",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x0000048C",
+        "0x027E3654",
+        "0x02001A20",
+        "0x02001980"
+      ],
+      "nzcv_after": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "excluded_instructions": [
+    {
+      "pc": "0x02001980",
+      "opcode": "0xE1C130B0",
+      "decode": "strh r3, [r1]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001984",
+      "opcode": "0xE3A0C000",
+      "decode": "mov ip, #0",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001988",
+      "opcode": "0xE582C000",
+      "decode": "str ip, [r2]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x0200198C",
+      "opcode": "0xE3A03A01",
+      "decode": "mov r3, #0x1000",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001990",
+      "opcode": "0xE59F1014",
+      "decode": "ldr r1, [pc, #0x14]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001994",
+      "opcode": "0xE5823004",
+      "decode": "str r3, [r2, #4]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001998",
+      "opcode": "0xE5810000",
+      "decode": "str r0, [r1]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x0200199C",
+      "opcode": "0xE581C004",
+      "decode": "str ip, [r1, #4]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019A0",
+      "opcode": "0xE12FFF1E",
+      "decode": "bx lr",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001A20",
+      "opcode": "0xEBFFFFE2",
+      "decode": "bl #0x20019b0",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019B0",
+      "opcode": "0xE59F102C",
+      "decode": "ldr r1, [pc, #0x2c]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019B4",
+      "opcode": "0xE1D100B0",
+      "decode": "ldrh r0, [r1]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019B8",
+      "opcode": "0xE2100902",
+      "decode": "ands r0, r0, #0x8000",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019BC",
+      "opcode": "0x1AFFFFFC",
+      "decode": "bne #0x20019b4",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "NE"
+    },
+    {
+      "pc": "0x020019C0",
+      "opcode": "0xE59F1020",
+      "decode": "ldr r1, [pc, #0x20]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019C4",
+      "opcode": "0xE3A00702",
+      "decode": "mov r0, #0x80000",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019C8",
+      "opcode": "0xE5912000",
+      "decode": "ldr r2, [r1]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019CC",
+      "opcode": "0xE5911004",
+      "decode": "ldr r1, [r1, #4]",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019D0",
+      "opcode": "0xE0920000",
+      "decode": "adds r0, r2, r0",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019D4",
+      "opcode": "0xE2A11000",
+      "decode": "adc r1, r1, #0",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019D8",
+      "opcode": "0xE1A00A20",
+      "decode": "lsr r0, r0, #0x14",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019DC",
+      "opcode": "0xE1800601",
+      "decode": "orr r0, r0, r1, lsl #12",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x020019E0",
+      "opcode": "0xE12FFF1E",
+      "decode": "bx lr",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001A24",
+      "opcode": "0xE28DD004",
+      "decode": "add sp, sp, #4",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    },
+    {
+      "pc": "0x02001A28",
+      "opcode": "0xE8BD8000",
+      "decode": "ldm sp!, {pc}",
+      "fetch_space": "main RAM; ROM-backed ARM9 code",
+      "predicate": "AL"
+    }
+  ],
+  "literals": {
+    "0x020019A4": "0x04000280",
+    "0x020019A8": "0x04000290",
+    "0x020019AC": "0x04000298",
+    "0x020019E4": "0x04000280",
+    "0x020019E8": "0x040002A0"
+  },
+  "mmio": [
+    {
+      "pc": "0x02001980",
+      "opcode": "0xE1C130B0",
+      "address": "0x04000280",
+      "width": 2,
+      "direction": "write",
+      "value": "0x00000001",
+      "derivation": "r3 := 1 at 02001978",
+      "identity": "DIVCNT",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x02001988",
+      "opcode": "0xE582C000",
+      "address": "0x04000290",
+      "width": 4,
+      "direction": "write",
+      "value": "0x00000000",
+      "derivation": "r12 := 0 at 02001984",
+      "identity": "DIV_NUMER low",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x02001994",
+      "opcode": "0xE5823004",
+      "address": "0x04000294",
+      "width": 4,
+      "direction": "write",
+      "value": "0x00001000",
+      "derivation": "r3 := 1000 at 0200198C",
+      "identity": "DIV_NUMER high",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x02001998",
+      "opcode": "0xE5810000",
+      "address": "0x04000298",
+      "width": 4,
+      "direction": "write",
+      "value": "0x00001000",
+      "derivation": "r0 preserved from AS",
+      "identity": "DIV_DENOM low",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x0200199C",
+      "opcode": "0xE581C004",
+      "address": "0x0400029C",
+      "width": 4,
+      "direction": "write",
+      "value": "0x00000000",
+      "derivation": "r12 remains 0",
+      "identity": "DIV_DENOM high",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x020019B4",
+      "opcode": "0xE1D100B0",
+      "address": "0x04000280",
+      "width": 2,
+      "direction": "read",
+      "value": null,
+      "derivation": "r1 := literal [020019E4]; r0 receives status",
+      "identity": "DIVCNT",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x020019C8",
+      "opcode": "0xE5912000",
+      "address": "0x040002A0",
+      "width": 4,
+      "direction": "read",
+      "value": null,
+      "derivation": "r1 := literal [020019E8]; r2 receives quotient low",
+      "identity": "DIV_RESULT low",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    },
+    {
+      "pc": "0x020019CC",
+      "opcode": "0xE5911004",
+      "address": "0x040002A4",
+      "width": 4,
+      "direction": "read",
+      "value": null,
+      "derivation": "old r1 + 4; r1 receives quotient high",
+      "identity": "DIV_RESULT high",
+      "space": "MMIO",
+      "allowed_in_AU": false
+    }
+  ],
+  "poll": {
+    "pc": "0x020019B4",
+    "mask": "0x00008000",
+    "ands_pc": "0x020019B8",
+    "branch_pc": "0x020019BC",
+    "repeat_if": "Z=0, sampled DIVCNT bit15 set",
+    "exit_if": "Z=1, bit15 clear",
+    "max_iterations": null,
+    "read_has_completion_side_effect": false
+  },
+  "divider": {
+    "mode": 1,
+    "numerator": "0x0000100000000000",
+    "denominator": "0x00001000",
+    "final_quotient": "0x0000000100000000",
+    "final_remainder": 0,
+    "completion": "nds_run_system_events(timestamp) when g_div_deadline <= timestamp",
+    "restart_delay_system_ticks": 34,
+    "arm9_cycle_equivalent": 68,
+    "each_control_or_operand_write_restarts": true,
+    "requires_dma_irq_fifo_arm7": false,
+    "initially_stale_operands_and_result_unobserved": true,
+    "no_unconditional_poll_bound": true,
+    "source_functions": [
+      {
+        "signature": "uint64_t active_system_timestamp()",
+        "line": 377,
+        "sha256": "6348cbdd0a5a1cf9f52269bebe454387eceb9d80b4a7cd6e9f0e082d052a5deb",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "void start_div()",
+        "line": 406,
+        "sha256": "addf3d6a3943666502bd7a6dd7aa5ca47c0da3b25d14397a35e8701dab5ca990",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "void finish_div()",
+        "line": 413,
+        "sha256": "2268c4b1e799b968c3848213fd29e1ec8b83de94707c80ee5dab7cbe33820dab",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "uint32_t math_reg_read32(",
+        "line": 491,
+        "sha256": "1e9912c8cbe305aaf801d37bd8881a34b0bfa7f6897464c8cf2128a2153348e6",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "bool math_addr(",
+        "line": 510,
+        "sha256": "0a241d83ffc1dd5e706a826dd0339ce25996860b239f0d3c98e2edbcfb4a697b",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "void math_reg_write(",
+        "line": 515,
+        "sha256": "ac27dc6f5e276d238c40990f3272df56548e61d07d714c577d55b155ddbf8dfd",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "uint64_t nds_next_system_event_time()",
+        "line": 2233,
+        "sha256": "702427dda2f07696b58b068380a6aaef067e7360db88583ad74cc632dc193680",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "void nds_run_system_events(",
+        "line": 2283,
+        "sha256": "1767110432d67040685f8e29f66b7fe7db17e232760259f6c9f0e66f66e8f6f9",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "uint32_t nds_io_read(",
+        "line": 3238,
+        "sha256": "82bbff0f402fa611b58e377d215d4bff912663554d523381c9f8794ec5e91fe2",
+        "matches_pinned_baseline": true
+      },
+      {
+        "signature": "void nds_io_write(",
+        "line": 3395,
+        "sha256": "d7365053dac81401eb722207cb4bd48680262b7602374d9da0ab2f0039c89fb5",
+        "matches_pinned_baseline": true
+      }
+    ]
+  },
+  "conditional_return": {
+    "assumptions": "All five stores complete; no intervening divider writer; timed final division completes; status/result reads coherent; saved LR intact",
+    "r": [
+      "0x00001000",
+      "0x00000001",
+      "0x00000000",
+      "0x00001000",
+      "0x020EA1BC",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x00001000",
+      "0x00001000",
+      "0x020FD00C",
+      "0x00000000",
+      "0x00000000",
+      "0x027E365C",
+      "0x02001A24",
+      "0x02067568"
+    ],
+    "nzcv": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "sp": "0x027E365C",
+    "wrapper_return_pc": "0x02067568",
+    "observed": false,
+    "mainram_writes": 0,
+    "dtcm_writes": 1,
+    "mmio_write_count": 5,
+    "mmio_read_count": "k+2, k>=1"
+  },
+  "AU": {
+    "start_pc": "0x02067564",
+    "stop_pc": "0x02001980",
+    "stop_before": "fetch/accounting/dispatch of STRH r3,[r1]; first MMIO access",
+    "instruction_count": 7,
+    "pc_sequence": [
+      "0x02067564",
+      "0x02001A14",
+      "0x02001A18",
+      "0x02001A1C",
+      "0x02001974",
+      "0x02001978",
+      "0x0200197C"
+    ],
+    "r": [
+      "0x00001000",
+      "0x04000280",
+      "0x04000290",
+      "0x00000001",
+      "0x020EA1BC",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x00001000",
+      "0x00001000",
+      "0x020FD00C",
+      "0x00000000",
+      "0x0000048C",
+      "0x027E3654",
+      "0x02001A20",
+      "0x02001980"
+    ],
+    "nzcv": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "predicted_arm9_ordinal": 281098008,
+    "cycle_prediction": null,
+    "data_reads": [
+      {
+        "address": "0x020019A4",
+        "width": 4,
+        "value": "0x04000280",
+        "space": "main RAM literal",
+        "pc": "0x02001974"
+      },
+      {
+        "address": "0x020019A8",
+        "width": 4,
+        "value": "0x04000290",
+        "space": "main RAM literal",
+        "pc": "0x0200197C"
+      }
+    ],
+    "instruction_fetches": 7,
+    "data_read_words": 2,
+    "stores": [
+      {
+        "pc": "0x02001A14",
+        "opcode": "0xE92D4000",
+        "address": "0x027E3658",
+        "width": 4,
+        "source": "LR",
+        "before": "0x02067AE0",
+        "after": "0x02067568",
+        "space": "DTCM stack",
+        "value_changing": true
+      }
+    ],
+    "dtcm_byte_diffs": [
+      {
+        "address": "0x027E3658",
+        "before": 224,
+        "after": 104
+      },
+      {
+        "address": "0x027E3659",
+        "before": 122,
+        "after": 117
+      }
+    ],
+    "dtcm_after_sha256": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+    "dtcm_changed_bytes": 2,
+    "mainram_changed_bytes": 0,
+    "save_changed_bytes": 0,
+    "mmio_accesses": 0,
+    "logical_save_requests": 0,
+    "flash_commits": 0,
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x630",
+        "address": "0x020EA030",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x5f0",
+        "address": "0x020E9FF0",
+        "width": 4,
+        "before": 68,
+        "after": 68
+      },
+      {
+        "offset": "0x5d0",
+        "address": "0x020E9FD0",
+        "width": 4,
+        "before": 34807076,
+        "after": 34807076
+      },
+      {
+        "offset": "0x7c0",
+        "address": "0x020EA1C0",
+        "width": 4,
+        "before": 34809680,
+        "after": 34809680
+      },
+      {
+        "offset": "0x7bc",
+        "address": "0x020EA1BC",
+        "width": 4,
+        "before": 34512752,
+        "after": 34512752
+      },
+      {
+        "offset": "0x7e8",
+        "address": "0x020EA1E8",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7c8",
+        "address": "0x020EA1C8",
+        "width": 4,
+        "before": 524288,
+        "after": 524288
+      },
+      {
+        "offset": "0x7cc",
+        "address": "0x020EA1CC",
+        "width": 4,
+        "before": 393216,
+        "after": 393216
+      },
+      {
+        "offset": "0x7d0",
+        "address": "0x020EA1D0",
+        "width": 4,
+        "before": 4096,
+        "after": 4096
+      },
+      {
+        "offset": "0x7d4",
+        "address": "0x020EA1D4",
+        "width": 4,
+        "before": 4096,
+        "after": 4096
+      },
+      {
+        "offset": "0x7f8",
+        "address": "0x020EA1F8",
+        "width": 2,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7dc",
+        "address": "0x020EA1DC",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7e0",
+        "address": "0x020EA1E0",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7fa",
+        "address": "0x020EA1FA",
+        "width": 2,
+        "before": 65535,
+        "after": 65535
+      },
+      {
+        "offset": "0x7ec",
+        "address": "0x020EA1EC",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7f0",
+        "address": "0x020EA1F0",
+        "width": 4,
+        "before": 4294967295,
+        "after": 4294967295
+      },
+      {
+        "offset": "0x7d8",
+        "address": "0x020EA1D8",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7e4",
+        "address": "0x020EA1E4",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x7f4",
+        "address": "0x020EA1F4",
+        "width": 4,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x610",
+        "address": "0x020EA010",
+        "width": 4,
+        "before": 0,
+        "after": 0
+      }
+    ],
+    "forbidden_next": {
+      "pc": "0x02001980",
+      "opcode": "0xE1C130B0",
+      "address": "0x04000280",
+      "width": 2,
+      "value": 1,
+      "effect": "starts/restarts timed division; sets BUSY and reschedules slice"
+    }
+  },
+  "safety": {
+    "guest_dispatches": 0,
+    "runtime_mmio_accesses": 0,
+    "guest_image_writes": 0,
+    "AU_started": false,
+    "input_hashes_unchanged": true
+  },
+  "input_sha256": {
+    "dev\\docs\\BrainAge_TaskAS_Dynamic6753CEntryBoundary.md": "01eccb8cb4a7aba3d91dace0ed9249c4220092df888ee7fab683e9348ad6ca0c",
+    "dev\\docs\\BrainAge_TaskAS_Result.json": "091e10d2c8d69bc649d72ec5b1a5dda38ab5ee159dbf79782ad9bebc4678acb3",
+    "dev\\tools\\task_as\\analyze.py": "c18ddc4ba829cbf8c9a6e40e6b4d327690849b0e4ac6e70a27aa6b49809c3678",
+    "dev\\tools\\task_as\\build.ps1": "cafd02592b4e89007c14fbc293251da24e5bf805a9833467f80f2231e77c4aa5",
+    "dev\\tools\\task_as\\check.py": "19a9b701c73f0820e80fe33d12739cf890d1b1fad7af01a5745d5ba63cece334",
+    "dev\\tools\\task_as\\diagnostic.h": "7e47f73d2110a1812014113999bcf16edad16fb6e72a78ddafe61c6e46656f26",
+    "dev\\tools\\task_as\\entry.inc": "058a078584621ba76902e16cf79f5d15c7e1b2d293f9c40a2bc43875182ad125",
+    "dev\\tools\\task_as\\entry_guard.h": "9fd7889b6bd4fd7eee2cfec303604f015eed30e24279a970940b5e3e6ab4f3bc",
+    "dev\\tools\\task_as\\expected.json": "71f95e723395697625f42e8dffba9e6a1acaee87fb35ef5978413c15cef3444b",
+    "dev\\tools\\task_as\\generate_guard.py": "cf6fcf948e7786906429f4d4c9138dab1583d1a81a99da18fdf006b0d636449c",
+    "dev\\tools\\task_as\\guard.h": "cefb0f0363cd301c8aa747003e4aa6a65c7f46b70ba7681ef347fdc5da284e82",
+    "dev\\tools\\task_as\\guard_test.cpp": "ed13292e1ab69cda25687c1be9bab37ae57839441ba8c420de62a3c895e9ab9c",
+    "dev\\tools\\task_as\\install.py": "8d05f777da8a8d4c59b2ff3f19de50e2e585039fd88faee0cd265f0a4fecc688",
+    "dev\\tools\\task_as\\preflight.py": "0a08a4e97170bc2271c0001afd7814d8ae0987157ccd8458f2b2f42716a52f0d",
+    "dev\\tools\\task_as\\run.py": "b007bb553a501d401fdec188845b18e310bcf561096adf1a308646d5e203a064",
+    "dev\\tools\\task_as\\slice.inc": "8d2e001a333d6e54b70d3094d411de5f5e4701b55c1e8654b6397750039dc388",
+    "dev\\tools\\task_as\\slice_guard.h": "464a270b5ca74eb38a95ad3925eecb05aee0e29b60ebcbe88966fed2424e7ffd",
+    "dev\\tools\\task_as\\task_as_decision.inc": "e96b9ab2c32c8e4c39bbafaf1146e952a9fe452aa0cf3b889cbd5aca477ec099",
+    "dev\\docs\\BrainAge_TaskAR_Pending6753CStaticMap.md": "ea2af6ff5203a0d87e4f5d579c2bd9bf15c2d7ab34692af54a1ddae2d066af22",
+    "dev\\docs\\BrainAge_TaskAR_Result.json": "71f95e723395697625f42e8dffba9e6a1acaee87fb35ef5978413c15cef3444b",
+    "dev\\tools\\task_ar\\analyze.py": "a6d747ae36883cf66d0d3cb534a662ec2613c742e920c907d619ac064b2b49ca",
+    "dev\\tools\\task_ar\\check.py": "d26534de0cbe07a6076ac1fe1103750618cb665b9e191c84db25973335910fb1",
+    "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "dev\\local\\task-as\\session-001\\ah-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-as\\session-001\\ah-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\ah-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\ai-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-as\\session-001\\ai-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\ai-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\ak-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-as\\session-001\\ak-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\ak-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\al-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-as\\session-001\\al-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\al-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\an-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-as\\session-001\\an-before-mainram.bin": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "dev\\local\\task-as\\session-001\\an-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\ao-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-as\\session-001\\ao-before-mainram.bin": "9f31cfc87f6d2913f83bd98854c4837330dfdef539888c935f6b83aea0688dc9",
+    "dev\\local\\task-as\\session-001\\ao-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\aq-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-as\\session-001\\aq-before-mainram.bin": "541991ee1d577324f15893effad69140c1aa0e2d7aeb3a8d302eabbae01e24bd",
+    "dev\\local\\task-as\\session-001\\aq-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\as-before-dtcm.bin": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "dev\\local\\task-as\\session-001\\as-before-mainram.bin": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dev\\local\\task-as\\session-001\\as-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\audit.jsonl": "0c8b810d99501017f37051f2cb4a48a4a3f87553685f61164a9586e2ecee950d",
+    "dev\\local\\task-as\\session-001\\decision-after-dtcm.bin": "48b89027a274b3268219cdc6a8cd1f7fe15bf442a78b3931d79c4e6ae3ea36e4",
+    "dev\\local\\task-as\\session-001\\decision-after-mainram.bin": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "dev\\local\\task-as\\session-001\\decision-after.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\decision-before-dtcm.bin": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "dev\\local\\task-as\\session-001\\decision-before-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-as\\session-001\\decision-before-stack.bin": "04fd4f2ae97cb9659f5d9dc74ce3012072d40f6acab1f4f73d642729b2c7b7e4",
+    "dev\\local\\task-as\\session-001\\decision-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\disabled-entry-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-as\\session-001\\exercise-after.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-as\\session-001\\exercise-before.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-as\\session-001\\final.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\first-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-as\\session-001\\first-store-before-mainram.bin": "6f9381ff8e12de322985ec992652f1e718c3d267182049e2144b27ae6ad98af5",
+    "dev\\local\\task-as\\session-001\\flash.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-as\\session-001\\frontend-input.jsonl": "fd86ef2ff691b7acb28bfa520d7e60951a17ea6e9f5ac5fbd057b6bb7c7fabd5",
+    "dev\\local\\task-as\\session-001\\hold-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-as\\session-001\\initial-window.bmp": "0c1b372a8f86848df4eed8d5101b2696da9e27aabecb066970144ad03768d7eb",
+    "dev\\local\\task-as\\session-001\\initial.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\manager-after.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-as\\session-001\\manager-before.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-as\\session-001\\outer-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-as\\session-001\\outer-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\outer-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\pop-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-as\\session-001\\pop-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\pop-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\publication-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-as\\session-001\\requests.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-as\\session-001\\second-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-as\\session-001\\second-store-before-mainram.bin": "ea7de8687cb8e75b75b7f9bceb62d9b18530e3f2654c62fe42ca25cbf90136a7",
+    "dev\\local\\task-as\\session-001\\second-store-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\service-clean-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-as\\session-001\\session.json": "983e8bdf0595c844f5305466edca2b9c882b30731b80ab408f447d02a97eac52",
+    "dev\\local\\task-as\\session-001\\session.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\slice-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-as\\session-001\\slice-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\slice-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\slot-after.bin": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+    "dev\\local\\task-as\\session-001\\slot-before.bin": "7a228568f985a7cbd84c35a794765e34a0faa72eccd0b16922f67c9ad8533c50",
+    "dev\\local\\task-as\\session-001\\source.state": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+    "dev\\local\\task-as\\session-001\\stack-adjust-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-as\\session-001\\stack-adjust-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-as\\session-001\\stack-adjust-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-as\\session-001\\stderr.log": "01eb8205300a02ee38518f7f55e92c3ef79f4cc52e4b2fca3032d872f0a6035e",
+    "dev\\local\\task-as\\session-001\\stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-as\\session-001\\stroke1-window.bmp": "eeb11263eff95a5b235a9a0590acf6e021d01738ab7dee3b1b678e2c34f76140",
+    "dev\\local\\task-as\\session-001\\window-control.txt": "050f8e31d6f6ce4652c7ba3f29d43dbbef84845673b6437cbf3d0943c305c42f",
+    "dev\\local\\ndsrecomp\\runner\\src\\io.cpp": "76bd92beb74cb46e2421b0d6237e0318c61a630c6674f0729091b436b51b3df2",
+    "dev\\local\\ndsrecomp\\runner\\src\\bus.cpp": "6510490c95e7458fa483cc01f82eb64b65a7a4d7d4dcb735c4fa9610ac3ea571",
+    "dev\\local\\ndsrecomp\\runner\\src\\tier3.cpp": "60e7f13be5c0b28bd439343b4dd6273e0337325fbcef8d77ae02bd184d406a2e",
+    "dev\\local\\ndsrecomp\\runner\\src\\runtime_arm.cpp": "166d06094e2adc19070f145a6c0f50de9d62cb9412eb1f07eb69c3be25d34198",
+    "dev\\local\\ndsrecomp\\runner\\src\\scheduler.cpp": "591037677a40c40b0f412e39e5102c664c5408411599753eada6ab11cfe35984"
+  },
+  "limitations": [
+    "Astra Medium fresh-thread selection unavailable; current thread used, no claim of requested model execution",
+    "No runtime guards implemented or AU started",
+    "No exact AS divider peripheral state or first-write intermediate result certified",
+    "No loop-count, cycle/scheduler or hardware timing parity claim",
+    "Conditional return is static, not observed; whole enclosing 0206753C callee excluded"
+  ]
+}
