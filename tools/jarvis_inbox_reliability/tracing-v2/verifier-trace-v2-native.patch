@@ -1,0 +1,36 @@
+--- a/bridge/inbox-v1/native-host/jarvis_inbox_host.py
++++ b/bridge/inbox-v1/native-host/jarvis_inbox_host.py
+@@ -52,8 +52,14 @@
+ TRACE_MAX_BYTES=262144
+ TRACE_FILES=4
+-TRACE_FIELDS={'build','delivery_id','event','ts_ms','payload_sha256','bound','state','reason','pre_send','deadline_ms','baseline_ids','baseline_count','baseline_truncated','sample','candidates','candidate_count','candidates_truncated','match_count','uuid'}
+-CANDIDATE_FIELDS={'uuid','in_baseline','canonical_match','hash_match','source','observed_sha256','expected_sha256'}
++TRACE_FIELDS={'build','delivery_id','event','ts_ms','payload_sha256','bound','state','reason','pre_send','deadline_ms','baseline_ids','baseline_count','baseline_truncated','sample','candidates','candidate_count','candidates_truncated','match_count','uuid','conv_id','conv_changed','is_branch'}
++CANDIDATE_FIELDS={'uuid','in_baseline','canonical_match','hash_match','source','observed_sha256','expected_sha256','expected_len','observed_len','raw_len','mismatch_index','mismatch_window','normalization'}
+ def trace_event(path,event):
+     """Bounded metadata-only sink. All failures are observational and swallowed."""
+     try:
+         if not isinstance(event,dict) or not set(event)<=TRACE_FIELDS:return
+         clean={}
+         for k,v in event.items():
+             if k=='baseline_ids':
+                 if not isinstance(v,list):return
+                 clean[k]=[x for x in v[:256] if isinstance(x,str) and re.fullmatch(r'[0-9a-fA-F-]{36}',x)]
+             elif k=='candidates':
+                 if not isinstance(v,list):return
+                 clean[k]=[]
+                 for c in v[:64]:
+                     if not isinstance(c,dict) or not set(c)<=CANDIDATE_FIELDS:return
+                     if any(not (x is None or isinstance(x,(bool,int,float)) or isinstance(x,str) and len(x)<=80) for x in c.values()):return
+                     clean[k].append(c)
++            elif k=='conv_id':
++                # Conversation UUID from URL; None if undetectable.
++                if v is not None and not (isinstance(v,str) and re.fullmatch(r'[0-9a-f-]{36}',v)):return
++                clean[k]=v
++            elif k in ('conv_changed','is_branch'):
++                # Booleans; is_branch may be None (unknown).
++                if not (v is None or isinstance(v,bool)):return
++                clean[k]=v
+             elif v is None or isinstance(v,(bool,int,float)):clean[k]=v
+             elif isinstance(v,str) and len(v)<=256:clean[k]=v
+             else:return

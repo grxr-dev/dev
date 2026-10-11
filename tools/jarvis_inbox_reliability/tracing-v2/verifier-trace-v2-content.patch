@@ -1,0 +1,127 @@
+--- a/bridge/inbox-v1/extension/chatgpt_content.js
++++ b/bridge/inbox-v1/extension/chatgpt_content.js
+@@ -1,6 +1,10 @@
+ "use strict";
+ const BOUND_CONVERSATION_ID='6acab580-d218-83ea-9598-0ff64dc33aa7';
+-const VERIFIER_BUILD='inbox-v1-trace-20261011-01';
++const VERIFIER_BUILD='inbox-v1-trace2-20261011-01';
++// Tracing v2 candidate analysis (pure functions, no DOM/side effects).
++// In production this file is concatenated or loaded before the deliver logic.
++// For the patch, the functions from candidate_analysis.js are inlined here:
++//   findFirstMismatch, mismatchWindow, analyzeCandidate, conversationSignals
++// (see extension/candidate_analysis.js for the tested source of truth)
+ function verifierTrace(d,event,fields={}){
+  try{
+   const pending=browser.runtime.sendMessage({cmd:'verifier_trace',event:{build:VERIFIER_BUILD,delivery_id:d.delivery_id,event,ts_ms:Date.now(),...fields}});
+@@ -12,6 +16,55 @@
+  // Narrow observed rendering variant: simple, single-line, single-backtick spans.
+  // Leave fenced/multi-backtick documents untouched; preserve every content byte.
+ // ... (inlineCodeBubbleText and other helpers unchanged)
++
++// --- Tracing v2: candidate mismatch analysis (pure, tested) ---
++function findFirstMismatch(a,b){
++ const len=Math.min(a.length,b.length);
++ for(let i=0;i<len;i++){if(a[i]!==b[i])return i;}
++ return a.length===b.length?-1:len;
++}
++function escapeForTrace(s){return JSON.stringify(s).slice(1,-1);}
++function mismatchWindow(expected,observed,index,radius=20){
++ if(index<0)return "";
++ const eStart=Math.max(0,index-radius),oStart=Math.max(0,index-radius);
++ const eCtx=expected.slice(eStart,index+radius),oCtx=observed.slice(oStart,index+radius);
++ const eCp=index<expected.length?"U+"+expected.codePointAt(index).toString(16).toUpperCase().padStart(4,"0"):"END";
++ const oCp=index<observed.length?"U+"+observed.codePointAt(index).toString(16).toUpperCase().padStart(4,"0"):"END";
++ let w=`diff@${index}: ${eCp}!=${oCp} `;
++ w+=`exp[${eStart}..]:...${escapeForTrace(eCtx)}... `;
++ w+=`obs[${oStart}..]:...${escapeForTrace(oCtx)}...`;
++ return w.length>60?w.slice(0,57)+"...":w;
++}
++function analyzeCandidate(observedRaw,observedCanonical,expectedCanonical,normalization,observedSha256,expectedSha256){
++ const mismatchIndex=findFirstMismatch(expectedCanonical,observedCanonical);
++ return{
++  expected_sha256:expectedSha256,observed_sha256:observedSha256,
++  expected_len:expectedCanonical.length,observed_len:observedCanonical.length,
++  raw_len:observedRaw!=null?observedRaw.length:null,
++  mismatch_index:mismatchIndex,
++  mismatch_window:mismatchWindow(expectedCanonical,observedCanonical,mismatchIndex),
++  normalization:normalization||"none",
++  canonical_match:mismatchIndex===-1,
++ };
++}
++function conversationSignals(boundId,currentId,initialId,branchDetected){
++ return{
++  conv_id:currentId||null,
++  conv_changed:currentId!==boundId||currentId!==initialId,
++  is_branch:branchDetected==null?null:!!branchDetected,
++ };
++}
++function detectBranch(doc=document){
++ // Conservative: only return true on positive DOM evidence of version/branch
++ // navigation. Return null (unknown) otherwise — never claim linear from
++ // absence of evidence.
++ try{
++  const nav=doc.querySelector('[data-testid*="branch"],[aria-label*="version"],[aria-label*="branch"],[data-testid*="version"]');
++  if(nav)return true;
++  return null;
++ }catch(_){return null;}
++}
++function conversationIdFromUrl(doc=document){
++ const m=(doc.location||location).pathname.match(/^\/c\/([0-9a-f-]+)/i);
++ return m?m[1].toLowerCase():null;
++}
+ @@ -150,7 +203,10 @@
+      if(composerText(editor)!=='')return fail('FAILED_RETRYABLE','composer contains a draft',true);
+      if(document.querySelector('button[data-testid="stop-button"],button[aria-label="Stop streaming"]'))return fail('FAILED_RETRYABLE','generation active',true);
+      const ids=userMessageIds(document);
++     const initialConvId=conversationIdFromUrl(document);
+      verifierTrace(d,'baseline',{baseline_ids:Array.from(ids).slice(0,256),baseline_count:ids.size,baseline_truncated:ids.size>256,bound:bound()});
+      if(!bound()||composer()!==editor||composerText(editor)!=='')return fail('FAILED_RETRYABLE','composer changed before insertion',true);
+      insert(editor,d.text);
+@@ -165,26 +221,45 @@
+      button.click(); // the sole Send site
+      // Exact payload identity, not viewport visibility or the first new turn.
+      // Stay within the background's 120 s deadline and never click again.
+      const end=Date.now()+90000;let matchingId=null,exitReason='deadline_expired',sample=0;
+      verifierTrace(d,'deadline',{deadline_ms:end,bound:bound()});
+      while(Date.now()<end){
+       if(!bound()){exitReason='page_unbound_before_sample';break;}
+-      const matches=new Map(),candidates=[];let candidateCount=0;sample++;
++      const matches=new Map(),candidates=[];let candidateCount=0;sample++;
++      const convId=conversationIdFromUrl(document);
++      const convSig=conversationSignals(BOUND_CONVERSATION_ID,convId,initialConvId,detectBranch(document));
+       for(const turn of userMessages(document,{historical:true})){
+-       const inBaseline=ids.has(turn.id);
+-       const observed=canonicalText(turn.text);
+-       const expected=observed===d.text?d.text:turn.bubbleOnly?inlineCodeBubbleText(d.text):d.text;
+-       const candidate={uuid:turn.id,in_baseline:inBaseline,canonical_match:observed===expected,hash_match:null,source:turn.source||'synthetic'};
++       const inBaseline=ids.has(turn.id);
++       const observedRaw=turn.text;
++       const observed=canonicalText(turn.text);
++       // Explicit normalization label: which fallback (if any) produced `expected`.
++       const normalization=turn.source==='markdown-tone'?'markdown':(observed!==d.text&&turn.bubbleOnly)?'bubble':'none';
++       const expected=observed===d.text?d.text:turn.bubbleOnly?inlineCodeBubbleText(d.text):d.text;
++       // v2: compute hashes for EVERY candidate, not just canonical matches.
++       // This is the seq 60 gap — previously a mismatch recorded no hashes.
++       const observedHash=await hash(observed),expectedHash=await hash(expected);
++       const analysis=analyzeCandidate(observedRaw,observed,expected,normalization,observedHash,expectedHash);
++       const candidate={uuid:turn.id,in_baseline:inBaseline,canonical_match:analysis.canonical_match,hash_match:null,source:turn.source||'synthetic',...analysis};
+        candidateCount++;if(candidates.length<64)candidates.push(candidate);
+        if(inBaseline)continue;
+-       if(observed!==expected)continue;
+-       const observedHash=await hash(observed),expectedHash=await hash(expected);
+-       candidate.hash_match=observedHash===expectedHash;candidate.observed_sha256=observedHash;candidate.expected_sha256=expectedHash;
+-       if(candidate.hash_match)matches.set(turn.id,turn);
++       if(!analysis.canonical_match)continue;
++       // hash_match=null preserves "not evaluated" semantics for baseline/mismatch.
++       // Only set it when canonical matched (the DELIVERED path).
++       candidate.hash_match=observedHash===expectedHash;
++       if(candidate.hash_match)matches.set(turn.id,turn);
+       }
+-      verifierTrace(d,'sample',{sample,bound:bound(),candidates,candidate_count:candidateCount,candidates_truncated:candidateCount>64,match_count:matches.size});
++      verifierTrace(d,'sample',{sample,bound:bound(),conv_id:convSig.conv_id,conv_changed:convSig.conv_changed,is_branch:convSig.is_branch,candidates,candidate_count:candidateCount,candidates_truncated:candidateCount>64,match_count:matches.size});
+       if(!bound()){exitReason='page_unbound_after_sample';break;}
+       if(matches.size>1){verifierTrace(d,'terminal',{reason:'multiple_exact_new_identities',state:'NEEDS_REVIEW',bound:bound()});const r=fail('NEEDS_REVIEW','multiple new USER identities match this exact payload');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
+        const id=matches.size===1?matches.keys().next().value:null;
+        // Require the same new message identity and exact canonical text/hash on
+        // consecutive samples; transient partial/replaced DOM is not terminal.
+        if(id&&id===matchingId){
