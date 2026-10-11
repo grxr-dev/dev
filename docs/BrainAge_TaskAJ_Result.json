@@ -1,0 +1,782 @@
+{
+  "task": "AJ - read-only exact inner-helper map",
+  "classification": "FULL PASS",
+  "authoritative_ai_commit": "5e086cb667a87d41eda1aec016e6418a57f64356",
+  "authoritative_ah_commit": "2b846d5ddeb751c59f02caa1aacd227d016a9b24",
+  "authoritative_af_commit": "63ff0c59f995fe9e2df57248ef261d1f4c8c6819",
+  "branch": "codex/brainage",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "evidence_tier": "Static ROM and retained hashed AI forced Tier-3 evidence; no AJ dynamic execution or compiled parity",
+  "entry": {
+    "r": [
+      "0x020E9A00",
+      "0x00000001",
+      "0x00000004",
+      "0x00000000",
+      "0x020E9A00",
+      "0x00000000",
+      "0x00000072",
+      "0x00000000",
+      "0x020E9A00",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x027E3B2C",
+      "0x02026B94",
+      "0x02026254"
+    ],
+    "nzcv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "opcode": "0xEBFFFF47",
+    "target": "0x02025F78",
+    "new_lr": "0x02026258",
+    "argument_use": "r0 object pointer consumed; incoming r1-r3 overwritten before read on this exact prefix; r12=0 incidental; no incoming stack arguments read"
+  },
+  "instruction_facts": [
+    {
+      "pc": "0x02026254",
+      "opcode": "0xEBFFFF47",
+      "decoded": "bl #0x2025f78",
+      "classification": "call",
+      "effect": "LR=02026258; SP unchanged; target 02025F78"
+    },
+    {
+      "pc": "0x02025F78",
+      "opcode": "0xE92D41F0",
+      "decoded": "push {r4, r5, r6, r7, r8, lr}",
+      "classification": "stack write",
+      "effect": "PUSH r4-r8,LR; SP 027E3B2C -> 027E3B14; six words"
+    },
+    {
+      "pc": "0x02025F7C",
+      "opcode": "0xE24DD008",
+      "decoded": "sub sp, sp, #8",
+      "classification": "register",
+      "effect": "SP 027E3B14 -> 027E3B0C; reserve 8 bytes, no write"
+    },
+    {
+      "pc": "0x02025F80",
+      "opcode": "0xE1A07000",
+      "decoded": "mov r7, r0",
+      "classification": "register",
+      "effect": "r7=r0=020E9A00"
+    },
+    {
+      "pc": "0x02025F84",
+      "opcode": "0xE5971040",
+      "decoded": "ldr r1, [r7, #0x40]",
+      "classification": "object read",
+      "effect": "[020E9A40]=1 -> r1"
+    },
+    {
+      "pc": "0x02025F88",
+      "opcode": "0xE597001C",
+      "decoded": "ldr r0, [r7, #0x1c]",
+      "classification": "object read",
+      "effect": "[020E9A1C]=0 -> r0"
+    },
+    {
+      "pc": "0x02025F8C",
+      "opcode": "0xE2415001",
+      "decoded": "sub r5, r1, #1",
+      "classification": "register",
+      "effect": "r5=1-1=0; flags unchanged"
+    },
+    {
+      "pc": "0x02025F90",
+      "opcode": "0xE3500000",
+      "decoded": "cmp r0, #0",
+      "classification": "flags",
+      "effect": "CMP 0,0 -> NZCV 0/1/1/0"
+    },
+    {
+      "pc": "0x02025F94",
+      "opcode": "0xE5976034",
+      "decoded": "ldr r6, [r7, #0x34]",
+      "classification": "object read",
+      "effect": "[020E9A34]=DA -> r6; flags unchanged"
+    },
+    {
+      "pc": "0x02025F98",
+      "opcode": "0x0A00000C",
+      "decoded": "beq #0x2025fd0",
+      "classification": "branch",
+      "effect": "EQ true (Z=1); taken 02025FD0"
+    },
+    {
+      "pc": "0x02025FD0",
+      "opcode": "0xE5971040",
+      "decoded": "ldr r1, [r7, #0x40]",
+      "classification": "object read",
+      "effect": "[020E9A40]=1 -> r1"
+    },
+    {
+      "pc": "0x02025FD4",
+      "opcode": "0xE597003C",
+      "decoded": "ldr r0, [r7, #0x3c]",
+      "classification": "object read",
+      "effect": "[020E9A3C]=20 decimal -> r0"
+    },
+    {
+      "pc": "0x02025FD8",
+      "opcode": "0xE1510000",
+      "decoded": "cmp r1, r0",
+      "classification": "flags",
+      "effect": "CMP 1,20 -> NZCV 1/0/0/0"
+    },
+    {
+      "pc": "0x02025FDC",
+      "opcode": "0xAA000019",
+      "decoded": "bge #0x2026048",
+      "classification": "branch",
+      "effect": "GE false (N!=V); not taken 02026048; next 02025FE0"
+    },
+    {
+      "pc": "0x02025FE0",
+      "opcode": "0xE0871101",
+      "decoded": "add r1, r7, r1, lsl #2",
+      "classification": "register",
+      "effect": "r1=020E9A00+(1<<2)=020E9A04"
+    },
+    {
+      "pc": "0x02025FE4",
+      "opcode": "0xE5910054",
+      "decoded": "ldr r0, [r1, #0x54]",
+      "classification": "object read",
+      "effect": "[020E9A04+54]=[020E9A58]=11 decimal -> r0"
+    },
+    {
+      "pc": "0x02025FE8",
+      "opcode": "0xE3500009",
+      "decoded": "cmp r0, #9",
+      "classification": "flags",
+      "effect": "CMP 11,9 -> NZCV 0/0/1/0"
+    },
+    {
+      "pc": "0x02025FEC",
+      "opcode": "0xCA000002",
+      "decoded": "bgt #0x2025ffc",
+      "classification": "branch",
+      "effect": "GT true (Z=0,N=V); taken 02025FFC"
+    },
+    {
+      "pc": "0x02025FFC",
+      "opcode": "0xE3A01000",
+      "decoded": "mov r1, #0",
+      "classification": "register",
+      "effect": "r1=0"
+    },
+    {
+      "pc": "0x02026000",
+      "opcode": "0xE1A02001",
+      "decoded": "mov r2, r1",
+      "classification": "register",
+      "effect": "r2=r1=0"
+    },
+    {
+      "pc": "0x02026004",
+      "opcode": "0xE2870E57",
+      "decoded": "add r0, r7, #0x570",
+      "classification": "register",
+      "effect": "r0=020E9A00+570=020E9F70"
+    },
+    {
+      "pc": "0x02026008",
+      "opcode": "0xE3A0301F",
+      "decoded": "mov r3, #0x1f",
+      "classification": "register",
+      "effect": "r3=1F"
+    },
+    {
+      "pc": "0x0202600C",
+      "opcode": "0xEB0106F0",
+      "decoded": "bl #0x2067bd4",
+      "classification": "call",
+      "effect": "target 02067BD4; LR=02026010; SP=027E3B0C"
+    },
+    {
+      "pc": "0x02067BD4",
+      "opcode": "0xE92D4010",
+      "decoded": "push {r4, lr}",
+      "classification": "stack write",
+      "effect": "PUSH r4,LR; SP 027E3B0C -> 027E3B04; two words"
+    },
+    {
+      "pc": "0x02067BD8",
+      "opcode": "0xE1A04000",
+      "decoded": "mov r4, r0",
+      "classification": "register",
+      "effect": "r4=r0=020E9F70"
+    },
+    {
+      "pc": "0x02067BDC",
+      "opcode": "0xE5842254",
+      "decoded": "str r2, [r4, #0x254]",
+      "classification": "FORBIDDEN object write",
+      "effect": "STR r2=0 to [r4+254]=020EA1C4; before=1; STOP BEFORE DISPATCH"
+    },
+    {
+      "pc": "0x02026258",
+      "opcode": "0xE5940004",
+      "decoded": "ldr r0, [r4, #4]",
+      "classification": "caller",
+      "effect": "LDR r0,[r4,#4] after hypothetical return"
+    },
+    {
+      "pc": "0x0202625C",
+      "opcode": "0xE3500000",
+      "decoded": "cmp r0, #0",
+      "classification": "caller",
+      "effect": "CMP r0,#0; returned r0 overwritten"
+    }
+  ],
+  "stack_writes": [
+    {
+      "pc": "0x02025F78",
+      "address": "0x027E3B14",
+      "end_inclusive": "0x027E3B17",
+      "width": 4,
+      "source": "r4",
+      "before": "0x00000001",
+      "after": "0x020E9A00",
+      "changed_bytes": 4
+    },
+    {
+      "pc": "0x02025F78",
+      "address": "0x027E3B18",
+      "end_inclusive": "0x027E3B1B",
+      "width": 4,
+      "source": "r5",
+      "before": "0x020266B8",
+      "after": "0x00000000",
+      "changed_bytes": 4
+    },
+    {
+      "pc": "0x02025F78",
+      "address": "0x027E3B1C",
+      "end_inclusive": "0x027E3B1F",
+      "width": 4,
+      "source": "r6",
+      "before": "0x00000000",
+      "after": "0x00000072",
+      "changed_bytes": 1
+    },
+    {
+      "pc": "0x02025F78",
+      "address": "0x027E3B20",
+      "end_inclusive": "0x027E3B23",
+      "width": 4,
+      "source": "r7",
+      "before": "0x02067524",
+      "after": "0x00000000",
+      "changed_bytes": 4
+    },
+    {
+      "pc": "0x02025F78",
+      "address": "0x027E3B24",
+      "end_inclusive": "0x027E3B27",
+      "width": 4,
+      "source": "r8",
+      "before": "0x00000003",
+      "after": "0x020E9A00",
+      "changed_bytes": 4
+    },
+    {
+      "pc": "0x02025F78",
+      "address": "0x027E3B28",
+      "end_inclusive": "0x027E3B2B",
+      "width": 4,
+      "source": "lr",
+      "before": "0x00000000",
+      "after": "0x02026258",
+      "changed_bytes": 4
+    },
+    {
+      "pc": "0x02067BD4",
+      "address": "0x027E3B04",
+      "end_inclusive": "0x027E3B07",
+      "width": 4,
+      "source": "r4",
+      "before": "0x00000000",
+      "after": "0x020E9A00",
+      "changed_bytes": 3
+    },
+    {
+      "pc": "0x02067BD4",
+      "address": "0x027E3B08",
+      "end_inclusive": "0x027E3B0B",
+      "width": 4,
+      "source": "lr",
+      "before": "0x00000001",
+      "after": "0x02026010",
+      "changed_bytes": 4
+    }
+  ],
+  "first_object_mutation": {
+    "pc": "0x02067BDC",
+    "opcode": "0xE5842254",
+    "address": "0x020EA1C4",
+    "exercise_offset": "0x7C4",
+    "width": 4,
+    "source": "r2",
+    "before": 1,
+    "after": 0,
+    "classification": "unknown subobject field",
+    "executed": false
+  },
+  "af_claim_verified": true,
+  "first_divergence": null,
+  "nested_call": {
+    "pc": "0x0202600C",
+    "opcode": "0xEB0106F0",
+    "target": "0x02067BD4",
+    "arguments": [
+      "0x020E9F70",
+      "0x00000000",
+      "0x00000000",
+      "0x0000001F"
+    ],
+    "sp": "0x027E3B0C",
+    "lr_before": "0x02026258",
+    "lr_after": "0x02026010",
+    "bounded_prefix_instructions": 2
+  },
+  "ak": {
+    "start_pc": "0x02026254",
+    "stop_pc": "0x02067BDC",
+    "stop_before": "store dispatch",
+    "dispatch_count": 25,
+    "terminal_observation_index": 25,
+    "predicted_arm9_ordinal": 281097924,
+    "r": [
+      "0x020E9F70",
+      "0x00000000",
+      "0x00000000",
+      "0x0000001F",
+      "0x020E9F70",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x020E9A00",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x027E3B04",
+      "0x02026010",
+      "0x02067BDC"
+    ],
+    "nzcv": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "stack_word_writes": 8,
+    "stack_written_bytes": 32,
+    "dtcm_changed_bytes": 28,
+    "dtcm_byte_changes": [
+      {
+        "address": "0x027E3B05",
+        "before": 0,
+        "after": 154
+      },
+      {
+        "address": "0x027E3B06",
+        "before": 0,
+        "after": 14
+      },
+      {
+        "address": "0x027E3B07",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B08",
+        "before": 1,
+        "after": 16
+      },
+      {
+        "address": "0x027E3B09",
+        "before": 0,
+        "after": 96
+      },
+      {
+        "address": "0x027E3B0A",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B0B",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B14",
+        "before": 1,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B15",
+        "before": 0,
+        "after": 154
+      },
+      {
+        "address": "0x027E3B16",
+        "before": 0,
+        "after": 14
+      },
+      {
+        "address": "0x027E3B17",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B18",
+        "before": 184,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B19",
+        "before": 102,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B1A",
+        "before": 2,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B1B",
+        "before": 2,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B1C",
+        "before": 0,
+        "after": 114
+      },
+      {
+        "address": "0x027E3B20",
+        "before": 36,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B21",
+        "before": 117,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B22",
+        "before": 6,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B23",
+        "before": 2,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B24",
+        "before": 3,
+        "after": 0
+      },
+      {
+        "address": "0x027E3B25",
+        "before": 0,
+        "after": 154
+      },
+      {
+        "address": "0x027E3B26",
+        "before": 0,
+        "after": 14
+      },
+      {
+        "address": "0x027E3B27",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B28",
+        "before": 0,
+        "after": 88
+      },
+      {
+        "address": "0x027E3B29",
+        "before": 0,
+        "after": 98
+      },
+      {
+        "address": "0x027E3B2A",
+        "before": 0,
+        "after": 2
+      },
+      {
+        "address": "0x027E3B2B",
+        "before": 0,
+        "after": 2
+      }
+    ],
+    "predicted_dtcm_sha256": "1a17bcc82ed4e8bd5f03d70a1bddaa38b6dee106f1b10e3286ee9f721e238716",
+    "mainram_changed_bytes": 0,
+    "mainram_sha256": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "name": "phase",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "name": "result_delay",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "name": "unknown phase-one-assigned word",
+        "value": 218,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "name": "correct_count",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "name": "unknown zero-tested word",
+        "value": 0,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "name": "unknown comparison bound",
+        "value": 20,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "name": "unknown index word",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "name": "indexed +0x54 element",
+        "value": 11,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "name": "expected",
+        "value": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "name": "result_flag",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "name": "later_outcome",
+        "value": 255,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 1,
+        "after": 1,
+        "name": "retained previously mapped field"
+      }
+    ],
+    "save_changed_bytes": 0,
+    "logical_save_requests": 0,
+    "flash_commits": 0,
+    "object_global_writes": 0,
+    "mmio_accesses": 0,
+    "local_unwritten_range": [
+      "0x027E3B0C",
+      "0x027E3B13"
+    ]
+  },
+  "safety": {
+    "guest_dispatches": 0,
+    "pending_BL_executed": false,
+    "ak_started": false,
+    "guest_state_writes": 0,
+    "input_hashes_unchanged": true
+  },
+  "input_sha256": {
+    "dev\\docs\\BrainAge_TaskAI_InnerCallBoundary.md": "80c288d53e61b7fb7cd2b89a2760baf5e7644c58a77e5032f005686bc97a255f",
+    "dev\\docs\\BrainAge_TaskAI_Result.json": "8e30d2372724fa07f42e906152f9aec4f7957eccd3f3fd1d234ec50d6262f54b",
+    "dev\\tools\\task_ai\\analyze.py": "dc76e49d1194e3c5b71c00473793bc519dd144b0b841d8180980bfb357b7cf5b",
+    "dev\\tools\\task_ai\\build.ps1": "7179fa4c6c733acf5830d132f33ca75263bd4a7aa88b0e0b98d06f4d5a61e0cc",
+    "dev\\tools\\task_ai\\check.py": "26c53a218fd6daf1203651260f185442377d2fe61958e87952bdafd76294c031",
+    "dev\\tools\\task_ai\\diagnostic.h": "e0091f61cdd586064bc75d785e2508dc4d2773be6e2a76838a17b497263691e2",
+    "dev\\tools\\task_ai\\guard.h": "0ea6f286537d1a8d1c461f7d107aeb53b46f7b56ea3474d25bf39636d20038d2",
+    "dev\\tools\\task_ai\\guard_test.cpp": "38297c375a13bcd6d1457d0249373927294ee8264b1d51754191cc33cc3c5b8e",
+    "dev\\tools\\task_ai\\install.py": "8c9b27c1543b9a5c0220eceb6e2b0e981131acb1cc2a40e69447a5b68cba0e2d",
+    "dev\\tools\\task_ai\\preflight.py": "13e5ec7fbcaa49946632db54f111d35421acb8b4257335640062d0a648cb9f62",
+    "dev\\tools\\task_ai\\run.py": "2556bd69571e9a5591c77b36858480d1cbdd2663f96372010537c2368fde79d0",
+    "dev\\tools\\task_ai\\task_ai_decision.inc": "04f3d7e73d13eac84ebe15ab136cd376c5058a11c318040c147e0ade6f4a3a0f",
+    "dev\\docs\\BrainAge_TaskAH_IdempotentObjectStore.md": "f160733696084fb8dfc204824d4b9df2b5c9405530f3fba4cf818b4832239fc6",
+    "dev\\docs\\BrainAge_TaskAH_Result.json": "a099412e860734dcdf998a954a6d6aef68013536c52d0081693f4fa0d06dcd1c",
+    "dev\\tools\\task_ah\\analyze.py": "213cae7c7509ff22453775fa47976c6dc5350364f06ac005d478f6a3dc32b5b3",
+    "dev\\tools\\task_ah\\build.ps1": "2cd6424f7ef2691d907124f220706574191e063bebdd62051f8e22b788adcd7a",
+    "dev\\tools\\task_ah\\check.py": "c1edd0a6a403ea0019df0f54f175b3838ecb3e76a87365f0a8fa6bfb458b8293",
+    "dev\\tools\\task_ah\\diagnostic.h": "a6c3d1f1735fc4c7e075976d4497decbcb91e94445482429b45e15dcc0a77f63",
+    "dev\\tools\\task_ah\\guard.h": "6d657eb2cc0eac2f496edc21a4565ee6854ca2ce9de61e1456c6e9ecc6a8101c",
+    "dev\\tools\\task_ah\\guard_test.cpp": "14f6b81d9e576c71446b8e27a816c9107395c74cb5701f219ae88aae70fc6bbd",
+    "dev\\tools\\task_ah\\install.py": "61ec7f7c108624d79693dea7e2228bc9ae1c9fe17871ab7078128b2762ba4100",
+    "dev\\tools\\task_ah\\preflight.py": "355322ce85e94530041be8e774ffe3f7954f2d2f90d3ab4580bb93e2e296b01f",
+    "dev\\tools\\task_ah\\run.py": "102456bd9395ece67946cdc67f516e1d19e8a492efddcaf112bfcce9892784c7",
+    "dev\\tools\\task_ah\\task_ah_decision.inc": "d50cbbb5cf65ec421dcca7faf2e13d1199e085ea4eafb35416169b86d2208e2a",
+    "dev\\docs\\BrainAge_TaskAF_PhaseDispatchMap.md": "76c74cc2091f914eb000ad357a6c5f4a1d18cf3e567bf2250fa797fe88f4d616",
+    "dev\\docs\\BrainAge_TaskAF_Result.json": "069467977da63f7fa6a21b6714fa90acb5e6a852a8a80569779a519c1fb34727",
+    "dev\\tools\\task_af\\analyze.py": "f86a5836ff643eb27e03a94f4aa518b9db2d748870f7821fed49a76fb513d766",
+    "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "dev\\local\\task-ai\\session-001\\ah-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-ai\\session-001\\ah-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\ah-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\ai-before-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-ai\\session-001\\ai-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\ai-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\audit.jsonl": "6b68d88b3232d118bc1257505bd24dd13e12adc05837d96da33f40ec80c87a0d",
+    "dev\\local\\task-ai\\session-001\\decision-after-dtcm.bin": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "dev\\local\\task-ai\\session-001\\decision-after-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\decision-after-stack.bin": "84f61a32609ce1869bdd0d4f8436f5ed65d0d269301a461b01db880d4f8c1f76",
+    "dev\\local\\task-ai\\session-001\\decision-after.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\decision-before-dtcm.bin": "0a5ee4f18669def213ab4ef481127b96b054b88fda797f19ca9acb359f962cf0",
+    "dev\\local\\task-ai\\session-001\\decision-before-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-ai\\session-001\\decision-before-stack.bin": "04fd4f2ae97cb9659f5d9dc74ce3012072d40f6acab1f4f73d642729b2c7b7e4",
+    "dev\\local\\task-ai\\session-001\\decision-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\disabled-entry-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-ai\\session-001\\exercise-after.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-ai\\session-001\\exercise-before.bin": "fdca8f671499c5e6d759c915832815b94928dbe899f83a16eba37808b1ba5d5e",
+    "dev\\local\\task-ai\\session-001\\exercise-decision.bin": "fa5f46ad9f8493ff7d122b1f0ef478ad5cf8640243128ee65101191c7b367ef4",
+    "dev\\local\\task-ai\\session-001\\final.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\first-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-ai\\session-001\\first-store-before-mainram.bin": "6f9381ff8e12de322985ec992652f1e718c3d267182049e2144b27ae6ad98af5",
+    "dev\\local\\task-ai\\session-001\\flash.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-ai\\session-001\\frontend-input.jsonl": "fd86ef2ff691b7acb28bfa520d7e60951a17ea6e9f5ac5fbd057b6bb7c7fabd5",
+    "dev\\local\\task-ai\\session-001\\hold-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-ai\\session-001\\initial-window.bmp": "0c1b372a8f86848df4eed8d5101b2696da9e27aabecb066970144ad03768d7eb",
+    "dev\\local\\task-ai\\session-001\\initial.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\manager-after.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-ai\\session-001\\manager-before.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-ai\\session-001\\manager-decision.bin": "a95b2c77f8a822a80809f06aa3f9de9e72cd7b82b4af526c6eb13212add2cbf8",
+    "dev\\local\\task-ai\\session-001\\outer-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-ai\\session-001\\outer-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\outer-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\pop-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-ai\\session-001\\pop-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\pop-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\publication-mainram.bin": "60c271e8b36cf20a577375708b9af55ad7152a8dc576a4559fc5b05be8b797a1",
+    "dev\\local\\task-ai\\session-001\\requests.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-ai\\session-001\\second-store-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-ai\\session-001\\second-store-before-mainram.bin": "ea7de8687cb8e75b75b7f9bceb62d9b18530e3f2654c62fe42ca25cbf90136a7",
+    "dev\\local\\task-ai\\session-001\\second-store-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\service-clean-mainram.bin": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b",
+    "dev\\local\\task-ai\\session-001\\session.json": "92661c8b7813337e3d260068d8f394f98fb31af0b0fe49ad97715cc79d7cf7d8",
+    "dev\\local\\task-ai\\session-001\\session.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\slice-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-ai\\session-001\\slice-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\slice-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\slot-after.bin": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+    "dev\\local\\task-ai\\session-001\\slot-before.bin": "7a228568f985a7cbd84c35a794765e34a0faa72eccd0b16922f67c9ad8533c50",
+    "dev\\local\\task-ai\\session-001\\slot-decision.bin": "f0d64582051b6142348c94b3f2b92cc9aa4506f34ebc5ffc4a58a10cf6006b32",
+    "dev\\local\\task-ai\\session-001\\source.state": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+    "dev\\local\\task-ai\\session-001\\stack-adjust-before-dtcm.bin": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "dev\\local\\task-ai\\session-001\\stack-adjust-before-mainram.bin": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dev\\local\\task-ai\\session-001\\stack-adjust-before.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "dev\\local\\task-ai\\session-001\\stderr.log": "0e6af345e80dbb20c1a888f30e9a1f7377c2224524093c671d614efba542f83e",
+    "dev\\local\\task-ai\\session-001\\stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dev\\local\\task-ai\\session-001\\stroke1-window.bmp": "eeb11263eff95a5b235a9a0590acf6e021d01738ab7dee3b1b678e2c34f76140",
+    "dev\\local\\task-ai\\session-001\\window-control.txt": "06ddf0145cee632e300dc6e16ffa49ce594779569a7792e1be1ee63eb1508197",
+    "dev\\local\\task-g\\session-001\\11-answer-01-63\\checkpoint.state": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+    "dev\\local\\task-g\\session-001\\11-answer-01-63\\after.sav": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+  },
+  "limitations": [
+    "Exact AI context only; no full callee return or continuation proof",
+    "No runtime guards, scheduling or cycle prediction tested in AJ",
+    "Unknown fields retain offset-based descriptions"
+  ]
+}
