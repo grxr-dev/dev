@@ -1,0 +1,1267 @@
+{
+  "classification": "FULL PASS",
+  "task": "AG - dynamic AF eight-instruction outer dispatch prefix",
+  "authoritative_af_commit": "63ff0c59f995fe9e2df57248ef261d1f4c8c6819",
+  "authoritative_ae_commit": "6a43d5bfa4c85773b0f986b9d73944ab5e01700e",
+  "branch": "codex/brainage",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+  "evidence_tier": "Forced Tier-3 exact-context original ARM interpreter; no compiled parity",
+  "authoritative_path": "local/task-ag/session-001",
+  "disabled_path": "local/task-ag/disabled-001",
+  "runner_sha256": "dc6e17ede51a9b07b7c3427a8810b21a513d43acb141cb52685c04e7312a2f22",
+  "installed_source_sha256_normalized_text": {
+    "diagnostic.h": "2414f307b3e7497ca29bfcc4c6b45063a1c9d14b6afb4380bec576a55cf77906",
+    "guard.h": "caf26fce2adeb27db98a9bca7e7bdfce568d4fcbfb7d598775b33e2e0f9ff716",
+    "task_ag_decision.inc": "a39c023d7c5fad2d260a35f7ee6b3d69795d0329e447b3bf902acc0a8f7d080a"
+  },
+  "preflight": {
+    "safe": true,
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "framework_baseline": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+    "ae_start": {
+      "event": "decision_step",
+      "pc": 33713040,
+      "opcode": 3959422368,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33713040
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097889
+    },
+    "states": [
+      {
+        "pc": 33713040,
+        "opcode": 3959422368,
+        "decoded": "bl #0x2026218",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          0,
+          33713040
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710616,
+        "opcode": 3912056848,
+        "decoded": "push {r4, lr}",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827124,
+          33713044,
+          33710616
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710620,
+        "opcode": 3785375744,
+        "decoded": "mov r4, r0",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          3,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710620
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710624,
+        "opcode": 3788767728,
+        "decoded": "ldrsh r0, [r4, #0x10]",
+        "r": [
+          34511360,
+          1,
+          4,
+          0,
+          34511360,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710624
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710628,
+        "opcode": 3813670917,
+        "decoded": "cmp r0, #5",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          34511360,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710628
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710632,
+        "opcode": 2425352448,
+        "decoded": "addls pc, pc, r0, lsl #2",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          34511360,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710632
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710644,
+        "opcode": 3925868547,
+        "decoded": "b #0x2026248",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          34511360,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710644
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710664,
+        "opcode": 3818914010,
+        "decoded": "mov r0, #0xda",
+        "r": [
+          1,
+          1,
+          4,
+          0,
+          34511360,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710664
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": true
+      },
+      {
+        "pc": 33710668,
+        "opcode": 3850633268,
+        "decoded": "str r0, [r4, #0x34]",
+        "r": [
+          218,
+          1,
+          4,
+          0,
+          34511360,
+          0,
+          114,
+          0,
+          34511360,
+          0,
+          0,
+          0,
+          0,
+          41827116,
+          33713044,
+          33710668
+        ],
+        "nzcv": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "dispatch": false
+      }
+    ],
+    "fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "name": "phase",
+        "value": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "name": "result_delay",
+        "value": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "name": "unknown phase-one-assigned word",
+        "value": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "name": "correct_count",
+        "value": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "name": "unknown zero-tested word",
+        "value": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "name": "unknown comparison bound",
+        "value": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "name": "unknown index word",
+        "value": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "name": "indexed +0x54 element",
+        "value": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "name": "expected",
+        "value": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "name": "result_flag",
+        "value": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "name": "later_outcome",
+        "value": 255
+      }
+    ],
+    "stack_words": [
+      {
+        "address": "0x027E3B2C",
+        "width": 4,
+        "source": "r4",
+        "before": 114,
+        "predicted_after": 3
+      },
+      {
+        "address": "0x027E3B30",
+        "width": 4,
+        "source": "lr",
+        "before": 33712520,
+        "predicted_after": 33713044
+      }
+    ],
+    "expected_dtcm_after_sha256": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "mainram_sha256": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "dtcm_sha256": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "checkpoint_sha256": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f",
+    "save_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "ae_json_sha256": "35a05bbb6aff3da98b4f2996f83dc3c58112da23ea98a5bc73bbd2f4a44ce840",
+    "af_json_sha256": "069467977da63f7fa6a21b6714fa90acb5e6a852a8a80569779a519c1fb34727",
+    "new_dispatches": 8,
+    "stop_before_pc": "0x0202624C",
+    "first_object_store_dispatched": false
+  },
+  "ae_start": {
+    "event": "outer_before",
+    "pc": 33713040,
+    "opcode": 3959422368,
+    "r": [
+      34511360,
+      1,
+      4,
+      0,
+      3,
+      0,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827124,
+      0,
+      33713040
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097889
+  },
+  "ag_stop": {
+    "event": "decision_step",
+    "pc": 33710668,
+    "opcode": 3850633268,
+    "r": [
+      218,
+      1,
+      4,
+      0,
+      34511360,
+      0,
+      114,
+      0,
+      34511360,
+      0,
+      0,
+      0,
+      0,
+      41827116,
+      33713044,
+      33710668
+    ],
+    "n": 1,
+    "z": 0,
+    "c": 0,
+    "v": 0,
+    "t": 0,
+    "mode": 31,
+    "i": 0,
+    "f": 0,
+    "insn9": 281097897
+  },
+  "executed_pcs": [
+    "0x02026B90",
+    "0x02026218",
+    "0x0202621C",
+    "0x02026220",
+    "0x02026224",
+    "0x02026228",
+    "0x02026234",
+    "0x02026248"
+  ],
+  "trace": [
+    {
+      "event": "decision_step",
+      "pc": 33713040,
+      "opcode": 3959422368,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        0,
+        33713040
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097889,
+      "decoded": "bl #0x2026218",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710616,
+      "opcode": 3912056848,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827124,
+        33713044,
+        33710616
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097890,
+      "decoded": "push {r4, lr}",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710620,
+      "opcode": 3785375744,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        3,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710620
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097891,
+      "decoded": "mov r4, r0",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710624,
+      "opcode": 3788767728,
+      "r": [
+        34511360,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710624
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097892,
+      "decoded": "ldrsh r0, [r4, #0x10]",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710628,
+      "opcode": 3813670917,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710628
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097893,
+      "decoded": "cmp r0, #5",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710632,
+      "opcode": 2425352448,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710632
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097894,
+      "decoded": "addls pc, pc, r0, lsl #2",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710644,
+      "opcode": 3925868547,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710644
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097895,
+      "decoded": "b #0x2026248",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710664,
+      "opcode": 3818914010,
+      "r": [
+        1,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710664
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097896,
+      "decoded": "mov r0, #0xda",
+      "dispatch_permitted": true
+    },
+    {
+      "event": "decision_step",
+      "pc": 33710668,
+      "opcode": 3850633268,
+      "r": [
+        218,
+        1,
+        4,
+        0,
+        34511360,
+        0,
+        114,
+        0,
+        34511360,
+        0,
+        0,
+        0,
+        0,
+        41827116,
+        33713044,
+        33710668
+      ],
+      "n": 1,
+      "z": 0,
+      "c": 0,
+      "v": 0,
+      "t": 0,
+      "mode": 31,
+      "i": 0,
+      "f": 0,
+      "insn9": 281097897,
+      "decoded": "str r0, [r4, #0x34]",
+      "dispatch_permitted": false
+    }
+  ],
+  "boundary": {
+    "start_pc": "0x02026B90",
+    "stop_pc": "0x0202624C",
+    "executed_instructions": 8,
+    "stop_instruction": "STR r0,[r4,#0x34]",
+    "stop_dispatched": false,
+    "inner_call_0x02026254_dispatched": false,
+    "beyond_stop_dispatched": false,
+    "decision_dispatches": 63,
+    "observations": 64,
+    "proof": "Exact ordinal/PC/opcode/register allowlist; live complete AE hash/CPU gate before BL; terminal halt before bank handoff, instruction count, fetch and step; clean unwind and process exit"
+  },
+  "control_flow": {
+    "outer_BL_target": "0x02026218",
+    "outer_BL_lr": "0x02026B94",
+    "phase": 1,
+    "CMP_1_5_nzcv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "ADDLS_taken": true,
+    "architectural_pc_operand": "0x02026230",
+    "ADDLS_target": "0x02026234",
+    "slot_branch_target": "0x02026248"
+  },
+  "register_deltas": [
+    {
+      "register": "r0",
+      "before": "0x020E9A00",
+      "after": "0x000000DA"
+    },
+    {
+      "register": "r4",
+      "before": "0x00000003",
+      "after": "0x020E9A00"
+    },
+    {
+      "register": "SP",
+      "before": "0x027E3B34",
+      "after": "0x027E3B2C"
+    },
+    {
+      "register": "LR",
+      "before": "0x00000000",
+      "after": "0x02026B94"
+    },
+    {
+      "register": "PC",
+      "before": "0x02026B90",
+      "after": "0x0202624C"
+    }
+  ],
+  "flags_before": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "flags_after": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "no_unexplained_register_flags": true,
+  "memory": {
+    "mainram_changed_bytes": 0,
+    "mainram_byte_equal_AE": true,
+    "dtcm_changed_bytes": 3,
+    "dtcm_word_diffs": [
+      {
+        "address": "0x027E3B2C",
+        "before": "0x00000072",
+        "after": "0x00000003"
+      },
+      {
+        "address": "0x027E3B30",
+        "before": "0x02026988",
+        "after": "0x02026B94"
+      }
+    ],
+    "dtcm_byte_diffs": [
+      {
+        "address": "0x027E3B2C",
+        "before": 114,
+        "after": 3
+      },
+      {
+        "address": "0x027E3B30",
+        "before": 136,
+        "after": 148
+      },
+      {
+        "address": "0x027E3B31",
+        "before": 105,
+        "after": 107
+      }
+    ],
+    "dtcm_write_footprint": "0x027E3B2C..0x027E3B33",
+    "only_expected_PUSH_writes": true,
+    "exercise_0x34_written_in_AG": false,
+    "mapped_fields": [
+      {
+        "offset": "0x10",
+        "address": "0x020E9A10",
+        "width": 2,
+        "name": "phase",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x20",
+        "address": "0x020E9A20",
+        "width": 4,
+        "name": "result_delay",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x34",
+        "address": "0x020E9A34",
+        "width": 4,
+        "name": "unknown phase-one-assigned word",
+        "value": 218,
+        "before": 218,
+        "after": 218
+      },
+      {
+        "offset": "0x44",
+        "address": "0x020E9A44",
+        "width": 4,
+        "name": "correct_count",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x1C",
+        "address": "0x020E9A1C",
+        "width": 4,
+        "name": "unknown zero-tested word",
+        "value": 0,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "offset": "0x3C",
+        "address": "0x020E9A3C",
+        "width": 4,
+        "name": "unknown comparison bound",
+        "value": 20,
+        "before": 20,
+        "after": 20
+      },
+      {
+        "offset": "0x40",
+        "address": "0x020E9A40",
+        "width": 4,
+        "name": "unknown index word",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x58",
+        "address": "0x020E9A58",
+        "width": 4,
+        "name": "indexed +0x54 element",
+        "value": 11,
+        "before": 11,
+        "after": 11
+      },
+      {
+        "offset": "0x4C",
+        "address": "0x020E9A4C",
+        "width": 4,
+        "name": "expected",
+        "value": 4,
+        "before": 4,
+        "after": 4
+      },
+      {
+        "offset": "0x504",
+        "address": "0x020E9F04",
+        "width": 4,
+        "name": "result_flag",
+        "value": 1,
+        "before": 1,
+        "after": 1
+      },
+      {
+        "offset": "0x51C",
+        "address": "0x020E9F1C",
+        "width": 4,
+        "name": "later_outcome",
+        "value": 255,
+        "before": 255,
+        "after": 255
+      },
+      {
+        "offset": "0x38",
+        "address": "0x020E9A38",
+        "width": 4,
+        "before": 0,
+        "after": 0,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x50c",
+        "address": "0x020E9F0C",
+        "width": 4,
+        "before": 255,
+        "after": 255,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x514",
+        "address": "0x020E9F14",
+        "width": 4,
+        "before": 4,
+        "after": 4,
+        "name": "retained previously mapped field"
+      },
+      {
+        "offset": "0x7c4",
+        "address": "0x020EA1C4",
+        "width": 4,
+        "before": 1,
+        "after": 1,
+        "name": "retained previously mapped field"
+      }
+    ]
+  },
+  "state_effects": {
+    "score_count_phase_progression_history_result_completion": "No main RAM/object changes; only two stack words overwritten",
+    "gameplay_resumed": false,
+    "inner_calls": 0,
+    "MMIO_in_AG_instructions": 0,
+    "guest_video_touch_scene_unchanged": true,
+    "peripheral_effect_attributable_to_AG": false
+  },
+  "save": {
+    "before_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "after_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "changed_bytes": 0,
+    "logical_requests": 0,
+    "flash_commits": 0,
+    "dirty": false
+  },
+  "accounting": {
+    "arm9_ordinal_before": 281097889,
+    "arm9_ordinal_after": 281097897,
+    "arm9_instruction_delta": 8,
+    "arm9_cycles_before": 3416875425,
+    "arm9_cycles_after": 3416875447,
+    "arm9_cycle_delta": 22,
+    "arm7_ordinal_before": 96026779,
+    "arm7_ordinal_after": 96026779,
+    "arm7_instruction_delta": 0,
+    "arm7_cycles_before": 1708437703,
+    "arm7_cycles_after": 1708437703,
+    "arm7_cycle_delta": 0,
+    "counters_restored": false
+  },
+  "hashes": {
+    "AE_mainram": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "AG_mainram": "b987e4950b03b3621ffd5c47e715150240c54913f94652149edec23424950ce9",
+    "AE_dtcm": "e2ab6955f9cfa7e43239c75a004e386609c55a282d291c6a286ea97954e062ff",
+    "AG_dtcm": "ffebd1000bf8222fd3b1224bfed4f6596f4288e38b82d6c22b1aa6c14bc37547",
+    "source_checkpoint": "3911c3e98f90d77916497fd82e4f7ae49e7ca825273e52a90b66fd05ce2b2f2f"
+  },
+  "complete_ae_prefix_exact": true,
+  "ae_CPU_RAM_DTCM_before_BL_independently_revalidated": true,
+  "input": {
+    "problem": "11 - 7",
+    "expected": 4,
+    "strokes": [
+      [
+        [
+          190,
+          110
+        ],
+        [
+          156,
+          91
+        ],
+        [
+          121,
+          65
+        ],
+        [
+          121,
+          98
+        ],
+        [
+          121,
+          130
+        ]
+      ],
+      [
+        [
+          173,
+          114
+        ],
+        [
+          132,
+          114
+        ],
+        [
+          75,
+          114
+        ]
+      ]
+    ],
+    "source": "unchanged Task V/W known 4",
+    "input": "SDL queue before frontend mapping"
+  },
+  "input_sha256": "88d9a22421816f6e390033f2f2b4c553fd73e6706efd3133d96b6ca35e31dd32",
+  "custom_events": 10,
+  "custom_guest_deliveries": 0,
+  "recognition": [
+    {
+      "event": "recognition",
+      "release": 1,
+      "integer": 2,
+      "countdown_before_update": 41,
+      "publishable_this_update": false,
+      "primary": [
+        50
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        50
+      ],
+      "metric": 500,
+      "private_instructions": 636956,
+      "wall_us": 21479,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            50
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "2"
+    },
+    {
+      "event": "recognition",
+      "release": 2,
+      "integer": 4,
+      "countdown_before_update": 1,
+      "publishable_this_update": true,
+      "primary": [
+        52
+      ],
+      "secondary": [
+        48
+      ],
+      "chosen": [
+        52
+      ],
+      "metric": 249,
+      "private_instructions": 1561436,
+      "wall_us": 54718,
+      "groups": [
+        {
+          "count": 0,
+          "codes": [],
+          "secondary": []
+        },
+        {
+          "count": 1,
+          "codes": [
+            52
+          ],
+          "secondary": [
+            48
+          ]
+        }
+      ],
+      "interpreted_decimal_text": "4"
+    }
+  ],
+  "private_service_isolation": {
+    "event": "service_cleanup",
+    "return": 0,
+    "private_instructions": 13160,
+    "live_ram_equal": true,
+    "cpu_equal": true,
+    "active": false,
+    "ram_sha256": "5c0784c4b91e0ae19fc9941e08af7afc7aa46968aa38ef3cdcb16899aded577b"
+  },
+  "disabled_control": {
+    "pass": true,
+    "input_events": 0,
+    "publication": 0,
+    "correctness": 0,
+    "RAM_save_changes": 0,
+    "exit_code": 0
+  },
+  "focused_tests": {
+    "outer_dispatch_guard": {
+      "pass": true,
+      "output": "PASS: exact AE prefix; 63 dispatches; eight AF instructions; terminal STR/inner call/alternate path forbidden; every opcode and register negative; exact PUSH bytes"
+    },
+    "predecessor_guard": {
+      "pass": true,
+      "output": "PASS: Task AD prefix parity; exactly 55 dispatches; downstream call never dispatchable; fixed POP operands/decode; divergence, repeat, predicate, ordinal and downstream rejection"
+    },
+    "publication_policy": {
+      "pass": true,
+      "output": "PASS: bounded groups/prefix, exact positional policy, 2 -> 4 timing, invalid sentinel and unsupported contributor timing"
+    },
+    "production_sources_unchanged": {
+      "pass": true
+    },
+    "pre_dispatch_hook": {
+      "pass": true
+    }
+  },
+  "exit_code": 0,
+  "forced_cleanup": false,
+  "limitations": [
+    "One exact 11 - 7 / recognized-4 context",
+    "Original ARM interpreter only; no compiled parity",
+    "No store at 0x0202624C or inner helper execution",
+    "MMIO attribution follows decoded instructions and bounded RAM/DTCM accesses; normal scheduler bookkeeping is not claimed frozen"
+  ],
+  "reproduction": [
+    "python tools/task_ag/preflight.py",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools/task_ag/build.ps1",
+    "python tools/task_ag/check.py",
+    "python tools/task_ag/run.py --out local/task-ag/disabled-FRESH --disabled --port 19961",
+    "python tools/task_ag/run.py --out local/task-ag/session-FRESH --port 19962",
+    "python tools/task_ag/analyze.py --out local/task-ag/session-FRESH --disabled local/task-ag/disabled-FRESH --export docs/BrainAge_TaskAG_Result.json"
+  ],
+  "recommended_next_smallest_task": "If separately authorized, audit exactly the idempotent STR at 0x0202624C to exercise +0x34 (0xDA -> 0xDA) and stop before 0x02026250. No inner BL.",
+  "stop": "Task AG only; no Task AH or gameplay continuation"
+}
