@@ -152,8 +152,14 @@ inline std::map<std::string,uint8_t> layout(const Snapshot& snapshot) {
     }
     return result;
 }
-inline void manifest_matches(const Snapshot& snapshot) {
+inline void manifest_matches(const Snapshot& snapshot
+#if defined(AW4_ROMFREE_CERTIFICATION)
+    , const Snapshot& expected=au_manifest()
+#endif
+) {
+#if !defined(AW4_ROMFREE_CERTIFICATION)
     const auto expected=au_manifest();
+#endif
     for (const auto& item:expected.fields) {
         const auto found=snapshot.fields.find(item.first);
         require(found!=snapshot.fields.end() && found->second==item.second, "AU manifest scalar: "+item.first);
@@ -194,9 +200,17 @@ inline void readiness(const Snapshot& snapshot, uint64_t final_cycle) {
     require(deadline==UINT64_MAX || deadline>final_system, "divider event ready");
     require(bool(snapshot.get("div.control")&0x8000)==(deadline!=UINT64_MAX), "divider busy/deadline disagreement");
 }
-inline void preflight(const Snapshot& snapshot) {
+inline void preflight(const Snapshot& snapshot
+#if defined(AW4_ROMFREE_CERTIFICATION)
+    , const Snapshot& authority=au_manifest()
+#endif
+) {
     canonical(snapshot);
+#if defined(AW4_ROMFREE_CERTIFICATION)
+    manifest_matches(snapshot,authority);
+#else
     manifest_matches(snapshot);
+#endif
     const auto expected=layout(snapshot);
     require(expected.size()==snapshot.fields.size(), "unknown/missing snapshot fields");
     for (const auto& item:expected) {

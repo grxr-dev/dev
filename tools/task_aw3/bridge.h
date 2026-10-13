@@ -2,6 +2,13 @@
 #include <thread>
 #include "sha1.h"
 #include "../task_aw2/controller.h"
+#if defined(_WIN32)
+#include <fcntl.h>
+extern "C" {
+_CRTIMP int __cdecl _open(const char*,int,...);
+_CRTIMP int __cdecl _close(int);
+}
+#endif
 
 namespace task_aw3 {
 using task_aw2::Snapshot;
@@ -19,6 +26,18 @@ inline std::string sticky,rom_identity;
 inline bool bound=false;
 inline Snapshot immutable;
 inline std::string immutable_digest;
+inline FILE* exclusive_audit(const char* path) {
+    if (!path || !*path) return nullptr;
+#if defined(_WIN32)
+    const int descriptor=_open(path,_O_CREAT|_O_EXCL|_O_WRONLY|_O_BINARY|_O_NOINHERIT,0600);
+    if (descriptor<0) return nullptr;
+    auto* file=_fdopen(descriptor,"wb");
+    if (!file) _close(descriptor);
+    return file;
+#else
+    return std::fopen(path,"wbx");
+#endif
+}
 inline void audit_text(const char* event, const std::string& reason) noexcept {
     if (!output) return;
     std::fprintf(output,"{\"event\":\"%s\",\"reason\":\"",event);
@@ -45,7 +64,7 @@ inline void loaded_rom(const uint8_t* bytes,size_t size) {
         if (!selector || std::string(selector)!="1") return;
         const char* path=std::getenv("NDS_TASK_AW3_AUDIT");
         if (!path || !*path) fail("capture audit path missing");
-        auto* file=std::fopen(path,"wbx");
+        auto* file=exclusive_audit(path);
         if (!file) fail("capture audit must be fresh and writable");
         arm(file);
     }
@@ -150,7 +169,11 @@ inline Snapshot core_projection(const Snapshot& full) {
     }
     return core;
 }
-inline void entry_preflight(const Snapshot& full) {
+inline void entry_preflight(const Snapshot& full
+#if defined(AW4_ROMFREE_CERTIFICATION)
+    , const Snapshot& authority=task_aw2::au_manifest()
+#endif
+) {
     require(full.get("capture.epoch")==epoch && full.get("capture.serial")==serial &&
             full.get("capture.rom_epoch")==rom_epoch && rom_epoch,"stale provider/ROM epoch");
     require(full.hashes.at("rom")==rom_identity,"ROM loader binding mismatch");
@@ -179,7 +202,11 @@ inline void entry_preflight(const Snapshot& full) {
             "actual IRQ acceptance cache mismatch");
     require(full.get("service.irq_cache7")==((full.get("irq7.ime")&1) ? (full.get("irq7.ie")&full.get("irq7.if")) : 0),
             "actual ARM7 IRQ acceptance cache mismatch");
+#if defined(AW4_ROMFREE_CERTIFICATION)
+    task_aw2::preflight(core_projection(full),authority);
+#else
     task_aw2::preflight(core_projection(full));
+#endif
 }
 inline void seal(const Snapshot& snapshot) {
     require(!bound,"duplicate immutable seal");
