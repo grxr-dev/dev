@@ -1,0 +1,326 @@
+{
+  "authority": {
+    "AU": "f17f95ae2b2a15f7fced6f04d82d2593350d37a4",
+    "AV": "524acc6bead2768183e45ae4913b00ea811b274b",
+    "AW": "71f28f7ecc87388691c4c68589811d4322d05863"
+  },
+  "executable_AX_certificate": false,
+  "expected": {
+    "fields": {
+      "code.02001980": [
+        4,
+        3787534512
+      ],
+      "code.02001984": [
+        4,
+        3818962944
+      ],
+      "code.02001988": [
+        4,
+        3850551296
+      ],
+      "code.0200198c": [
+        4,
+        3818928641
+      ],
+      "code.02001990": [
+        4,
+        3852406804
+      ],
+      "code.02001994": [
+        4,
+        3850514436
+      ],
+      "code.02001998": [
+        4,
+        3850436608
+      ],
+      "code.0200199c": [
+        4,
+        3850485764
+      ],
+      "code.020019a0": [
+        4,
+        3778019102
+      ],
+      "code.020019b0": [
+        4,
+        3852406828
+      ],
+      "code.020019b4": [
+        4,
+        3788570800
+      ],
+      "code.020019b8": [
+        4,
+        3792701698
+      ],
+      "code.02001a20": [
+        4,
+        3959422946
+      ],
+      "cpsr": [
+        4,
+        31
+      ],
+      "cycle7": [
+        8,
+        1708437825
+      ],
+      "cycle9": [
+        8,
+        3416875721
+      ],
+      "dtcm_stack_word": [
+        4,
+        33977704
+      ],
+      "flash_commits": [
+        8,
+        0
+      ],
+      "literal.020019ac": [
+        4,
+        67109528
+      ],
+      "literal.020019e4": [
+        4,
+        67109504
+      ],
+      "logical_saves": [
+        8,
+        0
+      ],
+      "ordinal7": [
+        8,
+        96026779
+      ],
+      "ordinal9": [
+        8,
+        281098008
+      ],
+      "protected.020e9a10": [
+        2,
+        1
+      ],
+      "protected.020e9a1c": [
+        4,
+        0
+      ],
+      "protected.020e9a20": [
+        4,
+        1
+      ],
+      "protected.020e9a34": [
+        4,
+        218
+      ],
+      "protected.020e9a38": [
+        4,
+        0
+      ],
+      "protected.020e9a3c": [
+        4,
+        20
+      ],
+      "protected.020e9a40": [
+        4,
+        1
+      ],
+      "protected.020e9a44": [
+        4,
+        1
+      ],
+      "protected.020e9a4c": [
+        4,
+        4
+      ],
+      "protected.020e9a58": [
+        4,
+        11
+      ],
+      "protected.020e9f04": [
+        4,
+        1
+      ],
+      "protected.020e9f0c": [
+        4,
+        255
+      ],
+      "protected.020e9f14": [
+        4,
+        4
+      ],
+      "protected.020e9f1c": [
+        4,
+        255
+      ],
+      "protected.020e9fd0": [
+        4,
+        34807076
+      ],
+      "protected.020e9ff0": [
+        4,
+        68
+      ],
+      "protected.020ea010": [
+        4,
+        0
+      ],
+      "protected.020ea030": [
+        4,
+        1
+      ],
+      "protected.020ea1bc": [
+        4,
+        34512752
+      ],
+      "protected.020ea1c0": [
+        4,
+        34809680
+      ],
+      "protected.020ea1c4": [
+        4,
+        0
+      ],
+      "protected.020ea1c8": [
+        4,
+        524288
+      ],
+      "protected.020ea1cc": [
+        4,
+        393216
+      ],
+      "protected.020ea1d0": [
+        4,
+        4096
+      ],
+      "protected.020ea1d4": [
+        4,
+        4096
+      ],
+      "protected.020ea1d8": [
+        4,
+        0
+      ],
+      "protected.020ea1dc": [
+        4,
+        0
+      ],
+      "protected.020ea1e0": [
+        4,
+        0
+      ],
+      "protected.020ea1e4": [
+        4,
+        0
+      ],
+      "protected.020ea1e8": [
+        4,
+        0
+      ],
+      "protected.020ea1ec": [
+        4,
+        0
+      ],
+      "protected.020ea1f0": [
+        4,
+        4294967295
+      ],
+      "protected.020ea1f4": [
+        4,
+        1
+      ],
+      "protected.020ea1f8": [
+        2,
+        0
+      ],
+      "protected.020ea1fa": [
+        2,
+        65535
+      ],
+      "r0": [
+        4,
+        4096
+      ],
+      "r1": [
+        4,
+        67109504
+      ],
+      "r10": [
+        4,
+        34590732
+      ],
+      "r11": [
+        4,
+        0
+      ],
+      "r12": [
+        4,
+        1164
+      ],
+      "r13": [
+        4,
+        41825876
+      ],
+      "r14": [
+        4,
+        33561120
+      ],
+      "r15": [
+        4,
+        33560960
+      ],
+      "r2": [
+        4,
+        67109520
+      ],
+      "r3": [
+        4,
+        1
+      ],
+      "r4": [
+        4,
+        34513340
+      ],
+      "r5": [
+        4,
+        0
+      ],
+      "r6": [
+        4,
+        218
+      ],
+      "r7": [
+        4,
+        34511360
+      ],
+      "r8": [
+        4,
+        4096
+      ],
+      "r9": [
+        4,
+        4096
+      ]
+    },
+    "hashes": {
+      "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+      "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+      "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+      "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+      "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+    }
+  },
+  "schema": "brainage-aw2-au-manifest-1",
+  "source_reports_sha256": {
+    "BrainAge_TaskAU_Result.json": "c8ab59e5860c2bf405d19f9f97ad24175c3bab7bc051b6c22f8c4bd709038809",
+    "BrainAge_TaskAV_Result.json": "345172b82fad360a503318de93033c1e68835b163cc2e3af00c7424acd76b771"
+  },
+  "unrecorded_au_entry_classes": [
+    "slice-cap history, round target and fast-limit provenance",
+    "CP15 and code/data timing latch values at AU stop",
+    "divider operands, quotient/remainder, busy and inherited deadline",
+    "periodic/peripheral service phase, DMA/timer/IRQ readiness and return stack"
+  ]
+}

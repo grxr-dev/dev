@@ -1,0 +1,72 @@
+{
+  "task": "AW2",
+  "attempt": "clean retry 2026-10-13; prior failed attempt historical only",
+  "classification": "PARTIAL",
+  "authority": {
+    "AW": "71f28f7ecc87388691c4c68589811d4322d05863",
+    "AV": "524acc6bead2768183e45ae4913b00ea811b274b",
+    "AU": "f17f95ae2b2a15f7fced6f04d82d2593350d37a4",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2"
+  },
+  "safety": {
+    "brainage_guest_instructions_executed": 0,
+    "brainage_runtime_mmio_accesses": 0,
+    "AX_executed": false,
+    "AX_authorized": false,
+    "ROM_save_checkpoint_opened_or_mutated_by_helpers": false,
+    "runtime_sources_modified": false,
+    "generated_recomp_C_edited": false,
+    "runner_relinked_or_launched": false,
+    "normal_timing_scheduler_semantics_modified": false,
+    "unrelated_changes_preserved": true
+  },
+  "gap_disposition": [
+    {"item": 1, "status": "PARTIAL", "implemented": "Typed passive CP15/publication copy, real-runtime-checked 12-instruction cost classifier, cap-chain logical replay/overflow/stale/debt guards", "remaining": "Trusted runtime-owned cap mutation/entry epoch journal and complete hidden timing latch capture"},
+    {"item": 2, "status": "PARTIAL", "implemented": "Derived IRQ/cache, ARM7 lag/lifecycle/debt, periodic/deadline, cap/fast-limit, conservative DMA/timer predicates and independent negative tests", "remaining": "Complete actual peripheral/periodic phase/scheduler source projection; enabled timers and other unknown service state remain rejected"},
+    {"item": 3, "status": "CLOSED_FOR_AW2_IDENTITY", "implemented": "Versioned canonical logical cells/digests, stable SHA256, strict decode, round trip, mutation/removal/width tests; rejects historical raw AW provider", "remaining": "Historical AW collector unchanged; full live canonical provider belongs to items 2 and 7"},
+    {"item": 4, "status": "PARTIAL", "implemented": "Immutable authority-checked 74 AU scalar anchors and five identity strings bound to preflight; independent mismatch tests", "remaining": "Trusted actual image/code/ROM observation binding and unrecorded AU divider/timing/cap/readiness baselines"},
+    {"item": 5, "status": "PARTIAL", "implemented": "77-observation fetch/data/MMIO/model/cycle/retired conditional plan, strict sticky controller and complete synthetic coupling", "remaining": "Complete original-runtime canonical event projection including hidden bookkeeping/timing state"},
+    {"item": 6, "status": "PARTIAL", "implemented": "Prospective cap/cost/debt/event guards and nonreturning success/failure controller", "remaining": "Reviewed preserved-guard AU ownership handoff and dominating non-observer failure/yield fences; old AU halt path not bypassed"},
+    {"item": 7, "status": "PARTIAL", "implemented": "Positive full synthetic controller and nine disposal children, including failure inside actual nds_reschedule_slice using actual copied cap/cycle/register scalars", "remaining": "Complete actual AU passive provider through all original Tier-3 observations to successful terminal"}
+  ],
+  "canonical": {
+    "schema": "AW2S version 1",
+    "encoding": "Little-endian uint16 version; uint32 counts; sorted ASCII uint16-length keys; width byte plus explicit 1/2/4/8-byte unsigned values; sorted length-prefixed hexadecimal identity strings",
+    "padding_pointer_vtable_identity_used": false,
+    "manifest_scalar_count": 74,
+    "manifest_sha256": "174535cef7bbfb1b499f3b256593019731199c9bc49a5ab35ce23697841c2af5",
+    "synthetic_entry_sha256": "3f26015457e575e952577ef1f14ff03647f79b94769d1dcf1a3603490be58b0d",
+    "actual_typed_timing_on_synthetic_runtime_sha256": "40796a700c559ec4d2c6275eb1b8e97e68f5bc7691eb6b556caa969d1d7a141e"
+  },
+  "tests": {
+    "synthetic_assertions": 1170,
+    "actual_runtime_checks": 28,
+    "child_process_tests": 9,
+    "synthetic_success": {"accepted_events": 77, "exit": 73, "complete_audit_flushed_closed": true},
+    "failure_exits": 79,
+    "audit_failure_exit_contract": 78,
+    "actual_runtime_cap_failure": {"accepted_events": 4, "exit": 79, "copied_cap": 3416875786, "no_runtime_return": true},
+    "scheduler_device_IRQ_ARM7_shutdown_destructor_atexit_sentinels_reached": false,
+    "device_accesses": "Unsupported device access stubs abort; no actual MMIO attempted",
+    "interpreter_linked_or_run": false,
+    "authoritative_evidence": "local/task-aw2/retry-20261013/certification-003/tests.json",
+    "source_review": "local/task-aw2/retry-20261013/source-review.json"
+  },
+  "disabled_behavior": "AW runtime sources/AU guards unchanged; no AW2 installation or activation; existing null observer, actual cap retention/shortening checks pass; historical SDL/headless binaries preserved",
+  "AX": {
+    "certificate_issued": false,
+    "execution_authorized": false,
+    "reduced_prefix_certified": false,
+    "candidate_only": {"start_pc": "0x02001980", "stop_pc": "0x020019B8", "instructions": 12, "status_read_pc": "0x020019B4", "status_read_value_conditional": "0x8001", "costs": [8,1,8,1,3,8,8,8,4,4,3,8], "cycle9_final_conditional": 3416875785, "deadline_final_conditional": 1708437913, "first_write_cap_conditional": 3416875788, "forbidden_next": "0x020019B8 / E2100902 ANDS"},
+    "why_withheld": "No complete trusted live canonical/cap/readiness provider or immutable dynamic baseline binding; existing AU index-7 stop and access denials still precede candidate dispatch; guarded handoff and full real event projection not certified. First instruction is MMIO, so no positive reduced prefix is eligible."
+  },
+  "evidence_limits": [
+    "Synthetic fixture is not reconstructed AU peripheral/timing state.",
+    "Actual runtime failure coupling is inside nds_reschedule_slice on synthetic host state; it is not a complete Tier-3 success path.",
+    "Readonly timing copy excludes some hidden last-access/page/accounting latches; no completeness claim.",
+    "Known AU image hashes are authority anchors, not freshly observed image bytes.",
+    "No live-divider, compiled-parity, hardware-parity, gameplay or save before/after execution result."
+  ],
+  "next_smallest_work": "Complete trusted live canonical/cap/readiness provider and immutable observation binding, then guarded AU-to-controller transfer plus ROM-free full provider/event/failure coupling tests. Reconsider certification only afterward; do not execute AX."
+}
