@@ -1,0 +1,71 @@
+{
+  "task": "AW3",
+  "classification": "PARTIAL",
+  "authority": {
+    "AW2": "cb7ab39c07fd2d35bf7bdd04bcdda2d06aaf6540",
+    "AW": "71f28f7ecc87388691c4c68589811d4322d05863",
+    "AV": "524acc6bead2768183e45ae4913b00ea811b274b",
+    "AU": "f17f95ae2b2a15f7fced6f04d82d2593350d37a4",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2"
+  },
+  "safety": {
+    "brainage_guest_instructions": 0,
+    "runtime_MMIO_accesses": 0,
+    "AX_executed": false,
+    "optional_live_capture": false,
+    "ROM_save_checkpoint_loaded_or_mutated": false,
+    "runner_relinked_or_launched": false,
+    "generated_recomp_C_edited": false,
+    "normal_timing_semantics_changed": false,
+    "prior_committed_helpers_changed": false,
+    "unrelated_changes_preserved": true
+  },
+  "blockers": [
+    {"item": 1, "status": "IMPLEMENTED_AND_PARTLY_CERTIFIED", "proof": "Runtime-owned slice/reschedule/setter journal, bounded epochs/serials, component-import invalidation and direct hidden-latch/bitmap copies; actual cap/import hooks tested", "limit": "No actual AU eligibility observed; complete per-instruction evolution not certified"},
+    {"item": 2, "status": "IMPLEMENTED_COMPILE_CHECKED_MODEL_TESTED", "proof": "Actual typed IRQ/ARM7/debt/DMA/timer/divider/deadline/scheduler/display/RTC/SPU/GPU projection and fail-closed conservative readiness", "limit": "Full actual I/O-provider end-to-end success not linked in native test rail; unknown enabled services reject"},
+    {"item": 3, "status": "IMPLEMENTED_MODEL_TESTED", "proof": "Actual loader ROM hash, direct image/code/protected scalars and save hash/counters, independent AU anchors, immutable full canonical seal and repeated epoch-bound verification", "limit": "Positive seal uses synthetic authority-compatible observations, not freshly captured AU images"},
+    {"item": 4, "status": "OPEN_CONCRETE_CONTRADICTION", "proof": "Actual state projection exists and strict mismatch is detected", "limit": "AW2 expected snapshots freeze snapshot_ordinal and cap history; actual copies advance ordinal and append every reschedule. Complete full-state expected transitions/adapter required"},
+    {"item": 5, "status": "CAPTURE_ONLY_HANDOFF_CERTIFIED_ON_MODEL", "proof": "All AU guards preserved before nonreturning capture-only terminal; armed finish/halt/exception/returned-handoff fences; actual AU guard fragment tested", "limit": "No branch admits executable AX or returns to guest dispatch"},
+    {"item": 6, "status": "OPEN", "proof": "Capture-only model success/failure, actual cap/import tests and six actual object compilations", "limit": "Complete actual-I/O/full-state/controller 77-event success coupling unproven; no optional live replay permitted yet"}
+  ],
+  "activation": {
+    "selector": "NDS_TASK_AW3_CAPTURE_ONLY=1",
+    "audit": "NDS_TASK_AW3_AUDIT=fresh exclusive file",
+    "disabled_by_default": true,
+    "enabled_in_brainage_run": false,
+    "AX_activation_exists": false
+  },
+  "binding": {
+    "canonical_container": "AW2S v1 with additional explicit protected logical keys",
+    "raw_padding_pointer_identity": false,
+    "AU_manifest_changed": false,
+    "cap_initial_logical_predecessor": "zero at new slice epoch; actual overwritten value retained as observed_before",
+    "ROM_identity_source": "actual cartridge loader input before transformations",
+    "images_code_source": "direct runtime RAM/DTCM vector storage, no guest bus read",
+    "save_source": "passive cartridge snapshot plus independent diagnostic counters",
+    "immutable_seal": "independent anchor/readiness/epoch checks, full logical copy and SHA256, second passive full equality"
+  },
+  "tests": {
+    "assertions": 813,
+    "actual_runtime_checks": 10,
+    "child_processes": 14,
+    "all_expected_results_pass": true,
+    "success_exit": 73,
+    "failure_exit": 79,
+    "audit_failure_contract": 78,
+    "disabled_old_halt_sentinel_exit": 99,
+    "armed_old_halt_sentinels_reached": false,
+    "post_terminal_guest_device_IRQ_ARM7_destructor_persistence_sentinels_reached": false,
+    "actual_objects_compile": ["runtime_arm", "scheduler", "bus", "io", "cp15", "tier3"],
+    "evidence": "local/task-aw3/certification-005/tests.json"
+  },
+  "AX": {
+    "certificate_issued": false,
+    "execution_authorized": false,
+    "reduced_prefix_certified": false,
+    "why_withheld": "Complete full-state expected controller projection contradicts actual journal/ordinal evolution, and full actual-I/O provider-to-controller success is not certified. Capture-only admission never dispatches AX. First candidate instruction is MMIO.",
+    "live_boundary_observed_or_disproven": false
+  },
+  "next_work": "ROM-free full expected-state reconciliation and actual-provider/controller success-failure coupling, preserving all new observations and AU guards. Only then reconsider optional capture and certification; AX remains unauthorized."
+}
