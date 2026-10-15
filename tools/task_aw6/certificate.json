@@ -1,0 +1,281 @@
+{
+  "sha256": "1b3eb0981c5083d958e8811ee5cc70d73a1c538c6641a1e57ba7f120b7fb092f",
+  "certificate": {
+    "kind": "static reduced-prefix source/model certificate; not runtime activation or execution authorization",
+    "entry_canonical_sha256": "0c4d6082c1a7eb2ec11c57447b26d5dd984599e12fdf6dc5b40465f68ac9304c",
+    "final_canonical_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "schema": "AW2S v1, complete AW4/AW5 observation set retained",
+    "start_pc": "0x02001980",
+    "stop_pc": "0x020019B4",
+    "stop_observation": "retired for 0x020019B0",
+    "instruction_count": 11,
+    "observations": 69,
+    "candidate_cost": 56,
+    "remaining_cap_margin": 1,
+    "instructions": [
+      {
+        "pc": "0x02001980",
+        "opcode": "0xE1C130B0",
+        "cost": 8,
+        "cycle_before": 3416875721,
+        "cycle_after": 3416875729
+      },
+      {
+        "pc": "0x02001984",
+        "opcode": "0xE3A0C000",
+        "cost": 1,
+        "cycle_before": 3416875729,
+        "cycle_after": 3416875730
+      },
+      {
+        "pc": "0x02001988",
+        "opcode": "0xE582C000",
+        "cost": 8,
+        "cycle_before": 3416875730,
+        "cycle_after": 3416875738
+      },
+      {
+        "pc": "0x0200198C",
+        "opcode": "0xE3A03A01",
+        "cost": 1,
+        "cycle_before": 3416875738,
+        "cycle_after": 3416875739
+      },
+      {
+        "pc": "0x02001990",
+        "opcode": "0xE59F1014",
+        "cost": 3,
+        "cycle_before": 3416875739,
+        "cycle_after": 3416875742
+      },
+      {
+        "pc": "0x02001994",
+        "opcode": "0xE5823004",
+        "cost": 8,
+        "cycle_before": 3416875742,
+        "cycle_after": 3416875750
+      },
+      {
+        "pc": "0x02001998",
+        "opcode": "0xE5810000",
+        "cost": 8,
+        "cycle_before": 3416875750,
+        "cycle_after": 3416875758
+      },
+      {
+        "pc": "0x0200199C",
+        "opcode": "0xE581C004",
+        "cost": 8,
+        "cycle_before": 3416875758,
+        "cycle_after": 3416875766
+      },
+      {
+        "pc": "0x020019A0",
+        "opcode": "0xE12FFF1E",
+        "cost": 4,
+        "cycle_before": 3416875766,
+        "cycle_after": 3416875770
+      },
+      {
+        "pc": "0x02001A20",
+        "opcode": "0xEBFFFFE2",
+        "cost": 4,
+        "cycle_before": 3416875770,
+        "cycle_after": 3416875774
+      },
+      {
+        "pc": "0x020019B0",
+        "opcode": "0xE59F102C",
+        "cost": 3,
+        "cycle_before": 3416875774,
+        "cycle_after": 3416875777
+      }
+    ],
+    "data_accesses": [
+      {
+        "pc": "0x02001980",
+        "address": "0x04000280",
+        "width": 2,
+        "write": true,
+        "value": 1,
+        "precommit_cycle": 3416875721,
+        "divider_control": 32769,
+        "divider_deadline": 1708437894,
+        "cap": 3416875778,
+        "cap_records": 2,
+        "serial": 502
+      },
+      {
+        "pc": "0x02001988",
+        "address": "0x04000290",
+        "width": 4,
+        "write": true,
+        "value": 0,
+        "precommit_cycle": 3416875730,
+        "divider_control": 32769,
+        "divider_deadline": 1708437899,
+        "cap": 3416875778,
+        "cap_records": 3,
+        "serial": 503
+      },
+      {
+        "pc": "0x02001990",
+        "address": "0x020019AC",
+        "width": 4,
+        "write": false,
+        "value": 67109528,
+        "precommit_cycle": 3416875739,
+        "divider_control": 32769,
+        "divider_deadline": 1708437899,
+        "cap": 3416875778,
+        "cap_records": 3,
+        "serial": 503
+      },
+      {
+        "pc": "0x02001994",
+        "address": "0x04000294",
+        "width": 4,
+        "write": true,
+        "value": 4096,
+        "precommit_cycle": 3416875742,
+        "divider_control": 32769,
+        "divider_deadline": 1708437905,
+        "cap": 3416875778,
+        "cap_records": 4,
+        "serial": 504
+      },
+      {
+        "pc": "0x02001998",
+        "address": "0x04000298",
+        "width": 4,
+        "write": true,
+        "value": 4096,
+        "precommit_cycle": 3416875750,
+        "divider_control": 32769,
+        "divider_deadline": 1708437909,
+        "cap": 3416875778,
+        "cap_records": 5,
+        "serial": 505
+      },
+      {
+        "pc": "0x0200199C",
+        "address": "0x0400029C",
+        "width": 4,
+        "write": true,
+        "value": 0,
+        "precommit_cycle": 3416875758,
+        "divider_control": 32769,
+        "divider_deadline": 1708437913,
+        "cap": 3416875778,
+        "cap_records": 6,
+        "serial": 506
+      },
+      {
+        "pc": "0x020019B0",
+        "address": "0x020019E4",
+        "width": 4,
+        "write": false,
+        "value": 67109504,
+        "precommit_cycle": 3416875774,
+        "divider_control": 32769,
+        "divider_deadline": 1708437913,
+        "cap": 3416875778,
+        "cap_records": 6,
+        "serial": 506
+      }
+    ],
+    "final_registers": [
+      "0x00001000",
+      "0x04000280",
+      "0x04000290",
+      "0x00001000",
+      "0x020EA1BC",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x00001000",
+      "0x00001000",
+      "0x020FD00C",
+      "0x00000000",
+      "0x00000000",
+      "0x027E3654",
+      "0x02001A24",
+      "0x020019B4"
+    ],
+    "final_CPSR": 31,
+    "final_ordinal9": 281098019,
+    "final_ordinal7": 96026779,
+    "final_cap": 3416875778,
+    "final_fast_limit": 3416875778,
+    "final_cap_records": 6,
+    "final_serial": 506,
+    "capture_epoch": 496,
+    "final_divider": {
+      "div.control": 32769,
+      "div.deadline": 1708437913,
+      "div.dhi": 0,
+      "div.dlo": 4096,
+      "div.nhi": 4096,
+      "div.nlo": 0,
+      "div.qhi": 1,
+      "div.qlo": 0,
+      "div.rhi": 0,
+      "div.rlo": 0
+    },
+    "unchanged_identities": {
+      "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+      "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+      "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+      "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+      "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+    },
+    "predicted_RAM_DTCM_save_changed_bytes": 0,
+    "forbidden_next": {
+      "pc": "0x020019B4",
+      "opcode": "0xE1D100B0",
+      "effect": "divider status read",
+      "modeled_cost": 8,
+      "hypothetical_cycle_after": 3416875785
+    },
+    "full_12_instruction_certificate": false,
+    "AX_executed": false,
+    "AX_execution_authorized": false,
+    "activation_installed": false,
+    "required_integration": "Separately reviewed AU-guard-dominating transfer, exclusive controller access ownership, trusted actual passive source and terminal/failure wiring; existing runner still denies AX",
+    "prospective_guards": "exact captured identity and complete logical schema; source-derived readiness; derived cost with checked arithmetic; both old and prospective cap strictly above commit; all deadlines beyond stop; no unknown state changes",
+    "terminal": "exclusive audit flush/close + nonreturning _Exit at observation 69 before IRQ, cap polling, status fetch or scheduler return",
+    "forbidden_services_tolerated": 0,
+    "evidence_limits": "Current positive coupling uses extracted actual source bodies on synthetic captured scalar objects, not newly executing the actual runtime provider or interpreter",
+    "source_function_sha256": {
+      "io.cpp:uint64_t active_system_timestamp()": "6348cbdd0a5a1cf9f52269bebe454387eceb9d80b4a7cd6e9f0e082d052a5deb",
+      "runtime_arm.cpp:void request_yield_poll()": "ac1c3a6e47843d63f5372ecff8043e659c1a6a4861fda22074e36397851c2efe",
+      "runtime_arm.cpp:extern \"C\" void nds_slice_begin(": "630ee9808c22acd7f8e1506ae67ed403da8b2ae8eda2729e26d5cf7d5d7906ac",
+      "runtime_arm.cpp:extern \"C\" void nds_reschedule_slice(": "a42d554a00a459d8ba23df79a31fad85026f23d867e7efc20e0c680193db944e",
+      "io.cpp:void start_div()": "addf3d6a3943666502bd7a6dd7aa5ca47c0da3b25d14397a35e8701dab5ca990",
+      "io.cpp:void math_reg_write(": "ac27dc6f5e276d238c40990f3272df56548e61d07d714c577d55b155ddbf8dfd",
+      "runtime_arm.cpp:extern \"C\" uint32_t runtime_deferred_cycles_take(": "6e8e83813b081c156e1a43cda89537f90fe73a7b57ee37ef02fb20b9d77d1cd5",
+      "runtime_arm.cpp:void publish_fast_limit()": "d0d41e89ac5c2980d78611d73654767c8fe7a8ef2147a64656da7a65693453ae",
+      "bus.cpp:extern \"C\" uint32_t arm9_refill_cycles(": "8c31192a91460af10716c8e60bc32759041458741dd65a2fe10cd57aaf2ae03b",
+      "io.cpp:uint64_t nds_next_timer_overflow_time()": "bb16631201223e90599512cb8643ac127b83dc65d8e8b1bdadae2268ad8e6701",
+      "io.cpp:bool nds_halt_wake_pending(": "0cb2fc60ee66c64f322410046fb49475633a80af733b45d2dd7f31137ce3f853",
+      "runtime_arm.h:static inline uint32_t arm9_cycle_combine(": "f6a65b7d37c01bd2aee2dd9fabd26d610635680d6bcc233d53554f19b8b3d0ce",
+      "io.cpp:RTC_due_expression": "d95a5bff48ef7d67a8192b9b5c43103174915efb1bb9516e0a882640961afa85"
+    },
+    "contract_source_sha256": {
+      "certify.py": "5205ca264a454b04acfffb0d34bd03f2e960478c0ba1408b94f430e68367957e",
+      "check.py": "9264eab5fbc1a2329235e5f65b905edf72ed94bf7b9ac55c3dddae74aa757674",
+      "controller.h": "8f62ea3381d38628b22b37648b52e7cdf8ed70df125e35f66b20d9c7add4d688",
+      "prefix.h": "cd9be2bf5a768ee1e3ad5e61ee0ee0bf762e402913048c57d4e4975ad4163bf3",
+      "source_rail.h": "c859472c8e084a7ba8ee0b5e4bea82a5bcb2e02c8c30ef5a685962259a1ae342",
+      "test.cpp": "9486114cfc3202984fb1343fffd1058e9dd1d4e0c99807b8bcfa484f079a915a"
+    },
+    "runtime_source_sha256": {
+      "local\\ndsrecomp\\runner\\src\\runtime_arm.cpp": "639e9acec04626cb5411e61ca75f381b43c3c4b57366a74754876b8c165cd3b3",
+      "local\\ndsrecomp\\runner\\src\\scheduler.cpp": "7f3c72d08b90e0d8e39126b49daeb03f3fdb96e9a24eede6985b5bf5684affcd",
+      "local\\ndsrecomp\\runner\\src\\io.cpp": "82fd0f34dbd2ebae35f119dde7c05d6ea7e3189495364e0e32a2607988b36fc6",
+      "local\\ndsrecomp\\runner\\src\\bus.cpp": "7cc7327750f845e0f0af002e7491b38d5be65a6312ce3a8ed262357e6c60b957",
+      "local\\ndsrecomp\\runner\\src\\tier3.cpp": "d4cad182bb41472d14a10ef5a14c233332e1d21c617e8281a331ba62eab0a439",
+      "local\\ndsrecomp\\runner\\src\\task_au_setup.inc": "151cd80becac5ae6d4054d8ceeb7d4dfc771c48bcffcd886ba0ff685606c3214"
+    }
+  }
+}
