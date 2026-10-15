@@ -1,0 +1,296 @@
+{
+  "sha256": "8381e1335266a05767982f292eb5237eb157bb5d8d9ea431c1a81d7552bae417",
+  "certificate": {
+    "task": "AW8",
+    "kind": "ROM-free exact-profile provider/controller readiness, not execution authorization",
+    "dynamic_execution_ready": true,
+    "live_execution_authorized": false,
+    "runtime_execution_armed": false,
+    "authority": {
+      "AW7": "01fe942d8d42b0dc819acf92836c7cfb845a6470",
+      "AW6": "1d4aeb1e17486b1db2276931f43a9c5d9a540f1b",
+      "AW5": "e366a8b8811668ae9bd22bd34b661799c6058bad"
+    },
+    "AW6_certificate_payload_sha256": "1b3eb0981c5083d958e8811ee5cc70d73a1c538c6641a1e57ba7f120b7fb092f",
+    "entry_canonical_sha256": "0c4d6082c1a7eb2ec11c57447b26d5dd984599e12fdf6dc5b40465f68ac9304c",
+    "entry_scalars": 361,
+    "entry_identities": 5,
+    "start_pc": "0x02001980",
+    "stop_pc": "0x020019B4",
+    "terminal_event": "retired for 0x020019B0 before IRQ/scheduler tail",
+    "instructions": [
+      {
+        "pc": "0x02001980",
+        "opcode": "0xE1C130B0",
+        "cost": 8,
+        "cycle_before": 3416875721,
+        "cycle_after": 3416875729
+      },
+      {
+        "pc": "0x02001984",
+        "opcode": "0xE3A0C000",
+        "cost": 1,
+        "cycle_before": 3416875729,
+        "cycle_after": 3416875730
+      },
+      {
+        "pc": "0x02001988",
+        "opcode": "0xE582C000",
+        "cost": 8,
+        "cycle_before": 3416875730,
+        "cycle_after": 3416875738
+      },
+      {
+        "pc": "0x0200198C",
+        "opcode": "0xE3A03A01",
+        "cost": 1,
+        "cycle_before": 3416875738,
+        "cycle_after": 3416875739
+      },
+      {
+        "pc": "0x02001990",
+        "opcode": "0xE59F1014",
+        "cost": 3,
+        "cycle_before": 3416875739,
+        "cycle_after": 3416875742
+      },
+      {
+        "pc": "0x02001994",
+        "opcode": "0xE5823004",
+        "cost": 8,
+        "cycle_before": 3416875742,
+        "cycle_after": 3416875750
+      },
+      {
+        "pc": "0x02001998",
+        "opcode": "0xE5810000",
+        "cost": 8,
+        "cycle_before": 3416875750,
+        "cycle_after": 3416875758
+      },
+      {
+        "pc": "0x0200199C",
+        "opcode": "0xE581C004",
+        "cost": 8,
+        "cycle_before": 3416875758,
+        "cycle_after": 3416875766
+      },
+      {
+        "pc": "0x020019A0",
+        "opcode": "0xE12FFF1E",
+        "cost": 4,
+        "cycle_before": 3416875766,
+        "cycle_after": 3416875770
+      },
+      {
+        "pc": "0x02001A20",
+        "opcode": "0xEBFFFFE2",
+        "cost": 4,
+        "cycle_before": 3416875770,
+        "cycle_after": 3416875774
+      },
+      {
+        "pc": "0x020019B0",
+        "opcode": "0xE59F102C",
+        "cost": 3,
+        "cycle_before": 3416875774,
+        "cycle_after": 3416875777
+      }
+    ],
+    "instruction_count": 11,
+    "observations": 69,
+    "cycles": 56,
+    "MMIO_writes": 5,
+    "MMIO_reads": 0,
+    "data_accesses": [
+      {
+        "pc": "0x02001980",
+        "address": "0x04000280",
+        "width": 2,
+        "write": true,
+        "value": 1,
+        "precommit_cycle": 3416875721,
+        "divider_control": 32769,
+        "divider_deadline": 1708437894,
+        "cap": 3416875778,
+        "cap_records": 2,
+        "serial": 502
+      },
+      {
+        "pc": "0x02001988",
+        "address": "0x04000290",
+        "width": 4,
+        "write": true,
+        "value": 0,
+        "precommit_cycle": 3416875730,
+        "divider_control": 32769,
+        "divider_deadline": 1708437899,
+        "cap": 3416875778,
+        "cap_records": 3,
+        "serial": 503
+      },
+      {
+        "pc": "0x02001990",
+        "address": "0x020019AC",
+        "width": 4,
+        "write": false,
+        "value": 67109528,
+        "precommit_cycle": 3416875739,
+        "divider_control": 32769,
+        "divider_deadline": 1708437899,
+        "cap": 3416875778,
+        "cap_records": 3,
+        "serial": 503
+      },
+      {
+        "pc": "0x02001994",
+        "address": "0x04000294",
+        "width": 4,
+        "write": true,
+        "value": 4096,
+        "precommit_cycle": 3416875742,
+        "divider_control": 32769,
+        "divider_deadline": 1708437905,
+        "cap": 3416875778,
+        "cap_records": 4,
+        "serial": 504
+      },
+      {
+        "pc": "0x02001998",
+        "address": "0x04000298",
+        "width": 4,
+        "write": true,
+        "value": 4096,
+        "precommit_cycle": 3416875750,
+        "divider_control": 32769,
+        "divider_deadline": 1708437909,
+        "cap": 3416875778,
+        "cap_records": 5,
+        "serial": 505
+      },
+      {
+        "pc": "0x0200199C",
+        "address": "0x0400029C",
+        "width": 4,
+        "write": true,
+        "value": 0,
+        "precommit_cycle": 3416875758,
+        "divider_control": 32769,
+        "divider_deadline": 1708437913,
+        "cap": 3416875778,
+        "cap_records": 6,
+        "serial": 506
+      },
+      {
+        "pc": "0x020019B0",
+        "address": "0x020019E4",
+        "width": 4,
+        "write": false,
+        "value": 67109504,
+        "precommit_cycle": 3416875774,
+        "divider_control": 32769,
+        "divider_deadline": 1708437913,
+        "cap": 3416875778,
+        "cap_records": 6,
+        "serial": 506
+      }
+    ],
+    "final_cycle9": 3416875777,
+    "retained_cap": 3416875778,
+    "cap_margin": 1,
+    "final_canonical_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "final_registers": [
+      "0x00001000",
+      "0x04000280",
+      "0x04000290",
+      "0x00001000",
+      "0x020EA1BC",
+      "0x00000000",
+      "0x000000DA",
+      "0x020E9A00",
+      "0x00001000",
+      "0x00001000",
+      "0x020FD00C",
+      "0x00000000",
+      "0x00000000",
+      "0x027E3654",
+      "0x02001A24",
+      "0x020019B4"
+    ],
+    "final_CPSR": 31,
+    "unchanged_identities": {
+      "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+      "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+      "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+      "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+      "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+    },
+    "forbidden_next": {
+      "pc": "0x020019B4",
+      "opcode": "0xE1D100B0",
+      "effect": "divider status read",
+      "modeled_cost": 8,
+      "hypothetical_cycle_after": 3416875785
+    },
+    "RAM_DTCM_save_deltas": 0,
+    "unexpected_services_tolerated": 0,
+    "entry_guards": "All AU guards, exact computed live identities and full AW5 canonical entry; no normalization or metadata substitution in live path",
+    "per_instruction_guards": "Unchanged AW6 prospective cost/debt/cap/readiness and AW7 full-state/chain/journal/access-owner checks",
+    "terminal": "Exclusive audit flush/close + nonreturning std::_Exit before next fetch/accounting/dispatch or scheduler/IRQ tail",
+    "test_identity_binding": "Authenticated AW5 metadata sealed to computed synthetic surrogate digests; not new measurements of original image bytes",
+    "fixture_provenance": {
+      "AW5_commit": "e366a8b8811668ae9bd22bd34b661799c6058bad",
+      "capture_sha256": "303f069c8d7f4e36da31aaab6b2810cc34e06b0eaee5ced7fcf67e463146327a",
+      "canonical_sha256": "0c4d6082c1a7eb2ec11c57447b26d5dd984599e12fdf6dc5b40465f68ac9304c",
+      "identities": {
+        "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+        "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+        "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+        "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+        "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      },
+      "scalars": 361,
+      "identity_adapters": {
+        "bus": {
+          "original_sha256": "ef5df609ba7a75e9fe138286a9e2f200b9c32d226b0c869b438e7401d72affc8",
+          "adapted_sha256": "71b96ab69213a1cd4c5ae929a14bd10a54d4d30d145341531190e6d6763f7123"
+        },
+        "io": {
+          "original_sha256": "8e95628ec6684caa6c5f77121de6f108daa6332f70478b44f5128440181f3a75",
+          "adapted_sha256": "bde2f39a5d95774b3376a82788d62863f536e6551aa96b26bb2dbfdd821072d0"
+        }
+      },
+      "production_sources_changed": false,
+      "raw_images_used": false,
+      "historical_metadata_binding_not_new_image_hash_measurement": true,
+      "test_copy_IO_entry_trips_before_any_body_effect": true
+    },
+    "fixture_sources_sha256": {
+      "tools\\task_aw8\\au.h": "53823b1a5afd71bff1a2804caba928d12c9d42b7245252d1acdb69435d1b64e2",
+      "tools\\task_aw8\\binding.h": "ec2580a5a9ffbb154087b4c222cbbdb3ab127c40c4d88f1c00e2a6cbc2e84f74",
+      "tools\\task_aw8\\bus.cpp": "b23649583bc04657b443ae5184bacbca9cf3a8a3c8f723e36fb0869c702f131a",
+      "tools\\task_aw8\\certify.py": "b1ed5ab70011f480462d3d4afc2919f4e259bf50d680b4c95201a14db23d19b3",
+      "tools\\task_aw8\\check.py": "bd2cb6d8aba30f642d046a5011c182085ada0866cc83fa629c706bb1443e4425",
+      "tools\\task_aw8\\CMakeLists.txt": "aea0af088eeb02d6e95db015f7864181aed1ea3f66cb8c15be48276cc6e49bd9",
+      "tools\\task_aw8\\cp15.cpp": "8fb5116fa1c138a2baa2363e5231318fc5f79e898f75b1cbdcb52dfb358e5a30",
+      "tools\\task_aw8\\io.cpp": "479bf0433ea54090555aea0bc465d491a020ced5346bef9ee8ec66a9499f9100",
+      "tools\\task_aw8\\README.md": "7612e82de8d0f0e4c55d94b40c3c2cbaea002eebf43ccd85de89d08c93a32e39",
+      "tools\\task_aw8\\runtime.cpp": "9dff4407ad834588455f50d4a751e7480226d553c1b960911c8f01ef436a3f77",
+      "tools\\task_aw8\\scheduler.cpp": "e96de81ace4413b946e3c3c821aab97cdfaf2a0b8ea8eb56959bc9bc42937cf1",
+      "tools\\task_aw8\\spu.cpp": "052ad351e65c00d41fad807b7ad1368297ffe631b4e61b4c8c39212d33c7a6c9",
+      "tools\\task_aw8\\test.cpp": "904b6bc65b848ccf48ca9c0cb60992f09e5068f8169aac5fb0c714be634d8f12"
+    },
+    "tests_sha256": "8a89c8fa2542349ee099bb9feeaba891d3fe8744f7438aa790e3bb6f5b947369",
+    "success_audit_sha256": "df76146dc46a31741e17e87af23f7a74160d50854b9d3e48ecd7cce0e9c04a3d",
+    "fixture_executable_sha256": "06673a3725f5fe906c83befb925ed348f7411f0cb5be30531722eebcc5cb59be",
+    "local_evidence": "local/task-aw8/certification-008",
+    "limits": [
+      "No Brain Age execution or replay",
+      "No runtime MMIO or status-read certification",
+      "Test-only identity adapters must never enter a live runner",
+      "Real-bus interlock remains closed",
+      "Later one-shot diagnostic arming/backend permission requires separate authorization and all live guards",
+      "No full 12-instruction, compiled-parity, gameplay or save claim"
+    ]
+  }
+}
