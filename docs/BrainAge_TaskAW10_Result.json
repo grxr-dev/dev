@@ -1,0 +1,141 @@
+{
+  "task": "AW10",
+  "classification": "PARTIAL",
+  "classification_scope": "Conclusive negative cap admission; incomplete committed-only full-state reconstruction and no certified pre-read scheduler handoff",
+  "authority": {
+    "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af",
+    "AW8": "c0ac62cae632715157fcb3db52b982cc86104baa",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "entry": {
+    "PC": "0x020019B4",
+    "last_retired_PC": "0x020019B0",
+    "cycle9": 3416875777,
+    "cycle7": 1708437825,
+    "ordinal9": 281098019,
+    "ordinal7": 96026779,
+    "cap": 3416875778,
+    "fast_limit": 3416875778,
+    "CPSR": 31,
+    "NZCV": "0000",
+    "SP": "0x027E3654",
+    "LR": "0x02001A24",
+    "full_AW2S_commitment": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "committed_projection_scalars": 89,
+    "full_scalars": 411,
+    "identities": 5,
+    "full_scalar_reconstruction_from_committed_only": false,
+    "projection_is_provider_substitute": false
+  },
+  "next_instruction": {
+    "PC": "0x020019B4",
+    "opcode": "0xE1D100B0",
+    "decode": "LDRH r0,[r1]",
+    "MMIO_address": "0x04000280",
+    "width": 2,
+    "cost": 8,
+    "counterfactual_status": "0x8001",
+    "status_observed": false,
+    "hypothetical_commit": 3416875785,
+    "cap_overrun": 7,
+    "prospectively_admissible_under_preserved_contract": false
+  },
+  "lookahead": [
+    {
+      "pc": "0x020019B8",
+      "opcode": "0xE2100902",
+      "operation": "ANDS r0,r0,#0x8000",
+      "cached_numC": 3,
+      "cost": 3,
+      "conditional_R0": "0x00008000",
+      "conditional_NZCV": "0000",
+      "conditional_next_PC": "0x020019BC",
+      "note": "local opcode semantics only; normal slice polling already follows B4"
+    },
+    {
+      "pc": "0x020019BC",
+      "opcode": "0x1AFFFFFC",
+      "operation": "BNE 0x020019B4",
+      "taken_cached_refill_cost": 4,
+      "conditional_taken": true,
+      "NZCV": "unchanged",
+      "not_taken_PC": "0x020019C0",
+      "note": "next control-flow boundary; no loop or fallthrough certified"
+    }
+  ],
+  "certification": {
+    "certificate": "tools/task_aw10/certificate.json",
+    "canonical_payload_sha256": "5b0598cd0e94786289f4907725fb296cb0eae2bad8db700e4d801ecd1566c472",
+    "kind": "negative admission only",
+    "guest_instructions": 0,
+    "MMIO_ledger": [],
+    "start_PC": "0x020019B4",
+    "stop_PC": "0x020019B4",
+    "dynamic_execution_ready": false,
+    "positive_scheduler_transition_certified": false,
+    "new_post_read_state_digest_issued": false,
+    "terminal": "unchanged AW9 flush/close + nonreturning _Exit before forbidden instruction"
+  },
+  "ordering": {
+    "poll_before": false,
+    "poll_after_hypothetical_read": true,
+    "MMIO_before_instruction_commit": true,
+    "divider_finish_on_status_read": false,
+    "ordinary_atomic_instruction_overshoot": true,
+    "automatic_pre_read_new_slice": false,
+    "interpreter_only_return_would_redispatch": true,
+    "scheduler_tail_may_not_be_skipped": true,
+    "new_cap_or_round_state_normalized": false
+  },
+  "tests": {
+    "python_cases": 148,
+    "native_scalar_checks": 38,
+    "nonreturning_disposal_children": 2,
+    "success_of_negative_proof_exit": 73,
+    "failure_exit": 79,
+    "tail_sentinels": 0,
+    "all_passed": true,
+    "default_observer_null_and_ordinary_return": true,
+    "actual_interpreter_or_scheduler_executed": false,
+    "new_full_provider_readiness_coupling_claimed": false,
+    "local_evidence": "local/task-aw10/certification-007/",
+    "summary_sha256": "ae7580c3755956402e5f68b12ce6e56c91a1bea056c18c60b1327fb6723f03f2"
+  },
+  "safety": {
+    "BrainAge_guest_instructions": 0,
+    "live_replays": 0,
+    "runtime_BrainAge_MMIO": 0,
+    "ROM_save_checkpoint_opened_or_mutated": false,
+    "ROM_patched": false,
+    "generated_recomp_C_edited": false,
+    "old_controllers_guards_runtime_semantics_changed": false,
+    "activation_installed": false,
+    "AW9_run_permission_renewed": false,
+    "prior_locks_and_sources_unchanged": true,
+    "logical_save_operations": 0,
+    "Flash_commits": 0,
+    "changed_save_bytes": 0,
+    "save_identity_historical_not_new_measurement": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "unrelated_archive_preserved": true
+  },
+  "blockers": [
+    "Committed artifacts bind the complete 411-field terminal identity but do not serialize its full values; historical canonical audit is local-only.",
+    "Current Tier-3 has no pre-dispatch prospective-yield transition at cycle 3416875777 < fast_limit 3416875778; ordinary atomic read overshoots to 3416875785.",
+    "No exact all-field scheduler-tail/new-slice transcript or guarded early-return handoff is certified."
+  ],
+  "evidence_limits": [
+    "Negative cap proof applies even without the missing scalar values.",
+    "Busy status 0x8001 is a source-model counterfactual, not an observed or authorized MMIO read.",
+    "No full canonical digest is invented for a projected post-read or scheduler state.",
+    "AW9 local canonical audit not imported under committed-only reconstruction requirement.",
+    "Local AW9 build metadata/source is inspected for source provenance only, not state reconstruction.",
+    "No original timing/hardware/compiled parity, scheduler-tail state digest or live read is newly certified."
+  ],
+  "next_safe_task": "Separately authorize ROM-free lossless committed scalar-evidence promotion from the existing authenticated AW9 audit, then task-scoped pre-dispatch early-yield/run_slice/round-tail full-state certification; no replay or read.",
+  "artifacts": {
+    "report": "docs/BrainAge_TaskAW10_NextBoundaryCertification.md",
+    "helpers": "tools/task_aw10/",
+    "local": "local/task-aw10/"
+  },
+  "stopped_after_AW10": true
+}

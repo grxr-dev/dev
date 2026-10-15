@@ -1,0 +1,512 @@
+{
+  "sha256": "5b0598cd0e94786289f4907725fb296cb0eae2bad8db700e4d801ecd1566c472",
+  "certificate": {
+    "task": "AW10",
+    "classification": "PARTIAL",
+    "kind": "negative admission certificate; no execution authorization",
+    "authority": "fb3e417aa48cc70cc4c05f796263c9cf87b791af",
+    "entry": {
+      "schema": "AW10 committed terminal projection v1; NOT a complete AW2S snapshot",
+      "full_state_commitment": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+      "full_scalar_count": 411,
+      "full_identity_count": 5,
+      "scalars": {
+        "code.02001980": {
+          "width": 4,
+          "value": 3787534512
+        },
+        "code.02001984": {
+          "width": 4,
+          "value": 3818962944
+        },
+        "code.02001988": {
+          "width": 4,
+          "value": 3850551296
+        },
+        "code.0200198c": {
+          "width": 4,
+          "value": 3818928641
+        },
+        "code.02001990": {
+          "width": 4,
+          "value": 3852406804
+        },
+        "code.02001994": {
+          "width": 4,
+          "value": 3850514436
+        },
+        "code.02001998": {
+          "width": 4,
+          "value": 3850436608
+        },
+        "code.0200199c": {
+          "width": 4,
+          "value": 3850485764
+        },
+        "code.020019a0": {
+          "width": 4,
+          "value": 3778019102
+        },
+        "code.020019b0": {
+          "width": 4,
+          "value": 3852406828
+        },
+        "code.020019b4": {
+          "width": 4,
+          "value": 3788570800
+        },
+        "code.020019b8": {
+          "width": 4,
+          "value": 3792701698
+        },
+        "code.02001a20": {
+          "width": 4,
+          "value": 3959422946
+        },
+        "cpsr": {
+          "width": 4,
+          "value": 31
+        },
+        "cycle7": {
+          "width": 8,
+          "value": 1708437825
+        },
+        "cycle9": {
+          "width": 8,
+          "value": 3416875777
+        },
+        "dtcm_stack_word": {
+          "width": 4,
+          "value": 33977704
+        },
+        "flash_commits": {
+          "width": 8,
+          "value": 0
+        },
+        "literal.020019ac": {
+          "width": 4,
+          "value": 67109528
+        },
+        "literal.020019e4": {
+          "width": 4,
+          "value": 67109504
+        },
+        "logical_saves": {
+          "width": 8,
+          "value": 0
+        },
+        "ordinal7": {
+          "width": 8,
+          "value": 96026779
+        },
+        "ordinal9": {
+          "width": 8,
+          "value": 281098019
+        },
+        "protected.020e9a10": {
+          "width": 2,
+          "value": 1
+        },
+        "protected.020e9a1c": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020e9a20": {
+          "width": 4,
+          "value": 1
+        },
+        "protected.020e9a34": {
+          "width": 4,
+          "value": 218
+        },
+        "protected.020e9a38": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020e9a3c": {
+          "width": 4,
+          "value": 20
+        },
+        "protected.020e9a40": {
+          "width": 4,
+          "value": 1
+        },
+        "protected.020e9a44": {
+          "width": 4,
+          "value": 1
+        },
+        "protected.020e9a4c": {
+          "width": 4,
+          "value": 4
+        },
+        "protected.020e9a58": {
+          "width": 4,
+          "value": 11
+        },
+        "protected.020e9f04": {
+          "width": 4,
+          "value": 1
+        },
+        "protected.020e9f0c": {
+          "width": 4,
+          "value": 255
+        },
+        "protected.020e9f14": {
+          "width": 4,
+          "value": 4
+        },
+        "protected.020e9f1c": {
+          "width": 4,
+          "value": 255
+        },
+        "protected.020e9fd0": {
+          "width": 4,
+          "value": 34807076
+        },
+        "protected.020e9ff0": {
+          "width": 4,
+          "value": 68
+        },
+        "protected.020ea010": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea030": {
+          "width": 4,
+          "value": 1
+        },
+        "protected.020ea1bc": {
+          "width": 4,
+          "value": 34512752
+        },
+        "protected.020ea1c0": {
+          "width": 4,
+          "value": 34809680
+        },
+        "protected.020ea1c4": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1c8": {
+          "width": 4,
+          "value": 524288
+        },
+        "protected.020ea1cc": {
+          "width": 4,
+          "value": 393216
+        },
+        "protected.020ea1d0": {
+          "width": 4,
+          "value": 4096
+        },
+        "protected.020ea1d4": {
+          "width": 4,
+          "value": 4096
+        },
+        "protected.020ea1d8": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1dc": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1e0": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1e4": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1e8": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1ec": {
+          "width": 4,
+          "value": 0
+        },
+        "protected.020ea1f0": {
+          "width": 4,
+          "value": 4294967295
+        },
+        "protected.020ea1f4": {
+          "width": 4,
+          "value": 1
+        },
+        "protected.020ea1f8": {
+          "width": 2,
+          "value": 0
+        },
+        "protected.020ea1fa": {
+          "width": 2,
+          "value": 65535
+        },
+        "r0": {
+          "width": 4,
+          "value": 4096
+        },
+        "r1": {
+          "width": 4,
+          "value": 67109504
+        },
+        "r10": {
+          "width": 4,
+          "value": 34590732
+        },
+        "r11": {
+          "width": 4,
+          "value": 0
+        },
+        "r12": {
+          "width": 4,
+          "value": 0
+        },
+        "r13": {
+          "width": 4,
+          "value": 41825876
+        },
+        "r14": {
+          "width": 4,
+          "value": 33561124
+        },
+        "r15": {
+          "width": 4,
+          "value": 33561012
+        },
+        "r2": {
+          "width": 4,
+          "value": 67109520
+        },
+        "r3": {
+          "width": 4,
+          "value": 4096
+        },
+        "r4": {
+          "width": 4,
+          "value": 34513340
+        },
+        "r5": {
+          "width": 4,
+          "value": 0
+        },
+        "r6": {
+          "width": 4,
+          "value": 218
+        },
+        "r7": {
+          "width": 4,
+          "value": 34511360
+        },
+        "r8": {
+          "width": 4,
+          "value": 4096
+        },
+        "r9": {
+          "width": 4,
+          "value": 4096
+        },
+        "slice_cap": {
+          "width": 8,
+          "value": 3416875778
+        },
+        "fast_limit": {
+          "width": 8,
+          "value": 3416875778
+        },
+        "cap.count": {
+          "width": 4,
+          "value": 6
+        },
+        "capture.serial": {
+          "width": 8,
+          "value": 506
+        },
+        "capture.epoch": {
+          "width": 8,
+          "value": 496
+        },
+        "div.control": {
+          "width": 2,
+          "value": 32769
+        },
+        "div.deadline": {
+          "width": 8,
+          "value": 1708437913
+        },
+        "div.dhi": {
+          "width": 4,
+          "value": 0
+        },
+        "div.dlo": {
+          "width": 4,
+          "value": 4096
+        },
+        "div.nhi": {
+          "width": 4,
+          "value": 4096
+        },
+        "div.nlo": {
+          "width": 4,
+          "value": 0
+        },
+        "div.qhi": {
+          "width": 4,
+          "value": 1
+        },
+        "div.qlo": {
+          "width": 4,
+          "value": 0
+        },
+        "div.rhi": {
+          "width": 4,
+          "value": 0
+        },
+        "div.rlo": {
+          "width": 4,
+          "value": 0
+        }
+      },
+      "identities": {
+        "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+        "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+        "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+        "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+        "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+      }
+    },
+    "next_instructions": [
+      {
+        "pc": "0x020019B4",
+        "opcode": "0xE1D100B0",
+        "decode": "ldrh r0, [r1]"
+      },
+      {
+        "pc": "0x020019B8",
+        "opcode": "0xE2100902",
+        "decode": "ands r0, r0, #0x8000"
+      },
+      {
+        "pc": "0x020019BC",
+        "opcode": "0x1AFFFFFC",
+        "decode": "bne #0x20019b4"
+      }
+    ],
+    "static_read_projection": {
+      "value": 32769,
+      "divider_model_mutation": false,
+      "deadline_changed": false,
+      "active_system_timestamp": 1708437888
+    },
+    "prospective": {
+      "commit": 3416875785,
+      "strictly_before_cap": false,
+      "poll_before": false,
+      "poll_after": true,
+      "overrun": 7,
+      "remaining_before": 1
+    },
+    "instruction_semantics_not_execution": [
+      {
+        "pc": "0x020019B4",
+        "opcode": "0xE1D100B0",
+        "operation": "LDRH r0,[r1]",
+        "address": "0x04000280",
+        "width": 2,
+        "write": false,
+        "numC": 1,
+        "numD": 8,
+        "cost": 8,
+        "conditional_R0": "0x00008001",
+        "conditional_next_PC": "0x020019B8",
+        "NZCV": "unchanged 0000",
+        "SP_LR_other_registers": "unchanged",
+        "order": "account/fetch -> data timing latch -> MMIO selection -> register write -> cycle commit -> retired -> IRQ -> slice unwind",
+        "divider_effect": "no acknowledge, clear-busy, finish, reschedule or operand/result change",
+        "other_effects": "fetch/data timing latches and diagnostic counters/ordinals would change; not a full-state no-op"
+      },
+      {
+        "pc": "0x020019B8",
+        "opcode": "0xE2100902",
+        "operation": "ANDS r0,r0,#0x8000",
+        "cached_numC": 3,
+        "cost": 3,
+        "conditional_R0": "0x00008000",
+        "conditional_NZCV": "0000",
+        "conditional_next_PC": "0x020019BC",
+        "note": "local opcode semantics only; normal slice polling already follows B4"
+      },
+      {
+        "pc": "0x020019BC",
+        "opcode": "0x1AFFFFFC",
+        "operation": "BNE 0x020019B4",
+        "taken_cached_refill_cost": 4,
+        "conditional_taken": true,
+        "NZCV": "unchanged",
+        "not_taken_PC": "0x020019C0",
+        "note": "next control-flow boundary; no loop or fallthrough certified"
+      }
+    ],
+    "guest_instructions_certified": 0,
+    "dynamic_execution_ready": false,
+    "runtime_execution_armed": false,
+    "live_execution_authorized": false,
+    "start_pc": "0x020019B4",
+    "stop_pc": "0x020019B4",
+    "MMIO_ledger": [],
+    "post_read_CPU_or_state_digest_certified": false,
+    "unchanged_if_disposed_at_entry": {
+      "registers": [
+        "0x00001000",
+        "0x04000280",
+        "0x04000290",
+        "0x00001000",
+        "0x020EA1BC",
+        "0x00000000",
+        "0x000000DA",
+        "0x020E9A00",
+        "0x00001000",
+        "0x00001000",
+        "0x020FD00C",
+        "0x00000000",
+        "0x00000000",
+        "0x027E3654",
+        "0x02001A24",
+        "0x020019B4"
+      ],
+      "CPSR": 31,
+      "full_state_commitment": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+      "RAM_DTCM_save_deltas": 0
+    },
+    "natural_pre_read_slice_transition": false,
+    "required_transition": "New separately certified diagnostic pre-dispatch yield through run_slice and scheduler round; none installed or certified here",
+    "scheduler_tail_order": [
+      "save ARM9 slot cycles/debt",
+      "ARM9 timers",
+      "GPU3D",
+      "ARM7 catch-up / timers",
+      "power-off check",
+      "display",
+      "SPU",
+      "Wifi",
+      "RTC",
+      "system events",
+      "system timestamp",
+      "later round selects target / nds_slice_begin"
+    ],
+    "forbidden_next_effect": "Fetch/account/dispatch 0x020019B4; any divider read, cap normalization, or scheduler tail",
+    "terminal_requirement": "Retain AW9 retired-boundary flush/close + nonreturning _Exit; no continuation",
+    "full_terminal_snapshot_reconstructed": false,
+    "blockers": [
+      "Committed artifacts bind the complete 411-field terminal identity but do not serialize its full values; historical canonical audit is local-only.",
+      "Current Tier-3 has no pre-dispatch prospective-yield transition at cycle 3416875777 < fast_limit 3416875778; ordinary atomic read overshoots to 3416875785.",
+      "No exact all-field scheduler-tail/new-slice transcript or guarded early-return handoff is certified."
+    ],
+    "limits": [
+      "Negative cap proof applies even without the missing scalar values.",
+      "Busy status 0x8001 is a source-model counterfactual, not an observed or authorized MMIO read.",
+      "No full canonical digest is invented for a projected post-read or scheduler state."
+    ]
+  }
+}
