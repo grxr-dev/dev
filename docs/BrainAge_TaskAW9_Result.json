@@ -1,0 +1,224 @@
+{
+  "task": "AW9",
+  "classification": "FULL PASS",
+  "attempts": 1,
+  "retries": 0,
+  "live_entry_preflight": "Original computed provider identities and all 361 entry scalars exact; repeat sampling and original AU guards pass",
+  "transcript_exact_AW8_match": true,
+  "observations": 69,
+  "instruction_count": 11,
+  "cycle_cost": 56,
+  "instructions": [
+    {
+      "pc": "0x02001980",
+      "cost": 8,
+      "commit_cycle": 3416875729
+    },
+    {
+      "pc": "0x02001984",
+      "cost": 1,
+      "commit_cycle": 3416875730
+    },
+    {
+      "pc": "0x02001988",
+      "cost": 8,
+      "commit_cycle": 3416875738
+    },
+    {
+      "pc": "0x0200198C",
+      "cost": 1,
+      "commit_cycle": 3416875739
+    },
+    {
+      "pc": "0x02001990",
+      "cost": 3,
+      "commit_cycle": 3416875742
+    },
+    {
+      "pc": "0x02001994",
+      "cost": 8,
+      "commit_cycle": 3416875750
+    },
+    {
+      "pc": "0x02001998",
+      "cost": 8,
+      "commit_cycle": 3416875758
+    },
+    {
+      "pc": "0x0200199C",
+      "cost": 8,
+      "commit_cycle": 3416875766
+    },
+    {
+      "pc": "0x020019A0",
+      "cost": 4,
+      "commit_cycle": 3416875770
+    },
+    {
+      "pc": "0x02001A20",
+      "cost": 4,
+      "commit_cycle": 3416875774
+    },
+    {
+      "pc": "0x020019B0",
+      "cost": 3,
+      "commit_cycle": 3416875777
+    }
+  ],
+  "MMIO_writes": [
+    {
+      "pc": 33560960,
+      "address": 67109504,
+      "width": 2,
+      "value": 1,
+      "write": true,
+      "cycle": 3416875721,
+      "deadline": 1708437894,
+      "control": 32769,
+      "serial": 502,
+      "cap": 3416875778
+    },
+    {
+      "pc": 33560968,
+      "address": 67109520,
+      "width": 4,
+      "value": 0,
+      "write": true,
+      "cycle": 3416875730,
+      "deadline": 1708437899,
+      "control": 32769,
+      "serial": 503,
+      "cap": 3416875778
+    },
+    {
+      "pc": 33560980,
+      "address": 67109524,
+      "width": 4,
+      "value": 4096,
+      "write": true,
+      "cycle": 3416875742,
+      "deadline": 1708437905,
+      "control": 32769,
+      "serial": 504,
+      "cap": 3416875778
+    },
+    {
+      "pc": 33560984,
+      "address": 67109528,
+      "width": 4,
+      "value": 4096,
+      "write": true,
+      "cycle": 3416875750,
+      "deadline": 1708437909,
+      "control": 32769,
+      "serial": 505,
+      "cap": 3416875778
+    },
+    {
+      "pc": 33560988,
+      "address": 67109532,
+      "width": 4,
+      "value": 0,
+      "write": true,
+      "cycle": 3416875758,
+      "deadline": 1708437913,
+      "control": 32769,
+      "serial": 506,
+      "cap": 3416875778
+    }
+  ],
+  "MMIO_reads": 0,
+  "literal_reads": 2,
+  "initial_digest": "0c4d6082c1a7eb2ec11c57447b26d5dd984599e12fdf6dc5b40465f68ac9304c",
+  "final_digest": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+  "final_state_match": true,
+  "initial_cycle9": 3416875721,
+  "final_cycle9": 3416875777,
+  "cap": 3416875778,
+  "initial_ordinal9": 281098008,
+  "final_ordinal9": 281098019,
+  "cycle7": 1708437825,
+  "ordinal7": 96026779,
+  "final_registers": [
+    "0x00001000",
+    "0x04000280",
+    "0x04000290",
+    "0x00001000",
+    "0x020EA1BC",
+    "0x00000000",
+    "0x000000DA",
+    "0x020E9A00",
+    "0x00001000",
+    "0x00001000",
+    "0x020FD00C",
+    "0x00000000",
+    "0x00000000",
+    "0x027E3654",
+    "0x02001A24",
+    "0x020019B4"
+  ],
+  "final_CPSR": 31,
+  "entry_identities": {
+    "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+    "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+    "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+  },
+  "final_identities": {
+    "dtcm": "a5313aa2084674d767307c09ebd86fb888ebf992b8f486602412f9499c55496f",
+    "framework_commit": "3a57236bb23d25dcb4caad7d58d733311062ff5e",
+    "mainram": "84190cc68ea67b735c89cadbc52b9ab985eec8a9e31ba0ee9851b101a9e2c340",
+    "rom": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "save": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb"
+  },
+  "forbidden_instruction_events": 0,
+  "forbidden_fetches": 0,
+  "forbidden_accounting": 0,
+  "forbidden_dispatch": 0,
+  "architectural_terminal_PC": "0x020019B4; not fetched/accounted/dispatched",
+  "unexpected_service_observations": 0,
+  "process_exit": 73,
+  "last_event": {
+    "event": "terminal",
+    "reason": "AW7 reduced owner complete; before forbidden fetch/account/dispatch and scheduler tail"
+  },
+  "logical_save_requests": 0,
+  "Flash_commits": 0,
+  "changed_save_bytes": 0,
+  "original_RAM_DTCM_identity_unchanged_during_candidate": true,
+  "no_fixture_identity_adapters": true,
+  "no_emergency_termination": true,
+  "prior_artifacts_unchanged": true,
+  "source_checkpoint_unchanged": true,
+  "source_save_unchanged": true,
+  "original_AU_guards_passed": true,
+  "audit_sha256": "cfa3acc3e55bd2abf8504f662ded00ac4ea14c3fa617a89b9f3ae6fc0e545f8b",
+  "runner_sha256": "e9cce7bc45d0e4e52e973077a91804e9397e89696a666989e40046d7984f98e2",
+  "certificate_payload_sha256": "8381e1335266a05767982f292eb5237eb157bb5d8d9ea431c1a81d7552bae417",
+  "prefix_executed_once": true,
+  "full_12_instruction_route_executed": false,
+  "authority": {
+    "AW8": "c0ac62cae632715157fcb3db52b982cc86104baa",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "artifact_preflight": "Unchanged AW8 certify.py repeated before build/launch; complete certificate identical",
+  "remaining_authorized_runs": 0,
+  "fixture_adapters_compiled": false,
+  "production_sources_changed": false,
+  "generated_recomp_C_edited": false,
+  "ROM_patched": false,
+  "old_halt_or_persistence_terminal_used": false,
+  "emergency_termination_used": false,
+  "checkpoint_copies_unchanged": true,
+  "prerequisite_replay": "One inherited certified AU checkpoint/gesture path; candidate counts/deltas apply to the 11-instruction interval only",
+  "artifacts": {
+    "report": "docs/BrainAge_TaskAW9_BoundedDividerValidation.md",
+    "helpers": "tools/task_aw9/",
+    "local_attempt": "local/task-aw9/attempt-001/",
+    "local_lock": "local/task-aw9/one-shot.lock",
+    "isolated_build": "build/task-aw9-once/"
+  },
+  "next_safe_task": "ROM-free next-slice/status-boundary analysis and certification from AW9 terminal evidence; no status read, cap normalization, retry or replay without separate authorization",
+  "stopped_after_AW9": true
+}
