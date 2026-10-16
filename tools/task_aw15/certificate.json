@@ -1,0 +1,197 @@
+{
+  "schema": "AW15 scheduler-tail decision v1",
+  "task": "AW15",
+  "classification": "PARTIAL",
+  "authority": {
+    "AW14": "9c2b342f4fdf1f09316ce7d62ac2240edc0f9589",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "entry": {
+    "metadata": "tools/task_aw14/fence.json",
+    "core_schema": "AW2S v1",
+    "core_scalars": 411,
+    "core_identities": 5,
+    "core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+    "GPU_scalars": 19,
+    "GPU_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4",
+    "ownership_ticket": 1,
+    "ownership_frame": 566,
+    "architectural_PC": "0x020019B4",
+    "cycle9": 3416875777,
+    "retained_cap": 3416875778,
+    "canonical_core_bytes": 8862,
+    "all_eight_AW14_chains_recomputed": true
+  },
+  "projected_service_order": [
+    {
+      "event": "fence_bound",
+      "core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+      "GPU_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4"
+    },
+    {
+      "event": "device_observer",
+      "core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+      "GPU_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4"
+    },
+    {
+      "event": "ARM9_timers",
+      "core_sha256": "1a09cb233a41cb418a5c461452cb511613058fb307591fba856cd01f3853f9a0",
+      "GPU_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4"
+    },
+    {
+      "event": "GPU_wrapper",
+      "core_sha256": "1a09cb233a41cb418a5c461452cb511613058fb307591fba856cd01f3853f9a0",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "ARM7_HALT_catchup",
+      "core_sha256": "cab5810c83eb48143ca2621ce564eab074e8ca49e466951d6de52c0d38434b39",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "ARM7_timers",
+      "core_sha256": "3d954dac442d471a392d22f978aebe49e136e900e314e541208fb942d96043d4",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "poweroff_check",
+      "core_sha256": "3d954dac442d471a392d22f978aebe49e136e900e314e541208fb942d96043d4",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "display",
+      "core_sha256": "b896ea34af74ab3b793c14f84c99e5c0823c6120912e9744cba6d5e5101e86a9",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "SPU",
+      "core_sha256": "b896ea34af74ab3b793c14f84c99e5c0823c6120912e9744cba6d5e5101e86a9",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "Wifi_no_event",
+      "core_sha256": "b896ea34af74ab3b793c14f84c99e5c0823c6120912e9744cba6d5e5101e86a9",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "RTC",
+      "core_sha256": "b896ea34af74ab3b793c14f84c99e5c0823c6120912e9744cba6d5e5101e86a9",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "system_events",
+      "core_sha256": "b896ea34af74ab3b793c14f84c99e5c0823c6120912e9744cba6d5e5101e86a9",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "system_timestamp",
+      "core_sha256": "0630f8089b909b87bc51b501c614b423737ba7468ef7d4e86c4f7609bc3bd2c3",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    },
+    {
+      "event": "pre_overlay_stop",
+      "core_sha256": "0630f8089b909b87bc51b501c614b423737ba7468ef7d4e86c4f7609bc3bd2c3",
+      "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9"
+    }
+  ],
+  "projected_chain": "576fa852ee0de7013b2b17a80cdb674c0f86745a127c33af603ea82d46b095b9",
+  "projection_scope": "Protected scalar/core+GPU source model to before live_overlay_poll, NOT an installed/live tail controller or complete emulator state",
+  "original_observer_events_before_overlay": [
+    "device.scheduler",
+    "device.ARM9_timers",
+    "arm7.run_slice",
+    "device.ARM7_timers",
+    "device.RTC",
+    "device.system_events"
+  ],
+  "conditional_next_slice": {
+    "conditional_only": true,
+    "deadlines": {
+      "auxspi": 18446744073709551615,
+      "spi": 18446744073709551615,
+      "card": 18446744073709551615,
+      "div": 1708437913,
+      "sqrt": 18446744073709551615,
+      "wifi": 18446744073709551615,
+      "LCD": 1708438374,
+      "SPU": 1708438528,
+      "RTC": 1708438848
+    },
+    "rendezvous": 1708437888,
+    "system_target": 1708437913,
+    "ARM9_target": 3416875826,
+    "quantum": 49,
+    "next_PC": "0x020019B4",
+    "fetch_authorized": false
+  },
+  "conditional_slice_projection": {
+    "not_executable": true,
+    "core_scalars": 361,
+    "identities": 5,
+    "canonical_sha256": "68b88b2de2264fb8fc456422de7aa026a8ac00685268f8cd8ea5650d3b01f773",
+    "slice_cap": 3416875826,
+    "fast_limit": 0,
+    "slice_quantum": 49,
+    "capture_epoch": 497,
+    "capture_serial": 507,
+    "cap_records": 1,
+    "cap_record_source": 0,
+    "cap_record_observed_before": 3416875778,
+    "cap_record_canonical_before": 0,
+    "cap_record_base": 3416875777,
+    "scheduler_round_epoch": 1169,
+    "hidden_yield": 1,
+    "unwinding": 1,
+    "reason_for_reduced_field_count": "Original cap_note(source=0) clears six ten-cell records and exports one; complete predecessor remains bound"
+  },
+  "certificate_issued": false,
+  "complete_tail_new_slice_certified": false,
+  "dynamic_execution_ready": false,
+  "guest_instructions_authorized": 0,
+  "MMIO_authorized": 0,
+  "new_slice_execution_authorized": false,
+  "blockers": [
+    {
+      "edge": "AW12 fence -> first device observer",
+      "proof": "Existing Controller::fence stops nonreturningly. Returning instead encounters the completed AW7 ledger, whose cursor<plan->size guard rejects any extra device observation. No successor-owner phase exists.",
+      "no_guard_removed": true
+    },
+    {
+      "edge": "live_overlay_poll and auxiliary bridge bookkeeping -> new round",
+      "proof": "411 core and 19 GPU cells do not bind overlay enabled/poll state or nullable Wi-Fi bridge timestamp branch. Original source has distinct auxiliary outcomes under the same projection. Historical launch arguments suggest overlay disabled, not a sealed passive tail receipt.",
+      "not_a_claim_of_actual_AW14_overlay_work": true
+    }
+  ],
+  "forbidden_effects": [
+    "B4 fetch/account/dispatch/status read",
+    "unowned scheduler/device service",
+    "observer removal",
+    "cap normalization",
+    "permit reuse",
+    "save/checkpoint mutation"
+  ],
+  "required_next_safe_task": "ROM-free successor-owner/ledger certification from the AW14 fence through an owned new-slice pre-dispatch fence: preserve the completed AW7/AW12 receipts, bind passive overlay disabled/readiness and nullable Wi-Fi bridge timestamp facts (or prove their noninterference from authenticated setup), validate every expected service observation and cap-journal epoch reset using actual interfaces, then dispose before any B4 fetch/account/dispatch. No live replay or status read.",
+  "source_function_sha256": {
+    "void run_slice(int cpu, uint32_t quantum)": "06da6cadd2415eec98f518d283c8090fb8201ee6d3a05eb40ba08178326be6bc",
+    "void nds_tick_timers(": "ce63ef10cad987562b89dda7b5834da27195ed37fc8a3cca5887a384ea9217b9",
+    "s32 GPU3D::CyclesToRunFor()": "37eda106ea6734cff0958d0d35f7591479904e3fa2440892e0a93b5b72cf3b6b",
+    "void GPU3D::Run()": "bb02d2fc9923f7730c48d63d8b4ae14e151376c28c5cce9df709049ccbaa50ad",
+    "void nds_tick_spu(": "e25e6a5c28cafe32cf229b6a2c3a33666c5e352c0f9f4c50fe2795c40ad22dab",
+    "void nds_tick_rtc(": "a167d78f3b167c042d75a35fa5027f08823eb31fda79a94b52d8c9d8c2b9f9f2",
+    "void nds_run_system_events(": "fb8c5fd7dab0fbe99683cec023cba8da96c010bfdc0d8da3ce8e3c4e4e827008",
+    "uint64_t nds_wifi_next_event_time()": "4384b101e1f0e375056c11e02e6e2f57fb0d5cda6f8a6216120647ef8a56018f",
+    "void nds_wifi_run_events(": "d9a10ad88765add42f314e7e6767b33eb0e62f6d3f2d2e941b662a813c80cc62",
+    "void live_overlay_poll()": "06c8fbf42e7c45068f6b87a3dc695d7dd38b5261f5eadbf64e5798f0302a0bc2",
+    "void request_yield_poll()": "ac1c3a6e47843d63f5372ecff8043e659c1a6a4861fda22074e36397851c2efe",
+    "extern \"C\" void nds_slice_begin(": "630ee9808c22acd7f8e1506ae67ed403da8b2ae8eda2729e26d5cf7d5d7906ac",
+    "scheduler_tail_after_fence": "c2e246322da17fa4c5e8165900675b1878af9b5e43ee2db4ccc6856677787f04",
+    "void nds_tick_display(": "3de173dc051c9587069f6a00924502c807f1ac3d238342f468336e92d752482a",
+    "uint64_t next_scheduled_event_time()": "9b5c36c95b38e1a9acbfad559fd38d8b072782cad8f4f27d792fd34158f38b09"
+  },
+  "implementation_sha256": {
+    "model.py": "b4cd56f606c204c4a383e42378b275710c334732923d6f5575b5c76d28c08c05",
+    "check.py": "82f7714080f0dcb1b899d5e7dcfd949c3add0463e0603dbbc0e07a16f26aa586",
+    "inspect.cpp": "80765a777b846724f7b538c57b51e3f9873184ed2093e80278fc999bcc50d055",
+    "README.md": "f9ab29b0cdbb53bde1a30372a6fa80ca3f5215d2b142696e60200876e6c807c1"
+  }
+}

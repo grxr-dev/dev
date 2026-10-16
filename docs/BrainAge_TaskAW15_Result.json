@@ -1,0 +1,215 @@
+{
+  "task": "AW15",
+  "classification": "PARTIAL",
+  "classification_scope": "Exact fence binding and source-coupled protected tail model; complete executable scheduler-tail/new-slice certificate withheld",
+  "authoritative_AW14": "9c2b342f4fdf1f09316ce7d62ac2240edc0f9589",
+  "recovery": {
+    "metadata": "tools/task_aw14/fence.json",
+    "core_schema": "AW2S v1",
+    "core_scalars": 411,
+    "core_identities": 5,
+    "core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+    "GPU_scalars": 19,
+    "GPU_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4",
+    "ownership_ticket": 1,
+    "ownership_frame": 566,
+    "architectural_PC": "0x020019B4",
+    "cycle9": 3416875777,
+    "retained_cap": 3416875778,
+    "canonical_core_bytes": 8862,
+    "all_eight_AW14_chains_recomputed": true
+  },
+  "exact_tail_path": [
+    "existing_terminal_AW12_fence",
+    "scheduler_device_observer",
+    "ARM9_timers",
+    "GPU_wrapper_and_Run",
+    "rendezvous=ARM9_cycle>>1",
+    "ARM7_HALTED_quantum_63",
+    "ARM7_timers",
+    "poweroff_check",
+    "display",
+    "SPU",
+    "Wifi",
+    "RTC",
+    "system_events_auxspi_spi_card_div_sqrt",
+    "system_timestamp_publish",
+    "live_overlay_poll",
+    "round_scope_end",
+    "frontend_inner_round_loop",
+    "next_scheduler_observer_and_round",
+    "next_event_selection",
+    "ARM9_run_slice",
+    "nds_slice_begin",
+    "pre_dispatch_boundary"
+  ],
+  "source_proven_effects": {
+    "protected_projection_complete_to_pre_overlay": true,
+    "runtime_coupling_to_that_stop_installed": false,
+    "rendezvous": 1708437888,
+    "ARM9_guest_cycle_unchanged": 3416875777,
+    "ARM7_HALTED_elapsed": 63,
+    "ARM7_guest_instructions": 0,
+    "ARM7_parked_debt": 2,
+    "timer_counter_accum": {
+      "0": [
+        14558,
+        62
+      ],
+      "4": [
+        50776,
+        43
+      ],
+      "5": [
+        64195,
+        39
+      ]
+    },
+    "timer_bank_timestamps": 1708437888,
+    "timer_overflow_IRQs": 0,
+    "GPU_ARM9Timestamp": 3416875777,
+    "GPU_Timestamp": 1708437888,
+    "GPU_commands": 0,
+    "GPU_cycle_count": 0,
+    "GPU_trace_ring": "one wrapper trace append; prior ring ordinal not in fence projection",
+    "display_edges": 0,
+    "display_last": 1708437888,
+    "SPU_mixes_due": 1668396,
+    "SPU_new_mixes": 0,
+    "Wifi_event_callbacks": 0,
+    "Wifi_auxiliary_timestamp": "if bridge and wifi exist, CurrentSystemTimestamp becomes rendezvous; otherwise no bridge mutation",
+    "RTC_due_exact": 1670410,
+    "RTC_processed": 1670410,
+    "RTC_callbacks": 0,
+    "system_completion_events": 0,
+    "IRQ_acceptance": 0,
+    "unwinding_still_one": true,
+    "old_cap_unchanged_through_current_round_model": true
+  },
+  "conditional_next_slice": {
+    "conditional_only": true,
+    "deadlines": {
+      "auxspi": 18446744073709551615,
+      "spi": 18446744073709551615,
+      "card": 18446744073709551615,
+      "div": 1708437913,
+      "sqrt": 18446744073709551615,
+      "wifi": 18446744073709551615,
+      "LCD": 1708438374,
+      "SPU": 1708438528,
+      "RTC": 1708438848
+    },
+    "rendezvous": 1708437888,
+    "system_target": 1708437913,
+    "ARM9_target": 3416875826,
+    "quantum": 49,
+    "next_PC": "0x020019B4",
+    "fetch_authorized": false
+  },
+  "conditional_slice_projection": {
+    "not_executable": true,
+    "core_scalars": 361,
+    "identities": 5,
+    "canonical_sha256": "68b88b2de2264fb8fc456422de7aa026a8ac00685268f8cd8ea5650d3b01f773",
+    "slice_cap": 3416875826,
+    "fast_limit": 0,
+    "slice_quantum": 49,
+    "capture_epoch": 497,
+    "capture_serial": 507,
+    "cap_records": 1,
+    "cap_record_source": 0,
+    "cap_record_observed_before": 3416875778,
+    "cap_record_canonical_before": 0,
+    "cap_record_base": 3416875777,
+    "scheduler_round_epoch": 1169,
+    "hidden_yield": 1,
+    "unwinding": 1,
+    "reason_for_reduced_field_count": "Original cap_note(source=0) clears six ten-cell records and exports one; complete predecessor remains bound"
+  },
+  "certification": {
+    "complete_tail_new_slice_certified": false,
+    "certificate_issued": false,
+    "dynamic_execution_ready": false,
+    "exact_next_guest_PC_if_a_successor_is_later_certified": "0x020019B4",
+    "guest_reentry_authorized": false
+  },
+  "blockers": [
+    {
+      "edge": "AW12 fence -> first device observer",
+      "proof": "Existing Controller::fence stops nonreturningly. Returning instead encounters the completed AW7 ledger, whose cursor<plan->size guard rejects any extra device observation. No successor-owner phase exists.",
+      "no_guard_removed": true
+    },
+    {
+      "edge": "live_overlay_poll and auxiliary bridge bookkeeping -> new round",
+      "proof": "411 core and 19 GPU cells do not bind overlay enabled/poll state or nullable Wi-Fi bridge timestamp branch. Original source has distinct auxiliary outcomes under the same projection. Historical launch arguments suggest overlay disabled, not a sealed passive tail receipt.",
+      "not_a_claim_of_actual_AW14_overlay_work": true
+    }
+  ],
+  "tests": {
+    "passed": true,
+    "Python_cases": 1398,
+    "native_assertions": 29,
+    "nonreturning_model_children": [
+      {
+        "mode": "model_stop",
+        "exit": 73,
+        "tail_sentinels": 0,
+        "model_only": true
+      },
+      {
+        "mode": "failure",
+        "exit": 79,
+        "tail_sentinels": 0,
+        "model_only": true
+      }
+    ],
+    "negative_coverage": [
+      "every core/GPU scalar mutation/omission/width",
+      "each identity class",
+      "each stage skip/duplicate/reorder",
+      "cap/epoch/serial off-by-one",
+      "stale/tampered chain",
+      "midstage IRQ readiness/cap/epoch mutation",
+      "incomplete/extra ledger",
+      "actual timer/ARM7 wake/GPU/SPU/RTC/divider/Wifi readiness branches",
+      "hidden overlay branch distinction",
+      "forbidden B4 fetch/account/dispatch and MMIO/guest/service events",
+      "post-disposal sentinels"
+    ],
+    "earlier_test_development_failures": "001 namespace ambiguity; 002 wake sentinel expectation; 004 conditional field-count assertion. No runner launched in any iteration.",
+    "disabled_original_slice_redispatch_control_passed": true
+  },
+  "disabled_runtime": {
+    "runtime_files_changed": false,
+    "hooks_or_selectors_installed": false,
+    "observer_default_null": true,
+    "AW7_AW12_guards_unchanged": true,
+    "ordinary_timing_semantics_changed": false
+  },
+  "safety": {
+    "BrainAge_guest_execution": 0,
+    "live_replays": 0,
+    "runtime_BrainAge_MMIO": 0,
+    "B4_fetch_account_dispatch": 0,
+    "ROM_save_checkpoint_opened": false,
+    "save_checkpoint_mutations": 0,
+    "save_requests": 0,
+    "Flash_commits": 0,
+    "historical_save_reference_sha256": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "fresh_save_hash_claimed": false,
+    "ROM_patch": false,
+    "generated_C_edits": false,
+    "permits_created_or_consumed": false
+  },
+  "evidence": {
+    "local": "local/task-aw15/certification-007/",
+    "tests_sha256": "796d5ce8d87acf61efbd37a28e60857cce099e00c79fe60996cabb57ad216174",
+    "committed_metadata_only_core_reconstruction": true,
+    "original_source_functions_extracted_to_ignored_local_only": true,
+    "native_tests_use_scalar_objects_not_interpreter_or_real_bus": true,
+    "projected_stage_count": 14,
+    "no_new_live_69_observation_transcript_claimed": true
+  },
+  "next_safe_task": "ROM-free successor-owner/ledger certification from the AW14 fence through an owned new-slice pre-dispatch fence: preserve the completed AW7/AW12 receipts, bind passive overlay disabled/readiness and nullable Wi-Fi bridge timestamp facts (or prove their noninterference from authenticated setup), validate every expected service observation and cap-journal epoch reset using actual interfaces, then dispose before any B4 fetch/account/dispatch. No live replay or status read.",
+  "stopped_after_AW15": true
+}
