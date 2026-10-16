@@ -1,0 +1,243 @@
+{
+  "task": "AW16",
+  "classification": "FULL PASS",
+  "classification_scope": "ROM-free source-coupled successor certification for a later separately authorized host-only tail validation, not guest/B4 execution",
+  "authoritative_AW15": "12710efe8a81c15f91a86a637704573899f9cf38",
+  "authoritative_AW14": "9c2b342f4fdf1f09316ce7d62ac2240edc0f9589",
+  "AW15_blockers": {
+    "successor_owner": "CLOSED: private parent/completed-ledger receipts, one-use non-null observer transfer, full 26-stage source-coupled ledger and disposal",
+    "immutable_auxiliary_binding": "CLOSED STATICALLY: fixed passive typed getters, conservative admission, repeat canonical seal and exact modeled evolution",
+    "additional_journal_and_device_bookkeeping": "CLOSED: unsealed journal latch required, GPU trace append bound, profiling branch excluded; inactive branches source-proven noninterfering"
+  },
+  "entry": {
+    "authority": "9c2b342f4fdf1f09316ce7d62ac2240edc0f9589",
+    "metadata": "tools/task_aw14/fence.json",
+    "core_schema": "AW2S v1",
+    "core_scalars": 411,
+    "identities": 5,
+    "GPU_scalars": 19,
+    "core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+    "GPU_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4",
+    "PC": "0x020019B4",
+    "ARM9_cycle": 3416875777,
+    "retained_cap": 3416875778,
+    "ARM7_cycle": 1708437825,
+    "ARM7_deferred_debt": 2,
+    "capture_epoch": 496,
+    "capture_serial": 506,
+    "scheduler_round_epoch": 1168,
+    "ownership_ticket": 1,
+    "ownership_frame": 566,
+    "ownership_chain": "10bad78f6ef2fd96a21b26be7e074943e6ded5fa5541844c731d3e39892472b4"
+  },
+  "terminal": {
+    "position": "ARM9 run_slice, immediately after original nds_slice_begin, before wake/dispatch logic",
+    "PC": "0x020019B4",
+    "ARM9_cycle": 3416875777,
+    "ARM7_cycle": 1708437888,
+    "ARM9_cap": 3416875826,
+    "quantum": 49,
+    "fast_limit": 0,
+    "yield_hint": 1,
+    "unwinding": 1,
+    "capture_epoch": 497,
+    "capture_serial": 507,
+    "scheduler_round_epoch": 1169,
+    "cap_records": 1,
+    "core_scalars": 361,
+    "identities": 5,
+    "core_sha256": "68b88b2de2264fb8fc456422de7aa026a8ac00685268f8cd8ea5650d3b01f773",
+    "GPU_sha256": "4283d85effe5028f12adbe1fe495174d9eda117d65f7accc0eb9e248f5b189d9",
+    "auxiliary_sha256": "derived from the freshly sealed live auxiliary entry and exact transition rules; no synthetic constant substitution",
+    "registers_SP_LR_NZCV": "unchanged from exact entry",
+    "divider_control": "0x8001",
+    "divider_deadline": 1708437913,
+    "divider_completions": 0,
+    "status_reads": 0,
+    "guest_instructions": 0,
+    "MMIO": 0,
+    "guest_reentry_certified": false
+  },
+  "auxiliary": {
+    "canonical_schema": "AW2S v1 with aux.schema:u16=1",
+    "fields": 19,
+    "widths": {
+      "aux.schema": 2,
+      "journal.bound": 1,
+      "overlay.enabled": 1,
+      "scheduler.modulus": 8,
+      "scheduler.sample": 1,
+      "trace.count": 8,
+      "trace.last.after": 4,
+      "trace.last.before": 4,
+      "trace.last.count": 8,
+      "trace.last.cycle": 8,
+      "trace.last.debt_after": 4,
+      "trace.last.debt_before": 4,
+      "wifi.bridge": 1,
+      "wifi.device": 1,
+      "wifi.network_enabled": 1,
+      "wifi.raw_deadline": 8,
+      "wifi.scheduled": 1,
+      "wifi.timestamp": 8,
+      "wifi.worker": 1
+    },
+    "fixed_provider_sources": [
+      "tools/task_aw16/overlay.inc",
+      "tools/task_aw16/wifi.inc",
+      "tools/task_aw16/trace.inc",
+      "tools/task_aw16/scheduler.inc",
+      "tools/task_aw16/auxiliary.h: runtime-owned task_aw3::bound"
+    ],
+    "admission": [
+      "journal.bound=false",
+      "overlay.enabled=false",
+      "wifi.network_enabled=false",
+      "wifi.worker=false",
+      "wifi.scheduled=false",
+      "scheduler.modulus=0 and scheduler.sample=false",
+      "absent bridge has zero device/worker/raw-deadline/timestamp",
+      "wifi.timestamp <= entry ARM9 cycle >> 1",
+      "trace.count < UINT64_MAX; last record ordinal agrees; count-zero record is zero"
+    ],
+    "seal": "two exact passive samples, deterministic hash/audit before observer transfer; full value/width checks at every stage",
+    "evolution": [
+      "GPU trace count increments once; exact last-record fields/index come from original wrapper",
+      "present bridge/device CurrentSystemTimestamp becomes rendezvous; absent bridge/device leaves it unchanged",
+      "all other auxiliary fields remain exactly constant"
+    ],
+    "historical_AW14_new_auxiliary_values_measured": false,
+    "test_witness_values_are_not_live_defaults": true,
+    "unbound_scheduler_affecting_fields_in_supported_domain": [],
+    "source_proven_noninterference": [
+      "disabled Overlay countdown/queues/publication internals are not read",
+      "unscheduled Wifi callback/parameter/transport/packet internals are not read; host worker/network operation rejects",
+      "other GPU diagnostic history records do not feed scheduler/device behavior; one deterministic append only",
+      "host PC/attribution profiling tables do not affect emulated state; active scheduler profiling rejects"
+    ]
+  },
+  "controller": {
+    "source": "tools/task_aw16/controller.h",
+    "plan": "tools/task_aw16/plan.h",
+    "stages": 26,
+    "private_overlay": "tools/task_aw16/hooks.py",
+    "actual_getters_fixed": true,
+    "observer_disabled_to_continue": false,
+    "original_AU_AW7_AW12_guards_removed": false,
+    "default_old_terminal_retained": true
+  },
+  "tests": {
+    "all_passed": true,
+    "native_assertions": 87,
+    "children": 35,
+    "success_witnesses": 4,
+    "failure_children": 29,
+    "legacy_fence_exit": 73,
+    "disabled_redispatch_exit": 0,
+    "actual_source_syntax_checks": 16,
+    "independent_state_oracles": 4,
+    "audit_tamper_rejections": 14,
+    "post_disposal_sentinels_reached": 0,
+    "focus": [
+      "stale epoch",
+      "duplicate/lost owner",
+      "missing/reordered phase",
+      "changed ledger/plan/invariant seal",
+      "Overlay/Wifi readiness before and after seal",
+      "omitted/width-mutated auxiliary cell",
+      "journal.bound mutation",
+      "GPU trace ordinal/wrap/overflow",
+      "IRQ/timer/device readiness",
+      "cap/quantum off-by-one",
+      "attempted B4 guest-frame/dispatch and MMIO event",
+      "default and legacy behavior"
+    ],
+    "development_failures": "001 module-name collision; 002 scalar Slot type missing profiling-only member; 004 missing local slirp include paths; 008-009 authenticated source-map key coverage. All ROM-free; no live attempt."
+  },
+  "proof_limits": {
+    "ROM_free_scalar_rail": true,
+    "original_mutable_runtime_scheduler_journal_getter_bodies": true,
+    "initial_mutable_core_cells_projected": 192,
+    "readonly_authenticated_metadata_cells": 219,
+    "historical_identities": 5,
+    "new_live_ROM_or_memory_or_save_measurement": false,
+    "predecessor_dispatch": "already-running pre-fence return modeled by a bounded scalar stub; not guest execution or a B4 dispatch",
+    "fault_hooks": "AW16_ROMFREE only; absent from actual-type syntax builds",
+    "full_emulator_object_or_whole_trace_ring_certified": false,
+    "physical_or_compiled_guest_parity_claimed": false
+  },
+  "disabled_runtime": {
+    "original_runtime_files_changed": false,
+    "runtime_hooks_installed": false,
+    "runners_rebuilt_or_launched": false,
+    "new_environment_activation": false,
+    "ordinary_scheduler_or_instruction_timing_changed": false,
+    "default_arming_rejected": true,
+    "unarmed_parent_fence_retained": true
+  },
+  "safety": {
+    "live_replays": 0,
+    "BrainAge_guest_instructions": 0,
+    "BrainAge_MMIO": 0,
+    "B4_fetch_or_read": 0,
+    "ROM_save_checkpoint_opened": false,
+    "save_checkpoint_mutation": false,
+    "save_requests": 0,
+    "Flash_commits": 0,
+    "historical_save_sha256_reference": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "fresh_save_hash_claimed": false,
+    "ROM_patch": false,
+    "generated_recomp_C_edited": false,
+    "old_permits_unchanged": true,
+    "credentials_binding_or_approval_infrastructure_changed": false
+  },
+  "readiness": {
+    "static_certificate_issued": true,
+    "scheduler_tail_validation_statically_ready": true,
+    "live_validation_performed_or_authorized": false,
+    "B4_or_guest_execution_certified": false,
+    "remaining_static_blocker": null,
+    "live_auxiliary_admission_must_still_be_measured": true
+  },
+  "evidence": {
+    "local": "local/task-aw16/certification-010/",
+    "summary_sha256": "886186ee3ca13f994254c59801ed1b8f203e1488a792cd9bce3a4fbc64045ef2",
+    "native_assertions": 87,
+    "children": 35,
+    "success_witnesses": 4,
+    "failure_children": 29,
+    "compatibility_children": 2,
+    "independent_full_state_oracles": 4,
+    "audit_negative_cases": 14,
+    "actual_source_syntax_checks": 16
+  },
+  "synthetic_witness_hashes": {
+    "success": {
+      "entry_auxiliary_sha256": "988480cf3f4669c8e6446dec22bc02ed143c3c3c9251d5d96d0aa6af264faaba",
+      "final_auxiliary_sha256": "78f9ae108aca939e94fdd8bf294a02f12a04675f6eb54d22fc53557e2ae05012",
+      "final_chain": "46a267454bc7e9c73a9c78d6f2f94e0b50c34708127e57b6a74285abf710e51d"
+    },
+    "no-bridge": {
+      "entry_auxiliary_sha256": "e97fd78624979d14f289d2efd7f9d0a08f9e55ab715ca367fb74ed25cb3c0275",
+      "final_auxiliary_sha256": "fe98edb081142c8b8cc313f5136f461e07990277e044baf6beca17d6ec89cfdb",
+      "final_chain": "f8615339d30b6e37d513acf918f45d51fc82a4f85591ece58339b505c2b647f1"
+    },
+    "no-device": {
+      "entry_auxiliary_sha256": "86faa4e49e9f8c657992334d89604248b32c2b4ea69550932457e55e9a0a6572",
+      "final_auxiliary_sha256": "82c1216713a7ccf43bb55ed168b5a9c78bb7fade44573f8939307db43f65341a",
+      "final_chain": "40c77d2493b1a660ebe3578e04e6e5e6f4f7d6f893c857808c92a9a848a95e63"
+    },
+    "trace-wrap": {
+      "entry_auxiliary_sha256": "3120f8bb5738f50ab7eae9664470fe1876d91f93686d4d599bdbd8f2d3f2cf56",
+      "final_auxiliary_sha256": "575a6a5e7a15bcdd5e1cde66eb24141c012704c68398e1dfb2d6c4007db9517a",
+      "final_chain": "78c09577b62bb8f237bc30adbca7cfaaa3b9a51aa9f86dfaef6b152c526d0a29"
+    }
+  },
+  "next_safe_task": "Separately authorize one fresh fail-closed host-only scheduler-tail/new-slice validation. Re-establish the exact AW14 fence only through an independently authorized prerequisite and fresh permission; verify completed AW7/AW12 receipts, repeat the fixed live core/GPU/19-field auxiliary getters and seal their actual values. Reject any mismatch before service without retry or normalization. If admitted, run only the 26-stage owned tail and dispose immediately after ordinary nds_slice_begin at cap 3416875826, before B4 fetch/account/dispatch or any status read. No old permit reuse.",
+  "artifacts": {
+    "report": "docs/BrainAge_TaskAW16_SuccessorOwnerAndAuxiliaryBinding.md",
+    "certificate": "tools/task_aw16/certificate.json",
+    "helpers": "tools/task_aw16/"
+  },
+  "stopped_after_AW16": true
+}
