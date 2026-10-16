@@ -1,0 +1,191 @@
+{
+  "schema": "AW12 conditional zero-guest pre-device-fence certificate v1",
+  "classification": "FULL PASS",
+  "classification_scope": "ROM-free one-use capture-only handoff to a terminal pre-device fence, not a complete scheduler tail or new guest slice",
+  "authority": {
+    "AW11": "b10e83d9f5e236930d7b2fd8e1b2b301e978decc",
+    "AW10": "c699e3a21207abaa72b8130bf54c0f189c846412",
+    "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "entry": {
+    "metadata": "tools/task_aw11/terminal.json",
+    "canonical_schema": "AW2S v1",
+    "scalars": 411,
+    "identities": 5,
+    "bytes": 8862,
+    "sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "PC": "0x020019B4",
+    "last_retired": "0x020019B0",
+    "cycle9": 3416875777,
+    "cap": 3416875778,
+    "cap_expired": false,
+    "extra_runtime_preconditions": [
+      "old AU/AW7 guards and all 69 reduced observations accepted",
+      "no active access; original bus_calls=18; same observer/thread ownership",
+      "AW12 installed once in explicitly compiled diagnostic process with exclusive fresh audit",
+      "outermost tracked runtime_dispatch_impl; actual g_tail_dispatch null at entry",
+      "actual g_static_guard null at entry; saved-unwind-valid false",
+      "AW6 ready_before(entry,3416875777) passes unchanged; repeat passive snapshots exact"
+    ]
+  },
+  "ownership": {
+    "ticket": "first and only process ticket; no overflow/rearm",
+    "frame_serial": "runtime-owned increasing dispatch serial, sealed at offer; not assumed historically equal to 1",
+    "epoch": "all captured cap/ROM/scheduler epochs remain exact, no import/normalization",
+    "phase_order": [
+      "yield_requested",
+      "tier3_exit",
+      "unwind_preserved",
+      "slice_consumed",
+      "slot_saved",
+      "pre_device_fence",
+      "gpu_observed",
+      "scheduler_admitted_capture_only"
+    ],
+    "saved_unwind_valid": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "frame_depth": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "failure": "sticky nonreturning failure disposal; no old-halt or redispatch fallback"
+  },
+  "state_transitions": {
+    "entry_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "unwind_preserved_sha256": "64eeeb47b0d41e4814916852bf817a105b22bf28b96710c8c4e750af1fe7c99e",
+    "fence_core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+    "only_core_deltas": {
+      "unwinding": [
+        0,
+        1
+      ],
+      "slot9.cycle": [
+        3416875650,
+        3416875777
+      ]
+    },
+    "all_other_scalars_and_identities": "exactly constant",
+    "CPU_registers_flags_cycles_ordinals": "unchanged",
+    "cap_journal": "unchanged; no append or reset"
+  },
+  "GPU": {
+    "schema": "AW2S v1 with gpu.schema uint16=1, independent extension",
+    "base_scalars": 19,
+    "source": "runtime g_nds.GPU.GPU3D plus ARM9Timestamp/ARM9ClockShift; direct const fields and logical FIFO Peek",
+    "fields": [
+      "GeometryEnabled",
+      "FlushRequest",
+      "GXStat",
+      "CycleCount",
+      "Timestamp",
+      "VertexPipeline",
+      "NormalPipeline",
+      "PolygonPipeline",
+      "VertexSlotCounter",
+      "VertexSlotsFree",
+      "NumPushPopCommands",
+      "NumTestCommands",
+      "ExecParamCount",
+      "ARM9Timestamp",
+      "ARM9ClockShift",
+      "schema",
+      "CmdPIPE count/ordered Command+Param",
+      "CmdFIFO count/ordered Command+Param",
+      "CmdStallQueue count/ordered Command+Param"
+    ],
+    "queue_limits": [
+      4,
+      256,
+      64
+    ],
+    "Run_work_branch": "GeometryEnabled && !FlushRequest && (CmdPIPE not empty || GXStat.bit27)",
+    "capture_admission": [
+      "complete schema and exact repeat sampling on owner thread",
+      "clock shift=1; max(raw signed CycleCount,0) equals protected GPU debt=0",
+      "Run work branch false; all three queues empty",
+      "vertex/normal/polygon pipelines and push/pop/test/exec-parameter counts zero",
+      "raw CycleCount<=0 and GXStat.bit27 clear",
+      "GPU Timestamp<=cycle9>>1 and ARM9Timestamp<=cycle9"
+    ],
+    "historical_AW9_extended_GPU_identity_known": false,
+    "synthetic_idle_fixture_sha256_not_historical": "2ee3910544906c52d6c29f2be2808d30ad36d4914c9dc40f2b5b6b7f35e79640",
+    "new_live_measurement_required": true,
+    "Run_called": false
+  },
+  "scheduler_transition": {
+    "escape": "retired observer offer -> Tier-3 sync_out/preserve/break before IRQ/next loop",
+    "consume": "run_slice after original restore_unwind_state, before terminal/DMA/HALT/event/slice checks",
+    "fence": "after original ARM9 slot save; before first Kind::device, ARM9 timers and GPU3D Run",
+    "admission_scope": "capture-only terminal fence; no service is admitted",
+    "new_slice_or_cap": null,
+    "cap_relation": "3416875777 < 3416875778 remains unchanged",
+    "next_guest_PC": "0x020019B4",
+    "next_guest_dispatch_certified": false
+  },
+  "invariants": {
+    "guest_instructions": 0,
+    "fetch_account_dispatch_B4": 0,
+    "MMIO": 0,
+    "device_GPU_IRQ_ARM7_service": 0,
+    "scheduler_tail_or_next_round": 0,
+    "RAM_DTCM_save_writes": 0,
+    "logical_saves": 0,
+    "Flash_commits": 0,
+    "save_checkpoint_opened": false
+  },
+  "disposal": {
+    "success_exit": 73,
+    "failure_exit": 79,
+    "audit_IO_failure_exit": 78,
+    "primitive": "audit fflush/fclose then std::_Exit; no shutdown/persistence/destructor tail"
+  },
+  "implementation_sha256": {
+    "controller.h": "5d16b90f19ed1e92079fec19180407bcf0b7cd6da280914ce29ff6aa5259a72d",
+    "gpu.h": "7c0d28260b241fef7e0323e49fe0c3094f88e1f64aa682c55e5ced9e1dd1c1c1",
+    "hooks.py": "3490c7e39564e7f3c15761e9dc77ccaece9bf711e4bd294dfbaf1bf1ecd4c0ba",
+    "fixture.h": "1c088a8d0d9e0fced176208145f0d3457b2b77965237300e6ae6cd24aff1b0e6",
+    "inspect.cpp": "40ab925fc0800eecdf9336f205533e2d3878f4e63c20e54cd6660e668e5bc8c0",
+    "check.py": "eff3d4855a4577e19b2b23aeee337e3eeaaf505e46dbc12cb1364289af0de243"
+  },
+  "private_overlay_sha256": {
+    "tier3.cpp": "6d164a17dc46ace85f078d538dd2a247a5441590efd4a0fe46bad5ee1b823ad6",
+    "runtime_arm.cpp": "8a1909474e6c087bf25f406e918519b6f22f0262c771a1c6c283ba18aa63f2c8",
+    "scheduler.cpp": "e4b741b5b059ed91088f833f25dd7727825271158e72db1ed162d9fa0375aba1",
+    "gpu3d.cpp": "ac354cc02fd6b797ba9d18757b84f2c476c524b1245bc5e697f68bd13e83cc1a",
+    "aw7/integration.h": "99b2ad145795a9f750e8d1f7f85a88ca683ea9afbed5503dfb82ae341ac73331",
+    "brainage_task_au.h": "a839317df1db1e905f4d4dd5aaf821e6aa2f84e874eedfdc87b8437ed2d729d3"
+  },
+  "evidence": {
+    "path": "local/task-aw12/certification-014/",
+    "summary_sha256": "d8b719839bc8974f097469a5b30812210ae637e3326f453a4674c58d13f9b427",
+    "native_assertions": 1311,
+    "children": 49,
+    "success_children": 3,
+    "failure_children": 45,
+    "disabled_children": 1,
+    "audit_tamper_rejections": 19,
+    "actual_runtime_syntax_checks": 8,
+    "actual_GPU_type_check": true
+  },
+  "disabled": "no installation available without compile macro; null owners/hooks preserve original behavior; original runner untouched",
+  "static_zero_guest_handoff_certified": true,
+  "conditional_capture_only_transition_ready": true,
+  "dynamic_execution_ready": false,
+  "live_validation_authorized_by_this_certificate": false,
+  "next_safe_task": "Separately authorize one terminal-to-pre-device-fence capture-only validation, no B4 fetch/account/dispatch or service; reject any core/host-context/GPU mismatch and dispose. A fresh narrowly bounded prerequisite replay/permit requires explicit separate authorization; consumed AW9 permits cannot be reused."
+}

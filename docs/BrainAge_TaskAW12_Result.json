@@ -1,0 +1,148 @@
+{
+  "task": "AW12",
+  "classification": "FULL PASS",
+  "classification_scope": "ROM-free conditional one-use zero-guest capture-only handoff to a terminal pre-device fence; not full scheduler tail/new guest slice",
+  "authority": {
+    "AW11": "b10e83d9f5e236930d7b2fd8e1b2b301e978decc",
+    "AW10": "c699e3a21207abaa72b8130bf54c0f189c846412",
+    "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "entry": {
+    "metadata": "tools/task_aw11/terminal.json",
+    "scalars": 411,
+    "identities": 5,
+    "canonical_bytes": 8862,
+    "sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "PC": "0x020019B4",
+    "last_retired": "0x020019B0",
+    "cycle9": 3416875777,
+    "cap": 3416875778,
+    "cap_normalized_or_expired": false,
+    "unrecorded_host_context_proven_historically": false
+  },
+  "blocker_disposition": {
+    "ordinary_return_redispatch": "Closed for conditional diagnostic path: exact terminal offer, Tier-3 preserve/break before IRQ, one-use scheduler consume before redispatch",
+    "missing_GPU_readiness": "Closed as passive source-derived projection plus conservative capture-only admission; historical actual values remain unknown and must be measured later",
+    "full_tail_new_slice_or_B4_admission": "Intentionally not certified or authorized"
+  },
+  "ownership": {
+    "installation": "Compile-gated fixed passive/GPU/saved-latch runtime facade; no environment/gameplay activation",
+    "one_use": true,
+    "same_thread": true,
+    "outermost_frame_required": true,
+    "actual_prior_tail_dispatch_required_null": true,
+    "actual_prior_static_guard_required_null": true,
+    "original_AU_AW7_guards_dominating": true,
+    "old_69_observation_ledger_retained": true,
+    "stale_duplicate_missing_reordered_transitions_fail_closed": true,
+    "fallback_to_old_halt_or_guest": false,
+    "preoffer_dispatch_serial_evolution_supported": true
+  },
+  "canonical_transitions": {
+    "unwinding": [0, 1],
+    "slot9.cycle": [3416875650, 3416875777],
+    "all_other_scalars_and_five_identities": "exactly unchanged",
+    "unwind_core_sha256": "64eeeb47b0d41e4814916852bf817a105b22bf28b96710c8c4e750af1fe7c99e",
+    "fence_core_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+    "ordered_controller_observations": 8,
+    "new_GPU_extension": "AW2S v1; gpu.schema uint16=1; 19 base scalars plus logical queue entries",
+    "pointer_padding_or_thread_identity_bytes_used": false
+  },
+  "GPU": {
+    "source": "Actual runtime g_nds.GPU.GPU3D, ARM9Timestamp and ARM9ClockShift; const logical FIFO access",
+    "source_branch": "GeometryEnabled && !FlushRequest && (CmdPIPE nonempty || GXStat.bit27)",
+    "additional_observations": [
+      "raw signed CycleCount and GPU Timestamp",
+      "vertex/normal/polygon pipelines, slot counter/free slots",
+      "push-pop/test/execution parameter counts",
+      "CmdPIPE/CmdFIFO/CmdStallQueue counts and ordered Command/Param entries"
+    ],
+    "queue_bounds": [4, 256, 64],
+    "caller_supplied_ready_truth_flag": false,
+    "same_debt_different_command_eligibility_detected": true,
+    "complete_repeat_sampling_required": true,
+    "Run_or_renderer_called": false,
+    "historical_AW9_GPU_extension_known": false,
+    "synthetic_idle_sha256_not_historical": "2ee3910544906c52d6c29f2be2808d30ad36d4914c9dc40f2b5b6b7f35e79640"
+  },
+  "fence_and_scheduler": {
+    "position": "After original ARM9 slot save, before first device observer, ARM9 timers and GPU Run",
+    "service_admitted": false,
+    "new_cap_or_slice_established": false,
+    "cap_relation_after_handoff": "3416875777 < 3416875778",
+    "resulting_PC": "0x020019B4",
+    "next_guest_dispatch_certified": false,
+    "terminal": "audit fflush/fclose then std::_Exit(73)",
+    "failure": "audit fflush/fclose then std::_Exit(79); audit IO failure 78",
+    "post_terminal_device_GPU_IRQ_ARM7_scheduler_shutdown_persistence": 0
+  },
+  "tests": {
+    "native_unit_assertions": 1311,
+    "children": 49,
+    "success_disposals": 3,
+    "failure_disposals": 45,
+    "default_disabled_children": 1,
+    "independent_audit_tamper_rejections": 19,
+    "actual_runtime_translation_unit_syntax_checks": 8,
+    "actual_GPU3D_FIFO_type_syntax_checks": 1,
+    "all_passed": true,
+    "local_evidence": "local/task-aw12/certification-014/",
+    "summary_sha256": "d8b719839bc8974f097469a5b30812210ae637e3326f453a4674c58d13f9b427",
+    "original_mutable_getter_and_run_slice_bodies_compiled_in_scalar_rail": true,
+    "readonly_metadata_cells_explicitly_partitioned": 267,
+    "missing_mutable_fields_filled_from_readonly_metadata": false,
+    "success_via_fixed_runtime_facade": true,
+    "prior_frame_serial_evolution_positive": true,
+    "historical_first_68_ledger_observations_are_receipt_not_new_execution": true,
+    "actual_dispatcher_Tier3_execution_claimed": false
+  },
+  "disabled_behavior": {
+    "original_runtime_files_untouched": true,
+    "private_overlay_only": true,
+    "hooks_inert_without_owner": true,
+    "arming_unavailable_in_default_build": true,
+    "ordinary_under_cap_redispatch_preserved": true,
+    "normal_timing_scheduler_semantics_changed": false,
+    "old_attempt_locks_and_evidence_unchanged": true,
+    "unrelated_archive_preserved": true
+  },
+  "safety": {
+    "BrainAge_guest_instructions": 0,
+    "live_replays": 0,
+    "runtime_BrainAge_MMIO": 0,
+    "B4_fetch_account_dispatch": 0,
+    "runner_launch_or_link": false,
+    "ROM_save_checkpoint_opened_or_mutated": false,
+    "logical_save_operations": 0,
+    "Flash_commits": 0,
+    "changed_save_bytes": 0,
+    "historical_save_sha256_not_new_measurement": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "ROM_patch": false,
+    "generated_recomp_C_edit": false,
+    "AX_executed": false,
+    "credentials_policy_relay_binding_changed": false
+  },
+  "certificate": {
+    "path": "tools/task_aw12/certificate.json",
+    "static_zero_guest_capture_handoff_certified": true,
+    "conditional_capture_only_transition_ready": true,
+    "dynamic_execution_ready": false,
+    "full_scheduler_tail_or_new_slice_certified": false,
+    "live_validation_authorized": false
+  },
+  "evidence_limits": [
+    "No historical GPU values or host stack context are invented; later trusted observation must admit or reject them.",
+    "Readonly RAM/CP15/IO identities in the native scalar rail are authenticated metadata, not new live measurements or production overrides.",
+    "The original dispatch return is modeled; full actual runner flow is source-checked and syntax-compiled, not executed.",
+    "No full GPU object/renderer or complete scheduler-tail/new-cap state is certified.",
+    "The certificate has no next guest dispatch permission and cannot revive consumed AW9 one-shot authorization."
+  ],
+  "next_safe_task": "Separately authorized single terminal-to-pre-device-fence capture-only validation with exact old guards/core identity, trusted outermost context and passive GPU projection; fresh explicit authorization for any prerequisite AU/11-instruction replay; no B4 fetch/account/dispatch, service, cap reset or retry.",
+  "artifacts": {
+    "report": "docs/BrainAge_TaskAW12_EarlyYieldFenceAndGPUReadiness.md",
+    "helpers": "tools/task_aw12/",
+    "local_certificate": "local/task-aw12/static-decision-001.json"
+  },
+  "stopped_after_AW12": true
+}
