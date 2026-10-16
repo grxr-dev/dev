@@ -1,0 +1,19 @@
+{
+  "schema": "relay-hardening-result/1",
+  "classification": "PARTIAL",
+  "reliability_gate_safe_to_clear_for_aw17": false,
+  "brainage_pause_after": "AW16",
+  "brainage_successors_created_or_launched": 0,
+  "brainage_project_semantics_changed": false,
+  "windows_source": "IMPLEMENTED_STAGED_NOT_ACTIVATED",
+  "jarvis_deployed_acceptance": "REQUIRED_NOT_OBSERVED",
+  "tests": {"focused": 28, "relay_completion_outbound": 67, "supersession": 26, "recovery": 31, "python_total": 152, "csharp_policy_suites": 1, "required_fault_cases": 14},
+  "synthetic_evidence_reused": {"historical_issue": 86, "clean_issue": 87, "clean_result_comment": 6215141578, "direct45_signal": 6215143552, "dedupe": true, "new_synthetic_issues_on_resume": 0},
+  "real_readonly_backfill": {"results": 82, "high_water": 82, "quarantined_issue": 72, "reason": "request_identity_changed", "original_issue": 9, "request_id": "brainage-task-y-001", "planning": "INTENTIONAL_PAUSE"},
+  "bridge": {"pid": 24184, "loopback": "HEALTHY", "current_turn_active": true, "staged_build_activated": false, "restart_performed": false, "remote_transport": "UNHEALTHY_PER_84_FRESH_VM_TEST_PENDING", "vpn_causation": "PLAUSIBLE_NOT_PROVEN"},
+  "presentation": {"watchdog": "QUEUED", "attempt_count": 0, "superseded_audit": false, "seq94": "FAILED_PERMANENT", "seq94_attempt_count": 3, "queue_sha256": "5c55a0bcbef5cd39b69738a1fc90743a020d173ceca306176807c4a2099c14f8", "queue_or_ack_mutated": false, "gates_github_continuity": false},
+  "remaining": ["Idle managed old-tray/new-build activation and actual capability proof", "Actual audited watchdog SUPERSEDED activation; informational presentation recovery only", "Jarvis deployed poller/planner and usage retry acceptance against machine-readable contract", "Independent #45 ACK of clean smoke and fresh VM-to-Windows exact-path observation", "Final cross-side degraded/restored acceptance before senior gate release"],
+  "contract": "tools/relay_reliability/contract.json",
+  "local_evidence": "local/relay-reliability/",
+  "credentials_binding_model_routing_policy_changed": false
+}

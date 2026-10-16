@@ -1,0 +1,18 @@
+{
+  "schema": "relay-runtime-source/1",
+  "files": {
+    "bridge.py": "a269a082c821bfd75cefd03fc7cd2c452f2ff1be7e5e603b1a0c02e149ec7287",
+    "reliability.py": "c8fb036e9a8ece529003a2515dbffa44f5e02df07e9d4be5a26674dedc720c3c",
+    "relay_v2.py": "ba1792659323fb272a8ad9f8c05bbbb81fdf5d63f6d5dd7ed091720abfba2aeb",
+    "relay_state.py": "af9152b1b92af4a68ef7fef60f3cd007fda55de80e05e74dfa76985517e4c2f1",
+    "github_bus.py": "77aa7c036faac936b94d3f01d09182905d69d3d6196a0f46f1b671b39c1139bc",
+    "completions.py": "5b4c4aa80e9d4a7d3a7ec8b35f08c625fd9f1eb49b9cfad71581071c460ccb73",
+    "inbox_local.py": "4c715be4139fda9ac57f3553abbc54a539369ee100487deb9e8230c11811003c",
+    "inbox_queue.py": "715990633fce75f372e86538f35501a1b7928cf20487d9ba2105371e81362c9b",
+    "inbox_supersession.py": "71132be89957a6a055d390b3c21fad8eb170211d701e44eeeeca5f3d51e4175b",
+    "TrayController.cs": "d808d5ac08211d9a625c44593af8dbb9bdd32dfd2a430f5dbbfce1c45880f276",
+    "Stop-Bridge.ps1": "44bc2e8dbb0a2cf43fb4559b1bb2e8c7e827aeea316944a993d7a212b8958477",
+    "inbox-v1/recover_once.py": "494047271013791cab6402378f37e968b30c043cd6817213c1a26c633380bbfe",
+    "inbox-v1/supersede_watchdog.py": "56e0fc4d597b36f1946f44690453cd05f8f8b0d40d6fbe3fb993b7e5d380e2a6"
+  }
+}

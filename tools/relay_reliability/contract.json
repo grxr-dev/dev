@@ -1,0 +1,66 @@
+{
+  "schema": "relay-continuity-contract/1",
+  "authority": "GitHub authenticated issue + exact terminal comment set",
+  "repository": "grxr-dev/codex-relay",
+  "actor": "grxr-dev",
+  "canonical_result_key": ["repository", "request_id", "terminal_status", "result_sha256"],
+  "receipt_key": ["repository", "comment_id", "exact_comment_body_sha256"],
+  "ordering": {
+    "local_sequence": "transactional positive AUTOINCREMENT; immutable after ingestion",
+    "bridge_sequence": "nullable enrichment only; NEVER used to admit, deduplicate, filter, or advance discovery",
+    "provisional_fallback": "above highest committed local sequence; never negative issue number",
+    "backfill": "all open/closed relay issues and complete paginated comment sets, or proven overlapping incremental scan plus periodic full backfill",
+    "page_bound": "explicit ERROR and retained prior cursor; never silently truncate",
+    "high_water": "informational, never a result-existence test"
+  },
+  "durability": {
+    "transaction": "receipt + exact result + monotonic order + cursor/scan acknowledgement atomic",
+    "sqlite": "WAL + synchronous FULL + integrity check; preserve corrupted state and fail closed",
+    "files": "fsync temporary then atomic replace; no direct truncation writes",
+    "dedupe": "same request/status/hash aliases comments; edited receipt or conflicting terminal result becomes explicit durable per-issue quarantine, not overwrite; unrelated valid results still commit",
+    "multipart": "validate each chunk, ordered complete manifest, full message and result hashes before result ingestion"
+  },
+  "planning": {
+    "brainage_pause": true,
+    "pause_after": "AW16",
+    "pause_authority_comment": 6214249835,
+    "pause_ack_comment": 6214266367,
+    "release": "separate explicit senior authorization AFTER both-side acceptance; this contract cannot release",
+    "inbox_dependency": false,
+    "bridge_dependency": false,
+    "vm_host_network_dependency": false,
+    "direct_channel_issue": 45,
+    "intent_key": ["project", "parent_canonical_result", "operation_kind"],
+    "successor_creation": "existing Jarvis planner must transactionally reserve unique parent intent, reconcile exact GitHub request marker before POST; ambiguous POST must never be blindly repeated",
+    "usage_limit": "unfinished request with exact prompt/hash, original result/comment, reported reset text/time/source/zone; durable RETRY_WAIT, one clean new request ID linked to original only after authorized reset; no successor while pending",
+    "reference_consumer": "emits SENIOR_REVIEW intent only, NEVER creates task or inference"
+  },
+  "presentation": {
+    "authoritative_ingestion_independent": true,
+    "failed_permanent_or_needs_review": "presentation degradation only; no cursor advance pretending delivered; no blind resend",
+    "control_supersession": "exact stale unattempted watchdog only, proof/hash/fingerprint/admin-auth revalidation + atomic audit; SUPERSEDED never DELIVERED"
+  },
+  "bridge": {
+    "windows_loopback": "http://127.0.0.1:8766",
+    "actual_completions_path": "/events/completions?after=N",
+    "wrong_path": "/completions is not implemented",
+    "capability_schema": "muse-capabilities/1",
+    "health": "/health.capabilities",
+    "authenticated_capabilities": "/capabilities",
+    "local_admin_capabilities": "http://127.0.0.1:18741/local/inbox/capabilities; existing X-Jarvis-Local/Host/Origin guards",
+    "activation": "verify PID/start record + exact loaded module hashes + route manifest + admin_loaded; old process must actually exit before new launch; never kill active turn",
+    "network": "report localhost health and VM path independently; unknown/unreachable remote never invalidates local GitHub state"
+  },
+  "worker_health_required": ["schema", "worker", "build", "pid", "observed_at", "last_success", "last_error", "failures", "next_retry_seconds", "backlog", "local_high_water", "dependencies", "intentional_pause", "continuity_healthy", "inbox_delivery_degraded"],
+  "cross_side_acceptance": {
+    "jarvis_deployed_code_hashes_and_tests": "REQUIRED",
+    "jarvis_actual_14_fault_matrix": "REQUIRED",
+    "jarvis_read_issue_87_comment_6215141578_without_bridge": "REQUIRED",
+    "repeat_restart_dedupe_same_comment_and_no_successor": "REQUIRED",
+    "direct45_ack_comment_6215143552": "REQUIRED",
+    "windows_idle_activation_and_exact_capability": "REQUIRED",
+    "stale_watchdog_supersession_live_proof": "REQUIRED before claiming queue cleanup complete",
+    "usage_limit_reset_retry_pending_proof": "REQUIRED",
+    "gate": "CLOSED"
+  }
+}
