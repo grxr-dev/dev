@@ -1,0 +1,102 @@
+{
+  "task": "AW13",
+  "classification": "BLOCKED",
+  "classification_scope": "Prerequisite rejection before live capture/launch; no new boundary evidence",
+  "authority": {
+    "AW12": "b60203a9d30b3a8536395aaacdd15d126ee88399",
+    "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af"
+  },
+  "prerequisite_evaluations": 1,
+  "capture_occurred": false,
+  "capture_attempts": 0,
+  "runner_launches": 0,
+  "live_replays": 0,
+  "retries": 0,
+  "entry_preflight": {
+    "admitted": false,
+    "stage": "before live-provider sampling, ownership arming or guest launch",
+    "first_unmet_prerequisite": "No available trusted preserved AW9-terminal runtime; reaching entry requires a newly authorized prerequisite replay.",
+    "historical_binding_verified": true,
+    "historical_scalars": 411,
+    "historical_identities": 5,
+    "historical_canonical_bytes": 8862,
+    "historical_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "historical_PC": "0x020019B4",
+    "historical_last_retired": "0x020019B0",
+    "historical_cycle9": 3416875777,
+    "historical_cap": 3416875778,
+    "live_terminal_sample": null,
+    "live_one_use_preconditions_verified": false
+  },
+  "preserved_state_inspection": {
+    "authoritative_AW9_process_exit": 73,
+    "local_AW9_session_exit": 73,
+    "historical_AW9_PID": 67860,
+    "active_nds_runner_process_count": 0,
+    "historical_audit_authenticated": true,
+    "historical_audit_sha256": "cfa3acc3e55bd2abf8504f662ded00ac4ea14c3fa617a89b9f3ae6fc0e545f8b",
+    "known_attempt_state_file": "source.state",
+    "known_state_file_provenance": "Earlier Task G checkpoint restored before historical guarded AU replay; not a recorded terminal checkpoint",
+    "checkpoint_contents_opened": false,
+    "terminal_metadata_used_as_resumable_state": false,
+    "AW9_remaining_authorized_runs": 0,
+    "consumed_claims_unchanged_against_AW12": true,
+    "new_replay_permission_inferred": false,
+    "new_permit_or_launch_claim_created": false,
+    "old_permit_reused_or_rewritten": false
+  },
+  "ownership_fence": {
+    "live_transcript": [],
+    "ownership_acquired": false,
+    "ownership_consumed": false,
+    "escape_before_IRQ_live_verified": false,
+    "pre_device_fence_live_verified": false,
+    "runtime_terminal_disposal_invoked": false,
+    "runtime_exit_code": null
+  },
+  "live_GPU_readiness": {
+    "captured": false,
+    "projection": null,
+    "readiness_known": false,
+    "synthetic_fixture_substituted": false
+  },
+  "safety": {
+    "proof_basis": "No Brain Age process launched, attached, resumed or controlled; metadata-only inspection",
+    "BrainAge_guest_instructions": 0,
+    "B4_fetch_account_dispatch": 0,
+    "runtime_BrainAge_MMIO": 0,
+    "scheduler_device_timer_GPU_IRQ_ARM7_service": 0,
+    "post_fence_service": 0,
+    "post_fence_service_observed_in_live_run": false,
+    "new_slice_or_cap": false,
+    "logical_save_requests": 0,
+    "Flash_commits": 0,
+    "task_save_bytes_written": 0,
+    "ROM_save_checkpoint_contents_opened_or_mutated": false,
+    "new_live_save_before_after_comparison": null,
+    "historical_save_identity_not_fresh_measurement": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "runtime_source_or_behavior_changed": false,
+    "ROM_or_generated_recomp_C_changed": false,
+    "policy_credentials_relay_infrastructure_changed": false,
+    "unrelated_archive_preserved": true
+  },
+  "checks": {
+    "AW12_certificate_matches_authority": true,
+    "historical_full_terminal_binding_matches_AW9": true,
+    "historical_audit_final_digest_matches": true,
+    "historical_exit_metadata_matches": true,
+    "consumed_claim_hashes_match_AW12_evidence": true,
+    "new_native_or_guest_tests_run": false
+  },
+  "dynamic_execution_ready": false,
+  "next_scheduler_tail_certification_justified_by_new_live_evidence": false,
+  "next_safe_requirement": "Separate explicit authorization and fresh one-use permit covering the exact prerequisite AU checkpoint/gesture replay and certified 11-instruction prefix with five divider writes, followed only by AW12 terminal-to-fence capture; or a separately established trusted resumable terminal state. No B4/status read, post-fence service, new slice or retry.",
+  "artifacts": {
+    "report": "docs/BrainAge_TaskAW13_CaptureOnlyAdmission.md",
+    "local_prerequisite_evidence": "local/task-aw13/prerequisite-001/prerequisite.json",
+    "local_prerequisite_sha256": "f4a8ac4248865a852ab93f41df90b26a1f325d57f6c711c5d3a15604c8d813ae",
+    "local_process_inventory": "local/task-aw13/prerequisite-001/process-inventory.json",
+    "local_process_inventory_sha256": "11c427287ac857c9242ac114682e58a03159f4b681b0bb7e3f03b12c5fff7f17"
+  },
+  "stopped_after_AW13": true
+}
