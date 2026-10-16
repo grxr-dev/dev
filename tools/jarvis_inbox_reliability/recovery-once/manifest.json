@@ -1,0 +1,26 @@
+{
+  "inbox_queue.py": {
+    "new_sha256": "c95256a196420bd8f3a309c3196ef24783c6e6f90f88a4a86f123d4cc9f132f7",
+    "baseline_sha256": "6cee28f435dce7a95bb1e5a3964cce25d645327b7f53db8018691affa019f99c"
+  },
+  "inbox_local.py": {
+    "new_sha256": "ba32bd3322b8566a0bdbc78da04fb79903c67c5acf9db4f660924e29d7f49cd0",
+    "baseline_sha256": "fbd84f2b31ace728badf5b7fe0cd64dd8d5afe83a910dc1d6b3b66d7b4eb3eca"
+  },
+  "inbox_recovery.py": {
+    "new_sha256": "38c0f054e4f5c2f8920c2ffb886e06acc6d57921d3c74d6b64a5a391d9aaf5a2",
+    "baseline_sha256": null
+  },
+  "inbox-v1/manage.py": {
+    "new_sha256": "e7d3cab72768fe900d962680813359c8c692ab48e8fbfe00fdd638be82eb58e5",
+    "baseline_sha256": "a62e82ccc5653ad11db670caa8cd06d804173e87bdffb0f43b2e2ae9287f613c"
+  },
+  "inbox-v1/recover_once.py": {
+    "new_sha256": "4f2d9acf468d908e1d0c14fbbaad8d7b4804eb7d32c525f622f8c8e87fb1d2c0",
+    "baseline_sha256": null
+  },
+  "inbox-v1/tests/test_recovery_once.py": {
+    "new_sha256": "9fb8b6a0bf9a7c2b252a9bf21972971374845ba1f856733a9c0b72af3bfb5acc",
+    "baseline_sha256": null
+  }
+}
