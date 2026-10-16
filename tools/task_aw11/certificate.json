@@ -1,0 +1,147 @@
+{
+  "sha256": "93cbc74ff5d94b2e7f2e14b3b02c30245bb9743ede5b138a4186c359251a4c8b",
+  "certificate": {
+    "schema": "AW11 static handoff decision v1",
+    "classification": "PARTIAL",
+    "kind": "positive lossless terminal-metadata binding and negative existing scheduler-handoff certificate",
+    "authority": {
+      "AW10": "c699e3a21207abaa72b8130bf54c0f189c846412",
+      "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af",
+      "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+    },
+    "entry": {
+      "metadata": "tools/task_aw11/terminal.json",
+      "scalar_count": 411,
+      "identities": 5,
+      "canonical_schema": "AW2S v1",
+      "canonical_bytes": 8862,
+      "canonical_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+      "metadata_logical_sha256": "9371c23d952af17dcfc767c403a7ccdd7ba7354b8125a842decaf45bc92cb7f2",
+      "AW10_cells_reconciled": 89,
+      "additional_cells_bound": 322,
+      "getter_ownership_counts": {
+        "bus": 84,
+        "cp15": 26,
+        "io": 157,
+        "journal": 64,
+        "runtime": 58,
+        "scheduler": 22
+      },
+      "PC": "0x020019B4",
+      "cycle9": 3416875777,
+      "cap": 3416875778,
+      "fast_limit": 3416875778,
+      "CPSR": 31,
+      "snapshot_is_resumable_process_or_full_savestate": false
+    },
+    "zero_guest_scheduler_handoff_certified": false,
+    "dynamic_execution_ready": false,
+    "runtime_activation_installed": false,
+    "live_execution_authorized": false,
+    "guest_instructions_certified": 0,
+    "MMIO_ledger": [],
+    "existing_safe_terminal": "AW9 retired callback -> audit flush/close -> nonreturning _Exit; no caller continuation",
+    "equivalent_resumed_boundary": {
+      "cap_expired": false,
+      "poll_before": false,
+      "next_read_cost": 8,
+      "hypothetical_read_commit": 3416875785,
+      "next_fetch_account_dispatch_forbidden": "0x020019B4 / E1D100B0",
+      "ordinary_or_unwind_only_return": "run_slice redispatches while cycles < local cap",
+      "existing_legal_early_yield_reason": null
+    },
+    "required_owned_phase_not_installed": "one-use diagnostic pre-dispatch exit propagated through run_slice, with dominating pre-device fence and strict expected-service ledger",
+    "tail_order": [
+      "ARM9_slot_save",
+      "ARM9_timers",
+      "GPU3D",
+      "ARM7_HALT_catchup",
+      "ARM7_timers",
+      "poweroff_check",
+      "display",
+      "SPU",
+      "Wifi",
+      "RTC",
+      "system_events",
+      "system_timestamp",
+      "next_round",
+      "next_slice_begin"
+    ],
+    "conditional_submodels_not_full_tail_certificate": {
+      "rendezvous": 1708437888,
+      "ARM7_HALT_catchup_cycles": 63,
+      "ARM7_debt_after": 2,
+      "timer_counter_accum": {
+        "0": [
+          14558,
+          62
+        ],
+        "4": [
+          50776,
+          43
+        ],
+        "5": [
+          64195,
+          39
+        ]
+      },
+      "timer_banks_last": 1708437888,
+      "timer_overflow_IRQ": 0,
+      "if_all_hidden_service_effects_inert_next_event": 1708437913,
+      "if_all_hidden_service_effects_inert_next_ARM9_target": 3416875826,
+      "new_cap_certified_or_set": false,
+      "post_tail_state_digest_issued": false
+    },
+    "missing_peripheral_branch_facts": {
+      "first_unresolved_service": "nds_gpu3d_run -> GPU3D::Run",
+      "recorded_projection": "service.gpu_debt = 0",
+      "projection_is_non_injective": true,
+      "facts_not_in_411": [
+        "GeometryEnabled",
+        "FlushRequest",
+        "CmdPIPE empty/contents",
+        "GXStat bit27",
+        "GPU Timestamp",
+        "raw CycleCount and relevant pipeline state"
+      ],
+      "source_model_witness": "same CyclesToRunFor()=0, disabled path dispatches 0 commands; enabled/nonempty path reaches ExecuteCommand once",
+      "actual_AW9_GPU_branch_claimed": false
+    },
+    "forbidden_effects": [
+      "B4 fetch/account/dispatch or MMIO read",
+      "cap/cycle normalization",
+      "fake event or HALT",
+      "silently dropping protected fields or removing observer ownership",
+      "unmodeled scheduler/device/IRQ/ARM7/shutdown/persistence continuation"
+    ],
+    "blocked_on": [
+      "No owned pre-dispatch early-yield/phase transfer exists at the bound under-cap entry; ordinary return redispatches.",
+      "The complete existing 411-field observation does not identify the GPU Run branch, so a unique full scheduler-tail transcript/new-slice state cannot be certified."
+    ],
+    "tests": {
+      "python_cases": 1257,
+      "native_assertions": 1260,
+      "disposal_children": 2,
+      "local_evidence": "local/task-aw11/certification-004/",
+      "summary_sha256": "861b5cb780abb77d4029a58012e684d06c3339838da6584c6c4442bfc845a559",
+      "source_function_sha256": {
+        "void run_slice(int cpu, uint32_t quantum)": "06da6cadd2415eec98f518d283c8090fb8201ee6d3a05eb40ba08178326be6bc",
+        "void nds_tick_timers(": "ce63ef10cad987562b89dda7b5834da27195ed37fc8a3cca5887a384ea9217b9",
+        "s32 GPU3D::CyclesToRunFor()": "37eda106ea6734cff0958d0d35f7591479904e3fa2440892e0a93b5b72cf3b6b",
+        "void GPU3D::Run()": "bb02d2fc9923f7730c48d63d8b4ae14e151376c28c5cce9df709049ccbaa50ad"
+      }
+    },
+    "safety": {
+      "guest_instructions": 0,
+      "live_replays": 0,
+      "runtime_BrainAge_MMIO": 0,
+      "ROM_save_checkpoint_opened_or_mutated": false,
+      "normal_runtime_semantics_changed": false,
+      "old_guards_and_nonreturning_disposal_preserved": true,
+      "logical_save_requests": 0,
+      "Flash_commits": 0,
+      "changed_save_bytes": 0
+    },
+    "next_safe_task": "Separately authorized ROM-free one-use early-yield ownership plus pre-device fence, and minimal passive GPU branch/readiness projection; no replay or status-read execution."
+  }
+}

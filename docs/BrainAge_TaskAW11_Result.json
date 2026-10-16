@@ -1,0 +1,170 @@
+{
+  "task": "AW11",
+  "classification": "PARTIAL",
+  "classification_scope": "Complete existing terminal metadata binding; no positive zero-guest scheduler-tail handoff certificate",
+  "authority": {
+    "AW10": "c699e3a21207abaa72b8130bf54c0f189c846412",
+    "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af",
+    "framework": "3a57236bb23d25dcb4caad7d58d733311062ff5e"
+  },
+  "binding": {
+    "complete_existing_AW2S_terminal_bound": true,
+    "scalars": 411,
+    "identities": 5,
+    "canonical_schema": "AW2S v1",
+    "canonical_bytes": 8862,
+    "canonical_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "logical_metadata_sha256": "9371c23d952af17dcfc767c403a7ccdd7ba7354b8125a842decaf45bc92cb7f2",
+    "AW10_projection_cells_matched": 89,
+    "additional_cells_bound": 322,
+    "field_ownership_complete": true,
+    "getter_owner_counts": {
+      "bus": 84,
+      "cp15": 26,
+      "io": 157,
+      "journal": 64,
+      "runtime": 58,
+      "scheduler": 22
+    },
+    "provenance": "Scalar-only promotion of existing AW9 audit authenticated by committed AW9 SHA-256; no new capture and no values inferred from the hash",
+    "historical_audit_sha256": "cfa3acc3e55bd2abf8504f662ded00ac4ea14c3fa617a89b9f3ae6fc0e545f8b",
+    "historical_AW8_AW9_full_state_chain_exact_match": true,
+    "future_reconstruction_needs_local_audit": false,
+    "full_emulator_savestate_or_resumable_process": false
+  },
+  "early_yield": {
+    "cap_expired": false,
+    "poll_before": false,
+    "next_read_cost": 8,
+    "hypothetical_read_commit": 3416875785,
+    "next_fetch_account_dispatch_forbidden": "0x020019B4 / E1D100B0",
+    "ordinary_or_unwind_only_return": "run_slice redispatches while cycles < local cap",
+    "existing_legal_early_yield_reason": null
+  },
+  "handoff": {
+    "zero_guest_scheduler_handoff_certified": false,
+    "existing_terminal_nonreturning": true,
+    "plain_return_or_unwind_redispatches": true,
+    "new_owned_exit_phase_installed": false,
+    "complete_tail_new_slice_state_determined": false,
+    "GPU_debt_projection_non_injective": true,
+    "unobserved_GPU_facts": [
+      "GeometryEnabled",
+      "FlushRequest",
+      "CmdPIPE empty/contents",
+      "GXStat bit27",
+      "GPU Timestamp",
+      "raw CycleCount and relevant pipeline state"
+    ],
+    "tail_order": [
+      "ARM9_slot_save",
+      "ARM9_timers",
+      "GPU3D",
+      "ARM7_HALT_catchup",
+      "ARM7_timers",
+      "poweroff_check",
+      "display",
+      "SPU",
+      "Wifi",
+      "RTC",
+      "system_events",
+      "system_timestamp",
+      "next_round",
+      "next_slice_begin"
+    ],
+    "conditional_scalar_models": {
+      "rendezvous": 1708437888,
+      "ARM7_HALT_catchup_cycles": 63,
+      "ARM7_debt_after": 2,
+      "timer_counter_accum": {
+        "0": [
+          14558,
+          62
+        ],
+        "4": [
+          50776,
+          43
+        ],
+        "5": [
+          64195,
+          39
+        ]
+      },
+      "timer_banks_last": 1708437888,
+      "timer_overflow_IRQ": 0,
+      "if_all_hidden_service_effects_inert_next_event": 1708437913,
+      "if_all_hidden_service_effects_inert_next_ARM9_target": 3416875826,
+      "new_cap_certified_or_set": false,
+      "post_tail_state_digest_issued": false
+    }
+  },
+  "certificate": {
+    "path": "tools/task_aw11/certificate.json",
+    "payload_sha256": "93cbc74ff5d94b2e7f2e14b3b02c30245bb9743ede5b138a4186c359251a4c8b",
+    "kind": "positive lossless terminal-metadata binding and negative existing scheduler-handoff certificate",
+    "positive_scheduler_execution": false,
+    "dynamic_execution_ready": false,
+    "guest_instructions_certified": 0,
+    "MMIO_accesses_certified": 0,
+    "forbidden_next": "0x020019B4 / E1D100B0 before fetch/accounting/dispatch",
+    "post_tail_digest_issued": false
+  },
+  "tests": {
+    "python_cases": 1257,
+    "native_assertions": 1260,
+    "disposal_children": 2,
+    "local_evidence": "local/task-aw11/certification-004/",
+    "summary_sha256": "861b5cb780abb77d4029a58012e684d06c3339838da6584c6c4442bfc845a559",
+    "source_function_sha256": {
+      "void run_slice(int cpu, uint32_t quantum)": "06da6cadd2415eec98f518d283c8090fb8201ee6d3a05eb40ba08178326be6bc",
+      "void nds_tick_timers(": "ce63ef10cad987562b89dda7b5834da27195ed37fc8a3cca5887a384ea9217b9",
+      "s32 GPU3D::CyclesToRunFor()": "37eda106ea6734cff0958d0d35f7591479904e3fa2440892e0a93b5b72cf3b6b",
+      "void GPU3D::Run()": "bb02d2fc9923f7730c48d63d8b4ae14e151376c28c5cce9df709049ccbaa50ad"
+    },
+    "all_passed": true,
+    "independent_historical_chain_observations": 69,
+    "stale_epoch_failure_originates_in_native_binding_rejection": true,
+    "actual_provider_or_live_full_scheduler_coupling_claimed": false,
+    "original_source_bodies_on_isolated_scalar_models": true,
+    "installed_headers_bound_to_committed_source": true,
+    "test_only_functions_are_not_production_activation": true
+  },
+  "safety": {
+    "guest_instructions": 0,
+    "live_replays": 0,
+    "runtime_BrainAge_MMIO": 0,
+    "ROM_save_checkpoint_opened_or_mutated": false,
+    "normal_runtime_semantics_changed": false,
+    "old_guards_and_nonreturning_disposal_preserved": true,
+    "logical_save_requests": 0,
+    "Flash_commits": 0,
+    "changed_save_bytes": 0,
+    "ROM_patched": false,
+    "generated_recomp_C_edited": false,
+    "save_SHA_historical_not_new_measurement": "a105aaff6472a7ab86132c69c7df94b9490fbfa04aca19e50855abda87bf1abb",
+    "old_attempt_and_permission_locks_unchanged": true,
+    "unrelated_Inbox_commit_preserved": true,
+    "untracked_archive_preserved": true
+  },
+  "remaining_blockers": [
+    "No owned pre-dispatch early-yield/phase transfer exists at the bound under-cap entry; ordinary return redispatches.",
+    "The complete existing 411-field observation does not identify the GPU Run branch, so a unique full scheduler-tail transcript/new-slice state cannot be certified."
+  ],
+  "evidence_limits": [
+    "All 411 existing observations are bound, not all possible emulator/GPU/renderer/banked CPU/host-stack state.",
+    "The new fixture is authenticated historical scalar metadata, not a fresh measurement or live provider identity substitution.",
+    "The run_slice rail models the existing dispatch return; it does not resume AW9 or dispatch any Brain Age instruction.",
+    "GPU ExecuteCommand is a test stub: the witness proves differing branch eligibility, not the actual historical GPU command/state.",
+    "Conditional timer/HALT/deadline arithmetic is not a complete actual scheduler-tail transcript or permission to reset a cap.",
+    "No positive scheduler transition, read, cap normalization, replay or execution is authorized."
+  ],
+  "next_safe_task": "Separately authorized ROM-free one-use early-yield ownership plus pre-device fence, and minimal passive GPU branch/readiness projection; no replay or status-read execution.",
+  "artifacts": {
+    "report": "docs/BrainAge_TaskAW11_TerminalBindingAndSchedulerHandoff.md",
+    "metadata": "tools/task_aw11/terminal.json",
+    "helpers": "tools/task_aw11/",
+    "local_evidence": "local/task-aw11/certification-004/",
+    "local_decision": "local/task-aw11/static-decision-001.json"
+  },
+  "stopped_after_AW11": true
+}
