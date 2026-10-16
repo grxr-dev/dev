@@ -1,0 +1,226 @@
+{
+  "schema": "AW14 lossless terminal-fence core reference and live GPU scalar metadata v1",
+  "authority": {
+    "AW13": "1d64040633738bc63b5f49d2718d5c30dbad801c",
+    "AW12": "b60203a9d30b3a8536395aaacdd15d126ee88399",
+    "AW9": "fb3e417aa48cc70cc4c05f796263c9cf87b791af"
+  },
+  "audit_sha256": "23333fa102ef4f897a4c6ed9f69fb1c8c5be4f039d4b438b576ba492b606eb45",
+  "analysis_sha256": "e1a01c6d7a5af1fc219cc4161ed3a30addac549cce43221046e9a8a5ebd1159e",
+  "core": {
+    "base_authority": "b10e83d9f5e236930d7b2fd8e1b2b301e978decc",
+    "base_metadata": "tools/task_aw11/terminal.json",
+    "base_canonical_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+    "canonical_schema": "AW2S v1",
+    "scalar_count": 411,
+    "identity_count": 5,
+    "changes": [
+      {
+        "name": "unwinding",
+        "width": 1,
+        "before": 0,
+        "after": 1
+      },
+      {
+        "name": "slot9.cycle",
+        "width": 8,
+        "before": 3416875650,
+        "after": 3416875777
+      }
+    ],
+    "canonical_sha256": "3528c2be122178850a3d3c78157cdd1adaf5409e5eb32f6d794e1c3f81d27d84",
+    "all_other_fields_and_identities": "exactly unchanged"
+  },
+  "GPU": {
+    "schema": "AW2S v1 with gpu.schema=1",
+    "fields": [
+      [
+        "gpu.arm9_timestamp",
+        8,
+        3416875650
+      ],
+      [
+        "gpu.clock_shift",
+        1,
+        1
+      ],
+      [
+        "gpu.cycles",
+        4,
+        0
+      ],
+      [
+        "gpu.exec_parameters",
+        4,
+        0
+      ],
+      [
+        "gpu.fifo.count",
+        4,
+        0
+      ],
+      [
+        "gpu.flush",
+        4,
+        0
+      ],
+      [
+        "gpu.geometry",
+        1,
+        1
+      ],
+      [
+        "gpu.normal_pipeline",
+        4,
+        0
+      ],
+      [
+        "gpu.pipe.count",
+        4,
+        0
+      ],
+      [
+        "gpu.polygon_pipeline",
+        4,
+        0
+      ],
+      [
+        "gpu.push_pop",
+        4,
+        0
+      ],
+      [
+        "gpu.schema",
+        2,
+        1
+      ],
+      [
+        "gpu.stall.count",
+        4,
+        0
+      ],
+      [
+        "gpu.stat",
+        4,
+        2147483648
+      ],
+      [
+        "gpu.tests",
+        4,
+        0
+      ],
+      [
+        "gpu.timestamp",
+        8,
+        1708437825
+      ],
+      [
+        "gpu.vertex_pipeline",
+        4,
+        0
+      ],
+      [
+        "gpu.vertex_slot_counter",
+        4,
+        0
+      ],
+      [
+        "gpu.vertex_slots_free",
+        4,
+        1
+      ]
+    ],
+    "identities": [],
+    "canonical_sha256": "708de6de2568d09123820267c9daaa7abd49321e90e275923ac93d96513ad5d4",
+    "source": "actual runtime-owned GPU getter; two identical passive samples; not the synthetic AW12 fixture"
+  },
+  "ownership": {
+    "ticket": 1,
+    "frame": 566,
+    "frame_depth_at_fence": 0,
+    "saved_unwind_valid_at_fence": false,
+    "outermost_entry_predicate_passed": true,
+    "transcript": [
+      {
+        "event": "yield_requested",
+        "index": 0,
+        "phase": 1,
+        "saved_valid": false,
+        "frame_depth": 1,
+        "chain": "49692a3572146b52db656a0fe3ed7165ccdf6da2dc0a643bb67cce9593aee481"
+      },
+      {
+        "event": "tier3_exit",
+        "index": 1,
+        "phase": 2,
+        "saved_valid": false,
+        "frame_depth": 1,
+        "chain": "7a8e2a7ad28f3e87296075318ab0281e5294b8bb26ea521d2e196d1a126e9184"
+      },
+      {
+        "event": "unwind_preserved",
+        "index": 2,
+        "phase": 3,
+        "saved_valid": true,
+        "frame_depth": 1,
+        "chain": "b60501b5df29be53525f0aee23d4e2d04be3a8d95cda25841fef29a969143ccd"
+      },
+      {
+        "event": "slice_consumed",
+        "index": 3,
+        "phase": 4,
+        "saved_valid": false,
+        "frame_depth": 0,
+        "chain": "d09185d72d815e21b62ac199d5fdb706f618580ae9519b128a5446362a662db0"
+      },
+      {
+        "event": "slot_saved",
+        "index": 4,
+        "phase": 5,
+        "saved_valid": false,
+        "frame_depth": 0,
+        "chain": "c06966e227d91af25756d6473762c052334d395563607af6e1fa4ae2204abb37"
+      },
+      {
+        "event": "pre_device_fence",
+        "index": 5,
+        "phase": 6,
+        "saved_valid": false,
+        "frame_depth": 0,
+        "chain": "a0eeccd3a70fe111e197e1b91529128b3c0559fb5832528d012e01fa2a4d6e5f"
+      },
+      {
+        "event": "gpu_observed",
+        "index": 6,
+        "phase": 6,
+        "saved_valid": false,
+        "frame_depth": 0,
+        "chain": "ea16c2ee6b4af5888aa50389b70ab41f40fb8fec68cea0a6861e2dabe5d4221e"
+      },
+      {
+        "event": "scheduler_admitted_capture_only",
+        "index": 7,
+        "phase": 7,
+        "saved_valid": false,
+        "frame_depth": 0,
+        "chain": "10bad78f6ef2fd96a21b26be7e074943e6ded5fa5541844c731d3e39892472b4"
+      }
+    ]
+  },
+  "CPU": {
+    "PC": "0x020019B4",
+    "cycle9": 3416875777,
+    "cap": 3416875778,
+    "ordinal9": 281098019,
+    "cycle7": 1708437825,
+    "ordinal7": 96026779
+  },
+  "terminal": {
+    "phase": "pre-device capture-only fence",
+    "exit": 73,
+    "guest_reentry": false,
+    "new_slice_or_cap": false
+  },
+  "not_resumable_emulator_or_host_process_state": true,
+  "additional_execution_authorized": false
+}

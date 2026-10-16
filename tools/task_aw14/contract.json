@@ -1,0 +1,13 @@
+{
+  "task": "AW14",
+  "authority": "1d64040633738bc63b5f49d2718d5c30dbad801c",
+  "prefix_certificate_sha256": "8381e1335266a05767982f292eb5237eb157bb5d8d9ea431c1a81d7552bae417",
+  "fence_certificate_sha256": "f6fd9d90ad504f8b8be0b6626876434fbeb38104c79e4180cc121b9528a02ad2",
+  "entry_sha256": "0c4d6082c1a7eb2ec11c57447b26d5dd984599e12fdf6dc5b40465f68ac9304c",
+  "terminal_sha256": "ca5a376e0b5c0b70ed2dccc9155c7ba2a28332513fe27ee0cff8c52b013a6526",
+  "prerequisite": "exact historical AU checkpoint/gesture plus 11 instructions/56 cycles/five divider writes",
+  "after_terminal": "AW12 unchanged zero-guest capture to pre-device fence then nonreturning disposal",
+  "B4_fetch_account_dispatch": false,
+  "service_after_terminal": false,
+  "retry_authorized": false
+}
