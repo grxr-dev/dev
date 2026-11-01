@@ -1,0 +1,74 @@
+{
+  "classification": "PASS_LOCAL_NON_BROWSER_ONLY",
+  "binding": {
+    "schema": "middleman-inbox-binding/1",
+    "build": "inbox-binding-20261101-01",
+    "conversation_id": "6ae5615a-0720-83ea-a43b-82386ce031e5",
+    "generation": 1,
+    "epoch": "b2108916e5fb44098859a58e0252a2ad",
+    "delivery_policy": "HOLD",
+    "identity": "376671cc6cefba6f6e5f95284f13b7a96deb912518a3a0032ae97845bd3493c3"
+  },
+  "health": {
+    "bridge_pid": 27972,
+    "rpc_process_id": 20652,
+    "turn_active": true,
+    "bridge_healthy": true,
+    "bridge_source_sha256": "a269a082c821bfd75cefd03fc7cd2c452f2ff1be7e5e603b1a0c02e149ec7287"
+  },
+  "no_send_handshake": {
+    "build": "inbox-binding-20261101-01",
+    "observed_ms": 1793516196265,
+    "native_pid": 22188,
+    "match_count": 1,
+    "ready": true,
+    "reason": "ready",
+    "binding_identity": "376671cc6cefba6f6e5f95284f13b7a96deb912518a3a0032ae97845bd3493c3",
+    "content": {
+      "binding_identity": "376671cc6cefba6f6e5f95284f13b7a96deb912518a3a0032ae97845bd3493c3",
+      "bound": true,
+      "busy": false,
+      "composer_empty": true,
+      "composer_present": true,
+      "generation_active": false,
+      "reachable": true,
+      "ready": true,
+      "reason": "ready"
+    }
+  },
+  "validator_live": "inbox-recovery-once-20261015-01",
+  "validator_expected": "inbox-recovery-binding-20261101-01",
+  "validator_activation": "STILL_NEEDS_POST_TURN_ACTIVATION",
+  "queue_journal_hold_unchanged": true,
+  "protected_sha256": {
+    "inbox_native_recovery.json": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "inbox_queue.json": "25f1b52b344423260a5d009b3f14855152dd01dfa810610f2c37ca13fb9a8112",
+    "inbox_readiness_request.json": "7e4449fe2a92b87ccfa921cedd11c6efed62beb942a5a7f5b4a0fa30cf0c960e"
+  },
+  "start_twice": "reused tray37780 bridge27972 appserver20652; no restart",
+  "browser_automation": false,
+  "send_or_ack": false,
+  "auth_vm_last_verified_comment": 6554363878,
+  "tests": {
+    "binding_python": 18,
+    "binding_javascript": 10,
+    "status_python": 5,
+    "selected_existing_regressions": 37,
+    "total_authoritative_passed": 70,
+    "powershell_parser": "PASS",
+    "start_twice": "same tray/bridge/App Server PIDs",
+    "legacy_full_runs": {
+      "trace": "4 run: 2 pass, 2 old unbound-native ACK expectation failures",
+      "retention": "12 run: 10 pass, 2 old unbound-native outcome/ACK expectation failures",
+      "hardening": "30 run: 25 pass, 3 failures and 2 errors in old unbound-native fixtures; HandlerTests setup error because production already owns 18741"
+    },
+    "legacy_fixture_disposition": "No production gate weakened. Explicit run_regressions.py selects unaffected tests; new test_binding.py replaces unbound-native assumptions with HOLD/no HTTP or ACK contracts."
+  },
+  "post_turn_activation": {
+    "method": "After current task terminates and monitor shows idle, existing tray > Restart Bridge, then Check Middleman.cmd",
+    "guard": "existing tray sends shutdown if_idle=true and waits for accepted acknowledgement; same tray retains bearer",
+    "automatic_restart_armed": false,
+    "reason": "existing detached activator is fixed to another request and PID24184; not safe to reuse"
+  },
+  "manual_browser_action_now": "None at verified no-send receipt time; after Firefox restart load existing manifest manually and refresh intended tab"
+}

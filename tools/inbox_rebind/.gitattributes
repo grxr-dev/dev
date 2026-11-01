@@ -1,0 +1,2 @@
+production/** -text whitespace=cr-at-eol
+middleman/** -text whitespace=cr-at-eol

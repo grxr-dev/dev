@@ -1,0 +1,18 @@
+{
+  "schema": "inbox-rebind-source/1",
+  "production_files_sha256": {
+    "inbox_binding.py": "da1723622e93a078e1110d5e5f894fd92cc4efc8c784835f050bb023977188d8",
+    "inbox_recovery.py": "45b5158aa8852750063eb74b49a4790eaa53111a1e3ff16afe89f54cc012aeed",
+    "inbox-v1/native-host/jarvis_inbox_host.py": "69dba8ff25510f4c733c711ef7197d66c527d40a6669a8340082df7307cc7d09",
+    "inbox-v1/native-host/readiness_diagnostic.py": "2e424f4f5d9fcc55c9ccbee746072a0720630ccd873783585e0d971648ae3510",
+    "inbox-v1/extension/binding_contract.js": "75d5377b78af338337138e35e8c4d4ceb1d42a5964a8a43f6ac6829133ebbe29",
+    "inbox-v1/extension/background.js": "2cdb4cea896f074ced9c7b519115af240e4ae3d0a7e70f04e233b84dfa4ef9c0",
+    "inbox-v1/extension/chatgpt_content.js": "6b54ebffd5a12118fd108e9b66b4b6996dcabea8ab5e20b26c4feb9028100201",
+    "inbox-v1/extension/manifest.json": "ac1d85bf11fd4ec2f732ee614cfcaf693ce7b1f4a262251735acb0701bcaafd6",
+    "inbox-v1/binding.py": "700d663410907b0118dd7756d81caa043fe0f5764efbe7280809410e453b89ef",
+    "inbox-v1/middleman_status.py": "e643de42258c72ff20619152bf57fce38795a25c44c676ebdba1de294ce68ae2",
+    "inbox-v1/readiness_probe.py": "24dc99152c7972ff3d8d938abd3fb7c82371162b153b4580f84c744165807bd0",
+    "inbox-v1/recover_once.py": "41a07b90e15ceed2c61fc311e553efea08ba88b9f7439bd358fde2ebc6cceab0",
+    "inbox-v1/bind_disposable.py": "210552b99497b38caa1337df73b3fa2cf4a375c5a5bdd9e38b83fff33b656150"
+  }
+}
