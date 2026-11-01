@@ -1,0 +1,33 @@
+{
+  "classification": "PARTIAL_NOT_DEPLOYED_OR_LIVE_PROVEN",
+  "production_source_identity": "89d9cfb3df159b1c5e332d0be127fa37bdacad8f072d5dcf5bab4e740967921d",
+  "prepared_source_identity": "e7e72008cbecd2299a424f68d34ddf03e104cd8e65b9f86f01f3173160d6f852",
+  "delivery_policy": "HOLD",
+  "source_deployed": false,
+  "future_mode": "ABSENT_NOT_ENABLED",
+  "new_source_default": "PREPARED_DISABLED",
+  "owner_launcher": "C:/Users/rustg/Desktop/Commands/Middleman/Finish Future Delivery.cmd",
+  "source_plan_prepared": true,
+  "scheduled_or_detached_worker": false,
+  "historical_queue_count": 66,
+  "historical_queue_sha256": "382e6744e60cc0bd74f1fcf1d70810f14d0babd05054b86b5197dd5b02bdc45d",
+  "historical_queue_journal_hold_unchanged": true,
+  "finished95": {
+    "state": "DELIVERED",
+    "attempt_count": 1,
+    "grant": "FINISHED",
+    "rearmed": false
+  },
+  "tests": {
+    "windows_python": 10,
+    "windows_javascript": 5,
+    "windows_upgrade_rollback_and_authorization": 2,
+    "windows_total": 17,
+    "large_suites_rerun": false,
+    "vm_reported_checks": 21,
+    "vm_evidence_comment": 6560241301
+  },
+  "senior_disabled_only_comment": 6560156429,
+  "fresh_synthetic_requested": false,
+  "new_result_landed": false
+}

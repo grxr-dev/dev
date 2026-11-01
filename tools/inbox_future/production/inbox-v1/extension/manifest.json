@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "Jarvis Inbox V1",
+  "version": "1.4",
+  "description": "Local inbox delivery into one bound conversation only.",
+  "permissions": [
+    "nativeMessaging",
+    "tabs"
+  ],
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "binding_contract.js",
+      "future_contract.js",
+      "one_contract.js",
+      "background.js"
+    ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "jarvis-inbox-v1@grxr.ca",
+      "strict_min_version": "115.0"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*"
+      ],
+      "js": [
+        "binding_contract.js",
+        "future_contract.js",
+        "one_contract.js",
+        "candidate_analysis.js",
+        "chatgpt_content.js"
+      ],
+      "all_frames": false,
+      "run_at": "document_idle"
+    }
+  ]
+}

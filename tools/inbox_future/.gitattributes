@@ -1,0 +1,3 @@
+production/** -text whitespace=cr-at-eol
+/*.py text eol=lf
+/source-manifest.json -text whitespace=cr-at-eol
