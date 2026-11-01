@@ -96,7 +96,7 @@ class FutureLane:
  def ready(self):
   if not self.legacy._recovery_check:raise Conflict('fresh future readiness required')
   r=self.legacy._recovery_check()
-  if r['content'].get('future_build')!=BUILD or r['content'].get('future_lane_seal')!=config(self.runtime)['seal']:raise Conflict('loaded future content/lane capability required')
+  if r['content'].get('proof_build')!='inbox-raw-user-proof-20261101-01' or r['content'].get('future_build')!=BUILD or r['content'].get('future_lane_seal')!=config(self.runtime)['seal']:raise Conflict('loaded future content/lane capability required')
  def claim(self):
   with self.q.lock:
    v=config(self.runtime)

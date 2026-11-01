@@ -1,0 +1,31 @@
+{
+  "schema": "inbox-verifier-reviewed-source/1",
+  "proof_build": "inbox-raw-user-proof-20261101-01",
+  "old_binding_identity": "e7e72008cbecd2299a424f68d34ddf03e104cd8e65b9f86f01f3173160d6f852",
+  "new_binding_identity": "eb789679d470bea0061e4c2fdbbbeb11aea329bb8d2262b49fa768e22b784a3e",
+  "old_lane_seal": "c6e78aa85c3f61d2eccaf82c8ee28fed7adccb9d7aca44d9634f60aab6418028",
+  "new_lane_seal": "975fe745ad5aa2366cc391b0f728ec4bda2c29753773f69d45a69c8711d59d2c",
+  "lane_id": "90df5616a7c1490d9e8af8d1bb78dfb6",
+  "completion_cutoff": 129,
+  "request_cutoff": 129,
+  "component_sha256": {
+    "completions.py": "84e52d4a3f94ca3600990004f684b7da4cbca9b05149a507edae235d6a6ea75e",
+    "inbox-v1/extension/background.js": "8b31cba695a25eda392c228dd188f28d2de562db8f17ffe3dbe7c6c3ef0a39d4",
+    "inbox-v1/extension/binding_contract.js": "75d5377b78af338337138e35e8c4d4ceb1d42a5964a8a43f6ac6829133ebbe29",
+    "inbox-v1/extension/chatgpt_content.js": "6718107c1812cd4cbfce995b31b94e247c81cdfc19dedbc85d067b6397119c2a",
+    "inbox-v1/extension/future_contract.js": "fac36a96eded9419f2ca5cc992260616d45ecb51ad05babc80eef0adf6b4777a",
+    "inbox-v1/extension/manifest.json": "bdab009e56ab6a34bc1c7c8a4b1cb5786d1ebbf306a97bc17b47fc27abdb0626",
+    "inbox-v1/extension/one_contract.js": "d54d9637e49d47530ecf661f1771b14ae54dd7fbbd3bdf392af870f67737a177",
+    "inbox-v1/native-host/jarvis_inbox_host.py": "b5902f1f01f03a8bd6e9640882626ae926329f9eb2e4484ffc1ad1979180ed16",
+    "inbox-v1/native-host/readiness_diagnostic.py": "917152007b005c0878c32c8cbf8b701a595949801b3d34d58dc76dd8cfa3c1d6",
+    "inbox_api.py": "197c8780edc4e58a06e6b8e369f061c97fe6271982f39584bb8bb507d45cb625",
+    "inbox_binding.py": "41c42bde7dfdfb5f38a6526c429c63c1cbf14559e213477b2036dc9b67483009",
+    "inbox_future.py": "14dc114add5d30191ce22c4f97de56e764341e7508b9ea318fc3a854d9e530c3",
+    "inbox_local.py": "d7ed792a6a02deb9450943ca87f2a027cf8fec4308a5b802aef0e441eb47d504",
+    "inbox_one.py": "ffaa4773be099299c9732f91936c5eb1eb76af5d9de6400a71a40a6667721578",
+    "inbox_queue.py": "3c63f69d52779e012854d3e7a97669112609021c9b554e5fa22dbdee2322d1b4",
+    "inbox_recovery.py": "45b5158aa8852750063eb74b49a4790eaa53111a1e3ff16afe89f54cc012aeed",
+    "inbox_wire.py": "30fa70435879368c56059b039b9f90e09c78f8d729173940bb68cbef7bb09947",
+    "relay_state.py": "af9152b1b92af4a68ef7fef60f3cd007fda55de80e05e74dfa76985517e4c2f1"
+  }
+}

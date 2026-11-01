@@ -1,6 +1,92 @@
 "use strict";
 let BOUND_CONVERSATION_ID=null, configuredBinding=null, configuredFutureLane=null;
 const VERIFIER_BUILD='inbox-v1-trace2-20261011-01';
+const CONTENT_PROOF_BUILD='inbox-raw-user-proof-20261101-01';
+
+// Read data properties only: never invoke a page function/getter or use eval.
+// Firefox Xray wrappers hide React's expando data; wrappedJSObject is the
+// authorized content script's read-only view, not a new permission or RPC.
+function ownData(object,key){
+ try{const d=Object.getOwnPropertyDescriptor(object,key);return d&&Object.prototype.hasOwnProperty.call(d,'value')?d.value:undefined;}catch(_){return undefined;}
+}
+function rawUserMessage(el,id){
+ const texts=new Set();let invalid=false,budget=2048,models=0;
+ const visited=new Set();
+ function walk(root){
+  const pending=[[root,0]];
+  while(pending.length&&budget>0){
+   const [value,depth]=pending.shift();
+   if(!value||typeof value!=='object'||visited.has(value)||depth>8)continue;
+   visited.add(value);budget--;
+   if(ownData(value,'id')===id){
+    const author=ownData(value,'author'),content=ownData(value,'content');
+    if(author!==undefined||content!==undefined){
+     models++;
+     const parts=ownData(content,'parts'),conv=ownData(value,'conversation_id');
+     if(ownData(author,'role')!=='user'||ownData(content,'content_type')!=='text'||!Array.isArray(parts)||parts.length>64||(conv!==undefined&&conv!==BOUND_CONVERSATION_ID)){invalid=true;continue;}
+     const chunks=[];
+     for(let i=0;i<parts.length;i++){const part=ownData(parts,String(i));if(typeof part!=='string'){invalid=true;break;}chunks.push(part);}
+     const text=chunks.join('');
+     if(text.length>131072){invalid=true;continue;}
+     if(chunks.length===parts.length)texts.add(canonicalText(text));
+    }
+   }
+   let keys=[];try{keys=Object.getOwnPropertyNames(value);}catch(_){continue;}
+   // Only framework message/container paths, never arbitrary page state.
+   for(const key of keys.slice(0,512)){
+    if(!/^(?:message|messages|userMessage|props|data|item|items|node|nodes|children|value|values|mapping|turn|turns|[0-9]+|[0-9a-f-]{36})$/.test(key))continue;
+    const child=ownData(value,key);if(child&&typeof child==='object')pending.push([child,depth+1]);
+   }
+  }
+ }
+ let node=el;
+ for(let ancestors=0;node&&ancestors<6;ancestors++,node=node.parentElement){
+  let page=node;try{page=node.wrappedJSObject||node;}catch(_){}
+  let keys=[];try{keys=Object.getOwnPropertyNames(page);}catch(_){continue;}
+  for(const key of keys){
+   if(key.startsWith('__reactProps$'))walk(ownData(page,key));
+   if(key.startsWith('__reactFiber$')){
+    let fiber=ownData(page,key);
+    for(let i=0;fiber&&i<8;i++,fiber=ownData(fiber,'return'))walk(ownData(fiber,'memoizedProps'));
+   }
+  }
+ }
+ if(budget===0)return {status:'budget_exhausted',models,text:null};
+ if(invalid||texts.size>1)return {status:'conflicting_or_unsupported_model',models,text:null};
+ return texts.size===1?{status:'raw_user_model',models,text:[...texts][0]}:{status:'model_unavailable',models,text:null};
+}
+function nodeProvenance(el){
+ // Structure/lengths only. No message text, URL, arbitrary label or attribute.
+ const nodes=[],pending=[[el,0]];
+ while(pending.length&&nodes.length<32){
+  const [n,depth]=pending.shift();
+  if(n.nodeType===3){nodes.push({type:'text',length:(n.nodeValue||'').length,depth});continue;}
+  if(n.nodeType!==1)continue;
+  const tag=String(n.tagName||'').toLowerCase();
+  nodes.push({type:tag,depth,bubble:n.getAttribute('data-user-message-bubble')==='true',markdown:n.getAttribute('data-markdown-text-tone')==='user-message',interactive:['button','input','textarea','select'].includes(tag)||n.getAttribute('role')==='button'});
+  if(depth<3)for(const child of Array.from(n.childNodes||[]).slice(0,16))pending.push([child,depth+1]);
+ }
+ return nodes;
+}
+async function receiptDiagnostics(targets){
+ if(!bound()||!Array.isArray(targets)||targets.length>2)return [];
+ const result=[];
+ for(const target of targets){
+  const nodes=Array.from(document.querySelectorAll(CURRENT_USER_SELECTOR)).filter(el=>currentUserIdentity(el)===target.user_turn_uuid);
+  const proofs=nodes.map(el=>rawUserMessage(el,target.user_turn_uuid));
+  const values=new Set(proofs.filter(p=>p.status==='raw_user_model').map(p=>p.text));
+  const bad=proofs.some(p=>!['raw_user_model','model_unavailable'].includes(p.status));
+  const observed=!bad&&values.size===1?[...values][0]:null;
+  const observedHash=observed===null?null:await hash(observed);
+  const rendered=nodes.length&&typeof nodes[0].innerText==='string'?canonicalText(nodes[0].innerText):null;
+  result.push({delivery_id:target.delivery_id,uuid:target.user_turn_uuid,expected_sha256:target.text_sha256,
+   observed_sha256:observedHash,exact:observedHash===target.text_sha256&&observed!==null,bound:bound(),
+   rendered_sha256:rendered===null?null:await hash(rendered),rendered_length:rendered===null?null:rendered.length,raw_model_length:observed===null?null:observed.length,
+   node_count:nodes.length,model_status:bad?'conflicting_or_unsupported_model':values.size===1?'raw_user_model':'model_unavailable',
+   structure:nodes.length?nodeProvenance(nodes[0]):[]});
+ }
+ return result;
+}
 
 // Tracing-only identity observations; never used as delivery gates.
 function conversationIdFromUrl(doc=document){
@@ -87,11 +173,23 @@ function currentUserIdentity(el){
  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id||'')?id:null;
 }
 function userMessages(doc=document,{historical=false}={}){
- const messages=new Map(),bubbleOnlyIds=new Set(),markdownIds=new Set(),legacyIds=new Set();
+ const messages=new Map(),bubbleOnlyIds=new Set(),markdownIds=new Set(),legacyIds=new Set(),modelIds=new Set();
  function visible(el){if(!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;if(historical)return true;const style=doc.defaultView.getComputedStyle(el);return el.getClientRects().length>0&&style.display!=="none"&&style.visibility!=="hidden"&&style.opacity!=="0";}
  for(const el of doc.querySelectorAll(CURRENT_USER_SELECTOR)){
   const id=currentUserIdentity(el);
   if(!id||!visible(el))continue;
+  const raw=rawUserMessage(el,id);
+  if(raw.status!=='model_unavailable'){
+   // An available model is authoritative. A wrong/conflicting model never
+   // falls back to a convenient rendered-string match.
+   const text=raw.status==='raw_user_model'?raw.text:null;
+   const alreadyModel=modelIds.has(id);modelIds.add(id);
+   if(!alreadyModel)messages.set(id,text);
+   else if(messages.has(id)&&messages.get(id)!==text)messages.set(id,null);
+   else if(!messages.has(id))messages.set(id,text);
+   continue;
+  }
+  if(modelIds.has(id))continue;
   let body=el;
   if(el.getAttribute('data-user-message-bubble')==='true'){
    const texts=el.querySelectorAll('[data-markdown-text-tone="user-message"]');
@@ -114,7 +212,7 @@ function userMessages(doc=document,{historical=false}={}){
   const body=el.querySelector('.whitespace-pre-wrap')||el,text=logicalText(body);
   if(text!==null){messages.set(id,text);legacyIds.add(id);}
  }
- return Array.from(messages,([id,text])=>({id,text,bubbleOnly:bubbleOnlyIds.has(id)&&!markdownIds.has(id),source:markdownIds.has(id)?'markdown-tone':legacyIds.has(id)?'legacy':'bubble'})).filter(turn=>turn.text!==null);
+ return Array.from(messages,([id,text])=>({id,text,bubbleOnly:!modelIds.has(id)&&bubbleOnlyIds.has(id)&&!markdownIds.has(id),source:modelIds.has(id)?'raw-user-model':markdownIds.has(id)?'markdown-tone':legacyIds.has(id)?'legacy':'bubble'})).filter(turn=>turn.text!==null);
 }
 function sendButton(doc=document){
  const selectors='button[type="submit"][aria-label="Send"],button[data-testid="send-button"],button[aria-label="Send prompt"],button[aria-label="Send message"]';
@@ -245,7 +343,7 @@ async function deliver(d){
 }
 // Read-only: never invokes insert(), Send, deliver(), tracing or seen-ID state.
 function readiness(){
- const r={reachable:true,one_build:ONE_BUILD,future_build:FUTURE_BUILD,future_lane_seal:configuredFutureLane?configuredFutureLane.seal:null,binding_identity:configuredBinding?configuredBinding.identity:null,bound:bound(),composer_present:false,composer_empty:false,generation_active:false,busy:busy,ready:false,reason:'page_unbound'};
+ const r={reachable:true,proof_build:CONTENT_PROOF_BUILD,one_build:ONE_BUILD,future_build:FUTURE_BUILD,future_lane_seal:configuredFutureLane?configuredFutureLane.seal:null,binding_identity:configuredBinding?configuredBinding.identity:null,bound:bound(),composer_present:false,composer_empty:false,generation_active:false,busy:busy,ready:false,reason:'page_unbound'};
  if(!r.bound)return r;
  try{
   const editor=composer();r.composer_present=!!editor;
@@ -260,7 +358,7 @@ function readiness(){
 if(typeof browser!=='undefined')browser.runtime.onMessage.addListener((msg,sender)=>{
   if(!sender||sender.id!==browser.runtime.id)return undefined;
   if(msg&&msg.cmd==='readiness'){
-    try{configuredBinding=checkedBinding(msg.binding);configuredFutureLane=msg.future_lane?checkedFutureLane(msg.future_lane,configuredBinding):null;BOUND_CONVERSATION_ID=configuredBinding.conversation_id;return Promise.resolve(readiness());}
+    try{configuredBinding=checkedBinding(msg.binding);configuredFutureLane=msg.future_lane?checkedFutureLane(msg.future_lane,configuredBinding):null;BOUND_CONVERSATION_ID=configuredBinding.conversation_id;return receiptDiagnostics(msg.diagnostic_targets||[]).then(diagnostics=>({...readiness(),diagnostics}));}
     catch(_){configuredBinding=null;BOUND_CONVERSATION_ID=null;return Promise.resolve(readiness());}
   }
   if(!msg||msg.cmd!=='deliver'||!bound())return undefined;

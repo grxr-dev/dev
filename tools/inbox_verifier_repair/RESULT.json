@@ -1,0 +1,21 @@
+{
+  "classification": "PARTIAL_PREPARED_NOT_LIVE",
+  "objective": "Restore exact unattended result verification without comparing raw Markdown to rendered innerText",
+  "production_source_or_delivery_state_changed": false,
+  "seq133_receipt_committed": false,
+  "no_send_or_rearm": true,
+  "new_proof_build": "inbox-raw-user-proof-20261101-01",
+  "live_framework_model_available": "NOT_YET_PROVEN; required no-send activation guard",
+  "rendering_root_node": "Not identified by retained hashes; no claim of live HTML capture",
+  "tests": {"model_dom": 12, "background_probe": 2, "migration_native": 9, "receipt_kernel": 9, "passed": 32},
+  "owner_launcher": "tools/inbox_verifier_repair/Finish Relay Repair.cmd",
+  "browser_step": "Reload existing temporary Inbox extension then refresh NEW tab when launcher prompts",
+  "old_binding_identity": "e7e72008cbecd2299a424f68d34ddf03e104cd8e65b9f86f01f3173160d6f852",
+  "prepared_new_binding_identity": "eb789679d470bea0061e4c2fdbbbeb11aea329bb8d2262b49fa768e22b784a3e",
+  "old_lane_seal": "c6e78aa85c3f61d2eccaf82c8ee28fed7adccb9d7aca44d9634f60aab6418028",
+  "prepared_new_lane_seal": "975fe745ad5aa2366cc391b0f728ec4bda2c29753773f69d45a69c8711d59d2c",
+  "lane_id_unchanged": "90df5616a7c1490d9e8af8d1bb78dfb6",
+  "cutoffs_unchanged": [129, 129],
+  "recipient_generation_epoch_hold_unchanged": true,
+  "live_cursor_gt135_and_new_automatic_delivery": "NOT_YET_PROVEN"
+}

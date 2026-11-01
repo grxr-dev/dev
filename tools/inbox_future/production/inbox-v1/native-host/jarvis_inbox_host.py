@@ -175,7 +175,16 @@ class Transport:
             if future_config(self.path.parent):
                 snapshot=probe_status(self.path.parent)
                 if not snapshot['no_send_ready'] or snapshot['readiness']['content'].get('future_build')!=FUTURE_BUILD or snapshot['readiness']['content'].get('future_lane_seal')!=future_config(self.path.parent)['seal']:
-                    atomic(self.readiness.request,{'probe_id':uuid.uuid4().hex,'binding_identity':binding['identity']})
+                    # An owner no-send provenance probe must reach the content
+                    # script once. After its result is recorded normal freshness
+                    # probes resume, so this cannot strand routine delivery.
+                    owner_probe={};recorded={}
+                    try:owner_probe=unique_json(self.readiness.request.read_text(encoding='utf-8'))
+                    except (OSError,ValueError):pass
+                    try:recorded=unique_json(self.readiness.result.read_text(encoding='utf-8'))
+                    except (OSError,ValueError):pass
+                    pending_probe=owner_probe.get('binding_identity')==binding['identity'] and bool(owner_probe.get('diagnostic_targets')) and owner_probe.get('probe_id')!=recorded.get('probe_id')
+                    if not pending_probe:atomic(self.readiness.request,{'probe_id':uuid.uuid4().hex,'binding_identity':binding['identity']})
             probe=self.readiness.poll()
             if probe.get('cmd')=='readiness_probe':return probe
             from inbox_binding import status as binding_status

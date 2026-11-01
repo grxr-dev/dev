@@ -20,6 +20,7 @@ UUID = 'c47dd71d-d0bc-433a-86fc-3ca4f85e94a4'
 INCIDENT_SHA = 'd7736e1ce2d3745e89ba9f04c6ac32dd04ee1bca61e0ab438de5eca76c120b8b'
 COMMENT = 6561497959
 AUTHORITY_SHA = '78958784629c2c8144bd1b493ff3e9c856a03bbb2ad58e88ce77534e6070ac1d'
+SEQUENCE, EXPECTED_LENGTH, OBSERVED_LENGTH, MISMATCH_INDEX, OBSERVATIONS = 132, 991, 1003, 991, 348
 
 
 def sha(raw):
@@ -55,15 +56,15 @@ def trace_proof(raw):
         for c in row.get('candidates', []):
             if c.get('uuid') == UUID:
                 if (c.get('in_baseline') is not False or c.get('canonical_match') is not False
-                        or c.get('normalization') != 'bubble' or c.get('expected_len') != 991
-                        or c.get('observed_len') != 1003 or c.get('mismatch_index') != 991):
+                        or c.get('normalization') != 'bubble' or c.get('expected_len') != EXPECTED_LENGTH
+                        or c.get('observed_len') != OBSERVED_LENGTH or c.get('mismatch_index') != MISMATCH_INDEX):
                     raise ValueError('retained target mismatch differs from owner receipt scope')
                 candidates.append(c)
-    if len(candidates) != 348 or not any(x['event'] == 'ack_committed' and x.get('state') == 'NEEDS_REVIEW' for x in rows):
+    if len(candidates) != OBSERVATIONS or not any(x['event'] == 'ack_committed' and x.get('state') == 'NEEDS_REVIEW' for x in rows):
         raise ValueError('incomplete retained receipt evidence')
     return {'incident_sha256': INCIDENT_SHA, 'retained_user_turn_uuid': UUID,
             'candidate_observations': len(candidates), 'automated_canonical_match': False,
-            'expected_normalized_length': 991, 'extracted_length': 1003,
+            'expected_normalized_length': EXPECTED_LENGTH, 'extracted_length': OBSERVED_LENGTH,
             'send_events': 1, 'conversation_id': DEST}
 
 
@@ -106,7 +107,7 @@ def reconcile(queue, did, expected_fingerprint, binding, lane, trusted_source,
             raise ValueError('another delivery is active')
         grant = e['outcome'].get('_future', {})
         if (grant.get('binding') != binding or grant.get('lane') != lane
-                or grant.get('source') != trusted_source or trusted_source.get('sequence') != 132
+                or grant.get('source') != trusted_source or trusted_source.get('sequence') != SEQUENCE
                 or trusted_source.get('request_id') != TARGET.rsplit(':', 1)[0]
                 or grant.get('delivery_id') != TARGET or grant.get('text_sha256') != TEXT_SHA):
             raise ValueError('trusted completion/grant scope mismatch')

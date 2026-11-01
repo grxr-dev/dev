@@ -1,5 +1,6 @@
 "use strict";
 const NATIVE_HOST='jarvis_inbox_host';
+const CONTENT_PROOF_BUILD='inbox-raw-user-proof-20261101-01';
 let BOUND_CONVERSATION_ID=null, configuredBinding=null, configuredFutureLane=null;
 let port=null, timer=null, busy=false, awaitingAck=false;
 let activeDelivery=null, permitWait=null;
@@ -26,7 +27,7 @@ async function boundTabs(){
   return (await browser.tabs.query({url:'https://chatgpt.com/*'})).filter(t=>exactBoundUrl(t.url));
 }
 const READINESS_BUILD=BINDING_BUILD;
-async function readinessProbe(probe_id){
+async function readinessProbe(probe_id,diagnostic_targets=[]){
   if(!configuredBinding)throw Error('binding required');
   const identity=configuredBinding.identity;
   const tabs=await boundTabs();
@@ -39,11 +40,12 @@ async function readinessProbe(probe_id){
   if(busy||awaitingAck){r.reason='delivery_or_ack_active';return r;}
   if(tabs.length!==1)return r;
   try{
-    const c=await Promise.race([browser.tabs.sendMessage(tabs[0].id,{cmd:'readiness',binding:configuredBinding,future_lane:configuredFutureLane}),new Promise((_,reject)=>setTimeout(()=>reject(Error('readiness timeout')),5000))]);
+    const c=await Promise.race([browser.tabs.sendMessage(tabs[0].id,{cmd:'readiness',binding:configuredBinding,future_lane:configuredFutureLane,diagnostic_targets}),new Promise((_,reject)=>setTimeout(()=>reject(Error('readiness timeout')),5000))]);
     const keys=['reachable','bound','composer_present','composer_empty','generation_active','busy','ready'];
-    if(!c||c.one_build!==ONE_BUILD||c.future_build!==FUTURE_BUILD||c.future_lane_seal!==(configuredFutureLane?configuredFutureLane.seal:null)||c.binding_identity!==identity||!configuredBinding||configuredBinding.identity!==identity||keys.some(k=>typeof c[k]!=='boolean')||typeof c.reason!=='string')throw Error('invalid readiness');
+    if(!c||c.proof_build!==CONTENT_PROOF_BUILD||c.one_build!==ONE_BUILD||c.future_build!==FUTURE_BUILD||c.future_lane_seal!==(configuredFutureLane?configuredFutureLane.seal:null)||c.binding_identity!==identity||!configuredBinding||configuredBinding.identity!==identity||keys.some(k=>typeof c[k]!=='boolean')||typeof c.reason!=='string')throw Error('invalid readiness');
     r.content=Object.fromEntries(keys.map(k=>[k,c[k]]));r.content.reason=c.reason;r.content.binding_identity=identity;
     r.content.one_build=ONE_BUILD;r.content.future_build=FUTURE_BUILD;r.content.future_lane_seal=c.future_lane_seal;
+    r.content.proof_build=c.proof_build;r.diagnostics=c.diagnostics||[];
     r.ready=keys.slice(0,4).every(k=>c[k])&&!c.generation_active&&!c.busy&&c.ready;
     r.reason=r.ready?'ready':c.reason;
   }catch(_){r.reason='content_unreachable_or_timeout';}
@@ -76,7 +78,7 @@ async function onNativeMessage(msg,connected){
     return;
   }
   if(msg.cmd==='readiness_probe'){
-    try{if(!configuredBinding||msg.binding_identity!==configuredBinding.identity)throw Error('stale binding');const r=await readinessProbe(msg.probe_id);if(port===connected)connected.postMessage(r);}catch(_){schedulePoll();}
+    try{if(!configuredBinding||msg.binding_identity!==configuredBinding.identity)throw Error('stale binding');const r=await readinessProbe(msg.probe_id,msg.diagnostic_targets||[]);if(port===connected)connected.postMessage(r);}catch(_){schedulePoll();}
     schedulePoll();return;
   }
   if(msg.cmd==='readiness_recorded'){schedulePoll();return;}
