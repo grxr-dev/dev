@@ -5,10 +5,11 @@ import datetime
 import json
 from pathlib import Path
 import subprocess
+import re
 import sys
 import time
 import uuid
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[2];BRIDGE=ROOT/'bridge';RUNTIME=BRIDGE/'.runtime'
@@ -115,23 +116,41 @@ def validate_installed(plan):
  protected(plan);queue_preflight(plan)
 
 
+def checked_readiness(value,plan,probe,now_ms):
+ """Loaded current content readiness; never require a historical DOM node."""
+ c=value.get('content',{})
+ if value.get('probe_id')!=probe:return False
+ if not value.get('ready') or value.get('match_count')!=1 or c.get('proof_build')!=PROOF_BUILD or c.get('future_lane_seal')!=plan['new_policy']['seal'] or value.get('binding_identity')!=plan['new_binding']['identity'] or c.get('binding_identity')!=plan['new_binding']['identity']:
+  raise ValueError('fresh loaded content/readiness failed; no receipt/Send')
+ if any(c.get(k) is not True for k in ('reachable','bound','composer_present','composer_empty','ready')) or any(c.get(k) is not False for k in ('busy','generation_active')):
+  raise ValueError('content not unambiguously ready')
+ matches=value.get('matches',[])
+ if len(matches)!=1 or any(matches[0].get(k) is not False for k in ('hidden','discarded','incognito')):raise ValueError('one actual ready bound tab required')
+ url=urlsplit(matches[0].get('url',''))
+ if url.scheme!='https' or url.netloc!='chatgpt.com' or url.query or url.fragment or not re.fullmatch(r'(?:/g/g-p-[a-z0-9-]+)?/c/'+plan['new_binding']['conversation_id']+r'/?',url.path,re.I):raise ValueError('wrong readiness conversation')
+ if not 0<=now_ms-value.get('observed_ms',0)<=60000:raise ValueError('stale no-send readiness')
+ return True
+
+
 def wait_probe(plan):
- target={'delivery_id':receipt.TARGET,'user_turn_uuid':receipt.UUID,'text_sha256':receipt.TEXT_SHA}
  probe=uuid.uuid4().hex
- m.save(RUNTIME/'inbox_binding_probe.json',{'probe_id':probe,'binding_identity':plan['new_binding']['identity'],'diagnostic_targets':[target]})
- print('ONE Firefox step if needed: about:debugging#/runtime/this-firefox → Reload existing Jarvis Inbox V1, then refresh the NEW ChatGPT tab. No Send.')
+ started_ms=time.time()*1000
+ m.save(RUNTIME/'inbox_binding_probe.json',{'probe_id':probe,'binding_identity':plan['new_binding']['identity']})
+ print('Fresh no-send current-content probe; no historical message lookup, scrolling or reload.')
  deadline=time.monotonic()+180
  while time.monotonic()<deadline:
   try:
    value=json.loads((RUNTIME/'inbox_binding_readiness.json').read_text(encoding='utf-8'))
-   c=value.get('content',{});d=value.get('diagnostics',[])
-   if value.get('probe_id')==probe:
-    m.save(AREA/'provenance-readback.json',value)
-    if not value.get('ready') or value.get('match_count')!=1 or c.get('proof_build')!=PROOF_BUILD or c.get('future_lane_seal')!=plan['new_policy']['seal'] or value.get('binding_identity')!=plan['new_binding']['identity']:
-     raise ValueError('fresh loaded proof/readiness failed; inspect bounded provenance-readback.json; receipt not applied')
-    if not (len(d)==1 and d[0].get('uuid')==receipt.UUID and d[0].get('exact') is True and d[0].get('bound') is True and d[0].get('model_status')=='raw_user_model' and d[0].get('observed_sha256')==receipt.TEXT_SHA):
-     raise ValueError('known133 raw model not positively verified; receipt not applied; no Send')
-    if not 0<=time.time()*1000-value['observed_ms']<=60000:raise ValueError('stale no-send proof')
+   # Native periodic freshness may replace an empty owner probe. Accept its
+   # authenticated current nonce only if generated after this request, with the
+   # same binding and no targeted/historical lookup. Never accept an old result.
+   expected_probe=probe
+   request=json.loads((RUNTIME/'inbox_binding_probe.json').read_text(encoding='utf-8'))
+   if request.get('binding_identity')==plan['new_binding']['identity'] and not request.get('diagnostic_targets') and value.get('observed_ms',0)>=started_ms:expected_probe=request.get('probe_id')
+   if value.get('observed_ms',0)>=started_ms and checked_readiness(value,plan,expected_probe,time.time()*1000):
+    # Do not overwrite the original diagnostic proving node_count=0. A missing
+    # historical node is not an extraction failure on a current node.
+    m.save(AREA/'current-content-readiness.json',value)
     return value
   except (OSError,json.JSONDecodeError):pass
   time.sleep(1)
@@ -143,7 +162,9 @@ def wait_vm_ack(plan,after):
            'seal':plan['new_policy']['seal'],'binding_identity':plan['new_binding']['identity'],
            'completion_cutoff':129,'request_cutoff':129,'future_cursor':132,'historical_state_unchanged':True}
  deadline=time.monotonic()+180
- since=quote((datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(minutes=1)).isoformat())
+ # ACK may arrive while the Codex turn is still active. Start at the request,
+ # not one minute before worker startup, or a valid early ACK would be missed.
+ since=quote(github_record(after)['created_at'])
  while time.monotonic()<deadline:
   p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments?per_page=100&since='+since,'--paginate','--jq',f'.[] | select(.id>{after})'],capture_output=True,text=True,timeout=20)
   # jq emits separate JSON objects. Decode incrementally without interpreting prose.
@@ -152,11 +173,20 @@ def wait_vm_ack(plan,after):
    while data:
     record,end=decoder.raw_decode(data);data=data[end:].lstrip()
     if record.get('user',{}).get('login')!='grxr-dev':continue
-    try:body=json.loads(record['body'])
-    except (ValueError,KeyError):continue
-    if body==expected:return record['id']
+    if alignment_ack(record,expected):return record['id']
   time.sleep(10)
  raise ValueError('exact Jarvis VM gate alignment ACK absent; receipt remains held; no Send')
+
+
+def alignment_ack(record,expected):
+ """Accept a typed ACK, including a fenced reply; never a generic auto-ACK."""
+ if record.get('user',{}).get('login')!='grxr-dev':return False
+ text=record.get('body','');decoder=json.JSONDecoder()
+ for match in re.finditer(r'\{',text):
+  try:value,_=decoder.raw_decode(text[match.start():])
+  except ValueError:continue
+  if isinstance(value,dict) and all(value.get(k)==v and type(value.get(k)) is type(v) for k,v in expected.items()):return True
+ return False
 
 
 def wait_delivery_proof(plan,after):
@@ -166,8 +196,19 @@ def wait_delivery_proof(plan,after):
  while time.monotonic()<deadline:
   try:
    q=json.loads((RUNTIME/'inbox_future_queue.json').read_text(encoding='utf-8'))
-   if any(e['state']=='NEEDS_REVIEW' and e.get('outcome',{}).get('_future',{}).get('source',{}).get('sequence',0)>133 for e in q['entries'].values()):
-    raise ValueError('a later delivery remains ambiguous; not resolved')
+   blocked=[e for e in q['entries'].values() if e['state']=='NEEDS_REVIEW' and (e.get('outcome') or {}).get('_future',{}).get('source',{}).get('sequence',0)>133]
+   if blocked:
+    e=min(blocked,key=lambda e:e['outcome']['_future']['source']['sequence'])
+    incident=RUNTIME/'inbox_verifier_incidents'/(receipt.sha(e['delivery_id'].encode())+'.jsonl')
+    captured=None
+    if incident.exists():
+     destination=AREA/('next-blocked-'+incident.name);m.atomic(destination,incident.read_bytes());captured=str(destination)
+    value={'status':'STOPPED_ON_NEW_NEEDS_REVIEW','delivery_id':e['delivery_id'],'sequence':e['outcome']['_future']['source']['sequence'],
+           'attempt_count':e['attempt_count'],'error':e['last_error'],'incident':captured,'no_additional_reconciliation':True}
+    m.save(AREA/'live-validation.json',m.sealed(value))
+    try:post('[CODEX → JARVIS / CHATGPT] STOPPED: first new automatic delivery is ambiguous. Preserve strict oldest-first and no resend. No further receipt/reconciliation. Targeted incident retained.\n'+json.dumps(value))
+    except (ValueError,OSError,subprocess.TimeoutExpired):pass
+    return
    auto={e['outcome']['_future']['source']['sequence']:e for e in q['entries'].values()
          if e['state']=='DELIVERED' and e['attempt_count']==1 and isinstance(e.get('outcome'),dict)
          and 'operator_receipt' not in e['outcome'] and e['outcome'].get('observed_sha256')==e['text_sha256']
@@ -229,7 +270,7 @@ def finish():
   proof=wait_probe(plan)
   request={'action':'VM_MODEL_GATE_ALIGNED','lane_id':plan['new_policy']['lane_id'],'seal':plan['new_policy']['seal'],
            'binding_identity':plan['new_binding']['identity'],'completion_cutoff':129,'request_cutoff':129,'future_cursor':132,'historical_state_unchanged':True}
-  comment=post('[CODEX → JARVIS] Owner maintenance: source/new binding/lane seal coherently installed, native/background/content build '+PROOF_BUILD+' loaded and exact seq133 raw model hash positively verified with NO Send. Bridge is held stopped under the original instance lock. Queue/cursor/history unchanged. Please now align ONLY your VM activation identity/seal (same lane/cutoffs), retain cursor132, and reply to this comment with ONLY this JSON plus in_reply_to set to THIS comment ID:\n'+json.dumps(request)+'\nThe bridge restarts after your ACK and the one seq133 operator receipt. Existing worker may then progress naturally. No repost/rearm133.')
+  comment=post('[CODEX → JARVIS] Owner maintenance: source/new binding/lane seal coherently installed, native/background/content build '+PROOF_BUILD+' loaded and current-content no-send readiness verified. Historical seq133 is operator-attested; no historical DOM lookup or raw-model claim. Bridge is held stopped under the original instance lock. Queue/cursor/history unchanged. Please now align ONLY your VM activation identity/seal (same lane/cutoffs), retain cursor132, and reply to this comment with ONLY this JSON plus in_reply_to set to THIS comment ID:\n'+json.dumps(request)+'\nThe bridge restarts after your ACK and the one seq133 operator receipt. Existing worker may then progress naturally. No repost/rearm133.')
   ack=wait_vm_ack(plan,comment)
   proof=wait_probe(plan)  # freshness after coordination; no composer mutation
   validate_installed(plan)
@@ -240,7 +281,7 @@ def finish():
   result=receipt.reconcile(q,receipt.TARGET,receipt.FINGERPRINT,plan['old_binding_public'],plan['old_lane'],trusted,raw,authority,exclusive=True)
   protected(plan)
   result.update(new_binding_identity=plan['new_binding']['identity'],new_lane_seal=plan['new_policy']['seal'],
-                loaded_proof_build=PROOF_BUILD,vm_alignment_comment=ack,raw_model_no_send_proof=True,
+                loaded_proof_build=PROOF_BUILD,vm_alignment_comment=ack,raw_model_no_send_proof=False,current_content_readiness=True,
                 historical_files_unchanged=True,cursor_modified=False)
   m.save(AREA/'result.json',m.sealed(result))
  print(json.dumps(result));after=post('[CODEX → JARVIS] Pinned seq133 operator receipt committed; original failed outcome/attempt/grant retained. No resend or cursor mutation. Existing managed tray now owns restart. Please let normal worker progress and provide cursor>135, each134/135 once, one wholly new automatically verified raw-user-model result, and unchanged historical hashes. Reply with ONLY JSON: action=VM_MODEL_DELIVERY_PROOF, in_reply_to=THIS comment ID, lane_id, seal, future_cursor, historical_state_unchanged=true.\n'+json.dumps(result))

@@ -1,5 +1,43 @@
 # Inbox rendered-text false negatives: raw user-message proof
 
+## #110 supersedes the owner instructions below
+
+The #108 bundle is now **installed and loaded** with the reviewed identity
+eb789679… and seal975fe745…. The failed maintenance gate required an old DOM
+node to be rendered. That gate is removed from the maintenance helper only;
+production verifier/seals/ACTIVE lane/cutoffs are unchanged. Historical seq133
+uses the pinned trace + senior operator receipt, never a new Send or invented
+automatic DOM proof. A fresh no-send current-content readiness probe passed.
+It proves loaded capability/binding/composer readiness, not raw-model extraction
+on a currently rendered message. The latter must be proved by normal new delivery.
+
+**No user scroll, Reload or foreground script is required.** One demand-only
+Task Scheduler invocation `MuseInbox-Seq133-Receipt-110` is armed through the
+existing interactive-owner mechanism. Independent ancestry and exact scheduled
+action were verified; it is waiting for the pinned #110 task to be COMPLETED,
+GitHub outbox CLOSED, and the bridge unambiguously idle. It checks source hashes,
+PID/start identity, original tray, VM alignment ACK and fresh no-send readiness
+before the existing managed shutdown-if-idle and instance lock. It never kills
+an active turn, reinstalls source, releases historical HOLD or creates a Send
+permit. It uses the queue's lock/atomic receipt writer once and self-disables.
+
+The worker rejects generic Jarvis auto-ACKs: the control-channel reply must attest
+the exact identity/seal, same cutoffs and cursor132, tied to request6564661930.
+Its single receipt commit lets the existing VM worker progress naturally. On a
+new NEEDS_REVIEW, monitoring stops and retains that specific incident without
+further reconciliation or resend. Success still requires cursor>135,134/135 once,
+one new automatic raw-model proof, and unchanged historical hashes.
+
+Runtime-only execution evidence is under
+`bridge/.runtime/inbox-seq133-postturn-110/` (`state.json`, registration, console,
+receipt-result). Original migration evidence remains intact. Eight narrowly
+focused #110 tests passed; the prior32-test suite was not repeated. The task has
+no trigger/recurrence and cannot be rearmed by the helper. `postturn_receipt.py`
+refuses an existing plan or an already-used invocation. No new Codex task is made.
+
+Everything below describes the earlier #108 owner-run phase, not a request to run
+it again.
+
 Status: **prepared, not installed/live**. No production queue, cursor, historical
 HOLD, source, binding, lane or process was changed by the Codex turn. No seq133
 Send/rearm/reconciliation occurred. Do not call this a live fix until the owner
