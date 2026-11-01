@@ -48,13 +48,13 @@ def transaction(install,write_policy,validate,restore_policy,restore_sources):
 
 
 def github_record(comment):
- p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/comments/'+str(comment)],capture_output=True,text=True,timeout=20)
+ p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/comments/'+str(comment)],capture_output=True,text=True,timeout=20,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
  if p.returncode:raise ValueError('GitHub authority unavailable; no mutation')
  return json.loads(p.stdout)
 
 
 def post(body):
- p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments','--method','POST','--input','-'],input=json.dumps({'body':body}),capture_output=True,text=True,timeout=20)
+ p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments','--method','POST','--input','-'],input=json.dumps({'body':body}),capture_output=True,text=True,timeout=20,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
  if p.returncode:raise ValueError('control-channel status could not be posted; stop before receipt')
  value=json.loads(p.stdout);print('Posted #45 '+str(value['id']));return value['id']
 
@@ -166,7 +166,7 @@ def wait_vm_ack(plan,after):
  # not one minute before worker startup, or a valid early ACK would be missed.
  since=quote(github_record(after)['created_at'])
  while time.monotonic()<deadline:
-  p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments?per_page=100&since='+since,'--paginate','--jq',f'.[] | select(.id>{after})'],capture_output=True,text=True,timeout=20)
+  p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments?per_page=100&since='+since,'--paginate','--jq',f'.[] | select(.id>{after})'],capture_output=True,text=True,timeout=20,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
   # jq emits separate JSON objects. Decode incrementally without interpreting prose.
   if p.returncode==0:
    decoder=json.JSONDecoder();data=p.stdout.lstrip()
@@ -214,7 +214,7 @@ def wait_delivery_proof(plan,after):
          and 'operator_receipt' not in e['outcome'] and e['outcome'].get('observed_sha256')==e['text_sha256']
          and e['outcome'].get('send_intent') is True and e['outcome'].get('send_count')==1
          and e['outcome'].get('new_user_turns')==1 and e['outcome'].get('user_turn_uuid')}
-   p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments?per_page=100&since='+since,'--paginate','--jq',f'.[] | select(.id>{after})'],capture_output=True,text=True,timeout=20)
+   p=subprocess.run(['gh','api','repos/grxr-dev/codex-relay/issues/45/comments?per_page=100&since='+since,'--paginate','--jq',f'.[] | select(.id>{after})'],capture_output=True,text=True,timeout=20,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
    if p.returncode==0 and 134 in auto and 135 in auto:
     decoder=json.JSONDecoder();data=p.stdout.lstrip()
     while data:

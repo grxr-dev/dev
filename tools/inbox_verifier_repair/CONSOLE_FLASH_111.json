@@ -1,0 +1,20 @@
+{
+  "issue": 111,
+  "fix": "CREATE_NO_WINDOW on all four maintenance-helper GitHub CLI subprocess paths",
+  "historical_attribution": "Source defect and 10-second cadence match; past GUI instance was not directly captured",
+  "one_shot_task": {"state": "Disabled", "triggers": 0, "helper1200_alive": false},
+  "required_bridge_poller": "Preserved; already windowless; loaded source matches disk",
+  "tests": {"focused": 5, "passed": 5, "real_read_only_gets": 3, "real_gets_succeeded": 3},
+  "post_fix_observation_seconds": 35,
+  "new_cmd_processes_observed": 0,
+  "nonzero_main_window_handles_observed": 0,
+  "direct_pixel_observation": false,
+  "bridge_pid_unchanged": 16660,
+  "tray_pid_unchanged": 37780,
+  "ports_healthy": [8766, 8767, 18741],
+  "queue_binding_lane_history_hashes_unchanged": true,
+  "send_rearm_recovery_or_restart": false,
+  "user_action_required": false,
+  "vm_alignment_and_cursor": "No fresh independent proof; last Jarvis report old gate/cursor132; Windows133 DELIVERED,134/135 absent",
+  "vm_or_delivery_policy_modified": false
+}
