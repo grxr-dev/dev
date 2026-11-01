@@ -1,0 +1,88 @@
+{
+  "schema": "middleman-exact-one-result/1",
+  "classification": "PARTIAL",
+  "implementation": "STAGED_WITH_PREPARED_OWNER_INVOKED_IDLE_SEAL_MIGRATION_NOT_DEPLOYED",
+  "production_grant_exists": false,
+  "production_grant_armed": false,
+  "production_grant_consumed": false,
+  "delivery_id": "middleman-smoke-20261101-71c4fb280c:8715f59ac9710f1e355f50d284d3f2902d15a08470bdca4f7077a9a6fc004878",
+  "original_result_comment": 6554873031,
+  "original_result_sha256": "8715f59ac9710f1e355f50d284d3f2902d15a08470bdca4f7077a9a6fc004878",
+  "queued_text_sha256": "1edebbb24c9c320d71a5c4d1369ccaa2e51c20e73d0a8ab157223b2679cac651",
+  "production_entry_state": "QUEUED",
+  "production_entry_attempt_count": 0,
+  "production_entry_delivered_at": null,
+  "binding": {
+    "conversation_id": "6ae5615a-0720-83ea-a43b-82386ce031e5",
+    "generation": 1,
+    "epoch": "b2108916e5fb44098859a58e0252a2ad",
+    "delivery_policy": "HOLD",
+    "identity": "376671cc6cefba6f6e5f95284f13b7a96deb912518a3a0032ae97845bd3493c3"
+  },
+  "bridge": {
+    "pid": 464,
+    "turn_active": true,
+    "build_id": "6bb1a688621cc771774b8434c0360031110ecf5af86e2600a0282589e303932d",
+    "exact_one_capability_loaded": false,
+    "restarted_or_killed": false
+  },
+  "queue_counts": {
+    "total": 66,
+    "DELIVERED": 34,
+    "NEEDS_REVIEW": 27,
+    "FAILED_PERMANENT": 4,
+    "QUEUED": 1
+  },
+  "production_queue_binding_journal_and_old_hold_byte_identical": true,
+  "production_rebind_source_manifest_unchanged": true,
+  "protected_hashes": {
+    "inbox_queue.json": "b8a13a70244767f58c9c220eefa52109a561594bb2af3fe754d661d037cc12f2",
+    "inbox_binding.json": "bd87b29ef840b49f1ba4a5e063dfa3a7f91702d496f9a3160121d7b0a4de170c",
+    "inbox_native_recovery.json": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "inbox_readiness_request.json": "7e4449fe2a92b87ccfa921cedd11c6efed62beb942a5a7f5b4a0fa30cf0c960e"
+  },
+  "vm_seq94_cursor93": "No writes; last Jarvis report unchanged; fresh independent confirmation requested",
+  "fresh_live_no_send_receipt": false,
+  "browser_control_attempted": false,
+  "inbox_post_repeated": false,
+  "send_attempted": false,
+  "end_to_end_pass": false,
+  "tests": {
+    "new_python_passed": 35,
+    "new_javascript_passed": 20,
+    "existing_no_send_passed": 33,
+    "total_passed": 88,
+    "live_delivery": "NOT_ATTEMPTED"
+  },
+  "coordination_comment_id": 6555113554,
+  "local_backup": "local/inbox-exact-one/backup/",
+  "local_inspection": "local/inbox-exact-one/inspection.json",
+  "remaining_blocker": "Bridge PID464 owns current turn. Owner must invoke Finish Exact One.cmd after this task is COMPLETED/published and bridge is idle; then reload existing extension/refresh NEW tab when prompted. No in-turn activation.",
+  "next_required": "After this terminal result is published, owner double-clicks installed Finish Exact One.cmd. It stops if task/bridge not idle, uses existing managed shutdown+instance lock, journals source/seal migration, waits for coherent live capability/readiness, then arms existing exact item once. No POST/rearm/resend.",
+  "brain_age_paused_after_aw16": true,
+  "continuation": {
+    "migration_tests_passed": 8,
+    "launcher_guard_tests_passed": 3,
+    "existing_88_tests": "REUSED authoritative issue96 results; not rerun",
+    "migration_plan_prepared": true,
+    "migration_applied": false,
+    "journal_location": "bridge/.runtime/inbox-seal-96/",
+    "launcher": "Desktop/Commands/Middleman/Finish Exact One.cmd",
+    "new_sealed_identity_after_install": "89d9cfb3df159b1c5e332d0be127fa37bdacad8f072d5dcf5bab4e740967921d",
+    "source_seal_generation_epoch_hold_preserved": true,
+    "current_turn_finish_invocation": "Rejected before execution by automatic approval review; no lifecycle action occurred",
+    "automatic_or_scheduled_worker_armed": false,
+    "nonce_landed": false,
+    "migration_plan_seal_verified": true,
+    "all_17_staged_blobs_unchanged": true,
+    "live_after_prepare": {
+      "pid": 464,
+      "turn_active": true,
+      "state": "QUEUED",
+      "attempt_count": 0,
+      "grant_exists": false,
+      "source_loaded": false,
+      "protected_unchanged": true
+    }
+  }
+}
