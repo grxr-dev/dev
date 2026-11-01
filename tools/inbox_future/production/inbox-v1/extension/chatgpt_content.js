@@ -172,6 +172,23 @@ function currentUserIdentity(el){
  const id=owner&&owner.getAttribute('data-chatgpt-search-message-ids');
  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id||'')?id:null;
 }
+// A bubble may include action UI beside the authored-content subtree. Select
+// that subtree structurally; never trim text, remove suffixes, or guess payload.
+// Unknown/multiple content branches fail closed. Raw-model proof stays preferred.
+function authoredBubbleBody(el){
+ const controls='button,[role="button"],input,textarea,select';
+ let body=el;
+ for(let depth=0;body&&depth<6;depth++){
+  if(body.querySelectorAll(controls).length===0)return body;
+  const children=Array.from(body.childNodes||[]);
+  if(children.some(n=>n.nodeType===3&&/\S/.test(n.nodeValue||'')))return null;
+  if(children.some(n=>n.nodeType!==1&&n.nodeType!==3))return null;
+  const content=children.filter(n=>n.nodeType===1&&!(['BUTTON','INPUT','TEXTAREA','SELECT'].includes(n.tagName)||n.getAttribute('role')==='button'));
+  if(content.length!==1||content[0].tagName!=='DIV')return null;
+  body=content[0];
+ }
+ return null;
+}
 function userMessages(doc=document,{historical=false}={}){
  const messages=new Map(),bubbleOnlyIds=new Set(),markdownIds=new Set(),legacyIds=new Set(),modelIds=new Set();
  function visible(el){if(!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;if(historical)return true;const style=doc.defaultView.getComputedStyle(el);return el.getClientRects().length>0&&style.display!=="none"&&style.visibility!=="hidden"&&style.opacity!=="0";}
@@ -194,8 +211,9 @@ function userMessages(doc=document,{historical=false}={}){
   if(el.getAttribute('data-user-message-bubble')==='true'){
    const texts=el.querySelectorAll('[data-markdown-text-tone="user-message"]');
    if(texts.length>1)continue;
-   // Bubble-only turns expose exact payload innerText; no content class required.
-   body=texts.length===1?texts[0]:el;
+   // Prefer the explicit authored-text marker, otherwise a unique UI-free subtree.
+   body=texts.length===1?texts[0]:authoredBubbleBody(el);
+   if(texts.length===0)bubbleOnlyIds.add(id);
   }
   if(!body||currentUserIdentity(body)!==id||!visible(body)||typeof body.innerText!=='string')continue;
   if(body.getAttribute('data-markdown-text-tone')==='user-message')markdownIds.add(id);

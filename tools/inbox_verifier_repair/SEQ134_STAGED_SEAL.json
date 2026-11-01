@@ -1,0 +1,15 @@
+{
+  "status": "STAGED_NOT_INSTALLED_NOT_RELEASE_AUTHORITY",
+  "old_identity": "eb789679d470bea0061e4c2fdbbbeb11aea329bb8d2262b49fa768e22b784a3e",
+  "old_lane_seal": "975fe745ad5aa2366cc391b0f728ec4bda2c29753773f69d45a69c8711d59d2c",
+  "hypothetical_new_identity": "1712c136109d1c19763784ce6d29580c7425c390307ce47eac49aa2c87850566",
+  "hypothetical_new_lane_seal": "d7684c9c69de4186c4bdd649fad3466b12fd3e08217750ac3f7aa3ac1ad50235",
+  "changed_components": {
+    "inbox-v1/extension/chatgpt_content.js": {
+      "deployed": "6718107c1812cd4cbfce995b31b94e247c81cdfc19dedbc85d067b6397119c2a",
+      "staged": "436052f1a3f06caaebf910069dcb337007d0f15052e88a5969fbd2a56ccd7aa2"
+    }
+  },
+  "same_recipient_generation_epoch_HOLD_lane_cutoffs": true,
+  "requires_live_authored_subtree_hash_proof": true
+}

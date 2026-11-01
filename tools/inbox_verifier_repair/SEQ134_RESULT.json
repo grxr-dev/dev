@@ -1,0 +1,180 @@
+{
+  "classification": "PARTIAL_DIAGNOSED_STAGED_NOT_RESTORED",
+  "delivery_id": "brainage-phase0-metadata-init-20261101-05:3cdc0713b5b3f614a012c9676a7ba947d4d9375d35a9780ec58a94d906107a16",
+  "request_id": "brainage-phase0-metadata-init-20261101-05",
+  "queued_text_sha256": "74b79d3c88d0b31883ebf253eb58c26c3bbe7fc0a9925963f210163e1f89ac6f",
+  "queued_text_characters": 1253,
+  "state": "NEEDS_REVIEW",
+  "attempt_count": 1,
+  "incident_sha256": "5afae75146153c079e04e1236f0ab891c14747cc38dce6be23fb44a9130cd367",
+  "timeline": [
+    {
+      "event": "start",
+      "ts_ms": 1793573925644,
+      "build": "inbox-v1-trace2-20261011-01",
+      "bound": true
+    },
+    {
+      "event": "baseline",
+      "ts_ms": 1793573925646,
+      "build": "inbox-v1-trace2-20261011-01",
+      "bound": true,
+      "conv_id": "6ae5615a-0720-83ea-a43b-82386ce031e5",
+      "conv_changed": false,
+      "baseline_ids": [
+        "a43ae641-cda6-4246-9056-df7cf6d64f6d",
+        "f7bd07dc-16c6-48e5-aa18-d48b9ba96778",
+        "26c585f7-714c-4077-ba27-07c3d04aa345",
+        "87c780f2-6a38-4454-b016-8d05b0c7e3f1",
+        "79439260-bab9-45b9-9ae1-45f47fb36ac2"
+      ],
+      "baseline_truncated": false
+    },
+    {
+      "event": "send",
+      "ts_ms": 1793573925906,
+      "build": "inbox-v1-trace2-20261011-01",
+      "bound": true
+    },
+    {
+      "event": "deadline",
+      "ts_ms": 1793573925964,
+      "build": "inbox-v1-trace2-20261011-01",
+      "bound": true
+    },
+    {
+      "event": "terminal",
+      "ts_ms": 1793574016092,
+      "build": "inbox-v1-trace2-20261011-01",
+      "bound": true,
+      "conv_id": "6ae5615a-0720-83ea-a43b-82386ce031e5",
+      "conv_changed": false,
+      "reason": "deadline_expired",
+      "state": "NEEDS_REVIEW"
+    },
+    {
+      "event": "native_outcome",
+      "ts_ms": 1793574016150,
+      "reason": "Send may have occurred; no stable exact-payload new USER identity within verification deadline",
+      "state": "NEEDS_REVIEW"
+    },
+    {
+      "event": "ack_committed",
+      "ts_ms": 1793574016244,
+      "state": "NEEDS_REVIEW"
+    }
+  ],
+  "candidate": {
+    "uuid": "acab8cd4-6871-49cd-b92a-93961f10a574",
+    "in_baseline": false,
+    "canonical_match": false,
+    "hash_match": null,
+    "source": "bubble",
+    "expected_sha256": "db367e3434db0a083fe163c44c5c07f41cc95da5ebcd9f5d2a7e78b8d2110802",
+    "observed_sha256": "2cee5dddf813f882d7654c190be945c76dfa1d53f75c6fa6cfed054437cbdac8",
+    "expected_len": 1243,
+    "observed_len": 1255,
+    "raw_len": 1255,
+    "mismatch_index": 1243,
+    "normalization": "bubble"
+  },
+  "fresh_probe": {
+    "probe_id": "16287157f125442e89350d62c0867814",
+    "observed_ms": 1793574527715,
+    "ready": true,
+    "match_count": 1,
+    "content_build": "inbox-raw-user-proof-20261101-01",
+    "diagnostic": {
+      "bound": true,
+      "delivery_id": "brainage-phase0-metadata-init-20261101-05:3cdc0713b5b3f614a012c9676a7ba947d4d9375d35a9780ec58a94d906107a16",
+      "exact": false,
+      "expected_sha256": "74b79d3c88d0b31883ebf253eb58c26c3bbe7fc0a9925963f210163e1f89ac6f",
+      "model_status": "model_unavailable",
+      "node_count": 1,
+      "observed_sha256": null,
+      "raw_model_length": null,
+      "rendered_length": 1255,
+      "rendered_sha256": "2cee5dddf813f882d7654c190be945c76dfa1d53f75c6fa6cfed054437cbdac8",
+      "structure": [
+        {
+          "bubble": true,
+          "depth": 0,
+          "interactive": false,
+          "markdown": false,
+          "type": "div"
+        },
+        {
+          "bubble": false,
+          "depth": 1,
+          "interactive": false,
+          "markdown": false,
+          "type": "div"
+        },
+        {
+          "bubble": false,
+          "depth": 2,
+          "interactive": false,
+          "markdown": false,
+          "type": "div"
+        },
+        {
+          "bubble": false,
+          "depth": 2,
+          "interactive": true,
+          "markdown": false,
+          "type": "button"
+        },
+        {
+          "bubble": false,
+          "depth": 3,
+          "interactive": false,
+          "markdown": false,
+          "type": "div"
+        },
+        {
+          "bubble": false,
+          "depth": 3,
+          "interactive": false,
+          "markdown": false,
+          "type": "span"
+        },
+        {
+          "bubble": false,
+          "depth": 3,
+          "interactive": false,
+          "markdown": false,
+          "type": "span"
+        },
+        {
+          "bubble": false,
+          "depth": 3,
+          "interactive": false,
+          "markdown": false,
+          "type": "svg"
+        }
+      ],
+      "uuid": "acab8cd4-6871-49cd-b92a-93961f10a574"
+    }
+  },
+  "cause": "Post-Send canonical candidate equality failed. Whole-bubble rendered extraction includes a control subtree; actual raw-user model unavailable on the present bound target node. Exact source text of the 12-character tail was not captured, so UI attribution remains structural, not a measured clean-subtree hash.",
+  "staged_change": "Unique UI-free DIV content subtree selection; ambiguous layout rejected. No truncation, fuzzy acceptance or raw-model proof fabrication. Not a proven general Markdown fix.",
+  "receipt134": "Pins prepared and real trace/UTF-8 authority validated; NOT APPLIED",
+  "live_source_changed": false,
+  "live_identity": "eb789679d470bea0061e4c2fdbbbeb11aea329bb8d2262b49fa768e22b784a3e",
+  "live_lane_seal": "975fe745ad5aa2366cc391b0f728ec4bda2c29753773f69d45a69c8711d59d2c",
+  "bridge_pid": 16660,
+  "active_turn": true,
+  "queue_state_hashes_unchanged_during_final_audit": true,
+  "send_or_rearm": false,
+  "cursor_modified": false,
+  "historical_state_modified": false,
+  "tests": {
+    "structural_boundary": 8,
+    "raw_model_safety": 12,
+    "background_no_send": 2,
+    "receipt_kernel": 9,
+    "total_offline": 31,
+    "real_read_only_trace_authority_scope_validation": "PASS"
+  },
+  "remaining_blocker": "No positive live clean-authored-subtree SHA or raw-model proof. Must not install/release with a claim of restored general Markdown verification. Managed source/VM seal migration and loaded extension activation have NOT occurred."
+}
