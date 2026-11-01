@@ -1,0 +1,18 @@
+{
+  "issue": 106,
+  "classification": "PARTIAL_PENDING_POST_TURN_OWNER_MAINTENANCE",
+  "implementation": "Pinned exclusive-owner InboxQueue operator receipt; no sealed production source changes",
+  "target_sequence": 132,
+  "delivery_id": "brainage-phase0-roundtrip-20261101-03:3b79f7b78f6ee7e8c4cb7b07f3c6d6f21ed3dc3d719ae1205dbdad22a6c8dc7e",
+  "receipt_authority_comment": 6561497959,
+  "automated_browser_verification": "Preserved failed outcome; never represented as automatic exact-hash verification",
+  "tests": {"focused_receipt_tests": 9, "passed": 9, "production_send": false},
+  "production_source_modified": false,
+  "source_seal_migration_required": false,
+  "delivery_reconciled_during_codex_turn": false,
+  "queue_cursor_or_historical_state_modified_during_codex_turn": false,
+  "owner_launcher": "tools/inbox_receipt_132/Reconcile Seq132 Receipt.cmd",
+  "activation": "Independent foreground owner after exact task terminal publication; managed idle shutdown and existing instance lock",
+  "remaining_proof": "Operator launcher receipt commit, then existing VM worker cursor >135 and one-turn evidence",
+  "underlying_extraction_defect_fixed": false
+}
