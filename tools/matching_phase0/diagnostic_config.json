@@ -1,0 +1,29 @@
+{
+  "rom_name": "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "rom_sha256": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+  "address": "0x020660F4",
+  "size": 8,
+  "symbol": "func_020660f4",
+  "reference_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877",
+  "extracted_arm9": "local/matching_phase0/roundtrip-001/extract/arm9/arm9.bin",
+  "metadata": "local/matching_phase0/init-002/config",
+  "compiler": "local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2/zig.exe",
+  "compiler_sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+  "zig_version": "0.15.2",
+  "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c",
+  "flags": [
+    "-target",
+    "arm-freestanding-eabi",
+    "-mcpu=arm946e_s",
+    "-marm",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-fno-stack-protector",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables",
+    "-g0",
+    "-fomit-frame-pointer"
+  ]
+}

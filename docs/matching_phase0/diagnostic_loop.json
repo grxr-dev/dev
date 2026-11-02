@@ -1,0 +1,164 @@
+{
+  "classification": "PASS_COMPILER_AGNOSTIC_DIAGNOSTIC_LOOP",
+  "gate0": "OPEN",
+  "original_toolchain_matched_c": 0,
+  "diagnostic_matched_functions": 1,
+  "original_toolchain_qualified": false,
+  "target": {
+    "address": "0x020660F4",
+    "symbol": "func_020660f4",
+    "size": 8,
+    "mode": "ARM little-endian",
+    "prototype_status": "int(void) is a diagnostic hypothesis, not recovered source",
+    "incoming_calls": 21,
+    "reference_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877"
+  },
+  "compiler": {
+    "path": "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\toolchains\\zig-x86_64-windows-0.15.2\\zig.exe",
+    "sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+    "zig_version": "0.15.2",
+    "banner": "clang version 20.1.2 (https://github.com/ziglang/zig-bootstrap 7ef74e656cf8ddbd6bf891a8475892aa1afa6891)\nTarget: x86_64-unknown-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/rustg/Documents/Codex/Muse/dev/local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2\n",
+    "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c"
+  },
+  "compiler_argv": [
+    "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\toolchains\\zig-x86_64-windows-0.15.2\\zig.exe",
+    "cc",
+    "-target",
+    "arm-freestanding-eabi",
+    "-mcpu=arm946e_s",
+    "-marm",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-fno-stack-protector",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables",
+    "-g0",
+    "-fomit-frame-pointer",
+    "-c",
+    "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\tools\\matching_phase0\\leaf_pilot.c",
+    "-o",
+    "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\leaf-diagnostic\\leaf.o"
+  ],
+  "compiled_hex": "0000a0e31eff2fe1",
+  "compiled_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877",
+  "disassembly": [
+    {
+      "address": "0x20660f4",
+      "size": 4,
+      "mnemonic": "mov",
+      "operands": "r0, #0"
+    },
+    {
+      "address": "0x20660f8",
+      "size": 4,
+      "mnemonic": "bx",
+      "operands": "lr"
+    }
+  ],
+  "elf": {
+    "symbol": "func_020660f4",
+    "section": ".text",
+    "section_index": 1,
+    "symbol_value": 0,
+    "symbol_size": 8,
+    "object_file_offset": 52,
+    "elf_flags": "0x5000200",
+    "relocations": [
+      {
+        "section": ".rel.ARM.exidx",
+        "target_section": 2,
+        "offset": 0,
+        "type": 42,
+        "in_function": false
+      }
+    ],
+    "code_relocations": 0
+  },
+  "object_sha256": "e4e0cfb8b288a342f01e69a18588d8e90d0f16862841ca947eaf8669608651bd",
+  "comparison": {
+    "equal": true,
+    "expected_size": 8,
+    "actual_size": 8,
+    "differences": []
+  },
+  "compile_invocations": 4,
+  "compilation_attempts": [
+    {
+      "case": "initial frame-pointer default",
+      "status": "FAIL_DIAGNOSTIC_BYTE_MISMATCH",
+      "compiler_exit": 0,
+      "comparison_exit": 1,
+      "actual_size": 16,
+      "differences": 14,
+      "compiled_hex": "00482de90db0a0e10000a0e30088bde8",
+      "seconds": 0.15412940000533126
+    },
+    {
+      "case": "omit frame pointer",
+      "status": "PASS_DIAGNOSTIC_INSTRUCTION_MATCH",
+      "compiler_exit": 0,
+      "comparison_exit": 0,
+      "actual_size": 8,
+      "differences": 0,
+      "compiled_hex": "0000a0e31eff2fe1",
+      "seconds": 0.1419045000220649
+    },
+    {
+      "case": "negative return-one",
+      "status": "FAIL_DIAGNOSTIC_BYTE_MISMATCH",
+      "compiler_exit": 0,
+      "comparison_exit": 1,
+      "actual_size": 8,
+      "differences": 1,
+      "compiled_hex": "0100a0e31eff2fe1",
+      "seconds": 0.14904150000074878
+    },
+    {
+      "case": "matching repeat",
+      "status": "PASS_DIAGNOSTIC_INSTRUCTION_MATCH",
+      "compiler_exit": 0,
+      "comparison_exit": 0,
+      "actual_size": 8,
+      "differences": 0,
+      "compiled_hex": "0000a0e31eff2fe1",
+      "seconds": 0.1437967999954708
+    }
+  ],
+  "repeat_object_identical": true,
+  "link_invocations": 0,
+  "objdiff_cli_invocations": 0,
+  "comparator": "stdlib ELF32-LE ARM symbol extractor + exact length/byte comparator; code relocations rejected",
+  "disassembler": {
+    "name": "Capstone",
+    "version": "5.0.7"
+  },
+  "tests": {
+    "ROM_free_regressions": 7,
+    "real_positive_compiles": 2,
+    "real_negative_control": 1,
+    "initial_real_mismatch": 1
+  },
+  "preservation": {
+    "ROM_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "ROM_sha256": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "all_12_inputs_unchanged_each_run": true,
+    "metadata_matches_prior_evidence": true,
+    "prior_metadata_files_checked": 10,
+    "input_hashes_identical_across_runs": true,
+    "ROM_rebuilds": 0,
+    "BIOS_accessed": false,
+    "relay_modified": false,
+    "proprietary_downloads": 0
+  },
+  "research_sources": {
+    "zig_release": "https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip",
+    "zig_index": "https://ziglang.org/download/index.json",
+    "dsd_pinned": "https://github.com/AetiasHax/ds-decomp/tree/73934550322c80b634106ad7883bbe4671f24b99",
+    "objdiff": "https://github.com/encounter/objdiff/blob/main/README.md",
+    "DS_example_commit": "e1d5a4606640e31c44d36714ad0b5cdd9c8763fd",
+    "DS_example_cross": "https://github.com/pret/pokeheartgold/blob/e1d5a4606640e31c44d36714ad0b5cdd9c8763fd/meson/cross.ini"
+  },
+  "remaining": "Brain Age original CodeWarrior family/revision/flags/linking not qualified; instruction diagnostic is not source/module matching or Gate0 PASS",
+  "local_evidence": "local/matching_phase0/leaf-diagnostic/"
+}
