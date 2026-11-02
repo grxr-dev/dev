@@ -1,0 +1,9 @@
+{
+  "address": "0x0200af44",
+  "size": 72,
+  "symbol": "func_0200af44",
+  "reference_sha256": "a0ede9b82518e5a14a72ab0bfb533021242e7e332512366c243f72a8e6ffa8b6",
+  "arm_call_targets": {},
+  "expected_original_relocations": [],
+  "original_literal_words": {}
+}

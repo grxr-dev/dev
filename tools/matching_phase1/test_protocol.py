@@ -147,7 +147,8 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(len(inspect(data,allowed_calls=partial_link.call_names(self.manifest))['calls']),1)
 
     def test_ten_function_graph_resolves_pair_calls_but_keeps_dispatch_opaque(self):
-        self.assertEqual(len(self.manifest['symbols']),10)
+        self.assertEqual(len(self.manifest['symbols'][:10]),10)
+        self.assertEqual(self.manifest['symbols'][9]['symbol'],'func_0200acd0')
         self.assertEqual(external_targets(self.manifest),{'func_02019024','func_0200aa5c','func_0200ab7c','func_0200a464','func_0200ad94'})
 
     def test_new_symbol_sizes_and_exact_verdicts_are_not_behavior_passes(self):

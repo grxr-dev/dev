@@ -111,7 +111,7 @@ class ContextTests(unittest.TestCase):
 
     def test_new_reference_hash_size_and_calls_cannot_drift(self):
         for key,value in [('reference_sha256','0'*64),('reference_size',76),('direct_call_targets',{})]:
-            manifest=copy.deepcopy(self.manifest);manifest['symbols'][-1][key]=value
+            manifest=copy.deepcopy(self.manifest);next(row for row in manifest['symbols'] if row['symbol']=='func_0200acd0')[key]=value
             with self.subTest(key=key),self.assertRaises(ValueError):validate_manifest(manifest)
 
     def test_two_former_imports_defined_two_new_nested_imports(self):

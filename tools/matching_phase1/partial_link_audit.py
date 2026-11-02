@@ -121,7 +121,7 @@ def external_targets(manifest):
 
 def validate_inputs(objects,manifest):
     expected={row['symbol']:row for row in manifest['symbols']}
-    if not 6<=len(expected)<=10 or len(objects)!=len(expected):raise ValueError('exact manifest coverage of independent input objects required')
+    if not 6<=len(expected)<=11 or len(objects)!=len(expected):raise ValueError('exact manifest coverage of independent input objects required')
     seen=set();undefined=set();baseline_attributes=None
     for item in objects:
         if len(item['functions'])!=1:raise ValueError('input must contain one independently compiled function, not the unity cluster')

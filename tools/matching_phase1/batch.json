@@ -236,11 +236,31 @@
       "domain": "68-byte aligned scratch reservation is not a recovered type; only AEE8 fields initialized; opaque AD94 must obey validity/lifetime of input/pair/scratch and normal ABI; success output initialization still an opaque obligation",
       "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
       "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_0200af44",
+      "address": "0x0200af44",
+      "mode": "ARM_LE",
+      "reference_size": 72,
+      "reference_sha256": "a0ede9b82518e5a14a72ab0bfb533021242e7e332512366c243f72a8e6ffa8b6",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200af44.c",
+      "comparison_config": "tools/matching_phase1/queue_reinsert_config.json",
+      "code_bytes": 72,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "queue_reinsert",
+      "behavior_evidence_tier": "bounded_virtual_link_unlink_append_differential",
+      "domain": "valid aligned two-pointer prefixes; entry detached or in a consistent finite doubly-linked chain; valid destination head; entry is not head; no cycles after unlink; ordinary nonvolatile exclusive storage; published stack pointers require external synchronous removal before return",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN; original r0 retains entry"
     }
   ],
   "partial_link": {
-    "output": "local/matching_phase1/runs/partial-link-context-protocol-v1",
-    "status": "docs/matching_phase1/context_protocol_expansion_status.json",
+    "output": "local/matching_phase1/runs/partial-link-command4-queue-v1",
+    "status": "docs/matching_phase1/command4_link_status.json",
     "baselines": [
       {
         "report": "docs/matching_phase1/partial_link_status.json",
@@ -253,6 +273,12 @@
         "report_sha256_lf": "874f025bf6e17d1cc43ea478ed58674dabd7541a5c45d14881833766065cc8ed",
         "output_sha256": "e4672ae07e9a15b76d3f974123327bbef33c9ac74b07fb200e66200927426613",
         "symbol_count": 8
+      },
+      {
+        "report": "docs/matching_phase1/context_protocol_expansion_status.json",
+        "report_sha256_lf": "2a54db4e4a040e987ade5e682f2895fde85650e7dbcb2b880b416a888f9fff13",
+        "output_sha256": "2ef77b6890261cab00cb5469ab3a9e3ee7b92f9248e37d74603f6b6e5dffe251",
+        "symbol_count": 10
       }
     ]
   },

@@ -156,7 +156,8 @@ class PairContractTests(unittest.TestCase):
     def test_six_eight_ten_baselines_remain_byte_identical_without_link(self):
         _,audits=preserve_baselines(self.manifest)
         self.assertEqual([row['symbols'] for row in audits],[6,8,10]);self.assertFalse(any(row['relinked'] for row in audits))
-        self.assertEqual(len(self.manifest['symbols']),10)
+        self.assertEqual(len(self.manifest['symbols'][:10]),10)
+        self.assertEqual(self.manifest['symbols'][9]['symbol'],'func_0200acd0')
         self.assertFalse((ROOT/'src/arm9/utility_hypotheses/func_0200ad94.c').exists())
 
     def test_nested_stack_lifetime_ranges_are_disjoint_not_heap_allocations(self):

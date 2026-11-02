@@ -13,13 +13,14 @@ WRITTEN={0:4,4:4,8:4,12:4,16:4,24:2}
 
 
 def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignment=0,
-          protocol=None,dispatch_result=0,dispatch_words=None,forward_result=0,forward_pair=None,forward_read_offsets=(),producer=None):
+          protocol=None,dispatch_result=0,dispatch_words=None,forward_result=0,forward_pair=None,forward_read_offsets=(),producer=None,queue=None):
     context=CONTEXT+alignment
     registers={f'r{index}':0xabc00000+index for index in range(13)}
     registers.update(r0=context,r1=INPUT,sp=STACK,lr=RETURN)
     pair_address=PAIR+alignment
     if protocol=='context_accept':registers.update(r1=first,r2=second)
     elif protocol=='pair_forward':registers['r0']=pair_address
+    elif protocol=='queue_reinsert':registers['r1']=queue['head']
     elif protocol=='pair_producer':
         producer=producer or {};data=producer.get('input',b'\0');input_address=producer.get('input_address',INPUT)
         pair_address=producer.get('pair_address',PAIR)
@@ -31,6 +32,7 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
     elif protocol is not None:raise ValueError('unknown protocol scenario')
     preserved={name:registers[name] for name in ['sp',*[f'r{index}' for index in range(4,12)]]}
     memory={context+index:value for index,value in enumerate(initial)}
+    if protocol=='queue_reinsert':memory=dict(queue['memory'])
     if protocol=='pair_producer':
         initialized_offsets={offset+index for offset,width in WRITTEN.items() for index in range(width)}
         memory={address:byte for address,byte in memory.items() if address-context in initialized_offsets}
@@ -52,7 +54,7 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
         return sum(memory[address+index]<<(8*index) for index in range(width))
 
     def write(address,width,number,origin='instruction'):
-        if address%width or not (context<=address<=context+len(initial)-width or registers['sp']<=address<=STACK-width or protocol in ('pair_forward','pair_producer') and pair_address<=address<=pair_address+8-width):
+        if address%width or not (context<=address<=context+len(initial)-width or registers['sp']<=address<=STACK-width or protocol in ('pair_forward','pair_producer') and pair_address<=address<=pair_address+8-width or protocol=='queue_reinsert' and all(address+index in queue['memory'] for index in range(width))):
             raise ValueError('outside virtual context/owned stack')
         writes.append((address,width,number&((1<<(8*width))-1)))
         for index in range(width):memory[address+index]=(number>>(8*index))&255
@@ -66,9 +68,10 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
         return {'return':registers['r0'],'context':context_bytes if protocol=='pair_producer' else bytes(context_bytes),
                 'calls':calls,'writes':writes,'reads':reads,'stack_bytes':maximum_stack,'call_states':call_states,'nzcv':nzcv,
                 'output_pair_bytes':[memory.get(pair_address+index) for index in range(8)],'pair_writes':pair_writes,
+                'queue_memory':{address:memory[address] for address in queue['memory']} if queue else None,
                 'path':path,'edges':edges,'conditions':conditions}
 
-    for step in range(256 if protocol=='pair_producer' else 64):
+    for step in range(256 if protocol in ('pair_producer','queue_reinsert') else 64):
         if pc not in program:raise ValueError('escaped bounded context code')
         op,args=program[pc];args=args.replace('fp','r11').replace('ip','r12');next_pc=pc+4;active_condition=None;path.append(pc)
         if op not in ('beq','bne') and op.endswith(('eq','ne')):
@@ -190,9 +193,41 @@ def initialized(initial):
     return bytes(result)
 
 
+def queue_case(source_count,position,destination_count,same=False):
+    if not 0<=source_count<=4 or position not in range(-1,source_count) or not 0<=destination_count<=4 or same and destination_count:
+        raise ValueError('bounded queue fixture domain')
+    source=[0x5100+16*index for index in range(source_count)]
+    if position>=0:source[position]=CONTEXT
+    destination=[0x6100+16*index for index in range(destination_count)]
+    words={CONTEXT:0,CONTEXT+4:0}
+
+    def chain(head,nodes):
+        for index,node in enumerate([head,*nodes]):
+            words[node]=0 if index==0 else [head,*nodes][index-1]
+            words[node+4]=nodes[index] if index<len(nodes) else 0
+
+    chain(INPUT,source);chain(PAIR,destination)
+    memory={address+index:(word>>(8*index))&255 for address,word in words.items() for index in range(4)}
+    remaining=[node for node in source if node!=CONTEXT]
+    if same:chain(INPUT,[*remaining,CONTEXT])
+    else:chain(INPUT,remaining);chain(PAIR,[*destination,CONTEXT])
+    expected={address+index:(word>>(8*index))&255 for address,word in words.items() for index in range(4)}
+    return {'head':INPUT if same else PAIR,'memory':memory,'expected':expected}
+
+
 def verify(kind,original,compiled,address):
     left=decode(original,address);right=decode(compiled,address);count=0
-    if kind=='context_init':
+    if kind=='queue_reinsert':
+        for source_count in range(5):
+            for position in range(-1,source_count):
+                for same,destination_count in [(False,index) for index in range(5)]+[(True,0)]:
+                    case=queue_case(source_count,position,destination_count,same)
+                    for rows in (left,right):
+                        result=trace(rows,bytes(8),protocol=kind,queue=case)
+                        if result['queue_memory']!=case['expected'] or result['return']!=CONTEXT or result['calls']:
+                            raise ValueError('queue unlink/append/retained-r0 mismatch')
+                    count+=1
+    elif kind=='context_init':
         for seed,alignment in itertools.product(range(128),(0,4,8,12)):
             initial=bytes((seed+index*37)&255 for index in range(32))
             for rows in (left,right):

@@ -3,8 +3,15 @@
 
 typedef unsigned int ba_u32;
 typedef unsigned short ba_u16;
+typedef struct ba_link_hypothesis {
+    struct ba_link_hypothesis *previous;
+    struct ba_link_hypothesis *next;
+} ba_link_hypothesis;
 _Static_assert(sizeof(ba_u32) == 4, "32-bit unsigned hypothesis required");
 _Static_assert(sizeof(ba_u16) == 2, "16-bit unsigned hypothesis required");
+_Static_assert(sizeof(ba_link_hypothesis) == 8, "ARM two-pointer prefix hypothesis");
+
+ba_link_hypothesis *func_0200af44(ba_link_hypothesis *entry, ba_link_hypothesis *head);
 
 #define data_020dcbb4 ((char *)0x020dcbb4u)
 #define data_020dcbf4 ((unsigned char *)0x020dcbf4u)

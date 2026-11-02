@@ -26,24 +26,25 @@ EXPECTED_RELOCS=[
 ]
 
 
-def cfg(rows):
+def cfg(rows,indirect_calls=()):
     nodes={pc for pc,_,_ in rows};edges=[];calls=[];returns=[];predicates=[]
     if len(nodes)!=len(rows) or sorted(nodes)!=list(range(rows[0][0],rows[-1][0]+4,4)):raise ValueError('CFG code coverage')
     for pc,op,args in rows:
         if op=='bl':calls.append((pc,int(args[1:],0)))
-        if op in ('b','beq','bne','ble'):
+        if op=='blx' and pc not in indirect_calls:raise ValueError('unknown indirect call')
+        if op in ('b','beq','bne','ble','bgt','bhi','bls'):
             target=int(args[1:],0)
             edges.append((pc,target,None if op=='b' else True))
             if op!='b':edges.append((pc,pc+4,False));predicates.append(pc)
         elif (op.startswith('pop') and 'pc' in args) or op.startswith('bx'):
             if op.startswith('bx') and args!='lr':raise ValueError('unknown indirect control')
-            conditional=op.endswith(('eq','ne'))
+            conditional=op.endswith(('eq','ne','gt','ls'))
             edges.append((pc,'RETURN',True if conditional else None));returns.append(pc)
             if conditional:edges.append((pc,pc+4,False));predicates.append(pc)
         else:
-            if op.startswith('bl') and op!='bl':raise ValueError('unknown indirect call')
+            if op.startswith('bl') and op not in ('bl','blx','ble','bls'):raise ValueError('unknown indirect call')
             if args.startswith('pc,'):raise ValueError('unmodeled PC write')
-            conditional=op.endswith(('eq','ne'))
+            conditional=op.endswith(('eq','ne','gt','ls'))
             for condition in (True,False) if conditional else (None,):edges.append((pc,pc+4,condition))
             if conditional:predicates.append(pc)
         if any(target!='RETURN' and target not in nodes for source,target,_ in edges if source==pc):raise ValueError('CFG escapes code or enters literal pool')
@@ -143,8 +144,9 @@ def explore(rows,graph):
 
 def preserve_baselines(manifest):
     protected={};audits=[]
-    entries=[*manifest['partial_link']['baselines'],{'report':manifest['partial_link']['status'],'report_sha256_lf':BASELINE_TEN_LF,
-              'output_sha256':'2ef77b6890261cab00cb5469ab3a9e3ee7b92f9248e37d74603f6b6e5dffe251','symbol_count':10}]
+    entries=manifest['partial_link']['baselines']
+    if [entry['symbol_count'] for entry in entries]!=[6,8,10] or entries[-1]['report_sha256_lf']!=BASELINE_TEN_LF:
+        raise ValueError('required immutable six/eight/ten baselines')
     for entry in entries:
         report_path=ROOT/entry['report'];report=read_json(report_path);object_path=ROOT/report['output_path']
         if sha(report_path.read_text().encode())!=entry['report_sha256_lf'] or sha(object_path.read_bytes())!=entry['output_sha256']:

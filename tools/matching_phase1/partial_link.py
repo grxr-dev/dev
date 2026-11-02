@@ -64,7 +64,7 @@ def baseline_records(manifest):
         if not object_path.is_relative_to(ROOT/'local/matching_phase1/runs') or report['output']['output_sha256']!=entry['output_sha256'] or sha(object_path.read_bytes())!=entry['output_sha256']:
             raise ValueError('immutable baseline object identity/path changed')
         records.append((entry,report,object_path))
-    if len(records)!=2 or [entry['symbol_count'] for entry,_,_ in records]!=[6,8]:raise ValueError('required six/eight baseline chain missing')
+    if len(records)!=3 or [entry['symbol_count'] for entry,_,_ in records]!=[6,8,10]:raise ValueError('required six/eight/ten baseline chain missing')
     return records
 
 

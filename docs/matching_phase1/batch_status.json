@@ -2,11 +2,11 @@
   "schema": "brainage-source-batch-result/1",
   "classification": "BATCH_CHECKS_COMPLETED_NOT_AUTHENTIC_MATCH",
   "summary": {
-    "source_symbols": 10,
-    "compile_pass": 10,
-    "semantic_pass": 10,
+    "source_symbols": 11,
+    "compile_pass": 11,
+    "semantic_pass": 11,
     "exact_matches": 1,
-    "exact_mismatches": 9,
+    "exact_mismatches": 10,
     "errors": 0,
     "genuine_original_matches": 0,
     "gate0": "OPEN"
@@ -847,6 +847,69 @@
       ],
       "generated_literal_words": {},
       "generated_fits_original_symbol_range": true
+    },
+    {
+      "symbol": "func_0200af44",
+      "address": "0x0200af44",
+      "mode": "ARM_LE",
+      "reference_size": 72,
+      "reference_sha256": "a0ede9b82518e5a14a72ab0bfb533021242e7e332512366c243f72a8e6ffa8b6",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200af44.c",
+      "comparison_config": "tools/matching_phase1/queue_reinsert_config.json",
+      "code_bytes": 72,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "queue_reinsert",
+      "behavior_evidence_tier": "bounded_virtual_link_unlink_append_differential",
+      "domain": "valid aligned two-pointer prefixes; entry detached or in a consistent finite doubly-linked chain; valid destination head; entry is not head; no cycles after unlink; ordinary nonvolatile exclusive storage; published stack pointers require external synchronous removal before return",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN; original r0 retains entry",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "9cc2423e4cd7452f139142d7a4583972cc1e96f77be29aaaf8de64fc05b7acdb",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 90,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false,
+        "evidence_scope": "conditional opaque protocol only"
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 56,
+      "generated_sha256": "e7cd7eec336498f2fb390b94fb68372641c33d119a09e79bc453f75474deb655",
+      "generated_raw_sha256": "e7cd7eec336498f2fb390b94fb68372641c33d119a09e79bc453f75474deb655",
+      "object_sha256": "5a179f57ffd3c446e03d1f34d4917fc1910a768d82d8cfef2d63a73ae6050073",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 0,
+      "generated_relocations": [
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 59,
+      "generated_code_bytes": 56,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 56,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": true
     }
   ],
   "object_comparison": {
@@ -856,8 +919,8 @@
     "builds": [
       {
         "name": "authored-a",
-        "sha256": "3319cdd3a8708cecc033a1e378c53fd0ea1e26f402bc1b0c6e977e90dc308c83",
-        "size": 4976,
+        "sha256": "205fd82aa8a240e93e53075662e1a0b118613c127b08e3130f7ae942089ec7bf",
+        "size": 5332,
         "compile_exit": 0,
         "extra_flags": [
           "-fno-inline",
@@ -866,8 +929,8 @@
       },
       {
         "name": "authored-b",
-        "sha256": "3319cdd3a8708cecc033a1e378c53fd0ea1e26f402bc1b0c6e977e90dc308c83",
-        "size": 4976,
+        "sha256": "205fd82aa8a240e93e53075662e1a0b118613c127b08e3130f7ae942089ec7bf",
+        "size": 5332,
         "compile_exit": 0,
         "extra_flags": [
           "-fno-inline",
@@ -876,8 +939,8 @@
       },
       {
         "name": "authored-o0-negative",
-        "sha256": "e0d456a1954bc0881690f388cff1be96727b0ec1bbccb51d8a88e1f3647bd761",
-        "size": 5468,
+        "sha256": "ea66910707df687270d2c827809c12347fb7a4ec555b00c87c4367a2bb5c7d86",
+        "size": 5956,
         "compile_exit": 0,
         "extra_flags": [
           "-fno-inline",
@@ -967,6 +1030,14 @@
         "type": 2,
         "binding": 1,
         "section_index": 27
+      },
+      {
+        "name": "func_0200af44",
+        "value": 0,
+        "size": 56,
+        "type": 2,
+        "binding": 1,
+        "section_index": 38
       }
     ],
     "undefined_symbols": [
@@ -1130,6 +1201,13 @@
         "type": 42,
         "symbol": "",
         "symbol_defined": true
+      },
+      {
+        "section": ".ARM.exidx.text.func_0200af44",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
       }
     ],
     "linked": false,
@@ -1146,7 +1224,7 @@
       {
         "name": "authored-repeat",
         "exit_code": 0,
-        "report_sha256": "fc107acbc1db1e80ec62dca643e3dff74ac0a2333f897d3e05eba479958cd4c5",
+        "report_sha256": "f8319a27d0da7744b5860a89ff255c13a5c800bb08a245b17a1bbfe38f9ba4ba",
         "report": "local\\matching_phase1\\runs\\utility-batch\\authored-repeat.objdiff.json",
         "authored_control_match_percent_NOT_original": {
           "func_020660f4": 100.0,
@@ -1158,13 +1236,14 @@
           "func_02067f74": 100.0,
           "func_02068008": 100.0,
           "func_0200acd0": 100.0,
-          "func_0200ac04": 100.0
+          "func_0200ac04": 100.0,
+          "func_0200af44": 100.0
         }
       },
       {
         "name": "authored-o0-negative",
         "exit_code": 0,
-        "report_sha256": "77ea7572b4afd56008a6fc8475fe44ab1e71ba900113fd4a7182dab93b968c69",
+        "report_sha256": "9c51e463fd4f9ce44b7bbf6a951e1bb3760dff9d0f3534569b270ca095878493",
         "report": "local\\matching_phase1\\runs\\utility-batch\\authored-o0-negative.objdiff.json",
         "authored_control_match_percent_NOT_original": {
           "func_020660f4": 100.0,
@@ -1176,13 +1255,14 @@
           "func_02067f74": 0.0,
           "func_02068008": 0.0,
           "func_0200acd0": 52.0625,
-          "func_0200ac04": 0.0
+          "func_0200ac04": 0.0,
+          "func_0200af44": 0.0
         }
       },
       {
         "name": "authored-project-config",
         "exit_code": 0,
-        "report_sha256": "fc107acbc1db1e80ec62dca643e3dff74ac0a2333f897d3e05eba479958cd4c5",
+        "report_sha256": "f8319a27d0da7744b5860a89ff255c13a5c800bb08a245b17a1bbfe38f9ba4ba",
         "report": "local\\matching_phase1\\runs\\utility-batch\\authored-project-check.objdiff.json",
         "authored_control_match_percent_NOT_original": {
           "func_020660f4": 100.0,
@@ -1194,13 +1274,14 @@
           "func_02067f74": 100.0,
           "func_02068008": 100.0,
           "func_0200acd0": 100.0,
-          "func_0200ac04": 100.0
+          "func_0200ac04": 100.0,
+          "func_0200af44": 100.0
         }
       }
     ]
   },
   "regressions": {
-    "run": 160,
+    "run": 183,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -1242,7 +1323,7 @@
       "-fomit-frame-pointer"
     ]
   },
-  "shared_header_sha256_lf": "675d85991768b1cfb32e242de8eb95a1ebe41bdb0cbe0a3002b982b1f37e5002",
+  "shared_header_sha256_lf": "aa060d862ceed748da4d03a9aaf5827dd9bce7d599823798fcc8ef397c795e6e",
   "cluster_source": "src/arm9/utility_hypotheses/cluster.c",
   "original_compiler_and_compilation_units_qualified": false
 }
