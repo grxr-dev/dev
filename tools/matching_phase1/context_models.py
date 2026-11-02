@@ -13,17 +13,33 @@ WRITTEN={0:4,4:4,8:4,12:4,16:4,24:2}
 
 
 def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignment=0,
-          protocol=None,dispatch_result=0,dispatch_words=None,forward_result=0,forward_pair=None,forward_read_offsets=()):
+          protocol=None,dispatch_result=0,dispatch_words=None,forward_result=0,forward_pair=None,forward_read_offsets=(),producer=None):
     context=CONTEXT+alignment
     registers={f'r{index}':0xabc00000+index for index in range(13)}
     registers.update(r0=context,r1=INPUT,sp=STACK,lr=RETURN)
     pair_address=PAIR+alignment
     if protocol=='context_accept':registers.update(r1=first,r2=second)
     elif protocol=='pair_forward':registers['r0']=pair_address
+    elif protocol=='pair_producer':
+        producer=producer or {};data=producer.get('input',b'\0');input_address=producer.get('input_address',INPUT)
+        pair_address=producer.get('pair_address',PAIR)
+        if len(initial)!=68 or pair_address&3 or not 0<pair_address<=MASK-8:raise ValueError('producer storage contract')
+        regions=[(context,context+68),(input_address,input_address+len(data)),(STACK-40,STACK),(0x020d4b6c,0x020d4b78),(0x7000,0x7014)]
+        if any(start<pair_address+8 and pair_address<end for start,end in regions):raise ValueError('unsupported pair alias')
+        if input_address and any(start<input_address+len(data) and input_address<end for start,end in [regions[0],*regions[2:]]):raise ValueError('unsupported input alias')
+        registers.update(r1=input_address,r2=pair_address,r3=producer.get('mode',0))
     elif protocol is not None:raise ValueError('unknown protocol scenario')
     preserved={name:registers[name] for name in ['sp',*[f'r{index}' for index in range(4,12)]]}
     memory={context+index:value for index,value in enumerate(initial)}
-    calls=[];writes=[];reads=[];call_states=[];frame=None;frame_limit=None;scratch=None;maximum_stack=0;zero=False;nzcv=None
+    if protocol=='pair_producer':
+        initialized_offsets={offset+index for offset,width in WRITTEN.items() for index in range(width)}
+        memory={address:byte for address,byte in memory.items() if address-context in initialized_offsets}
+        if input_address:memory.update({input_address+index:byte for index,byte in enumerate(data)})
+        words=producer.get('global_words',(0x7000,0x12340000,0xabcdef01))
+        for address,word in [(0x0200aee4,0x020d4b6c),*[(0x020d4b6c+4*index,word) for index,word in enumerate(words)],(0x7010,2 if producer.get('lookup','enabled')=='enabled' else 0)]:
+            for index in range(4):memory[address+index]=(word>>(8*index))&255
+    calls=[];writes=[];reads=[];call_states=[];pair_writes=[];path=[];edges=[];conditions=[]
+    frame=None;frame_limit=None;scratch=None;maximum_stack=0;zero=False;nzcv=None;active_condition=None
     program={pc:(op,args) for pc,op,args in rows};pc=rows[0][0]
 
     def value(token):
@@ -35,25 +51,30 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
         reads.append((address,width))
         return sum(memory[address+index]<<(8*index) for index in range(width))
 
-    def write(address,width,number):
-        if address%width or not (context<=address<=context+len(initial)-width or registers['sp']<=address<=STACK-width or protocol=='pair_forward' and pair_address<=address<=pair_address+8-width):
+    def write(address,width,number,origin='instruction'):
+        if address%width or not (context<=address<=context+len(initial)-width or registers['sp']<=address<=STACK-width or protocol in ('pair_forward','pair_producer') and pair_address<=address<=pair_address+8-width):
             raise ValueError('outside virtual context/owned stack')
         writes.append((address,width,number&((1<<(8*width))-1)))
         for index in range(width):memory[address+index]=(number>>(8*index))&255
+        if pair_address<=address< pair_address+8:pair_writes.append({'pc':pc,'offset':address-pair_address,'width':width,'origin':origin})
 
     def finish(target):
         if target!=RETURN or any(registers[name]!=number for name,number in preserved.items()):
             raise ValueError('callee-saved register/SP/return mismatch')
-        return {'return':registers['r0'],'context':bytes(memory[context+index] for index in range(len(initial))),
+        edges.append((pc,'RETURN',active_condition))
+        context_bytes=[memory.get(context+index) for index in range(len(initial))]
+        return {'return':registers['r0'],'context':context_bytes if protocol=='pair_producer' else bytes(context_bytes),
                 'calls':calls,'writes':writes,'reads':reads,'stack_bytes':maximum_stack,'call_states':call_states,'nzcv':nzcv,
-                'output_pair_bytes':[memory.get(pair_address+index) for index in range(8)]}
+                'output_pair_bytes':[memory.get(pair_address+index) for index in range(8)],'pair_writes':pair_writes,
+                'path':path,'edges':edges,'conditions':conditions}
 
-    for step in range(64):
+    for step in range(256 if protocol=='pair_producer' else 64):
         if pc not in program:raise ValueError('escaped bounded context code')
-        op,args=program[pc];args=args.replace('fp','r11').replace('ip','r12');next_pc=pc+4
+        op,args=program[pc];args=args.replace('fp','r11').replace('ip','r12');next_pc=pc+4;active_condition=None;path.append(pc)
         if op not in ('beq','bne') and op.endswith(('eq','ne')):
             condition=op[-2:];op=op[:-2]
-            if zero!=(condition=='eq'):pc=next_pc;continue
+            active_condition=zero==(condition=='eq');conditions.append((pc,active_condition))
+            if not active_condition:edges.append((pc,next_pc,False));pc=next_pc;continue
         if op=='mov':
             destination,source=args.split(', ');registers[destination]=value(source)
         elif op in ('add','sub'):
@@ -61,14 +82,20 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
             if destination=='sp' and op=='sub':frame_limit=registers['sp']
             registers[destination]=(value(left)+(value(right) if op=='add' else -value(right)))&MASK
             if destination=='sp' and op=='sub':frame=registers['sp']
-        elif op in ('orr','bic'):
+        elif op in ('orr','bic','ands'):
             destination,left,right=args.split(', ')
-            registers[destination]=(value(left)|(value(right)))&MASK if op=='orr' else value(left)&(~value(right)&MASK)
-        elif op in ('str','strh','ldr'):
-            match=re.fullmatch(r'(r\d+), \[(r\d+|sp)(?:, #(0x[0-9a-f]+|\d+))?\]',args)
+            registers[destination]=(value(left)|value(right))&MASK if op=='orr' else value(left)&(~value(right)&MASK) if op=='bic' else value(left)&value(right)
+            if op=='ands':
+                if right!='#2' or nzcv is None:raise ValueError('only pinned unrotated ANDS mask supported')
+                zero=registers[destination]==0;nzcv=(registers[destination]>>31,int(zero),nzcv[2],nzcv[3])
+        elif op in ('str','strh','ldr','ldrb'):
+            match=re.fullmatch(r'(r\d+), \[(r\d+|sp|pc)(?:, (#(?:0x[0-9a-f]+|\d+)|r\d+))?\](!?)',args)
             if not match:raise ValueError('unsupported context memory operand')
-            register,base,offset=match.groups();address=registers[base]+int(offset or '0',0)
-            if op=='ldr':registers[register]=read(address,4)
+            register,base,offset,writeback=match.groups();address=(pc+8 if base=='pc' else registers[base])+(value(offset) if offset else 0)
+            if writeback:
+                if base=='pc':raise ValueError('PC writeback unsupported')
+                registers[base]=address
+            if op in ('ldr','ldrb'):registers[register]=read(address,1 if op=='ldrb' else 4)
             else:write(address,2 if op=='strh' else 4,registers[register])
         elif op in ('push','pop'):
             names=args[1:-1].split(', ')
@@ -81,18 +108,40 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
                 for name,number in zip(names,values):
                     if name=='pc':return finish(number)
                     registers[name]=number
-        elif op=='ldm':
+        elif op in ('ldm','stm'):
             base,names=args.split(', ',1);names=names[1:-1].split(', ');address=registers[base]
-            values=[read(address+4*index,4) for index in range(len(names))]
-            for name,number in zip(names,values):registers[name]=number
+            if op=='ldm':
+                values=[read(address+4*index,4) for index in range(len(names))]
+                for name,number in zip(names,values):registers[name]=number
+            else:
+                for index,name in enumerate(names):write(address+4*index,4,registers[name])
         elif op=='cmp':
             left,right=args.split(', ');left=value(left);right=value(right);difference=(left-right)&MASK;zero=left==right
             nzcv=(difference>>31,int(zero),int(left>=right),int(bool((left^right)&(left^difference)&0x80000000)))
-        elif op in ('b','beq','bne'):
-            if op=='b' or zero==(op=='beq'):next_pc=value(args)
+        elif op in ('b','beq','bne','ble'):
+            if op!='b':
+                if nzcv is None:raise ValueError('unknown branch flags')
+                active_condition=bool(zero or nzcv[0]!=nzcv[3]) if op=='ble' else zero==(op=='beq')
+                conditions.append((pc,active_condition))
+            if op=='b' or active_condition:next_pc=value(args)
         elif op=='bl':
             target=value(args)
-            if protocol=='context_accept' and target==0x0200a464:
+            if protocol=='pair_producer' and target==0x0200a8d8:
+                if registers['r0']!=input_address or registers['r1'] not in range(4):raise ValueError('prefix lookup ABI mismatch')
+                calls.append((target,input_address,registers['r1']))
+                result=0 if producer.get('lookup','enabled')=='null' else 0x7000;nzcv=None
+            elif protocol=='pair_producer' and target==0x0200a464:
+                if registers['r0']!=context or registers['r1']!=4:raise ValueError('command-4 ABI mismatch')
+                calls.append((target,context,4,registers['r2'],registers['r3']))
+                state=[memory.get(context+index) for index in range(68)];call_states.append({'scratch':state})
+                for offset in producer.get('dispatch_reads',()):read(context+offset,4)
+                if read(context+60,4)==0:
+                    destination=read(context+64,4)
+                    if destination!=pair_address:raise ValueError('published pair pointer differs')
+                    for index in range(2):
+                        if producer.get('pair_mask',0)&(1<<index):write(destination+4*index,4,0x12345678+index,origin='opaque_dispatch')
+                result=dispatch_result;nzcv=None
+            elif protocol=='context_accept' and target==0x0200a464:
                 arguments=tuple(registers[f'r{index}'] for index in range(4))
                 if arguments!=(context,6,second,first):raise ValueError('dispatcher ABI mismatch')
                 calls.append((target,*arguments));before=bytes(memory[context+index] for index in range(len(initial)))
@@ -131,7 +180,7 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
             registers['r0']=result&MASK;registers['lr']=next_pc
         elif op=='bx':return finish(value(args))
         else:raise ValueError('unsupported context operation '+op)
-        maximum_stack=max(maximum_stack,STACK-registers['sp']);pc=next_pc
+        maximum_stack=max(maximum_stack,STACK-registers['sp']);edges.append((pc,next_pc,active_condition));pc=next_pc
     raise ValueError('bounded context instruction budget')
 
 

@@ -19,6 +19,9 @@ The current [protocol expansion](context_protocol_expansion.md) extends this
 same runner/manifest to ten symbols and 135 regressions, retaining both older
 linked objects and status reports as immutable baselines.
 
+The later [AD94 contract-only audit](pair_producer_contract.md) adds no C/link;
+regression discovery now runs 160 tests. The ten-source byte verdicts are unchanged.
+
 ## One command
 
 From the dev repository:
@@ -28,7 +31,7 @@ python -B tools/matching_phase1/batch.py --publish-status
 ```
 
 This validates all12 pinned inputs, builds/tests/checks the current ten symbols, builds the
-authored cluster/repeat/negative objects, runs real objdiff and 135 regressions,
+authored cluster/repeat/negative objects, runs real objdiff and 160 regressions,
 then rechecks all12 input hashes. The command needs the existing qualified
 Zig0.15.2/Clang20.1.2 and Capstone; it does not download anything implicitly.
 The optional explicit official CLI installer is

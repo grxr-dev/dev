@@ -1,0 +1,1340 @@
+{
+  "schema": "brainage-pair-producer-contract/1",
+  "classification": "BRANCH_COMPLETE_AUDIT_EXTERNAL_SAFETY_OBLIGATION_UNRESOLVED",
+  "reference": {
+    "address": "0x200ad94",
+    "size": 340,
+    "code_bytes": 336,
+    "pool_bytes": 4,
+    "sha256": "c536d8986a58164efd05d54598aa774b5ad63f2a1b8c6442df467c2ba791be80",
+    "literal": {
+      "address": "0x0200aee4",
+      "value": "0x020d4b6c",
+      "pointee_section": ".bss",
+      "runtime_contents": "UNOBSERVED"
+    },
+    "original_relocations": [
+      "from:0x0200ae24 kind:arm_call to:0x0200a8d8 module:main",
+      "from:0x0200aed8 kind:arm_call to:0x0200a464 module:main",
+      "from:0x0200aee4 kind:load to:0x020d4b6c module:main"
+    ]
+  },
+  "budget": {
+    "functions_fully_decoded": 2,
+    "full_function_bytes_including_pools": 416,
+    "existing_caller_prologue_bytes": 16,
+    "AD94_step_bound": 256,
+    "large_dispatchers_decoded": 0
+  },
+  "cfg": {
+    "nodes": [
+      "0x200ad94",
+      "0x200ad98",
+      "0x200ad9c",
+      "0x200ada0",
+      "0x200ada4",
+      "0x200ada8",
+      "0x200adac",
+      "0x200adb0",
+      "0x200adb4",
+      "0x200adb8",
+      "0x200adbc",
+      "0x200adc0",
+      "0x200adc4",
+      "0x200adc8",
+      "0x200adcc",
+      "0x200add0",
+      "0x200add4",
+      "0x200add8",
+      "0x200addc",
+      "0x200ade0",
+      "0x200ade4",
+      "0x200ade8",
+      "0x200adec",
+      "0x200adf0",
+      "0x200adf4",
+      "0x200adf8",
+      "0x200adfc",
+      "0x200ae00",
+      "0x200ae04",
+      "0x200ae08",
+      "0x200ae0c",
+      "0x200ae10",
+      "0x200ae14",
+      "0x200ae18",
+      "0x200ae1c",
+      "0x200ae20",
+      "0x200ae24",
+      "0x200ae28",
+      "0x200ae2c",
+      "0x200ae30",
+      "0x200ae34",
+      "0x200ae38",
+      "0x200ae3c",
+      "0x200ae40",
+      "0x200ae44",
+      "0x200ae48",
+      "0x200ae4c",
+      "0x200ae50",
+      "0x200ae54",
+      "0x200ae58",
+      "0x200ae5c",
+      "0x200ae60",
+      "0x200ae64",
+      "0x200ae68",
+      "0x200ae6c",
+      "0x200ae70",
+      "0x200ae74",
+      "0x200ae78",
+      "0x200ae7c",
+      "0x200ae80",
+      "0x200ae84",
+      "0x200ae88",
+      "0x200ae8c",
+      "0x200ae90",
+      "0x200ae94",
+      "0x200ae98",
+      "0x200ae9c",
+      "0x200aea0",
+      "0x200aea4",
+      "0x200aea8",
+      "0x200aeac",
+      "0x200aeb0",
+      "0x200aeb4",
+      "0x200aeb8",
+      "0x200aebc",
+      "0x200aec0",
+      "0x200aec4",
+      "0x200aec8",
+      "0x200aecc",
+      "0x200aed0",
+      "0x200aed4",
+      "0x200aed8",
+      "0x200aedc",
+      "0x200aee0"
+    ],
+    "edges": [
+      {
+        "from": "0x200ad94",
+        "to": "0x200ad98",
+        "condition": null
+      },
+      {
+        "from": "0x200ad98",
+        "to": "0x200ad9c",
+        "condition": null
+      },
+      {
+        "from": "0x200ad9c",
+        "to": "0x200ada0",
+        "condition": null
+      },
+      {
+        "from": "0x200ada0",
+        "to": "0x200ada4",
+        "condition": null
+      },
+      {
+        "from": "0x200ada4",
+        "to": "0x200ada8",
+        "condition": null
+      },
+      {
+        "from": "0x200ada8",
+        "to": "0x200adac",
+        "condition": null
+      },
+      {
+        "from": "0x200adac",
+        "to": "0x200adb0",
+        "condition": null
+      },
+      {
+        "from": "0x200adb0",
+        "to": "0x200adb4",
+        "condition": null
+      },
+      {
+        "from": "0x200adb4",
+        "to": "0x200adc0",
+        "condition": true
+      },
+      {
+        "from": "0x200adb4",
+        "to": "0x200adb8",
+        "condition": false
+      },
+      {
+        "from": "0x200adb8",
+        "to": "0x200adbc",
+        "condition": null
+      },
+      {
+        "from": "0x200adbc",
+        "to": "0x200ade4",
+        "condition": true
+      },
+      {
+        "from": "0x200adbc",
+        "to": "0x200adc0",
+        "condition": false
+      },
+      {
+        "from": "0x200adc0",
+        "to": "0x200adc4",
+        "condition": null
+      },
+      {
+        "from": "0x200adc4",
+        "to": "0x200adc8",
+        "condition": null
+      },
+      {
+        "from": "0x200adc8",
+        "to": "0x200adcc",
+        "condition": null
+      },
+      {
+        "from": "0x200adcc",
+        "to": "0x200add0",
+        "condition": null
+      },
+      {
+        "from": "0x200add0",
+        "to": "0x200add4",
+        "condition": null
+      },
+      {
+        "from": "0x200add4",
+        "to": "0x200add8",
+        "condition": null
+      },
+      {
+        "from": "0x200add8",
+        "to": "0x200addc",
+        "condition": null
+      },
+      {
+        "from": "0x200addc",
+        "to": "0x200ade0",
+        "condition": null
+      },
+      {
+        "from": "0x200ade0",
+        "to": "0x200ae98",
+        "condition": null
+      },
+      {
+        "from": "0x200ade4",
+        "to": "0x200ade8",
+        "condition": null
+      },
+      {
+        "from": "0x200ade8",
+        "to": "0x200adec",
+        "condition": null
+      },
+      {
+        "from": "0x200adec",
+        "to": "0x200adf0",
+        "condition": null
+      },
+      {
+        "from": "0x200adf0",
+        "to": "0x200adf4",
+        "condition": null
+      },
+      {
+        "from": "0x200adf4",
+        "to": "0x200adf8",
+        "condition": null
+      },
+      {
+        "from": "0x200adf8",
+        "to": "0x200adfc",
+        "condition": null
+      },
+      {
+        "from": "0x200adfc",
+        "to": "0x200ae00",
+        "condition": null
+      },
+      {
+        "from": "0x200ae00",
+        "to": "0x200ae98",
+        "condition": true
+      },
+      {
+        "from": "0x200ae00",
+        "to": "0x200ae04",
+        "condition": false
+      },
+      {
+        "from": "0x200ae04",
+        "to": "0x200ae08",
+        "condition": null
+      },
+      {
+        "from": "0x200ae08",
+        "to": "0x200ae98",
+        "condition": true
+      },
+      {
+        "from": "0x200ae08",
+        "to": "0x200ae0c",
+        "condition": false
+      },
+      {
+        "from": "0x200ae0c",
+        "to": "0x200ae10",
+        "condition": null
+      },
+      {
+        "from": "0x200ae10",
+        "to": "0x200ae98",
+        "condition": true
+      },
+      {
+        "from": "0x200ae10",
+        "to": "0x200ae14",
+        "condition": false
+      },
+      {
+        "from": "0x200ae14",
+        "to": "0x200ae18",
+        "condition": null
+      },
+      {
+        "from": "0x200ae18",
+        "to": "0x200ae8c",
+        "condition": true
+      },
+      {
+        "from": "0x200ae18",
+        "to": "0x200ae1c",
+        "condition": false
+      },
+      {
+        "from": "0x200ae1c",
+        "to": "0x200ae20",
+        "condition": null
+      },
+      {
+        "from": "0x200ae20",
+        "to": "0x200ae24",
+        "condition": null
+      },
+      {
+        "from": "0x200ae24",
+        "to": "0x200ae28",
+        "condition": null
+      },
+      {
+        "from": "0x200ae28",
+        "to": "0x200ae2c",
+        "condition": null
+      },
+      {
+        "from": "0x200ae2c",
+        "to": "0x200ae30",
+        "condition": true
+      },
+      {
+        "from": "0x200ae2c",
+        "to": "0x200ae30",
+        "condition": false
+      },
+      {
+        "from": "0x200ae30",
+        "to": "0x200ae34",
+        "condition": true
+      },
+      {
+        "from": "0x200ae30",
+        "to": "0x200ae34",
+        "condition": false
+      },
+      {
+        "from": "0x200ae34",
+        "to": "RETURN",
+        "condition": true
+      },
+      {
+        "from": "0x200ae34",
+        "to": "0x200ae38",
+        "condition": false
+      },
+      {
+        "from": "0x200ae38",
+        "to": "0x200ae3c",
+        "condition": null
+      },
+      {
+        "from": "0x200ae3c",
+        "to": "0x200ae40",
+        "condition": null
+      },
+      {
+        "from": "0x200ae40",
+        "to": "0x200ae44",
+        "condition": true
+      },
+      {
+        "from": "0x200ae40",
+        "to": "0x200ae44",
+        "condition": false
+      },
+      {
+        "from": "0x200ae44",
+        "to": "0x200ae48",
+        "condition": true
+      },
+      {
+        "from": "0x200ae44",
+        "to": "0x200ae48",
+        "condition": false
+      },
+      {
+        "from": "0x200ae48",
+        "to": "0x200ae4c",
+        "condition": null
+      },
+      {
+        "from": "0x200ae4c",
+        "to": "0x200ae50",
+        "condition": true
+      },
+      {
+        "from": "0x200ae4c",
+        "to": "0x200ae50",
+        "condition": false
+      },
+      {
+        "from": "0x200ae50",
+        "to": "0x200ae54",
+        "condition": true
+      },
+      {
+        "from": "0x200ae50",
+        "to": "0x200ae54",
+        "condition": false
+      },
+      {
+        "from": "0x200ae54",
+        "to": "RETURN",
+        "condition": true
+      },
+      {
+        "from": "0x200ae54",
+        "to": "0x200ae58",
+        "condition": false
+      },
+      {
+        "from": "0x200ae58",
+        "to": "0x200ae5c",
+        "condition": null
+      },
+      {
+        "from": "0x200ae5c",
+        "to": "0x200ae60",
+        "condition": null
+      },
+      {
+        "from": "0x200ae60",
+        "to": "0x200ae64",
+        "condition": null
+      },
+      {
+        "from": "0x200ae64",
+        "to": "0x200ae68",
+        "condition": null
+      },
+      {
+        "from": "0x200ae68",
+        "to": "0x200ae6c",
+        "condition": null
+      },
+      {
+        "from": "0x200ae6c",
+        "to": "0x200ae70",
+        "condition": null
+      },
+      {
+        "from": "0x200ae70",
+        "to": "0x200ae74",
+        "condition": null
+      },
+      {
+        "from": "0x200ae74",
+        "to": "0x200ae78",
+        "condition": null
+      },
+      {
+        "from": "0x200ae78",
+        "to": "0x200ae84",
+        "condition": true
+      },
+      {
+        "from": "0x200ae78",
+        "to": "0x200ae7c",
+        "condition": false
+      },
+      {
+        "from": "0x200ae7c",
+        "to": "0x200ae80",
+        "condition": null
+      },
+      {
+        "from": "0x200ae80",
+        "to": "0x200ae98",
+        "condition": true
+      },
+      {
+        "from": "0x200ae80",
+        "to": "0x200ae84",
+        "condition": false
+      },
+      {
+        "from": "0x200ae84",
+        "to": "0x200ae88",
+        "condition": null
+      },
+      {
+        "from": "0x200ae88",
+        "to": "0x200ae98",
+        "condition": null
+      },
+      {
+        "from": "0x200ae8c",
+        "to": "0x200ae90",
+        "condition": null
+      },
+      {
+        "from": "0x200ae90",
+        "to": "0x200ae94",
+        "condition": null
+      },
+      {
+        "from": "0x200ae94",
+        "to": "0x200adf8",
+        "condition": true
+      },
+      {
+        "from": "0x200ae94",
+        "to": "0x200ae98",
+        "condition": false
+      },
+      {
+        "from": "0x200ae98",
+        "to": "0x200ae9c",
+        "condition": null
+      },
+      {
+        "from": "0x200ae9c",
+        "to": "0x200aea0",
+        "condition": null
+      },
+      {
+        "from": "0x200aea0",
+        "to": "0x200aea4",
+        "condition": null
+      },
+      {
+        "from": "0x200aea4",
+        "to": "0x200aea8",
+        "condition": null
+      },
+      {
+        "from": "0x200aea8",
+        "to": "0x200aeac",
+        "condition": null
+      },
+      {
+        "from": "0x200aeac",
+        "to": "0x200aeb0",
+        "condition": null
+      },
+      {
+        "from": "0x200aeb0",
+        "to": "0x200aeb4",
+        "condition": null
+      },
+      {
+        "from": "0x200aeb4",
+        "to": "0x200aeb8",
+        "condition": null
+      },
+      {
+        "from": "0x200aeb8",
+        "to": "0x200aebc",
+        "condition": true
+      },
+      {
+        "from": "0x200aeb8",
+        "to": "0x200aebc",
+        "condition": false
+      },
+      {
+        "from": "0x200aebc",
+        "to": "0x200aec0",
+        "condition": true
+      },
+      {
+        "from": "0x200aebc",
+        "to": "0x200aec0",
+        "condition": false
+      },
+      {
+        "from": "0x200aec0",
+        "to": "0x200aec4",
+        "condition": true
+      },
+      {
+        "from": "0x200aec0",
+        "to": "0x200aec4",
+        "condition": false
+      },
+      {
+        "from": "0x200aec4",
+        "to": "0x200aec8",
+        "condition": true
+      },
+      {
+        "from": "0x200aec4",
+        "to": "0x200aec8",
+        "condition": false
+      },
+      {
+        "from": "0x200aec8",
+        "to": "0x200aecc",
+        "condition": true
+      },
+      {
+        "from": "0x200aec8",
+        "to": "0x200aecc",
+        "condition": false
+      },
+      {
+        "from": "0x200aecc",
+        "to": "0x200aed0",
+        "condition": null
+      },
+      {
+        "from": "0x200aed0",
+        "to": "0x200aed4",
+        "condition": null
+      },
+      {
+        "from": "0x200aed4",
+        "to": "0x200aed8",
+        "condition": true
+      },
+      {
+        "from": "0x200aed4",
+        "to": "0x200aed8",
+        "condition": false
+      },
+      {
+        "from": "0x200aed8",
+        "to": "0x200aedc",
+        "condition": null
+      },
+      {
+        "from": "0x200aedc",
+        "to": "0x200aee0",
+        "condition": null
+      },
+      {
+        "from": "0x200aee0",
+        "to": "RETURN",
+        "condition": null
+      }
+    ],
+    "returns": [
+      "0x200ae34",
+      "0x200ae54",
+      "0x200aee0"
+    ],
+    "calls": [
+      {
+        "pc": "0x200ae24",
+        "target": "0x200a8d8"
+      },
+      {
+        "pc": "0x200aed8",
+        "target": "0x200a464"
+      }
+    ],
+    "loop_edges": [
+      {
+        "from": "0x200ae94",
+        "to": "0x200adf8",
+        "condition": true
+      }
+    ]
+  },
+  "small_helper": {
+    "address": "0x200a8d8",
+    "size": 76,
+    "sha256": "9950e1d6961160f5bdd7f0c6962186ca0997dd2322879178eaf9a73c3ce659e0",
+    "code_bytes": 72,
+    "pool_bytes": 4,
+    "cfg": {
+      "nodes": [
+        "0x200a8d8",
+        "0x200a8dc",
+        "0x200a8e0",
+        "0x200a8e4",
+        "0x200a8e8",
+        "0x200a8ec",
+        "0x200a8f0",
+        "0x200a8f4",
+        "0x200a8f8",
+        "0x200a8fc",
+        "0x200a900",
+        "0x200a904",
+        "0x200a908",
+        "0x200a90c",
+        "0x200a910",
+        "0x200a914",
+        "0x200a918",
+        "0x200a91c"
+      ],
+      "edges": [
+        {
+          "from": "0x200a8d8",
+          "to": "0x200a8dc",
+          "condition": null
+        },
+        {
+          "from": "0x200a8dc",
+          "to": "0x200a8e0",
+          "condition": null
+        },
+        {
+          "from": "0x200a8e0",
+          "to": "0x200a8e4",
+          "condition": null
+        },
+        {
+          "from": "0x200a8e4",
+          "to": "0x200a8e8",
+          "condition": null
+        },
+        {
+          "from": "0x200a8e8",
+          "to": "0x200a8ec",
+          "condition": null
+        },
+        {
+          "from": "0x200a8ec",
+          "to": "0x200a8f0",
+          "condition": null
+        },
+        {
+          "from": "0x200a8f0",
+          "to": "0x200a8f4",
+          "condition": null
+        },
+        {
+          "from": "0x200a8f4",
+          "to": "0x200a8fc",
+          "condition": null
+        },
+        {
+          "from": "0x200a8f8",
+          "to": "0x200a8fc",
+          "condition": null
+        },
+        {
+          "from": "0x200a8fc",
+          "to": "0x200a900",
+          "condition": null
+        },
+        {
+          "from": "0x200a900",
+          "to": "0x200a910",
+          "condition": true
+        },
+        {
+          "from": "0x200a900",
+          "to": "0x200a904",
+          "condition": false
+        },
+        {
+          "from": "0x200a904",
+          "to": "0x200a908",
+          "condition": null
+        },
+        {
+          "from": "0x200a908",
+          "to": "0x200a90c",
+          "condition": null
+        },
+        {
+          "from": "0x200a90c",
+          "to": "0x200a8f8",
+          "condition": true
+        },
+        {
+          "from": "0x200a90c",
+          "to": "0x200a910",
+          "condition": false
+        },
+        {
+          "from": "0x200a910",
+          "to": "0x200a914",
+          "condition": null
+        },
+        {
+          "from": "0x200a914",
+          "to": "0x200a918",
+          "condition": null
+        },
+        {
+          "from": "0x200a918",
+          "to": "0x200a91c",
+          "condition": null
+        },
+        {
+          "from": "0x200a91c",
+          "to": "RETURN",
+          "condition": null
+        }
+      ],
+      "returns": [
+        "0x200a91c"
+      ],
+      "calls": [
+        {
+          "pc": "0x200a8e0",
+          "target": "0x200a990"
+        },
+        {
+          "pc": "0x200a8e8",
+          "target": "0x2006e9c"
+        },
+        {
+          "pc": "0x200a910",
+          "target": "0x2006eb0"
+        }
+      ],
+      "loop_edges": [
+        {
+          "from": "0x200a90c",
+          "to": "0x200a8f8",
+          "condition": true
+        }
+      ]
+    },
+    "loop_termination": "UNKNOWN_LIST_CONTRACT",
+    "nested_calls": "OPAQUE; no recursive inspection"
+  },
+  "coverage": {
+    "family_count": 33,
+    "scenario_count": 792,
+    "distinct_control_paths": 58,
+    "families": [
+      {
+        "name": "leading-slash",
+        "input_length": 1,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 37,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "leading-backslash",
+        "input_length": 1,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 39,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "nul-0",
+        "input_length": 1,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 38,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-0-null",
+        "input_length": 2,
+        "lookup_summary": "null",
+        "return_sites": [
+          "0x200ae34"
+        ],
+        "executed_original_pc_count": 32,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-0-disabled",
+        "input_length": 2,
+        "lookup_summary": "disabled",
+        "return_sites": [
+          "0x200ae54"
+        ],
+        "executed_original_pc_count": 40,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-0-nul",
+        "input_length": 2,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 70,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-0-slash",
+        "input_length": 2,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 70,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-0-backslash",
+        "input_length": 2,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 72,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "nul-1",
+        "input_length": 2,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "slash-1",
+        "input_length": 2,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "backslash-1",
+        "input_length": 2,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-1-null",
+        "input_length": 3,
+        "lookup_summary": "null",
+        "return_sites": [
+          "0x200ae34"
+        ],
+        "executed_original_pc_count": 35,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-1-disabled",
+        "input_length": 3,
+        "lookup_summary": "disabled",
+        "return_sites": [
+          "0x200ae54"
+        ],
+        "executed_original_pc_count": 43,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-1-nul",
+        "input_length": 3,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 73,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-1-slash",
+        "input_length": 3,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 73,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-1-backslash",
+        "input_length": 3,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 75,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "nul-2",
+        "input_length": 3,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "slash-2",
+        "input_length": 3,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "backslash-2",
+        "input_length": 3,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-2-null",
+        "input_length": 4,
+        "lookup_summary": "null",
+        "return_sites": [
+          "0x200ae34"
+        ],
+        "executed_original_pc_count": 35,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-2-disabled",
+        "input_length": 4,
+        "lookup_summary": "disabled",
+        "return_sites": [
+          "0x200ae54"
+        ],
+        "executed_original_pc_count": 43,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-2-nul",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 73,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-2-slash",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 73,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-2-backslash",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 75,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "nul-3",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "slash-3",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "backslash-3",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-3-null",
+        "input_length": 5,
+        "lookup_summary": "null",
+        "return_sites": [
+          "0x200ae34"
+        ],
+        "executed_original_pc_count": 35,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-3-disabled",
+        "input_length": 5,
+        "lookup_summary": "disabled",
+        "return_sites": [
+          "0x200ae54"
+        ],
+        "executed_original_pc_count": 43,
+        "return_rule": "ZERO",
+        "mode0_success_pair_obligation": "NOT_REACHED"
+      },
+      {
+        "name": "colon-3-nul",
+        "input_length": 5,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 73,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-3-slash",
+        "input_length": 5,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 73,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "colon-3-backslash",
+        "input_length": 5,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 75,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      },
+      {
+        "name": "four-undelimited",
+        "input_length": 4,
+        "lookup_summary": "enabled",
+        "return_sites": [
+          "0x200aee0"
+        ],
+        "executed_original_pc_count": 47,
+        "return_rule": "RAW_COMMAND4_RESULT",
+        "mode0_success_pair_obligation": "UNPROVEN_COMMAND4_SYNCHRONOUS_WRITE8"
+      }
+    ],
+    "node_coverage": 84,
+    "edge_coverage": 107,
+    "predicate_outcomes": 46,
+    "maximum_modeled_steps": 108,
+    "return_nonzero_scenarios": 400,
+    "mode0_nonzero_scenarios": 200,
+    "mode0_nonzero_incomplete_pair_countermodels": 150,
+    "countermodels_are_not_runtime_observations": true,
+    "direct_pair_write_mask": 0,
+    "opaque_pair_masks_tested": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "c_body_added": false,
+  "authored_source_symbols": 10,
+  "new_partial_link_invocations": 0,
+  "existing_batch_regression_report": "docs/matching_phase1/batch_status.json",
+  "proof_preconditions": [
+    "ordinary stable readable input/global/lookup data",
+    "normal ABI and normal nested returns",
+    "scratch/input/pair/owned-stack nonaliasing; scoped virtual effects only"
+  ],
+  "abbc_pair_safety": "UNRESOLVED: command 4 must initialize both words synchronously on nonzero mode-0 return",
+  "success_scratch_initialized_byte_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    24,
+    25,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67
+  ],
+  "unproven": [
+    "runtime BSS descriptor validity",
+    "lookup/prefix helper termination and wider effects",
+    "command-4 pair writes and partial-scratch read-before-write policy",
+    "non-retention of scratch/output/input stack pointers"
+  ],
+  "failure_contract": "direct prefix failures return zero before pair publication; dispatcher failures may leave partial pair writes; no rollback",
+  "stack_lifetime": {
+    "frames": {
+      "ABBC": {
+        "saved": 8,
+        "reserved": 8,
+        "total": 16
+      },
+      "ACD0": {
+        "saved": 12,
+        "reserved": 68,
+        "total": 80
+      },
+      "AD94": {
+        "saved": 24,
+        "reserved": 16,
+        "total": 40
+      }
+    },
+    "relative_to_ABBC_entry": {
+      "pair": [
+        -16,
+        -8
+      ],
+      "ACD0_scratch": [
+        -96,
+        -28
+      ],
+      "AD94_locals": [
+        -136,
+        -120
+      ]
+    },
+    "pointer_non_retention": "UNPROVEN_EXTERNAL_OBLIGATION"
+  },
+  "baselines_unchanged": [
+    {
+      "symbols": 6,
+      "output_sha256": "36acd51ab2f5d1f14490e5ad3b5e660e24a054efe794216757c0b2d66ad4de4c",
+      "relinked": false
+    },
+    {
+      "symbols": 8,
+      "output_sha256": "e4672ae07e9a15b76d3f974123327bbef33c9ac74b07fb200e66200927426613",
+      "relinked": false
+    },
+    {
+      "symbols": 10,
+      "output_sha256": "2ef77b6890261cab00cb5469ab3a9e3ee7b92f9248e37d74603f6b6e5dffe251",
+      "relinked": false
+    }
+  ],
+  "protected_original_inputs": 12,
+  "protected_original_inputs_unchanged": true,
+  "genuine_original_matches": 0,
+  "gate0": "OPEN",
+  "guest_execution": false,
+  "opaque_summaries_are_proof": false
+}
