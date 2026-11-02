@@ -47,6 +47,12 @@ def run(source=None, output=None, config=None):
     calls={name:int(target,16) for name,target in cfg.get('arm_call_targets',{}).items()}
     if original_relocations != cfg.get('expected_original_relocations',[]):raise ValueError('original code relocations differ from explicit comparison policy')
     for line in original_relocations:
+        literal=re.fullmatch(r'from:0x([0-9a-f]+) kind:load to:0x([0-9a-f]+) module:main',line)
+        if literal:
+            at=int(literal[1],16);value=int(literal[2],16)
+            pinned=cfg.get('original_literal_words',{}).get(hex(at))
+            if pinned is None or int(pinned,16)!=value or at%4 or not address<=at<=address+length-4 or struct.unpack_from('<I',module_bytes,at-base)[0]!=value:raise ValueError('unapproved original literal word')
+            continue
         m=re.fullmatch(r'from:0x([0-9a-f]+) kind:arm_call to:0x([0-9a-f]+) module:main',line)
         if not m or int(m[2],16) not in calls.values():raise ValueError('unapproved original call relocation')
         pc=int(m[1],16);word=struct.unpack_from('<I',module_bytes,pc-base)[0]
@@ -73,7 +79,7 @@ def run(source=None, output=None, config=None):
             'reference_hex':expected.hex(),'original_code_relocations':original_relocations,'reference_rom_offset':offset+start,'arm9_load_address':hex(base),'metadata_boundary':symbol_line[0]}
     if compilation['exit_code']==0:
         actual,info=function(obj.read_bytes(),cfg['symbol'],arm_calls=calls,runtime_address=address)
-        if info['code_relocations'] != len(original_relocations):raise ValueError('call relocation count differs from selected original function')
+        if info['code_relocations'] != sum('kind:arm_call ' in line for line in original_relocations):raise ValueError('call relocation count differs from selected original function')
         comparison=compare(expected,actual)
         import capstone
         decoder=capstone.Cs(capstone.CS_ARCH_ARM,capstone.CS_MODE_ARM|capstone.CS_MODE_LITTLE_ENDIAN)
@@ -84,6 +90,9 @@ def run(source=None, output=None, config=None):
         original_decoded=[{'address':hex(i.address),'size':i.size,'mnemonic':i.mnemonic,'operands':i.op_str} for i in decoder.disasm(expected,address)]
         if sum(i['size'] for i in original_decoded)!=length:raise ValueError('incomplete original ARM disassembly')
         report['original_disassembly']=original_decoded
+        if cfg.get('original_literal_words'):
+            report['original_literal_words']=cfg['original_literal_words']
+            report['linear_decode_warning']='Literal-pool data may appear as instructions in these linear listings; use the pilot code/data classification.'
         report.update(classification='PASS_DIAGNOSTIC_INSTRUCTION_MATCH' if comparison['equal'] else 'FAIL_DIAGNOSTIC_BYTE_MISMATCH',
                       object_sha256=sha(obj.read_bytes()),elf=info,compiled_hex=actual.hex(),compiled_sha256=sha(actual),comparison=comparison,
                       disassembly=decoded,disassembler={'name':'Capstone','version':capstone.__version__},
