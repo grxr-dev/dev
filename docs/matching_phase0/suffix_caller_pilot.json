@@ -1,0 +1,249 @@
+{
+  "classification": "COMPLETE_SAFE_DOMAIN_BEHAVIOR_PASS_EXACT_BYTE_FAIL_PROVENANCE_PARTIAL",
+  "gate0": "OPEN",
+  "original_toolchain_verified_matched_c": 0,
+  "function": {
+    "address": "0x020665cc",
+    "end_exclusive": "0x02066614",
+    "bytes": 72,
+    "arm_instructions": 18,
+    "reference_sha256": "ca96760748f67d4787c0f0b046fb5d4df7c8cdbe4cbf420b59c42f6446a04aca",
+    "raw_bytes_and_decode": "local/matching_phase0/suffix-caller-pilot/result.json",
+    "semantics": "return 1 iff last three bytes before first NUL are 0x63,0x6d,0x70; case-sensitive; no dot requirement",
+    "valid_C_domain": "nonnull stable readable terminated object, n>=3, n and pointer increments nonwrapping/representable",
+    "short_null_behavior": "not a checked API; null faults/reads and short pre-object suffix reads are not portable defined C; no execution claimed",
+    "stack_effect": "PUSH r4/LR writes 8 stack bytes; restores r4/SP, returns via saved PC; LR remains helper-return PC 0x020665d8",
+    "input_memory_writes": 0
+  },
+  "provenance": {
+    "direct_calls": [
+      {
+        "module": "arm9",
+        "entry": "from:0x020661e4 kind:arm_call to:0x020665cc module:main"
+      },
+      {
+        "module": "arm9",
+        "entry": "from:0x020662dc kind:arm_call to:0x020665cc module:main"
+      },
+      {
+        "module": "arm9",
+        "entry": "from:0x02066408 kind:arm_call to:0x020665cc module:main"
+      },
+      {
+        "module": "arm9",
+        "entry": "from:0x02066590 kind:arm_call to:0x020665cc module:main"
+      }
+    ],
+    "paths": [
+      {
+        "parent": "0x020661b8",
+        "site": "0x020661e4",
+        "pointer": "incoming r0 saved r8; restored r0 at 0x020661e0",
+        "preparation": "0x020664f8 with global context and same pointer; allocates/reads using context offsets, not a pathname-length guard",
+        "n_ge_3_guard": false
+      },
+      {
+        "parent": "0x020662ac",
+        "site": "0x020662dc",
+        "pointer": "incoming r0 saved r7; restored r0 at 0x020662d8",
+        "preparation": "0x0200aee8 then 0x0200abbc, result ignored",
+        "n_ge_3_guard": false
+      },
+      {
+        "parent": "0x020663e0",
+        "site": "0x02066408",
+        "pointer": "incoming r0 saved r6; restored r0 at 0x02066404",
+        "preparation": "0x0200aee8 then 0x0200abbc, result ignored",
+        "n_ge_3_guard": false
+      },
+      {
+        "parent": "0x0206655c",
+        "site": "0x02066590",
+        "pointer": "incoming r0 saved r4; r0 restored at 0x02066580 before r4 reused",
+        "preparation": "0x0200aee8, 0x0200abbc; context +0x24 minus +0x20 retained, no pathname length test",
+        "n_ge_3_guard": false
+      }
+    ],
+    "bounded_literal_producer": {
+      "load_pc": "0x020275bc",
+      "pool": "0x20278f8",
+      "pointer": "0x20c8c14",
+      "call_pc": "0x020275d4",
+      "callee": "0x020661b8",
+      "nul_offset": 36,
+      "suffix_hex": "636d70",
+      "sha256_without_nul": "51c30e639afecc7142e200a21ec857538ea68951dd1f768cb0ff4577a4dd044c"
+    },
+    "literal_scope": "one concrete initialized 36-byte path-like literal forwarded through parent 0x020661b8; stability/ABI assumptions apply; no all-caller proof",
+    "global_minimum_length_proven": false,
+    "counterexample": "one-byte object containing NUL at its first byte gives n=0; first requested suffix address is p-3 (32-bit wrap arithmetic), outside object; derived symbolically, not executed",
+    "unknowns": [
+      "unexamined inputs into the four parents",
+      "opaque nested preparation API behavior",
+      "indirect/other-module references",
+      "original source/prototype/compiler",
+      "all-runtime stability of mutable data literal"
+    ]
+  },
+  "compiler": {
+    "path": "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\toolchains\\zig-x86_64-windows-0.15.2\\zig.exe",
+    "sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+    "zig_version": "0.15.2",
+    "banner": "clang version 20.1.2 (https://github.com/ziglang/zig-bootstrap 7ef74e656cf8ddbd6bf891a8475892aa1afa6891)\nTarget: x86_64-unknown-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/rustg/Documents/Codex/Muse/dev/local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2\n",
+    "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c"
+  },
+  "compile": {
+    "source": "tools/matching_phase0/suffix_caller.c",
+    "source_sha256": "227a898f80e84b1bb5582e0cf094179422de010c6648fba60e9f8dc4435d92dc",
+    "flags": [
+      "-target",
+      "arm-freestanding-eabi",
+      "-mcpu=arm946e_s",
+      "-marm",
+      "-O2",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-fno-unwind-tables",
+      "-fno-asynchronous-unwind-tables",
+      "-g0",
+      "-fomit-frame-pointer"
+    ],
+    "exit_code": 0,
+    "attempts": 1,
+    "variants": 1,
+    "object_sha256": "d17cd1b839d593419afc7eb0a8fde7416c47fef2b187c891d8fb48b494376c85",
+    "elf": {
+      "symbol": "func_020665cc",
+      "section": ".text",
+      "section_index": 1,
+      "symbol_value": 0,
+      "symbol_size": 56,
+      "object_file_offset": 52,
+      "elf_flags": "0x5000200",
+      "relocations": [
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 8,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_02067f74",
+          "target": "0x2067f74",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x20665d4",
+          "resolved_word": "0xeb000666"
+        },
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "unresolved_symbol_hex": "10402de90040a0e1feffffeb001084e00000a0e3032051e5630052e3022051056d0052030100510570004002100f6f01a002a0011080bde8",
+      "resolved_code_relocations": 1,
+      "code_relocations": 1
+    },
+    "full_linker_used": false,
+    "call_binding": "explicit narrow REL R_ARM_CALL resolution at selected runtime address; default code-relocation rejection unchanged"
+  },
+  "comparison": {
+    "equal": false,
+    "original_bytes": 72,
+    "generated_bytes": 56,
+    "differing_overlap_bytes": 37,
+    "missing_generated_bytes": 16,
+    "differing_offsets": [
+      12,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      23,
+      24,
+      26,
+      27,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      39,
+      40,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "generated_resolved_hex": "10402de90040a0e1660600eb001084e00000a0e3032051e5630052e3022051056d0052030100510570004002100f6f01a002a0011080bde8",
+    "generated_resolved_sha256": "8aca8d6cd11d36c7c8307f91429f29550011ea5e6e575d957b07bf0dd29d9e16",
+    "original_relocations": [
+      "from:0x020665d4 kind:arm_call to:0x02067f74 module:main"
+    ],
+    "detail": "local/matching_phase0/suffix-caller-pilot/result.json"
+  },
+  "verification": {
+    "finite_safe_cases": 1064,
+    "cases": "216 suffix triples over six nonzero values; 768 prefixed one-byte variations covering all 256 values in three positions; 80 prefix-length/alignment/result cases",
+    "return_and_ordered_byte_reads_equal": true,
+    "all_returns_boolean_0_or_1": true,
+    "suffix_loads_short_circuit": true,
+    "counter_call_count": 1,
+    "stack_word_writes_per_case": 2,
+    "model": "bounded decoded-operation checker plus prior counter checker, not independent ARM emulator/live DS execution",
+    "static_argument": "load/branch ordering and safe-domain boolean predicate; details in report",
+    "unit_tests": {
+      "new_relocation_and_domain": 5,
+      "ELF_regression": 7,
+      "counter_checker_regression": 8,
+      "total": 20
+    }
+  },
+  "preservation": {
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "rom_sha256": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "ROM_ARM9_metadata_12_inputs_unchanged": true,
+    "ten_metadata_pinned_hashes_revalidated": true,
+    "entire_extracted_ARM9_matches_ROM_prefix": true,
+    "BIOS_accessed": false,
+    "relay_changes": false
+  },
+  "reproduce": "python -B tools/matching_phase0/suffix_caller_pilot.py",
+  "next_milestone": "one bounded dynamic/constructed input producer into 0x0206655c, establishing buffer extent and termination/minimum length; do not infer a universal guard from this one literal"
+}

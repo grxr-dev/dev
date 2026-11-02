@@ -44,7 +44,14 @@ def run(source=None, output=None, config=None):
     for line in (metadata/'arm9/relocs.txt').read_text(encoding='utf-8').splitlines():
         where=re.search(r'from:0x([0-9a-f]+)',line)
         if where and address<=int(where[1],16)<address+length:original_relocations.append(line)
-    if original_relocations:raise ValueError('original code relocations require a relocation-aware comparison')
+    calls={name:int(target,16) for name,target in cfg.get('arm_call_targets',{}).items()}
+    if original_relocations != cfg.get('expected_original_relocations',[]):raise ValueError('original code relocations differ from explicit comparison policy')
+    for line in original_relocations:
+        m=re.fullmatch(r'from:0x([0-9a-f]+) kind:arm_call to:0x([0-9a-f]+) module:main',line)
+        if not m or int(m[2],16) not in calls.values():raise ValueError('unapproved original call relocation')
+        pc=int(m[1],16);word=struct.unpack_from('<I',module_bytes,pc-base)[0]
+        imm=word&0xffffff;imm=imm-(1<<24) if imm&(1<<23) else imm
+        if word>>24 != 0xeb or pc+8+(imm<<2) != int(m[2],16):raise ValueError('original BL opcode/target disagrees with metadata')
     inputs={str(p):sha(p.read_bytes()) for p in [rom,module,*sorted(metadata.rglob('*'))] if p.is_file()}
     compiler=ROOT/cfg['compiler']
     if sha(compiler.read_bytes())!=cfg['compiler_sha256']:raise ValueError('compiler binary differs from qualified official executable')
@@ -65,7 +72,8 @@ def run(source=None, output=None, config=None):
             'compile':compilation,'reference_sha256':sha(expected),'reference_size':length,'linked':False,
             'reference_hex':expected.hex(),'original_code_relocations':original_relocations,'reference_rom_offset':offset+start,'arm9_load_address':hex(base),'metadata_boundary':symbol_line[0]}
     if compilation['exit_code']==0:
-        actual,info=function(obj.read_bytes(),cfg['symbol'])
+        actual,info=function(obj.read_bytes(),cfg['symbol'],arm_calls=calls,runtime_address=address)
+        if info['code_relocations'] != len(original_relocations):raise ValueError('call relocation count differs from selected original function')
         comparison=compare(expected,actual)
         import capstone
         decoder=capstone.Cs(capstone.CS_ARCH_ARM,capstone.CS_MODE_ARM|capstone.CS_MODE_LITTLE_ENDIAN)
@@ -79,7 +87,7 @@ def run(source=None, output=None, config=None):
         report.update(classification='PASS_DIAGNOSTIC_INSTRUCTION_MATCH' if comparison['equal'] else 'FAIL_DIAGNOSTIC_BYTE_MISMATCH',
                       object_sha256=sha(obj.read_bytes()),elf=info,compiled_hex=actual.hex(),compiled_sha256=sha(actual),comparison=comparison,
                       disassembly=decoded,disassembler={'name':'Capstone','version':capstone.__version__},
-                      original_runtime_address_linked=False,diagnostic_matched_functions=int(comparison['equal']))
+                      original_runtime_address_linked=False,explicit_call_relocations_resolved=bool(calls),diagnostic_matched_functions=int(comparison['equal']))
     report['inputs_unchanged']=all(sha(Path(path).read_bytes())==digest for path,digest in inputs.items())
     if not report['inputs_unchanged']:raise ValueError('ROM/extracted payload/metadata changed')
     report['input_sha256']=inputs

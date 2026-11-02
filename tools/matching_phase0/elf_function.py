@@ -21,7 +21,13 @@ def string(data, offset):
     return data[offset:end].decode('ascii')
 
 
-def function(data, name):
+def function(data, name, *, arm_calls=None, runtime_address=None):
+    """Default: reject code relocations. Optional pinned ARM BL-only resolution.
+
+    This is not a linker: accepts only REL R_ARM_CALL against an undefined
+    named symbol, canonical BL addend -8, and an explicit aligned ARM address.
+    All other code relocation forms remain errors.
+    """
     header = struct.unpack('<16sHHIIIIIHHHHHH', region(data, 0, 52))
     ident, kind, machine, version, entry, phoff, shoff, flags, ehsize, phsize, phnum, shsize, shnum, shstr = header
     if ident[:7] != b'\x7fELF\x01\x01\x01' or kind != 1 or machine != 40 or version != 1:
@@ -54,8 +60,10 @@ def function(data, name):
             section = sections[section_index]
             if section['type'] != 1 or not section['flags'] & 4 or section['address'] != 0 or not 0 < size <= 4096:
                 raise ValueError('invalid executable function section/bounds')
-            body = region(section['data'], value, size)
+            body = bytearray(region(section['data'], value, size))
+            raw_body = bytes(body)
             relocs = []
+            patched = set()
             for rel in sections:
                 if rel['type'] not in (4, 9):
                     continue
@@ -64,16 +72,42 @@ def function(data, name):
                     raise ValueError('invalid relocation section')
                 for j in range(0, rel['size'], width):
                     where, rinfo = struct.unpack_from('<II', rel['data'], j)
-                    relocs.append({'section':rel['name'],'target_section':rel['info'],
+                    row = {'section':rel['name'],'target_section':rel['info'],
                                    'offset':where,'type':rinfo & 255,
-                                   'in_function':rel['info'] == section_index and value <= where < value + size})
-            found.append((body, {'symbol':name,'section':section['name'],'section_index':section_index,
+                                   'in_function':rel['info'] == section_index and value <= where < value + size}
+                    if row['in_function']:
+                        if not arm_calls or runtime_address is None or rel['type'] != 9 or row['type'] != 28:
+                            raise ValueError('unresolved function-code relocations; byte-only comparison is insufficient')
+                        if not 0 <= rel['link'] < shnum:
+                            raise ValueError('relocation symbol table link')
+                        table2 = sections[rel['link']]
+                        if table2['type'] != 2 or table2['entry_size'] != 16 or not 0 <= table2['link'] < shnum:
+                            raise ValueError('relocation symbol table')
+                        sn, sv, ss, si, so, sd = struct.unpack('<IIIBBH',region(table2['data'],(rinfo>>8)*16,16))
+                        target_name = string(sections[table2['link']]['data'],sn)
+                        at = where-value
+                        if sd != 0 or sv != 0 or target_name not in arm_calls:
+                            raise ValueError('call must reference explicitly pinned undefined symbol')
+                        if at in patched or at % 4 or at+4 > size or struct.unpack_from('<I',body,at)[0] != 0xebfffffe:
+                            raise ValueError('expected one canonical ARM BL relocation with addend -8')
+                        target = arm_calls[target_name]
+                        delta = target-(runtime_address+at)-8
+                        if not 0 <= runtime_address <= 0xffffffff or not 0 <= target <= 0xffffffff or (target|runtime_address)&3 or not -(1<<25) <= delta < (1<<25):
+                            raise ValueError('ARM BL target alignment/range')
+                        struct.pack_into('<I',body,at,0xeb000000|((delta>>2)&0xffffff))
+                        patched.add(at)
+                        row.update(symbol=target_name,target=hex(target),addend=-8,resolved=True,
+                                   runtime_pc=hex(runtime_address+at),resolved_word=hex(struct.unpack_from('<I',body,at)[0]))
+                    relocs.append(row)
+            found.append((bytes(body), {'symbol':name,'section':section['name'],'section_index':section_index,
                                 'symbol_value':value,'symbol_size':size,'object_file_offset':section['offset'] + value,
                                 'elf_flags':hex(flags),'relocations':relocs,
+                                'unresolved_symbol_hex':raw_body.hex(),
+                                'resolved_code_relocations':len(patched),
                                 'code_relocations':sum(r['in_function'] for r in relocs)}))
     if len(found) != 1:
         raise ValueError('expected exactly one named function definition')
-    if found[0][1]['code_relocations']:
+    if found[0][1]['code_relocations'] != found[0][1]['resolved_code_relocations']:
         raise ValueError('unresolved function-code relocations; byte-only comparison is insufficient')
     return found[0]
 
