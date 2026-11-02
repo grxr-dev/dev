@@ -1,5 +1,1 @@
-/* Diagnostic hypothesis only; not recovered original source or prototype. */
-int func_020660f4(void)
-{
-    return 0;
-}
+#include "../../src/arm9/utility_hypotheses/func_020660f4.c"

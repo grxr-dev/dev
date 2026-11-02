@@ -1,0 +1,12 @@
+{
+  "release_url": "https://github.com/encounter/objdiff/releases/tag/v3.8.3",
+  "published_at": "2026-10-19T20:29:18Z",
+  "tag_commit": "9aeec9cbab1a056ade7dc1f1625aacc41b0f8511",
+  "asset": "objdiff-cli-windows-x86_64.exe",
+  "bytes": 7164416,
+  "sha256": "dd12dfb5e9e94a7f6c949a37e1815963cf2cffe4c87b4999b7ebc8c15b398a1f",
+  "publisher_digest": "sha256:dd12dfb5e9e94a7f6c949a37e1815963cf2cffe4c87b4999b7ebc8c15b398a1f",
+  "version": "objdiff-cli-windows-x86_64.exe 3.8.3",
+  "publisher_digest_verified": true,
+  "independent_reproducible_source_build": false
+}

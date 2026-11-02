@@ -1,0 +1,204 @@
+{
+  "schema": "brainage-source-batch/1",
+  "cluster": "utility-formatting-hypotheses",
+  "symbols": [
+    {
+      "symbol": "func_020660f4",
+      "address": "0x020660F4",
+      "mode": "ARM_LE",
+      "reference_size": 8,
+      "reference_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_020660f4.c",
+      "legacy_config": "tools/matching_phase0/diagnostic_config.json",
+      "code_bytes": 8,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "zero",
+      "behavior_evidence_tier": "instruction_constant_only",
+      "domain": "r0=0; incoming args/prototype unknown",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_020660fc",
+      "address": "0x020660fc",
+      "mode": "ARM_LE",
+      "reference_size": 40,
+      "reference_sha256": "dcbdf9c0b79cf4bcb93cd63faf271892bff2c65c9f5243de536c9bbbdb7cb744",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_020660fc.c",
+      "legacy_config": "tools/matching_phase0/pointer_helper_config.json",
+      "code_bytes": 36,
+      "literal_words": {
+        "0x2066120": "0x020dcbb4"
+      },
+      "direct_call_targets": {
+        "func_02019024": "0x02019024"
+      },
+      "original_relocations": [
+        "from:0x02066110 kind:arm_call to:0x02019024 module:main",
+        "from:0x02066120 kind:load to:0x020dcbb4 module:main"
+      ],
+      "behavior_model": "format_alias",
+      "behavior_evidence_tier": "conditional_opaque_formatter_abi",
+      "domain": "fixed shared .bss alias; stable valid format; one compatible vararg; normal opaque return; output capacity and formatter effects unproved",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_0206655c",
+      "address": "0x0206655c",
+      "mode": "ARM_LE",
+      "reference_size": 112,
+      "reference_sha256": "129e38b34454c88cd7334148db8244ad7dccaab85839bbb75dc21a52b9ec0897",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0206655c.c",
+      "legacy_config": "tools/matching_phase0/input_parent_config.json",
+      "code_bytes": 108,
+      "literal_words": {
+        "0x20665c8": "0x020dcbf4"
+      },
+      "direct_call_targets": {
+        "func_0200aee8": "0x0200aee8",
+        "func_0200abbc": "0x0200abbc",
+        "func_020665cc": "0x020665cc",
+        "func_0200aa5c": "0x0200aa5c",
+        "func_0200ab7c": "0x0200ab7c"
+      },
+      "original_relocations": [
+        "from:0x0206656c kind:arm_call to:0x0200aee8 module:main",
+        "from:0x02066578 kind:arm_call to:0x0200abbc module:main",
+        "from:0x02066590 kind:arm_call to:0x020665cc module:main",
+        "from:0x020665a8 kind:arm_call to:0x0200aa5c module:main",
+        "from:0x020665b8 kind:arm_call to:0x0200ab7c module:main",
+        "from:0x020665c8 kind:load to:0x020dcbf4 module:main"
+      ],
+      "behavior_model": "context_parent",
+      "behavior_evidence_tier": "conditional_opaque_context_abi",
+      "domain": "stable terminated n>=3 input; opaque context lifecycle; initialized header word on true branch; normal ABI return; nonreentrant",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_020665cc",
+      "address": "0x020665cc",
+      "mode": "ARM_LE",
+      "reference_size": 72,
+      "reference_sha256": "ca96760748f67d4787c0f0b046fb5d4df7c8cdbe4cbf420b59c42f6446a04aca",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_020665cc.c",
+      "legacy_config": "tools/matching_phase0/suffix_caller_config.json",
+      "code_bytes": 72,
+      "literal_words": {},
+      "direct_call_targets": {
+        "func_02067f74": "0x02067f74"
+      },
+      "original_relocations": [
+        "from:0x020665d4 kind:arm_call to:0x02067f74 module:main"
+      ],
+      "behavior_model": "suffix",
+      "behavior_evidence_tier": "bounded_safe_domain_read_trace",
+      "domain": "nonnull stable terminated n>=3 allocated object; count fits u32; nonwrapping valid one-past increment",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_02067f74",
+      "address": "0x02067f74",
+      "mode": "ARM_LE",
+      "reference_size": 40,
+      "reference_sha256": "aee45ae4f2bea37dacef15619a7d0eb553c418fc87fa032692e8c39fb9cba274",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_02067f74.c",
+      "legacy_config": "tools/matching_phase0/nul_count_config.json",
+      "code_bytes": 40,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "nul_count",
+      "behavior_evidence_tier": "bounded_read_trace_and_induction",
+      "domain": "nonnull stable readable object containing NUL; count fits u32; valid one-past increment; no volatile/concurrent change",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_02068008",
+      "address": "0x02068008",
+      "mode": "ARM_LE",
+      "reference_size": 28,
+      "reference_sha256": "934912b08186e4338985ea82639e6b926b4965199850f4688c19792278790c4c",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_02068008.c",
+      "legacy_config": "tools/matching_phase0/byte_exchange_config.json",
+      "code_bytes": 28,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "byte_exchange",
+      "behavior_evidence_tier": "all_u32_bit_origin_map",
+      "domain": "all 32-bit r0 values; unsigned 32-bit hypothesis; zero-extended low-halfword byte exchange",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    }
+  ],
+  "shared_header": "src/arm9/utility_hypotheses/contracts.h",
+  "cluster_source": "src/arm9/utility_hypotheses/cluster.c",
+  "inputs": {
+    "rom_name": "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds",
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "rom_sha256": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "arm9_path": "local/matching_phase0/roundtrip-001/extract/arm9/arm9.bin",
+    "arm9_sha256": "6b072402634801228216df32197af888a03e7f1e344c988a75cfa293ce102a65",
+    "metadata_root": "local/matching_phase0/init-002/config",
+    "metadata_sha256": {
+      "local/matching_phase0/init-002/config/arm9/config.yaml": "9ad48907debccd79495d71172f4807504bed7fdd072e306abbb90e09210c7526",
+      "local/matching_phase0/init-002/config/arm9/delinks.txt": "bd8c55c21a11e85d49a0124721ffc48e5ed8287bb3f67c9ef1599d887020fb66",
+      "local/matching_phase0/init-002/config/arm9/relocs.txt": "97d01c118def4628c502c58a122a3f546b33ec13c5612af8af975ff28dc69478",
+      "local/matching_phase0/init-002/config/arm9/symbols.txt": "10e47ca98c01e75e131cef4939a6fd59c9b2a186cc2712b858d21c4722af2507",
+      "local/matching_phase0/init-002/config/arm9/dtcm/delinks.txt": "89fe4823061270bf3631697d25b5a44c1fe2ced6a30b17129dddee2c3180cf38",
+      "local/matching_phase0/init-002/config/arm9/dtcm/relocs.txt": "0865c8dcd0c68e0307086809c43690fe7e5f5ecc33d454e89af502306fedabba",
+      "local/matching_phase0/init-002/config/arm9/dtcm/symbols.txt": "d0bb9a50c3dc930692e505ef92b33a1dae1beac30c5d81d4d13a41952ce9a9d3",
+      "local/matching_phase0/init-002/config/arm9/itcm/delinks.txt": "794bc4cc8e078dffe842e1dcad7d32a56a46785cba939a2c8f3b9d37f42a1cc0",
+      "local/matching_phase0/init-002/config/arm9/itcm/relocs.txt": "937c63ac94622495212b4ebf9e72ae5003b04e8ac128a205d8622fe5cb741e70",
+      "local/matching_phase0/init-002/config/arm9/itcm/symbols.txt": "fa7d1d5a7a4d460007fe367274216e8b49d402e5e60b157e9d6f76564cdfe9de"
+    }
+  },
+  "compiler": {
+    "compiler": "local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2/zig.exe",
+    "compiler_sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+    "zig_version": "0.15.2",
+    "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c",
+    "flags": [
+      "-target",
+      "arm-freestanding-eabi",
+      "-mcpu=arm946e_s",
+      "-marm",
+      "-O2",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-fno-unwind-tables",
+      "-fno-asynchronous-unwind-tables",
+      "-g0",
+      "-fomit-frame-pointer"
+    ]
+  },
+  "objdiff": {
+    "path": "local/matching_phase1/tools/objdiff-v3.8.3/objdiff-cli-windows-x86_64.exe",
+    "sha256": "dd12dfb5e9e94a7f6c949a37e1815963cf2cffe4c87b4999b7ebc8c15b398a1f",
+    "version": "3.8.3",
+    "release": "https://github.com/encounter/objdiff/releases/tag/v3.8.3",
+    "tag_commit": "9aeec9cbab1a056ade7dc1f1625aacc41b0f8511"
+  },
+  "genuine_matches": 0,
+  "gate0": "OPEN",
+  "original_object_partition": "UNKNOWN; metadata contains section spans, no named object partitions"
+}

@@ -1,0 +1,808 @@
+{
+  "schema": "brainage-source-batch-result/1",
+  "classification": "BATCH_CHECKS_COMPLETED_NOT_AUTHENTIC_MATCH",
+  "summary": {
+    "source_symbols": 6,
+    "compile_pass": 6,
+    "semantic_pass": 6,
+    "exact_matches": 1,
+    "exact_mismatches": 5,
+    "errors": 0,
+    "genuine_original_matches": 0,
+    "gate0": "OPEN"
+  },
+  "symbols": [
+    {
+      "symbol": "func_020660f4",
+      "address": "0x020660F4",
+      "mode": "ARM_LE",
+      "reference_size": 8,
+      "reference_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_020660f4.c",
+      "legacy_config": "tools/matching_phase0/diagnostic_config.json",
+      "code_bytes": 8,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "zero",
+      "behavior_evidence_tier": "instruction_constant_only",
+      "domain": "r0=0; incoming args/prototype unknown",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "357c034353db203c09c007f38fe7dc6b1334fd14f73fe4ebce3224ebcea1990e",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 1,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 8,
+      "generated_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877",
+      "generated_raw_sha256": "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877",
+      "object_sha256": "36d0089472cb57fdb61a2fc99a6cc5cd2aea2cc12b80db279a5ebf8702a91a6c",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 0,
+      "generated_relocations": [
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 0,
+      "generated_code_bytes": 8,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 8,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": true
+    },
+    {
+      "symbol": "func_020660fc",
+      "address": "0x020660fc",
+      "mode": "ARM_LE",
+      "reference_size": 40,
+      "reference_sha256": "dcbdf9c0b79cf4bcb93cd63faf271892bff2c65c9f5243de536c9bbbdb7cb744",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_020660fc.c",
+      "legacy_config": "tools/matching_phase0/pointer_helper_config.json",
+      "code_bytes": 36,
+      "literal_words": {
+        "0x2066120": "0x020dcbb4"
+      },
+      "direct_call_targets": {
+        "func_02019024": "0x02019024"
+      },
+      "original_relocations": [
+        "from:0x02066110 kind:arm_call to:0x02019024 module:main",
+        "from:0x02066120 kind:load to:0x020dcbb4 module:main"
+      ],
+      "behavior_model": "format_alias",
+      "behavior_evidence_tier": "conditional_opaque_formatter_abi",
+      "domain": "fixed shared .bss alias; stable valid format; one compatible vararg; normal opaque return; output capacity and formatter effects unproved",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "9f6f14117c668d3a11a62ce794c258d1ff870fc076af30eca7482a4d6333e1b6",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 24,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 36,
+      "generated_sha256": "17aa9c7dbafafd81ea88496077ed396f5dd9e715c89a9320d71424efe3338c59",
+      "generated_raw_sha256": "df673a91e974bc9e332b824dbf363566ee0c7868942db0684a55214edf320b33",
+      "object_sha256": "ca024a5f20fe8d2330ca0ab3f679bb72844a129c98ff24106f89d3c9e0eac69f",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 1,
+      "generated_relocations": [
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 20,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_02019024",
+          "target": "0x2019024",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x2066110",
+          "resolved_word": "0xebfecbc3"
+        },
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 26,
+      "generated_code_bytes": 32,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 32,
+          "kind": "ARM_CODE"
+        },
+        {
+          "offset": 32,
+          "size": 4,
+          "kind": "LITERAL_DATA"
+        }
+      ],
+      "generated_literal_words": {
+        "0x206611c": "0x20dcbb4"
+      },
+      "generated_fits_original_symbol_range": true
+    },
+    {
+      "symbol": "func_0206655c",
+      "address": "0x0206655c",
+      "mode": "ARM_LE",
+      "reference_size": 112,
+      "reference_sha256": "129e38b34454c88cd7334148db8244ad7dccaab85839bbb75dc21a52b9ec0897",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0206655c.c",
+      "legacy_config": "tools/matching_phase0/input_parent_config.json",
+      "code_bytes": 108,
+      "literal_words": {
+        "0x20665c8": "0x020dcbf4"
+      },
+      "direct_call_targets": {
+        "func_0200aee8": "0x0200aee8",
+        "func_0200abbc": "0x0200abbc",
+        "func_020665cc": "0x020665cc",
+        "func_0200aa5c": "0x0200aa5c",
+        "func_0200ab7c": "0x0200ab7c"
+      },
+      "original_relocations": [
+        "from:0x0206656c kind:arm_call to:0x0200aee8 module:main",
+        "from:0x02066578 kind:arm_call to:0x0200abbc module:main",
+        "from:0x02066590 kind:arm_call to:0x020665cc module:main",
+        "from:0x020665a8 kind:arm_call to:0x0200aa5c module:main",
+        "from:0x020665b8 kind:arm_call to:0x0200ab7c module:main",
+        "from:0x020665c8 kind:load to:0x020dcbf4 module:main"
+      ],
+      "behavior_model": "context_parent",
+      "behavior_evidence_tier": "conditional_opaque_context_abi",
+      "domain": "stable terminated n>=3 input; opaque context lifecycle; initialized header word on true branch; normal ABI return; nonreentrant",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "043aa378c7f1c62ee8e11e67cb1a5073691710638bddb54a4e145b14c9edc5ae",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 24,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 116,
+      "generated_sha256": "b0ff6973e7bfe03f61b0278df821b91a2ba500024e8c97c83915740fd194fbd7",
+      "generated_raw_sha256": "7a6750a6414550cc3e0cb287327391a12e8970162468c01614a083bc4fc580e5",
+      "object_sha256": "8cc3cce57c17b2b40ae53746f409b65a1786ac68ed986860425e4b18e14be642",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 5,
+      "generated_relocations": [
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 20,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_0200aee8",
+          "target": "0x200aee8",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x2066570",
+          "resolved_word": "0xebfe925c"
+        },
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 32,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_0200abbc",
+          "target": "0x200abbc",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x206657c",
+          "resolved_word": "0xebfe918e"
+        },
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 48,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_020665cc",
+          "target": "0x20665cc",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x206658c",
+          "resolved_word": "0xeb00000e"
+        },
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 72,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_0200aa5c",
+          "target": "0x200aa5c",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x20665a4",
+          "resolved_word": "0xebfe912c"
+        },
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 96,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_0200ab7c",
+          "target": "0x200ab7c",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x20665bc",
+          "resolved_word": "0xebfe916e"
+        },
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 101,
+      "generated_code_bytes": 112,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 112,
+          "kind": "ARM_CODE"
+        },
+        {
+          "offset": 112,
+          "size": 4,
+          "kind": "LITERAL_DATA"
+        }
+      ],
+      "generated_literal_words": {
+        "0x20665cc": "0x20dcbf4"
+      },
+      "generated_fits_original_symbol_range": false
+    },
+    {
+      "symbol": "func_020665cc",
+      "address": "0x020665cc",
+      "mode": "ARM_LE",
+      "reference_size": 72,
+      "reference_sha256": "ca96760748f67d4787c0f0b046fb5d4df7c8cdbe4cbf420b59c42f6446a04aca",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_020665cc.c",
+      "legacy_config": "tools/matching_phase0/suffix_caller_config.json",
+      "code_bytes": 72,
+      "literal_words": {},
+      "direct_call_targets": {
+        "func_02067f74": "0x02067f74"
+      },
+      "original_relocations": [
+        "from:0x020665d4 kind:arm_call to:0x02067f74 module:main"
+      ],
+      "behavior_model": "suffix",
+      "behavior_evidence_tier": "bounded_safe_domain_read_trace",
+      "domain": "nonnull stable terminated n>=3 allocated object; count fits u32; nonwrapping valid one-past increment",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "a0c853cf6dbee30f711529fb8cb43f07550e25c8edc48f2935cd8f6011519672",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 1064,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 56,
+      "generated_sha256": "8aca8d6cd11d36c7c8307f91429f29550011ea5e6e575d957b07bf0dd29d9e16",
+      "generated_raw_sha256": "3364c3573d7dc389cddf196d907970ccefdc8dad1a6373f0093d71554f1965fc",
+      "object_sha256": "4d8580d161acb0478c76fdc86c1bd211a8ec3d61a2b81538ec9683a503d49b38",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 1,
+      "generated_relocations": [
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 8,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_02067f74",
+          "target": "0x2067f74",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x20665d4",
+          "resolved_word": "0xeb000666"
+        },
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 53,
+      "generated_code_bytes": 56,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 56,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": true
+    },
+    {
+      "symbol": "func_02067f74",
+      "address": "0x02067f74",
+      "mode": "ARM_LE",
+      "reference_size": 40,
+      "reference_sha256": "aee45ae4f2bea37dacef15619a7d0eb553c418fc87fa032692e8c39fb9cba274",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_02067f74.c",
+      "legacy_config": "tools/matching_phase0/nul_count_config.json",
+      "code_bytes": 40,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "nul_count",
+      "behavior_evidence_tier": "bounded_read_trace_and_induction",
+      "domain": "nonnull stable readable object containing NUL; count fits u32; valid one-past increment; no volatile/concurrent change",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "d2124f2c82fe232faa23eda2d6bc24a5a271363537f6eec4b6df84fdd158e78d",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 3625,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 44,
+      "generated_sha256": "19b499e34742228e770d70b5c3bc833786a89112489d11556df1b280e0c16177",
+      "generated_raw_sha256": "19b499e34742228e770d70b5c3bc833786a89112489d11556df1b280e0c16177",
+      "object_sha256": "84ef2788353b1e378802194c8c3bec154cb6ea505fbfbeb19be078ba218d7ef4",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 0,
+      "generated_relocations": [
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 34,
+      "generated_code_bytes": 44,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 44,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": false
+    },
+    {
+      "symbol": "func_02068008",
+      "address": "0x02068008",
+      "mode": "ARM_LE",
+      "reference_size": 28,
+      "reference_sha256": "934912b08186e4338985ea82639e6b926b4965199850f4688c19792278790c4c",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_02068008.c",
+      "legacy_config": "tools/matching_phase0/byte_exchange_config.json",
+      "code_bytes": 28,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "byte_exchange",
+      "behavior_evidence_tier": "all_u32_bit_origin_map",
+      "domain": "all 32-bit r0 values; unsigned 32-bit hypothesis; zero-extended low-halfword byte exchange",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "c07e664759b6e674ffba57866af9266c6d3751e159b1802257a630b7db8ee68f",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 4294967296,
+        "count_kind": "symbolic_input_words",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 28,
+      "generated_sha256": "83207b506456471942793769f8e9a5052a0ec5ab66c84a9620c52e048efb549a",
+      "generated_raw_sha256": "83207b506456471942793769f8e9a5052a0ec5ab66c84a9620c52e048efb549a",
+      "object_sha256": "35fbd2b08d00f66a4329798c9d41319766ce649e03d4f900bd90eb987a5b8f19",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 0,
+      "generated_relocations": [
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 19,
+      "generated_code_bytes": 28,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 28,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": true
+    }
+  ],
+  "object_comparison": {
+    "scope": "AUTHORED_REBUILD_AND_O0_NEGATIVE_CONTROL_ONLY",
+    "original_object_available": false,
+    "original_object_comparison": "BLOCKED_UNKNOWN_ORIGINAL_OBJECT_PARTITION",
+    "builds": [
+      {
+        "name": "authored-a",
+        "sha256": "c1074b4766615875d29aef2c43a247abcb4a13f48ccf8d8b09b3a2216746f0f7",
+        "size": 3308,
+        "compile_exit": 0,
+        "extra_flags": [
+          "-fno-inline",
+          "-ffunction-sections"
+        ]
+      },
+      {
+        "name": "authored-b",
+        "sha256": "c1074b4766615875d29aef2c43a247abcb4a13f48ccf8d8b09b3a2216746f0f7",
+        "size": 3308,
+        "compile_exit": 0,
+        "extra_flags": [
+          "-fno-inline",
+          "-ffunction-sections"
+        ]
+      },
+      {
+        "name": "authored-o0-negative",
+        "sha256": "fcd03658a16b2a225680119ac00f4ce99d90013dd30678eafa2df29a1cd66dd9",
+        "size": 3572,
+        "compile_exit": 0,
+        "extra_flags": [
+          "-fno-inline",
+          "-ffunction-sections",
+          "-O0",
+          "-fno-sanitize=all"
+        ]
+      }
+    ],
+    "cluster_symbols": [
+      {
+        "name": "func_020660f4",
+        "value": 0,
+        "size": 8,
+        "type": 2,
+        "binding": 1,
+        "section_index": 2
+      },
+      {
+        "name": "func_020660fc",
+        "value": 0,
+        "size": 36,
+        "type": 2,
+        "binding": 1,
+        "section_index": 5
+      },
+      {
+        "name": "func_0206655c",
+        "value": 0,
+        "size": 116,
+        "type": 2,
+        "binding": 1,
+        "section_index": 9
+      },
+      {
+        "name": "func_020665cc",
+        "value": 0,
+        "size": 56,
+        "type": 2,
+        "binding": 1,
+        "section_index": 13
+      },
+      {
+        "name": "func_02067f74",
+        "value": 0,
+        "size": 44,
+        "type": 2,
+        "binding": 1,
+        "section_index": 17
+      },
+      {
+        "name": "func_02068008",
+        "value": 0,
+        "size": 28,
+        "type": 2,
+        "binding": 1,
+        "section_index": 20
+      }
+    ],
+    "undefined_symbols": [
+      "func_0200aa5c",
+      "func_0200ab7c",
+      "func_0200abbc",
+      "func_0200aee8",
+      "func_02019024"
+    ],
+    "relocations": [
+      {
+        "section": ".ARM.exidx.text.func_020660f4",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".text.func_020660fc",
+        "offset": 20,
+        "type": 28,
+        "symbol": "func_02019024",
+        "symbol_defined": false
+      },
+      {
+        "section": ".ARM.exidx.text.func_020660fc",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".text.func_0206655c",
+        "offset": 20,
+        "type": 28,
+        "symbol": "func_0200aee8",
+        "symbol_defined": false
+      },
+      {
+        "section": ".text.func_0206655c",
+        "offset": 32,
+        "type": 28,
+        "symbol": "func_0200abbc",
+        "symbol_defined": false
+      },
+      {
+        "section": ".text.func_0206655c",
+        "offset": 48,
+        "type": 28,
+        "symbol": "func_020665cc",
+        "symbol_defined": true
+      },
+      {
+        "section": ".text.func_0206655c",
+        "offset": 72,
+        "type": 28,
+        "symbol": "func_0200aa5c",
+        "symbol_defined": false
+      },
+      {
+        "section": ".text.func_0206655c",
+        "offset": 96,
+        "type": 28,
+        "symbol": "func_0200ab7c",
+        "symbol_defined": false
+      },
+      {
+        "section": ".ARM.exidx.text.func_0206655c",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".text.func_020665cc",
+        "offset": 8,
+        "type": 28,
+        "symbol": "func_02067f74",
+        "symbol_defined": true
+      },
+      {
+        "section": ".ARM.exidx.text.func_020665cc",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".ARM.exidx.text.func_02067f74",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".ARM.exidx.text.func_02068008",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      }
+    ],
+    "linked": false,
+    "tool": {
+      "path": "local/matching_phase1/tools/objdiff-v3.8.3/objdiff-cli-windows-x86_64.exe",
+      "sha256": "dd12dfb5e9e94a7f6c949a37e1815963cf2cffe4c87b4999b7ebc8c15b398a1f",
+      "version": "3.8.3",
+      "release": "https://github.com/encounter/objdiff/releases/tag/v3.8.3",
+      "tag_commit": "9aeec9cbab1a056ade7dc1f1625aacc41b0f8511"
+    },
+    "cli_status": "PASS_AUTHORED_OBJECT_PIPELINE_ONLY",
+    "version": "objdiff-cli-windows-x86_64.exe 3.8.3",
+    "checks": [
+      {
+        "name": "authored-repeat",
+        "exit_code": 0,
+        "report_sha256": "b9d4336502e5bfd1d5d237082847d4752941b1c8fa12efc7d9106af95374a352",
+        "report": "local\\matching_phase1\\runs\\utility-batch\\authored-repeat.objdiff.json",
+        "authored_control_match_percent_NOT_original": {
+          "func_020660f4": 100.0,
+          "func_020660fc": 100.0,
+          "func_0206655c": 100.0,
+          "func_020665cc": 100.0,
+          "func_02067f74": 100.0,
+          "func_02068008": 100.0
+        }
+      },
+      {
+        "name": "authored-o0-negative",
+        "exit_code": 0,
+        "report_sha256": "68ab59d5d79be732c0a7107cb636847942a5799c384239631d99d9078375d116",
+        "report": "local\\matching_phase1\\runs\\utility-batch\\authored-o0-negative.objdiff.json",
+        "authored_control_match_percent_NOT_original": {
+          "func_020660f4": 100.0,
+          "func_020660fc": 0.0,
+          "func_0206655c": 41.689655,
+          "func_020665cc": 0.0,
+          "func_02067f74": 0.0,
+          "func_02068008": 0.0
+        }
+      },
+      {
+        "name": "authored-project-config",
+        "exit_code": 0,
+        "report_sha256": "b9d4336502e5bfd1d5d237082847d4752941b1c8fa12efc7d9106af95374a352",
+        "report": "local\\matching_phase1\\runs\\utility-batch\\authored-project-check.objdiff.json",
+        "authored_control_match_percent_NOT_original": {
+          "func_020660f4": 100.0,
+          "func_020660fc": 100.0,
+          "func_0206655c": 100.0,
+          "func_020665cc": 100.0,
+          "func_02067f74": 100.0,
+          "func_02068008": 100.0
+        }
+      }
+    ]
+  },
+  "regressions": {
+    "run": 63,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "protected_inputs_unchanged": true,
+  "protected_input_sha256": {
+    "..\\Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "local\\matching_phase0\\roundtrip-001\\extract\\arm9\\arm9.bin": "6b072402634801228216df32197af888a03e7f1e344c988a75cfa293ce102a65",
+    "local\\matching_phase0\\init-002\\config\\arm9\\config.yaml": "9ad48907debccd79495d71172f4807504bed7fdd072e306abbb90e09210c7526",
+    "local\\matching_phase0\\init-002\\config\\arm9\\delinks.txt": "bd8c55c21a11e85d49a0124721ffc48e5ed8287bb3f67c9ef1599d887020fb66",
+    "local\\matching_phase0\\init-002\\config\\arm9\\relocs.txt": "97d01c118def4628c502c58a122a3f546b33ec13c5612af8af975ff28dc69478",
+    "local\\matching_phase0\\init-002\\config\\arm9\\symbols.txt": "10e47ca98c01e75e131cef4939a6fd59c9b2a186cc2712b858d21c4722af2507",
+    "local\\matching_phase0\\init-002\\config\\arm9\\dtcm\\delinks.txt": "89fe4823061270bf3631697d25b5a44c1fe2ced6a30b17129dddee2c3180cf38",
+    "local\\matching_phase0\\init-002\\config\\arm9\\dtcm\\relocs.txt": "0865c8dcd0c68e0307086809c43690fe7e5f5ecc33d454e89af502306fedabba",
+    "local\\matching_phase0\\init-002\\config\\arm9\\dtcm\\symbols.txt": "d0bb9a50c3dc930692e505ef92b33a1dae1beac30c5d81d4d13a41952ce9a9d3",
+    "local\\matching_phase0\\init-002\\config\\arm9\\itcm\\delinks.txt": "794bc4cc8e078dffe842e1dcad7d32a56a46785cba939a2c8f3b9d37f42a1cc0",
+    "local\\matching_phase0\\init-002\\config\\arm9\\itcm\\relocs.txt": "937c63ac94622495212b4ebf9e72ae5003b04e8ac128a205d8622fe5cb741e70",
+    "local\\matching_phase0\\init-002\\config\\arm9\\itcm\\symbols.txt": "fa7d1d5a7a4d460007fe367274216e8b49d402e5e60b157e9d6f76564cdfe9de"
+  },
+  "protected_input_count": 12,
+  "compiler": {
+    "compiler": "local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2/zig.exe",
+    "compiler_sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+    "zig_version": "0.15.2",
+    "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c",
+    "flags": [
+      "-target",
+      "arm-freestanding-eabi",
+      "-mcpu=arm946e_s",
+      "-marm",
+      "-O2",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-fno-unwind-tables",
+      "-fno-asynchronous-unwind-tables",
+      "-g0",
+      "-fomit-frame-pointer"
+    ]
+  },
+  "shared_header_sha256_lf": "e00399cceb3864d6e420d2786ae7f0ff3949859b25b9baf4cc28a3a16e3958b5",
+  "cluster_source": "src/arm9/utility_hypotheses/cluster.c",
+  "original_compiler_and_compilation_units_qualified": false
+}
