@@ -1,0 +1,41 @@
+{
+  "rom_name": "Brain Age - Train Your Brain in Minutes a Day! (USA) (Rev 1).nds",
+  "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+  "rom_sha256": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+  "address": "0x02067f74",
+  "size": 40,
+  "symbol": "func_02067f74",
+  "reference_sha256": "aee45ae4f2bea37dacef15619a7d0eb553c418fc87fa032692e8c39fb9cba274",
+  "extracted_arm9": "local/matching_phase0/roundtrip-001/extract/arm9/arm9.bin",
+  "metadata": "local/matching_phase0/init-002/config",
+  "compiler": "local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2/zig.exe",
+  "compiler_sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+  "zig_version": "0.15.2",
+  "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c",
+  "flags": [
+    "-target",
+    "arm-freestanding-eabi",
+    "-mcpu=arm946e_s",
+    "-marm",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-fno-stack-protector",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables",
+    "-g0",
+    "-fomit-frame-pointer"
+  ],
+  "metadata_sha256": {
+    "local/matching_phase0/init-002/config/arm9/config.yaml": "9ad48907debccd79495d71172f4807504bed7fdd072e306abbb90e09210c7526",
+    "local/matching_phase0/init-002/config/arm9/delinks.txt": "bd8c55c21a11e85d49a0124721ffc48e5ed8287bb3f67c9ef1599d887020fb66",
+    "local/matching_phase0/init-002/config/arm9/relocs.txt": "97d01c118def4628c502c58a122a3f546b33ec13c5612af8af975ff28dc69478",
+    "local/matching_phase0/init-002/config/arm9/symbols.txt": "10e47ca98c01e75e131cef4939a6fd59c9b2a186cc2712b858d21c4722af2507",
+    "local/matching_phase0/init-002/config/arm9/dtcm/delinks.txt": "89fe4823061270bf3631697d25b5a44c1fe2ced6a30b17129dddee2c3180cf38",
+    "local/matching_phase0/init-002/config/arm9/dtcm/relocs.txt": "0865c8dcd0c68e0307086809c43690fe7e5f5ecc33d454e89af502306fedabba",
+    "local/matching_phase0/init-002/config/arm9/dtcm/symbols.txt": "d0bb9a50c3dc930692e505ef92b33a1dae1beac30c5d81d4d13a41952ce9a9d3",
+    "local/matching_phase0/init-002/config/arm9/itcm/delinks.txt": "794bc4cc8e078dffe842e1dcad7d32a56a46785cba939a2c8f3b9d37f42a1cc0",
+    "local/matching_phase0/init-002/config/arm9/itcm/relocs.txt": "937c63ac94622495212b4ebf9e72ae5003b04e8ac128a205d8622fe5cb741e70",
+    "local/matching_phase0/init-002/config/arm9/itcm/symbols.txt": "fa7d1d5a7a4d460007fe367274216e8b49d402e5e60b157e9d6f76564cdfe9de"
+  }
+}
