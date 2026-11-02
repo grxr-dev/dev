@@ -1,0 +1,22 @@
+call,caller,caller_start,argument_setup,arg0,first_use,category,interpretation
+0x020258D8,func_020258a0,0x020258A0,0x020258C8,0xFFFFFFFF,0x020258E4,forwarded,"Result remains r0 at the call to 0x0206810C; r1=0, r2=3. Callee argument meaning unqualified."
+0x02025AB0,func_020258a0,0x020258A0,0x02025AAC,0xFFFFFFFF,0x02025AB4,index,"Copy to r4, then load [sp+r4*4]."
+0x02042B24,func_020429d8,0x020429D8,0x02042B20,0xFFFFFFFF,0x02042B28,arithmetic,Shift left 11; form (result<<11)+0x800.
+0x0205AEC4,func_0205aeb8,0x0205AEB8,0x0205AEC0,0xFFFFFFFF,0x0205AEC8,predicate,MOVS into r6; zero immediately causes conditional return.
+0x0205B018,func_0205afec,0x0205AFEC,0x0205B008,0xFFFFFFFF,0x0205B020,saved,Store to [sp+0x1C]; ultimate use beyond this window not established.
+0x0205EB6C,func_0205cdbc,0x0205CDBC,0x0205EB68,0xFFFFFFFF,0x0205EB70,predicate,Compare with 4; equality branches to 0x0205EB88.
+0x0205EB8C,func_0205cdbc,0x0205CDBC,0x0205EB88,0xFFFFFFFF,0x0205EB90,predicate,Compare with 4; inequality branches to 0x0205EED0.
+0x020601F0,func_0205cdbc,0x0205CDBC,0x020601E4,0xFFFFFFFF,0x020601F8,index,Save to fp; at 0x02060264 used in [lr+fp*4].
+0x02061618,func_020610b4,0x020610B4,0x0206160C,0xFFFFFFFF,0x0206161C,predicate,"Signed compare with 1; choose r2=2 for <=1, else 0."
+0x020617BC,func_020610b4,0x020610B4,0x020617B8,0xFFFFFFFF,0x020617C0,predicate,Signed compare with 1; branch for >1.
+0x02063A74,func_020610b4,0x020610B4,0x02063A6C,0xFFFFFFFF,0x02063A78,predicate,"Compare with 4; choose r2=0 for equality, else 2."
+0x02069A40,func_02069874,0x02069874,0x02069A3C,0xFFFFFFFF,0x02069A44,arithmetic,Form r3=r7+(result<<2).
+0x0206B724,func_0206b66c,0x0206B66C,0x0206B71C,0xFFFFFFFF,0x0206B728,arithmetic,"Copy to r2, then shift left 12 before a later call."
+0x0206B790,func_0206b66c,0x0206B66C,0x0206B78C,0xFFFFFFFF,0x0206B794,arithmetic,Shift result left 12 into r2 before call to 0x020661B8.
+0x0206CF1C,func_0206cef8,0x0206CEF8,0x0206CF18,0xFFFFFFFF,0x0206CFAC,arithmetic,r0 survives two bounded initialization loops; shift left 1 at 0x0206CFAC.
+0x0206DC7C,func_0206dbd4,0x0206DBD4,0x0206DC78,0xFFFFFFFF,0x0206DC80,saved,Copy to r4 before r0 overwritten; ultimate path-specific use unresolved.
+0x020708EC,func_020708dc,0x020708DC,0x020708E8,0xFFFFFFFF,0x020708F4,arithmetic,Save to r5; multiply using r5 at 0x020709C0.
+0x020731C8,func_02072ce8,0x02072CE8,0x020731C4,0xFFFFFFFF,0x020731CC,arithmetic,Shift left 11; form (result<<11)+0x800.
+0x020735E8,func_02072ce8,0x02072CE8,0x020735E4,0xFFFFFFFF,0x020735EC,predicate,Compare with 2; equality branches to 0x02073604.
+0x020735F8,func_02072ce8,0x02072CE8,0x020735F4,0xFFFFFFFF,0x020735FC,predicate,Compare with 4; inequality branches to 0x02073660.
+0x02074380,func_02074350,0x02074350,0x0207437C,0xFFFFFFFF,0x02074384,saved,Copy to r5 before another call; ultimate path-specific use unresolved.

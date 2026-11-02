@@ -1,0 +1,237 @@
+{
+  "classification": "COMPLETE_ONE_NONTRIVIAL_PILOT",
+  "exact_byte_match": false,
+  "behavioral_result": "PASS_R0_BIT_MAPPING_ALL_2_POW_32_INPUTS",
+  "gate0": "OPEN",
+  "original_toolchain_verified_matched_c": 0,
+  "source_hypotheses": 1,
+  "flag_profiles": 1,
+  "nontrivial_compile_invocations": 2,
+  "baseline_leaf_regression_compile_invocations": 1,
+  "selector_study": {
+    "leaf": "0x020660F4",
+    "direct_call_sites": 21,
+    "categories": {
+      "forwarded": 1,
+      "index": 2,
+      "arithmetic": 7,
+      "predicate": 8,
+      "saved": 3
+    },
+    "immediate_discard_observed": false,
+    "saved_value_ultimate_uses_unresolved": 3,
+    "original_prototype": "unknown; int(void) was only the prior diagnostic hypothesis",
+    "call_table": "selector_call_sites.csv",
+    "all_local_pre_call_sequences_set_arg0_to": "0xFFFFFFFF",
+    "scope": "Bounded static windows; not complete caller CFG or dynamic execution"
+  },
+  "selected": {
+    "symbol": "func_02068008",
+    "address": "0x02068008",
+    "size": 28,
+    "mode": "ARM",
+    "incoming_main_calls": 1,
+    "caller": "0x0206C44C",
+    "caller_argument_evidence": "LDRH r0,[r0,r4] at0x0206C448",
+    "original_code_relocations": 0,
+    "reference_sha256": "934912b08186e4338985ea82639e6b926b4965199850f4688c19792278790c4c",
+    "effect": "swap low two input bytes, zero-extend to32 bits; ignore upper16 input bits",
+    "original_exact_bytes_location": "local/matching_phase0/byte-exchange-pilot/result.json:reference_hex",
+    "original_exact_disassembly_location": "local/matching_phase0/byte-exchange-pilot/result.json:original_disassembly"
+  },
+  "compiler": {
+    "path": "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\toolchains\\zig-x86_64-windows-0.15.2\\zig.exe",
+    "sha256": "d408dd38eed3e5204af841bcebf70502a4dbbb8399a3a3262be55059370bc018",
+    "zig_version": "0.15.2",
+    "banner": "clang version 20.1.2 (https://github.com/ziglang/zig-bootstrap 7ef74e656cf8ddbd6bf891a8475892aa1afa6891)\nTarget: x86_64-unknown-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/rustg/Documents/Codex/Muse/dev/local/matching_phase0/toolchains/zig-x86_64-windows-0.15.2\n",
+    "archive_sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c"
+  },
+  "source_sha256": "903e4b0357e86ab61f0a9cfba8cd3f236d8b21d34adf6e036d156fe72ef1e633",
+  "argv": [
+    "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\toolchains\\zig-x86_64-windows-0.15.2\\zig.exe",
+    "cc",
+    "-target",
+    "arm-freestanding-eabi",
+    "-mcpu=arm946e_s",
+    "-marm",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-fno-stack-protector",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables",
+    "-g0",
+    "-fomit-frame-pointer",
+    "-c",
+    "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\tools\\matching_phase0\\byte_exchange.c",
+    "-o",
+    "C:\\Users\\rustg\\Documents\\Codex\\Muse\\dev\\local\\matching_phase0\\byte-exchange-pilot\\leaf.o"
+  ],
+  "compiler_exit_code": 0,
+  "latest_compile_seconds": 0.08849200000986457,
+  "first_compile_seconds": 0.14487809999263845,
+  "comparison_exit_code": 1,
+  "compiled_hex": "ff10a0e3ff1c81e3012000e00004a0e1220480e1010000e01eff2fe1",
+  "compiled_sha256": "83207b506456471942793769f8e9a5052a0ec5ab66c84a9620c52e048efb549a",
+  "object_sha256": "df7477fb53cc957f37a8973dc43079800a060b9fdbd00b1112f39c033665ff04",
+  "generated_disassembly": [
+    {
+      "address": "0x2068008",
+      "size": 4,
+      "mnemonic": "mov",
+      "operands": "r1, #0xff"
+    },
+    {
+      "address": "0x206800c",
+      "size": 4,
+      "mnemonic": "orr",
+      "operands": "r1, r1, #0xff00"
+    },
+    {
+      "address": "0x2068010",
+      "size": 4,
+      "mnemonic": "and",
+      "operands": "r2, r0, r1"
+    },
+    {
+      "address": "0x2068014",
+      "size": 4,
+      "mnemonic": "lsl",
+      "operands": "r0, r0, #8"
+    },
+    {
+      "address": "0x2068018",
+      "size": 4,
+      "mnemonic": "orr",
+      "operands": "r0, r0, r2, lsr #8"
+    },
+    {
+      "address": "0x206801c",
+      "size": 4,
+      "mnemonic": "and",
+      "operands": "r0, r0, r1"
+    },
+    {
+      "address": "0x2068020",
+      "size": 4,
+      "mnemonic": "bx",
+      "operands": "lr"
+    }
+  ],
+  "elf": {
+    "symbol": "func_02068008",
+    "section": ".text",
+    "section_index": 1,
+    "symbol_value": 0,
+    "symbol_size": 28,
+    "object_file_offset": 52,
+    "elf_flags": "0x5000200",
+    "relocations": [
+      {
+        "section": ".rel.ARM.exidx",
+        "target_section": 2,
+        "offset": 0,
+        "type": 42,
+        "in_function": false
+      }
+    ],
+    "code_relocations": 0
+  },
+  "comparison": {
+    "original_size": 28,
+    "compiled_size": 28,
+    "different_bytes": 19,
+    "different_byte_offsets": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      16,
+      17,
+      18,
+      20,
+      21,
+      22,
+      23
+    ],
+    "original_and_compiled_exact_diff_location": "local/matching_phase0/byte-exchange-pilot/result.json:comparison"
+  },
+  "proof": {
+    "r0_bit_origins": [
+      "x8",
+      "x9",
+      "x10",
+      "x11",
+      "x12",
+      "x13",
+      "x14",
+      "x15",
+      "x0",
+      "x1",
+      "x2",
+      "x3",
+      "x4",
+      "x5",
+      "x6",
+      "x7",
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "all_2_pow_32_inputs": true,
+    "scope": "Static straight-line bit origins from actual original/generated decoded instructions; r0 result, no timing or exact scratch-register equivalence claim",
+    "calls_memory_or_unmodeled_instructions_accepted": false,
+    "original_source_or_prototype_recovered": false
+  },
+  "tests": {
+    "ELF_comparator_regressions": 7,
+    "bit_origin_regressions": 6,
+    "concrete_halfword_cases": 65536,
+    "high_bit_cases": 5,
+    "baseline_eight_byte_match_regression": "PASS"
+  },
+  "preservation": {
+    "rom_sha1": "b8a105bacc3234dede8d4465df0869f2b922a0e2",
+    "rom_sha256": "ac83193346fdca6ea449a6cb60bbe44d327eeb66f2d619d9b1bf8f73600faf5e",
+    "all_12_inputs_unchanged": true,
+    "prior_metadata_hashes_match": {
+      "config\\arm9\\config.yaml": true,
+      "config\\arm9\\delinks.txt": true,
+      "config\\arm9\\relocs.txt": true,
+      "config\\arm9\\symbols.txt": true,
+      "config\\arm9\\dtcm\\delinks.txt": true,
+      "config\\arm9\\dtcm\\relocs.txt": true,
+      "config\\arm9\\dtcm\\symbols.txt": true,
+      "config\\arm9\\itcm\\delinks.txt": true,
+      "config\\arm9\\itcm\\relocs.txt": true,
+      "config\\arm9\\itcm\\symbols.txt": true
+    },
+    "extracted_main_matches_entire_ROM_prefix": true,
+    "guest_execution": false,
+    "BIOS_accessed": false,
+    "proprietary_tools_downloaded": false,
+    "relay_changes": false
+  },
+  "next_milestone": "One NUL-terminated byte-count helper at0x02067F74 with explicit readable/terminated-buffer preconditions; selector prototype/role still needs consumer evidence."
+}

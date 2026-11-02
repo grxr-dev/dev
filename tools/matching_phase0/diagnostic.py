@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import struct
 import subprocess
@@ -20,8 +21,8 @@ HERE=Path(__file__).resolve().parent
 def sha(data):return hashlib.sha256(data).hexdigest()
 
 
-def run(source=None, output=None):
-    cfg=json.loads((HERE/'diagnostic_config.json').read_text(encoding='utf-8'))
+def run(source=None, output=None, config=None):
+    cfg=json.loads((config or HERE/'diagnostic_config.json').read_text(encoding='utf-8'))
     source=(source or HERE/'leaf_pilot.c').resolve()
     out=(output or ROOT/'local/matching_phase0/leaf-diagnostic').resolve()
     if not out.is_relative_to((ROOT/'local').resolve()):raise ValueError('outputs must stay in ignored local/')
@@ -38,7 +39,12 @@ def run(source=None, output=None):
     metadata=ROOT/cfg['metadata']
     symbols=(metadata/'arm9/symbols.txt').read_text(encoding='utf-8')
     symbol_line=[line for line in symbols.splitlines() if line.startswith(cfg['symbol']+' ')]
-    if len(symbol_line)!=1 or 'function(arm,size=0x8)' not in symbol_line[0]:raise ValueError('dsd leaf boundary/state evidence changed')
+    if len(symbol_line)!=1 or f"function(arm,size=0x{length:x})" not in symbol_line[0]:raise ValueError('dsd leaf boundary/state evidence changed')
+    original_relocations=[]
+    for line in (metadata/'arm9/relocs.txt').read_text(encoding='utf-8').splitlines():
+        where=re.search(r'from:0x([0-9a-f]+)',line)
+        if where and address<=int(where[1],16)<address+length:original_relocations.append(line)
+    if original_relocations:raise ValueError('original code relocations require a relocation-aware comparison')
     inputs={str(p):sha(p.read_bytes()) for p in [rom,module,*sorted(metadata.rglob('*'))] if p.is_file()}
     compiler=ROOT/cfg['compiler']
     if sha(compiler.read_bytes())!=cfg['compiler_sha256']:raise ValueError('compiler binary differs from qualified official executable')
@@ -57,7 +63,7 @@ def run(source=None, output=None):
             'address':cfg['address'],'symbol':cfg['symbol'],'source':str(source),'source_sha256':sha(source.read_bytes()),
             'compiler':{'path':str(compiler),'sha256':cfg['compiler_sha256'],'zig_version':version['stdout'].strip(),'banner':banner['stdout'],'archive_sha256':cfg['archive_sha256']},
             'compile':compilation,'reference_sha256':sha(expected),'reference_size':length,'linked':False,
-            'reference_rom_offset':offset+start,'arm9_load_address':hex(base),'metadata_boundary':symbol_line[0]}
+            'reference_hex':expected.hex(),'original_code_relocations':original_relocations,'reference_rom_offset':offset+start,'arm9_load_address':hex(base),'metadata_boundary':symbol_line[0]}
     if compilation['exit_code']==0:
         actual,info=function(obj.read_bytes(),cfg['symbol'])
         comparison=compare(expected,actual)
@@ -67,6 +73,9 @@ def run(source=None, output=None):
         if sum(i['size'] for i in decoded)!=len(actual):raise ValueError('incomplete ARM disassembly')
         disassembly='\n'.join(f"{i['address']}: {i['mnemonic']} {i['operands']}" for i in decoded)+'\n'
         (out/'leaf.disassembly.txt').write_text(disassembly,encoding='utf-8');(out/'leaf.code.bin').write_bytes(actual)
+        original_decoded=[{'address':hex(i.address),'size':i.size,'mnemonic':i.mnemonic,'operands':i.op_str} for i in decoder.disasm(expected,address)]
+        if sum(i['size'] for i in original_decoded)!=length:raise ValueError('incomplete original ARM disassembly')
+        report['original_disassembly']=original_decoded
         report.update(classification='PASS_DIAGNOSTIC_INSTRUCTION_MATCH' if comparison['equal'] else 'FAIL_DIAGNOSTIC_BYTE_MISMATCH',
                       object_sha256=sha(obj.read_bytes()),elf=info,compiled_hex=actual.hex(),compiled_sha256=sha(actual),comparison=comparison,
                       disassembly=decoded,disassembler={'name':'Capstone','version':capstone.__version__},
@@ -81,5 +90,5 @@ def run(source=None, output=None):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--source',type=Path);p.add_argument('--output',type=Path);args=p.parse_args()
-    raise SystemExit(run(args.source,args.output))
+    p=argparse.ArgumentParser();p.add_argument('--config',type=Path);p.add_argument('--source',type=Path);p.add_argument('--output',type=Path);args=p.parse_args()
+    raise SystemExit(run(args.source,args.output,args.config))
