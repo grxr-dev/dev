@@ -9,6 +9,9 @@ from bounded_pilot import bit_origins
 
 
 def verify(kind, original, compiled, address, counter):
+    if kind in ('context_init','context_prepare'):
+        from context_models import verify as context_check
+        return context_check(kind,original,compiled,address)
     if kind == 'zero':
         for body in (original,compiled):
             if [(op,args) for _,op,args in decode(body,address)] != [('mov','r0, #0'),('bx','lr')]:

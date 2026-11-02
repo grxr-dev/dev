@@ -26,14 +26,14 @@ class BatchTests(unittest.TestCase):
 
     def test_six_existing_hypotheses_exactly_once(self):
         validate_manifest(self.manifest)
-        self.assertEqual({row['symbol'] for row in self.manifest['symbols']},{'func_020660f4','func_020660fc','func_0206655c','func_020665cc','func_02067f74','func_02068008'})
+        self.assertEqual({row['symbol'] for row in self.manifest['symbols']},{'func_020660f4','func_020660fc','func_0206655c','func_020665cc','func_02067f74','func_02068008','func_0200aee8','func_0200abbc'})
 
     def test_duplicate_symbol_rejected(self):
         self.manifest['symbols'][1]=copy.deepcopy(self.manifest['symbols'][0])
         with self.assertRaises(ValueError):validate_manifest(self.manifest)
 
     def test_omitted_pilot_rejected(self):
-        self.manifest['symbols'].pop()
+        self.manifest['symbols'].pop(0)
         with self.assertRaises(ValueError):validate_manifest(self.manifest)
 
     def test_wrong_reference_address_size_hash_rejected(self):
@@ -119,6 +119,7 @@ class BatchTests(unittest.TestCase):
     def test_legacy_sources_are_thin_includes_not_duplicate_bodies(self):
         root=HERE.parents[1]
         for row in self.manifest['symbols']:
+            if 'legacy_config' not in row:continue
             config=Path(row['legacy_config']).name
             names={'diagnostic_config.json':'leaf_pilot.c','byte_exchange_config.json':'byte_exchange.c'}
             source=names.get(config,config.replace('_config.json','.c'))

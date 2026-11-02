@@ -1,0 +1,219 @@
+{
+  "schema": "brainage-context-callee-evidence/1",
+  "selected": [
+    {
+      "symbol": "func_0200aee8",
+      "address": "0x0200aee8",
+      "reference_size": 40,
+      "reference_sha256": "4d44502d3b3c4da7dd79a515c87ba0e4a2c5519af0c804aa0abe740f5feffc7b",
+      "inferred_section": ".text",
+      "mode": "ARM_LE",
+      "code_bytes": 40,
+      "literal_bytes": 0,
+      "original_outgoing_relocations": [],
+      "direct_callers": [
+        {
+          "pc": "0x2009424",
+          "containing_function": "func_02009408"
+        },
+        {
+          "pc": "0x200a048",
+          "containing_function": "func_0200a00c"
+        },
+        {
+          "pc": "0x200a874",
+          "containing_function": "func_0200a6bc"
+        },
+        {
+          "pc": "0x200ace4",
+          "containing_function": "func_0200acd0"
+        },
+        {
+          "pc": "0x2013828",
+          "containing_function": "func_02013814"
+        },
+        {
+          "pc": "0x20150ec",
+          "containing_function": "func_0201505c"
+        },
+        {
+          "pc": "0x2015c64",
+          "containing_function": "func_02015c2c"
+        },
+        {
+          "pc": "0x2050d90",
+          "containing_function": "func_02050d7c"
+        },
+        {
+          "pc": "0x2053990",
+          "containing_function": "func_020538e0"
+        },
+        {
+          "pc": "0x2066138",
+          "containing_function": "func_02066124"
+        },
+        {
+          "pc": "0x20662c8",
+          "containing_function": "func_020662ac"
+        },
+        {
+          "pc": "0x20663f4",
+          "containing_function": "func_020663e0"
+        },
+        {
+          "pc": "0x2066508",
+          "containing_function": "func_020664f8"
+        },
+        {
+          "pc": "0x206656c",
+          "containing_function": "func_0206655c"
+        },
+        {
+          "pc": "0x207de24",
+          "containing_function": "func_0207de00"
+        },
+        {
+          "pc": "0x208dd9c",
+          "containing_function": "func_0208dd68"
+        },
+        {
+          "pc": "0x208ff84",
+          "containing_function": "func_0208fef0"
+        }
+      ],
+      "direct_caller_count": 17,
+      "indirect_callers_excluded": true
+    },
+    {
+      "symbol": "func_0200abbc",
+      "address": "0x0200abbc",
+      "reference_size": 72,
+      "reference_sha256": "43925e1d149c89bccd67fecfd80d04592da0a155617fb4bcf394fdf570dab7be",
+      "inferred_section": ".text",
+      "mode": "ARM_LE",
+      "code_bytes": 72,
+      "literal_bytes": 0,
+      "original_outgoing_relocations": [
+        "from:0x0200abcc kind:arm_call to:0x0200acd0 module:main",
+        "from:0x0200abe4 kind:arm_call to:0x0200ac04 module:main"
+      ],
+      "direct_callers": [
+        {
+          "pc": "0x2015c70",
+          "containing_function": "func_02015c2c"
+        },
+        {
+          "pc": "0x2050d9c",
+          "containing_function": "func_02050d7c"
+        },
+        {
+          "pc": "0x20539b0",
+          "containing_function": "func_020538e0"
+        },
+        {
+          "pc": "0x2066144",
+          "containing_function": "func_02066124"
+        },
+        {
+          "pc": "0x20662d4",
+          "containing_function": "func_020662ac"
+        },
+        {
+          "pc": "0x2066400",
+          "containing_function": "func_020663e0"
+        },
+        {
+          "pc": "0x2066514",
+          "containing_function": "func_020664f8"
+        },
+        {
+          "pc": "0x2066578",
+          "containing_function": "func_0206655c"
+        },
+        {
+          "pc": "0x207de30",
+          "containing_function": "func_0207de00"
+        }
+      ],
+      "direct_caller_count": 9,
+      "indirect_callers_excluded": true
+    }
+  ],
+  "nested_opaque_boundaries": [
+    {
+      "symbol": "func_0200ac04",
+      "address": "0x200ac04",
+      "size": 124,
+      "sha256": "47cf08e752daa201b3ffc4419e63659b130118c9d4ebb7eeb41101901430c851",
+      "implementation": "OPAQUE_NOT_RECONSTRUCTED"
+    },
+    {
+      "symbol": "func_0200acd0",
+      "address": "0x200acd0",
+      "size": 64,
+      "sha256": "92bbee4f88a2abd1d62110b6c7b61359063e6c8bf5e127479837ec7af6bf3e63",
+      "implementation": "OPAQUE_NOT_RECONSTRUCTED"
+    }
+  ],
+  "original_five_import_audit": [
+    {
+      "symbol": "func_02019024",
+      "size": 52,
+      "code_bytes": 52,
+      "literal_bytes": 0,
+      "sha256": "f83e1e0334889b529fcb96cf6a9df271ea224c5811a017a76899fbcd168f9f8f",
+      "original_relocations": [
+        "from:0x02019044 kind:arm_call to:0x02019058 module:main"
+      ],
+      "selected": false
+    },
+    {
+      "symbol": "func_0200aee8",
+      "size": 40,
+      "code_bytes": 40,
+      "literal_bytes": 0,
+      "sha256": "4d44502d3b3c4da7dd79a515c87ba0e4a2c5519af0c804aa0abe740f5feffc7b",
+      "original_relocations": [],
+      "selected": true
+    },
+    {
+      "symbol": "func_0200abbc",
+      "size": 72,
+      "code_bytes": 72,
+      "literal_bytes": 0,
+      "sha256": "43925e1d149c89bccd67fecfd80d04592da0a155617fb4bcf394fdf570dab7be",
+      "original_relocations": [
+        "from:0x0200abcc kind:arm_call to:0x0200acd0 module:main",
+        "from:0x0200abe4 kind:arm_call to:0x0200ac04 module:main"
+      ],
+      "selected": true
+    },
+    {
+      "symbol": "func_0200aa5c",
+      "size": 16,
+      "code_bytes": 12,
+      "literal_bytes": 4,
+      "sha256": "0067a8dfb1aface8af3e2b67a01cf0081cf4a8819a12e27d51e2dfbcaadf3e48",
+      "original_relocations": [
+        "from:0x0200aa68 kind:load to:0x0200ad10 module:main"
+      ],
+      "selected": false
+    },
+    {
+      "symbol": "func_0200ab7c",
+      "size": 64,
+      "code_bytes": 64,
+      "literal_bytes": 0,
+      "sha256": "2d5021f9802dacece74aa7f4d03f6dda38d0e04b8e583e56d8e9fdb7b3459bec",
+      "original_relocations": [
+        "from:0x0200ab88 kind:arm_call to:0x0200a464 module:main"
+      ],
+      "selected": false
+    }
+  ],
+  "prototype_and_original_compilation_units": "UNKNOWN",
+  "genuine_original_matches": 0,
+  "gate0": "OPEN",
+  "protected_input_count": 12,
+  "protected_inputs_unchanged": true
+}

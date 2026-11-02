@@ -7,6 +7,7 @@ from object_inventory import inventory,layout
 
 EXPECTED_UNDEFINED={'func_02019024','func_0200aee8','func_0200abbc','func_0200aa5c','func_0200ab7c'}
 CLUSTER_NAMES={'func_020660f4','func_020660fc','func_0206655c','func_020665cc','func_02067f74','func_02068008'}
+ALLOWED_CALLS=EXPECTED_UNDEFINED|CLUSTER_NAMES|{'func_0200acd0','func_0200ac04'}
 NUMERIC_TAGS={6,7,8,9,14,17,18,20,21,23,24,25,26,27,28,30,34,38}
 
 
@@ -73,7 +74,7 @@ def inspect(data):
         tables[index]=rows
     if len(attributes_found)!=1:raise ValueError('exactly one ARM attributes section required')
     functions={symbol['name']:symbol for symbol in parsed['functions']}
-    if any(symbol['binding']!=1 for symbol in parsed['functions']):raise ValueError('all six functions must remain global STT_FUNC')
+    if any(symbol['binding']!=1 for symbol in parsed['functions']):raise ValueError('all functions must remain global STT_FUNC')
     calls=[];exidx=[]
     for section in sections:
         if section['type']!=9:continue
@@ -87,7 +88,7 @@ def inspect(data):
                 immediate=word&0xffffff;addend=(immediate-(1<<24) if immediate&(1<<23) else immediate)*4
                 owner=owners[0]
                 if target['section_index']==0:
-                    if target['name'] not in EXPECTED_UNDEFINED|CLUSTER_NAMES or addend!=-8:raise ValueError('unexpected external/addend')
+                    if target['name'] not in ALLOWED_CALLS or addend!=-8:raise ValueError('unexpected external/addend')
                     target_name=target['name']
                 else:
                     candidates=[symbol['name'] for symbol in functions.values() if symbol['section_index']==target['section_index'] and symbol['value']==target['value']+addend+8]
@@ -113,9 +114,13 @@ def inspect(data):
         'calls':calls,'exidx':exidx,'bodies':bodies,'layouts':{name:layout(data,name) for name in functions},'sha256':digest(data),'size':len(data)}
 
 
+def external_targets(manifest):
+    return set().union(*(set(row['direct_call_targets']) for row in manifest['symbols']))-{row['symbol'] for row in manifest['symbols']}
+
+
 def validate_inputs(objects,manifest):
     expected={row['symbol']:row for row in manifest['symbols']}
-    if len(objects)!=6 or len(expected)!=6:raise ValueError('exact six independent input objects required')
+    if not 6<=len(expected)<=8 or len(objects)!=len(expected):raise ValueError('exact manifest coverage of independent input objects required')
     seen=set();undefined=set();baseline_attributes=None
     for item in objects:
         if len(item['functions'])!=1:raise ValueError('input must contain one independently compiled function, not the unity cluster')
@@ -132,20 +137,21 @@ def validate_inputs(objects,manifest):
         pools=[span for span in item['layouts'][name] if span['kind']=='LITERAL_DATA']
         words=[struct.unpack_from('<I',item['bodies'][name],offset)[0] for span in pools for offset in range(span['offset'],span['offset']+span['size'],4)]
         if words!=[int(value,16) for value in expected[name]['literal_words'].values()]:raise ValueError('input literal ownership/values changed')
-    if seen!=set(expected) or undefined-seen!=EXPECTED_UNDEFINED:raise ValueError('five distinct opaque imports must remain')
+    if seen!=set(expected) or undefined-seen!=external_targets(manifest):raise ValueError('exact manifest opaque imports must remain')
     return baseline_attributes
 
 
 def validate_output(inputs,output,manifest):
     baseline_attributes=validate_inputs(inputs,manifest)
     names=[row['symbol'] for row in manifest['symbols']]
-    if set(output['functions'])!=set(names) or len(output['functions'])!=6:raise ValueError('output function coverage/uniqueness')
-    if set(output['inventory']['undefined_symbols'])!=EXPECTED_UNDEFINED or len(output['inventory']['undefined_symbols'])!=5:raise ValueError('output must retain exactly five opaque undefined symbols')
+    undefined=external_targets(manifest)
+    if set(output['functions'])!=set(names) or len(output['functions'])!=len(names):raise ValueError('output function coverage/uniqueness')
+    if set(output['inventory']['undefined_symbols'])!=undefined or len(output['inventory']['undefined_symbols'])!=len(undefined):raise ValueError('output must retain exactly the manifest opaque undefined symbols')
     if output['attributes']!=baseline_attributes:raise ValueError('output CPU/ABI attributes changed')
     expected_calls=sorted((row['owner'],row['offset'],row['kind'],row['target'],0) for item in inputs for row in item['calls'])
     actual_calls=sorted((row['owner'],row['offset'],row['kind'],row['target'],row['normalized_entry_addend']) for row in output['calls'])
     if actual_calls!=expected_calls:raise ValueError('partial link lost/changed call relocation/addend')
-    if [(row['owner'],row['offset']) for row in sorted(output['exidx'],key=lambda row:row['offset'])]!=list(zip(names,range(0,48,8))):
+    if [(row['owner'],row['offset']) for row in sorted(output['exidx'],key=lambda row:row['offset'])]!=list(zip(names,range(0,8*len(names),8))):
         raise ValueError('exidx order/completeness changed')
     results=[];position=0
     for item,name in zip(inputs,names):
@@ -153,6 +159,7 @@ def validate_output(inputs,output,manifest):
         before=item['functions'][name];after=output['functions'][name]
         if after['value']!=position or after['size']!=before['size'] or output['layouts'][name]!=item['layouts'][name]:raise ValueError('output function offset/size/code-pool ownership changed')
         before_body=item['bodies'][name];after_body=output['bodies'][name]
+        if name in CLUSTER_NAMES and before_body!=after_body:raise ValueError('old six raw bytes changed')
         call_offsets={row['offset'] for row in item['calls']}
         for offset in range(0,len(before_body),4):
             if offset not in call_offsets and before_body[offset:offset+4]!=after_body[offset:offset+4]:raise ValueError('nonrelocation code/literal bytes changed')
@@ -163,7 +170,7 @@ def validate_output(inputs,output,manifest):
         position+=after['size']
     text=[section for section in output['inventory']['sections'] if section['name']=='.text']
     exidx=[section for section in output['inventory']['sections'] if section['name']=='.ARM.exidx']
-    if len(text)!=1 or text[0]['size']!=position or text[0]['alignment']!=4 or len(exidx)!=1 or exidx[0]['size']!=48:
+    if len(text)!=1 or text[0]['size']!=position or text[0]['alignment']!=4 or len(exidx)!=1 or exidx[0]['size']!=8*len(names):
         raise ValueError('aggregate code/exidx extent/alignment changed')
     for row in output['calls']:
         if row['target_defined']!=(row['target'] in names):raise ValueError('internal/external call binding changed')
@@ -171,6 +178,7 @@ def validate_output(inputs,output,manifest):
         'elf_flags':output['flags'],'arm_attributes':{str(key):value for key,value in output['attributes'].items()},
         'functions':results,'undefined_symbols':output['inventory']['undefined_symbols'],
         'calls':output['calls'],'exidx':output['exidx'],'sections':output['inventory']['sections'],
-        'named_static_data_definitions':[],'bss_data_allocated_bytes':0,'symbol_resolution':'two intra-cluster definitions; five opaque imports remain undefined',
+        'named_static_data_definitions':[],'bss_data_allocated_bytes':0,
+        'symbol_resolution':{'defined_call_edges':sum(row['target_defined'] for row in output['calls']),'opaque_imports':len(undefined)},
         'comdat_weak_duplicate_policy':'rejected before link; no-allow-multiple-definition and ICF disabled',
         'original_object_comparison':False,'genuine_original_matches':0,'gate0':'OPEN'}

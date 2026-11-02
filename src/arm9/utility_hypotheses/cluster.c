@@ -4,3 +4,5 @@
 #include "func_020665cc.c"
 #include "func_02067f74.c"
 #include "func_02068008.c"
+#include "func_0200aee8.c"
+#include "func_0200abbc.c"

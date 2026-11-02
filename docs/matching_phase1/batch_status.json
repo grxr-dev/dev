@@ -2,11 +2,11 @@
   "schema": "brainage-source-batch-result/1",
   "classification": "BATCH_CHECKS_COMPLETED_NOT_AUTHENTIC_MATCH",
   "summary": {
-    "source_symbols": 6,
-    "compile_pass": 6,
-    "semantic_pass": 6,
+    "source_symbols": 8,
+    "compile_pass": 8,
+    "semantic_pass": 8,
     "exact_matches": 1,
-    "exact_mismatches": 5,
+    "exact_mismatches": 7,
     "errors": 0,
     "genuine_original_matches": 0,
     "gate0": "OPEN"
@@ -514,6 +514,164 @@
       ],
       "generated_literal_words": {},
       "generated_fits_original_symbol_range": true
+    },
+    {
+      "symbol": "func_0200aee8",
+      "address": "0x0200aee8",
+      "mode": "ARM_LE",
+      "reference_size": 40,
+      "reference_sha256": "4d44502d3b3c4da7dd79a515c87ba0e4a2c5519af0c804aa0abe740f5feffc7b",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200aee8.c",
+      "comparison_config": "tools/matching_phase1/context_init_config.json",
+      "code_bytes": 40,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "context_init",
+      "behavior_evidence_tier": "bounded_nonvolatile_memory_effects",
+      "domain": "aligned writable ordinary context storage through +0x19; no MMIO, volatile or concurrent access; return register not an API result",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "a750bcccfc283eeaf65cb606815deac462ba8ecfdc08c2e265c8958a90cba9e4",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 512,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false,
+        "evidence_scope": "ordinary memory effects"
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 36,
+      "generated_sha256": "7fab168dfe8d1b4baf3faa2093b86bda058cfe12c630358ce069e67b1d04aed0",
+      "generated_raw_sha256": "7fab168dfe8d1b4baf3faa2093b86bda058cfe12c630358ce069e67b1d04aed0",
+      "object_sha256": "f0d53f5a4f9276598a910c9687da3406bd03a338a7488eef2f4853adbabfa893",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 0,
+      "generated_relocations": [
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 28,
+      "generated_code_bytes": 36,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 36,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": true
+    },
+    {
+      "symbol": "func_0200abbc",
+      "address": "0x0200abbc",
+      "mode": "ARM_LE",
+      "reference_size": 72,
+      "reference_sha256": "43925e1d149c89bccd67fecfd80d04592da0a155617fb4bcf394fdf570dab7be",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200abbc.c",
+      "comparison_config": "tools/matching_phase1/context_prepare_config.json",
+      "code_bytes": 72,
+      "literal_words": {},
+      "direct_call_targets": {
+        "func_0200acd0": "0x0200acd0",
+        "func_0200ac04": "0x0200ac04"
+      },
+      "original_relocations": [
+        "from:0x0200abcc kind:arm_call to:0x0200acd0 module:main",
+        "from:0x0200abe4 kind:arm_call to:0x0200ac04 module:main"
+      ],
+      "behavior_model": "context_prepare",
+      "behavior_evidence_tier": "bounded_opaque_pair_call_protocol",
+      "domain": "normal ABI opaque calls; acd0 initializes both output words on nonzero return; no escaped stack pointer; scratch and context disjoint; nested effects remain opaque",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN",
+      "compile_status": "PASS",
+      "semantic_status": "PASS_BOUNDED_MODEL",
+      "exact_status": "MISMATCH",
+      "genuine_original_match": false,
+      "source_sha256_lf": "9e598c72329d88222c5bb263562b1a36fa1534a57c8f8f87f869bd402fbe7e44",
+      "behavior": {
+        "status": "PASS_BOUNDED_MODEL",
+        "cases": 320,
+        "count_kind": "finite_cases",
+        "independent_cpu_emulator": false,
+        "formatter_or_external_effects_proved": false,
+        "evidence_scope": "opaque pair protocol only"
+      },
+      "compile_exit": 0,
+      "compiler_stderr": "",
+      "compiler_stdout": "",
+      "generated_size": 64,
+      "generated_sha256": "7b542f4c09e917ad347efcc41b5ca2c0315421af371b724bcf28bf4fba6b70b9",
+      "generated_raw_sha256": "2a886acd06fd161585b0f980c9a581f49e762b1bcbd1ad64e6419fe657798e5e",
+      "object_sha256": "f947d4e000c3a529aca620123661c541a88c29bc1e061022a98b16f77a9ff935",
+      "generated_section": ".text",
+      "generated_elf_flags": "0x5000200",
+      "resolved_call_relocations": 2,
+      "generated_relocations": [
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 16,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_0200acd0",
+          "target": "0x200acd0",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x200abcc",
+          "resolved_word": "0xeb00003f"
+        },
+        {
+          "section": ".rel.text",
+          "target_section": 1,
+          "offset": 44,
+          "type": 28,
+          "in_function": true,
+          "symbol": "func_0200ac04",
+          "target": "0x200ac04",
+          "addend": -8,
+          "resolved": true,
+          "runtime_pc": "0x200abe8",
+          "resolved_word": "0xeb000005"
+        },
+        {
+          "section": ".rel.ARM.exidx",
+          "target_section": 2,
+          "offset": 0,
+          "type": 42,
+          "in_function": false
+        }
+      ],
+      "differing_offsets": 40,
+      "generated_code_bytes": 64,
+      "generated_layout": [
+        {
+          "offset": 0,
+          "size": 64,
+          "kind": "ARM_CODE"
+        }
+      ],
+      "generated_literal_words": {},
+      "generated_fits_original_symbol_range": true
     }
   ],
   "object_comparison": {
@@ -523,8 +681,8 @@
     "builds": [
       {
         "name": "authored-a",
-        "sha256": "c1074b4766615875d29aef2c43a247abcb4a13f48ccf8d8b09b3a2216746f0f7",
-        "size": 3308,
+        "sha256": "f9100adec49163a80fff1c7ce895ea90a81b6b69e6124125f076af55c24bab25",
+        "size": 4088,
         "compile_exit": 0,
         "extra_flags": [
           "-fno-inline",
@@ -533,8 +691,8 @@
       },
       {
         "name": "authored-b",
-        "sha256": "c1074b4766615875d29aef2c43a247abcb4a13f48ccf8d8b09b3a2216746f0f7",
-        "size": 3308,
+        "sha256": "f9100adec49163a80fff1c7ce895ea90a81b6b69e6124125f076af55c24bab25",
+        "size": 4088,
         "compile_exit": 0,
         "extra_flags": [
           "-fno-inline",
@@ -543,8 +701,8 @@
       },
       {
         "name": "authored-o0-negative",
-        "sha256": "fcd03658a16b2a225680119ac00f4ce99d90013dd30678eafa2df29a1cd66dd9",
-        "size": 3572,
+        "sha256": "5939bdc62c9502085e93565af06762c91884eaf96992dce6958f0fef93610b47",
+        "size": 4456,
         "compile_exit": 0,
         "extra_flags": [
           "-fno-inline",
@@ -580,12 +738,28 @@
         "section_index": 9
       },
       {
+        "name": "func_0200aee8",
+        "value": 0,
+        "size": 36,
+        "type": 2,
+        "binding": 1,
+        "section_index": 13
+      },
+      {
+        "name": "func_0200abbc",
+        "value": 0,
+        "size": 64,
+        "type": 2,
+        "binding": 1,
+        "section_index": 16
+      },
+      {
         "name": "func_020665cc",
         "value": 0,
         "size": 56,
         "type": 2,
         "binding": 1,
-        "section_index": 13
+        "section_index": 20
       },
       {
         "name": "func_02067f74",
@@ -593,7 +767,7 @@
         "size": 44,
         "type": 2,
         "binding": 1,
-        "section_index": 17
+        "section_index": 24
       },
       {
         "name": "func_02068008",
@@ -601,14 +775,14 @@
         "size": 28,
         "type": 2,
         "binding": 1,
-        "section_index": 20
+        "section_index": 27
       }
     ],
     "undefined_symbols": [
       "func_0200aa5c",
       "func_0200ab7c",
-      "func_0200abbc",
-      "func_0200aee8",
+      "func_0200ac04",
+      "func_0200acd0",
       "func_02019024"
     ],
     "relocations": [
@@ -638,14 +812,14 @@
         "offset": 20,
         "type": 28,
         "symbol": "func_0200aee8",
-        "symbol_defined": false
+        "symbol_defined": true
       },
       {
         "section": ".text.func_0206655c",
         "offset": 32,
         "type": 28,
         "symbol": "func_0200abbc",
-        "symbol_defined": false
+        "symbol_defined": true
       },
       {
         "section": ".text.func_0206655c",
@@ -670,6 +844,34 @@
       },
       {
         "section": ".ARM.exidx.text.func_0206655c",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".ARM.exidx.text.func_0200aee8",
+        "offset": 0,
+        "type": 42,
+        "symbol": "",
+        "symbol_defined": true
+      },
+      {
+        "section": ".text.func_0200abbc",
+        "offset": 16,
+        "type": 28,
+        "symbol": "func_0200acd0",
+        "symbol_defined": false
+      },
+      {
+        "section": ".text.func_0200abbc",
+        "offset": 44,
+        "type": 28,
+        "symbol": "func_0200ac04",
+        "symbol_defined": false
+      },
+      {
+        "section": ".ARM.exidx.text.func_0200abbc",
         "offset": 0,
         "type": 42,
         "symbol": "",
@@ -718,12 +920,14 @@
       {
         "name": "authored-repeat",
         "exit_code": 0,
-        "report_sha256": "b9d4336502e5bfd1d5d237082847d4752941b1c8fa12efc7d9106af95374a352",
+        "report_sha256": "0d27c099f7adad8e8ef20097491c2ee35f4f1a142a5bc29595d687be2e542550",
         "report": "local\\matching_phase1\\runs\\utility-batch\\authored-repeat.objdiff.json",
         "authored_control_match_percent_NOT_original": {
           "func_020660f4": 100.0,
           "func_020660fc": 100.0,
           "func_0206655c": 100.0,
+          "func_0200aee8": 100.0,
+          "func_0200abbc": 100.0,
           "func_020665cc": 100.0,
           "func_02067f74": 100.0,
           "func_02068008": 100.0
@@ -732,12 +936,14 @@
       {
         "name": "authored-o0-negative",
         "exit_code": 0,
-        "report_sha256": "68ab59d5d79be732c0a7107cb636847942a5799c384239631d99d9078375d116",
+        "report_sha256": "1e6a4520ada241a6110725c7eca9eb9ca4af087a21ba32b5ad284fe4e57369ae",
         "report": "local\\matching_phase1\\runs\\utility-batch\\authored-o0-negative.objdiff.json",
         "authored_control_match_percent_NOT_original": {
           "func_020660f4": 100.0,
           "func_020660fc": 0.0,
           "func_0206655c": 41.689655,
+          "func_0200aee8": 0.0,
+          "func_0200abbc": 0.0,
           "func_020665cc": 0.0,
           "func_02067f74": 0.0,
           "func_02068008": 0.0
@@ -746,12 +952,14 @@
       {
         "name": "authored-project-config",
         "exit_code": 0,
-        "report_sha256": "b9d4336502e5bfd1d5d237082847d4752941b1c8fa12efc7d9106af95374a352",
+        "report_sha256": "0d27c099f7adad8e8ef20097491c2ee35f4f1a142a5bc29595d687be2e542550",
         "report": "local\\matching_phase1\\runs\\utility-batch\\authored-project-check.objdiff.json",
         "authored_control_match_percent_NOT_original": {
           "func_020660f4": 100.0,
           "func_020660fc": 100.0,
           "func_0206655c": 100.0,
+          "func_0200aee8": 100.0,
+          "func_0200abbc": 100.0,
           "func_020665cc": 100.0,
           "func_02067f74": 100.0,
           "func_02068008": 100.0
@@ -760,7 +968,7 @@
     ]
   },
   "regressions": {
-    "run": 90,
+    "run": 110,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -802,7 +1010,7 @@
       "-fomit-frame-pointer"
     ]
   },
-  "shared_header_sha256_lf": "e00399cceb3864d6e420d2786ae7f0ff3949859b25b9baf4cc28a3a16e3958b5",
+  "shared_header_sha256_lf": "42c95331d79468e55f42b0c53a931d4e83c635df81c11a0d8b32389ce3c134f8",
   "cluster_source": "src/arm9/utility_hypotheses/cluster.c",
   "original_compiler_and_compilation_units_qualified": false
 }

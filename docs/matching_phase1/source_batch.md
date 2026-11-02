@@ -11,6 +11,10 @@ The tested initial batch was subsequently preserved and pushed as
 [authored relocatable partial-link pilot](partial_link.md). That follow-up adds
 27 regressions (90 total); the original 63-test evidence below remains historical.
 
+The subsequent [callee expansion](cluster_expansion.md) grows the current
+manifest to eight symbols and 110 regressions. The six-symbol results and
+object inventories below describe the preserved initial batch, not that expansion.
+
 ## One command
 
 From the dev repository:
@@ -19,8 +23,8 @@ From the dev repository:
 python -B tools/matching_phase1/batch.py --publish-status
 ```
 
-This validates all12 pinned inputs, builds/tests/checks six symbols, builds the
-authored cluster/repeat/negative objects, runs real objdiff and 90 regressions,
+This validates all12 pinned inputs, builds/tests/checks the current eight symbols, builds the
+authored cluster/repeat/negative objects, runs real objdiff and 110 regressions,
 then rechecks all12 input hashes. The command needs the existing qualified
 Zig0.15.2/Clang20.1.2 and Capstone; it does not download anything implicitly.
 The optional explicit official CLI installer is

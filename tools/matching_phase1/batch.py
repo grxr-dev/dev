@@ -1,4 +1,4 @@
-"""Six-source compile/model/exact ledger plus authored-object comparison controls."""
+"""Bounded source compile/model/exact ledger plus authored-object controls."""
 import argparse
 import contextlib
 import hashlib
@@ -36,6 +36,19 @@ def read_json(path):
     return json.loads(Path(path).read_text(encoding='utf-8-sig'),object_pairs_hook=unique)
 
 
+def comparison_config(row,manifest):
+    if 'legacy_config' in row:
+        if 'comparison_config' in row:raise ValueError('ambiguous comparison config')
+        return read_json(ROOT/row['legacy_config'])
+    path=(ROOT/row['comparison_config']).resolve()
+    if not path.is_relative_to(HERE):raise ValueError('comparison config outside Phase1')
+    config=read_json(path)
+    if set(config)!={'address','size','symbol','reference_sha256','arm_call_targets','expected_original_relocations','original_literal_words'}:
+        raise ValueError('comparison config must inherit the pinned batch tool/input profile')
+    return dict(config,**manifest['compiler'],**{key:manifest['inputs'][key] for key in ('rom_name','rom_sha1','rom_sha256','metadata_sha256')},
+                extracted_arm9=manifest['inputs']['arm9_path'],metadata=manifest['inputs']['metadata_root'])
+
+
 def validate_manifest(manifest):
     if manifest['schema']!='brainage-source-batch/1' or not 6<=len(manifest['symbols'])<=8:
         raise ValueError('batch schema/coverage')
@@ -51,7 +64,7 @@ def validate_manifest(manifest):
         literals=sorted(int(at,16) for at in row['literal_words'])
         if row['code_bytes']%4 or literals!=list(range(address+row['code_bytes'],address+size,4)):
             raise ValueError('code/pool partition mismatch')
-        config=read_json(ROOT/row['legacy_config'])
+        config=comparison_config(row,manifest)
         expected={'address':address,'size':size,'symbol':name,'reference_sha256':row['reference_sha256']}
         if any((int(config[key],16) if key=='address' else config[key])!=value for key,value in expected.items()):raise ValueError('legacy symbol/reference identity changed')
         if config.get('arm_call_targets',{})!=row['direct_call_targets'] or config.get('original_literal_words',{})!=row['literal_words'] or config.get('expected_original_relocations',[])!=row['original_relocations']:
@@ -224,7 +237,9 @@ def run(output=None, require_exact=False, publish_status=False):
             log=io.StringIO()
             try:
                 with contextlib.redirect_stdout(log):
-                    diagnostic.run(source,directory,ROOT/entry['legacy_config'])
+                    config_path=directory/'comparison_config.json'
+                    config_path.write_text(json.dumps(comparison_config(entry,manifest),indent=2)+'\n')
+                    diagnostic.run(source,directory,config_path)
                 report=read_json(result_path)
                 row.update(statuses(report,None),behavior=None,compile_exit=report['compile']['exit_code'],
                     compiler_stderr=report['compile']['stderr'],compiler_stdout=report['compile']['stdout'],

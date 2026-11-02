@@ -147,6 +147,52 @@
       "domain": "all 32-bit r0 values; unsigned 32-bit hypothesis; zero-extended low-halfword byte exchange",
       "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
       "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_0200aee8",
+      "address": "0x0200aee8",
+      "mode": "ARM_LE",
+      "reference_size": 40,
+      "reference_sha256": "4d44502d3b3c4da7dd79a515c87ba0e4a2c5519af0c804aa0abe740f5feffc7b",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200aee8.c",
+      "comparison_config": "tools/matching_phase1/context_init_config.json",
+      "code_bytes": 40,
+      "literal_words": {},
+      "direct_call_targets": {},
+      "original_relocations": [],
+      "behavior_model": "context_init",
+      "behavior_evidence_tier": "bounded_nonvolatile_memory_effects",
+      "domain": "aligned writable ordinary context storage through +0x19; no MMIO, volatile or concurrent access; return register not an API result",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_0200abbc",
+      "address": "0x0200abbc",
+      "mode": "ARM_LE",
+      "reference_size": 72,
+      "reference_sha256": "43925e1d149c89bccd67fecfd80d04592da0a155617fb4bcf394fdf570dab7be",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200abbc.c",
+      "comparison_config": "tools/matching_phase1/context_prepare_config.json",
+      "code_bytes": 72,
+      "literal_words": {},
+      "direct_call_targets": {
+        "func_0200acd0": "0x0200acd0",
+        "func_0200ac04": "0x0200ac04"
+      },
+      "original_relocations": [
+        "from:0x0200abcc kind:arm_call to:0x0200acd0 module:main",
+        "from:0x0200abe4 kind:arm_call to:0x0200ac04 module:main"
+      ],
+      "behavior_model": "context_prepare",
+      "behavior_evidence_tier": "bounded_opaque_pair_call_protocol",
+      "domain": "normal ABI opaque calls; acd0 initializes both output words on nonzero return; no escaped stack pointer; scratch and context disjoint; nested effects remain opaque",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
     }
   ],
   "shared_header": "src/arm9/utility_hypotheses/contracts.h",

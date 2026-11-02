@@ -6,11 +6,13 @@ from pathlib import Path
 import subprocess
 import sys
 from batch import ROOT,HERE,read_json,validate_manifest,verify_inputs,verify_hashes,sha,command
-from partial_link_audit import inspect,validate_inputs,validate_output
+from partial_link_audit import inspect,validate_inputs,validate_output,CLUSTER_NAMES
 
 PRESERVED_PHASE1='234671ea4194fe37283b4fa9ec38c0a96a1fd494'
 INPUT_ROOT=ROOT/'local/matching_phase1/runs/utility-batch'
-DEFAULT_OUTPUT=ROOT/'local/matching_phase1/runs/partial-link'
+BASELINE_OUTPUT=ROOT/'local/matching_phase1/runs/partial-link'
+BASELINE_SHA256='36acd51ab2f5d1f14490e5ad3b5e660e24a054efe794216757c0b2d66ad4de4c'
+DEFAULT_OUTPUT=ROOT/'local/matching_phase1/runs/partial-link-context-v1'
 LINK_FLAGS=['-r','-m','armelf','--build-id=none','--no-gc-sections','--icf=none',
             '--no-merge-exidx-entries','--no-allow-multiple-definition']
 
@@ -21,12 +23,13 @@ def write(path,value):
 
 def inputs(manifest):
     report=read_json(INPUT_ROOT/'batch_status.json')
-    if report['classification']!='BATCH_CHECKS_COMPLETED_NOT_AUTHENTIC_MATCH' or report['summary']['compile_pass']!=6 or report['summary']['semantic_pass']!=6 or report['summary']['exact_matches']!=1 or report['summary']['exact_mismatches']!=5 or report['compiler']!=manifest['compiler']:
-        raise ValueError('run the current successful six-symbol batch before partial linking')
+    count=len(manifest['symbols'])
+    if report['classification']!='BATCH_CHECKS_COMPLETED_NOT_AUTHENTIC_MATCH' or report['summary']['compile_pass']!=count or report['summary']['semantic_pass']!=count or report['summary']['errors'] or report['summary']['exact_matches']+report['summary']['exact_mismatches']!=count or report['compiler']!=manifest['compiler']:
+        raise ValueError('run the current successful manifest batch before partial linking')
     header=ROOT/manifest['shared_header']
     if sha(header.read_text().encode())!=report['shared_header_sha256_lf']:raise ValueError('shared declarations changed since compile')
     by_name={row['symbol']:row for row in report['symbols']}
-    if len(by_name)!=6 or len(report['symbols'])!=6:raise ValueError('duplicate/missing batch status records')
+    if len(by_name)!=count or len(report['symbols'])!=count:raise ValueError('duplicate/missing batch status records')
     models=[];paths=[];records=[]
     for row in manifest['symbols']:
         prior=by_name[row['symbol']]
@@ -42,20 +45,35 @@ def inputs(manifest):
             'object_sha256':sha(data),'size':len(data),'function_size':prior['generated_size'],
             'compile_status':prior['compile_status'],'semantic_status':prior['semantic_status'],
             'unchanged_original_byte_diagnostic':prior['exact_status']})
-    if len(set(paths))!=6:raise ValueError('six independent object paths required')
+    if len(set(paths))!=count:raise ValueError('independent object paths required')
     validate_inputs(models,manifest)
     return models,paths,records
+
+
+def baseline_check(models):
+    report=read_json(ROOT/'docs/matching_phase1/partial_link_status.json')
+    if report['output']['output_sha256']!=BASELINE_SHA256 or sha((BASELINE_OUTPUT/'linked-authored.o').read_bytes())!=BASELINE_SHA256:
+        raise ValueError('immutable #122 linked baseline changed/missing')
+    current={name:body for model in models for name,body in model['bodies'].items()}
+    original=inspect((BASELINE_OUTPUT/'linked-authored.o').read_bytes())
+    if set(original['functions'])!=CLUSTER_NAMES or len(report['output']['functions'])!=6 or {row['symbol'] for row in report['output']['functions']}!=CLUSTER_NAMES:
+        raise ValueError('baseline coverage')
+    for row in report['output']['functions']:
+        if row['symbol'] not in current or current[row['symbol']]!=original['bodies'][row['symbol']] or sha(current[row['symbol']])!=row['input_raw_sha256']:
+            raise ValueError('old six raw function bodies changed')
+    return {'output_sha256':BASELINE_SHA256,'old_six_raw_bodies_identical':True,'baseline_relinked':False}
 
 
 def run(output=DEFAULT_OUTPUT,publish=False):
     out=Path(output).resolve()
     allowed=(ROOT/'local/matching_phase1/runs').resolve()
-    if not out.is_relative_to(allowed) or out==allowed or out==INPUT_ROOT.resolve() or INPUT_ROOT.resolve().is_relative_to(out):
+    if not out.is_relative_to(allowed) or out==allowed or out.is_relative_to(INPUT_ROOT.resolve()) or INPUT_ROOT.resolve().is_relative_to(out) or out.is_relative_to(BASELINE_OUTPUT.resolve()) or BASELINE_OUTPUT.resolve().is_relative_to(out):
         raise ValueError('dedicated output below ignored local/matching_phase1/runs required')
     out.mkdir(parents=True,exist_ok=True)
     manifest=read_json(HERE/'batch.json');validate_manifest(manifest)
     protected,_=verify_inputs(manifest)
     model_inputs,paths,records=inputs(manifest)
+    baseline=baseline_check(model_inputs)
     tool=ROOT/manifest['compiler']['compiler']
     env=dict(os.environ,ZIG_GLOBAL_CACHE_DIR=str(ROOT/'local/matching_phase0/toolchains/zig-cache'),
         ZIG_LOCAL_CACHE_DIR=str(out/'cache'),TEMP=str(out),TMP=str(out))
@@ -85,7 +103,7 @@ def run(output=DEFAULT_OUTPUT,publish=False):
         audit=validate_output(model_inputs,inspect(object_path.read_bytes()),manifest)
         if not map_path.is_file():raise ValueError('link map missing')
         report={'schema':'brainage-authored-partial-link/1','classification':'PASS_AUTHORED_RELOCATABLE_PARTIAL_LINK',
-            'preserved_phase1_commit':PRESERVED_PHASE1,'input_identity':identity,'inputs':records,
+            'preserved_phase1_commit':PRESERVED_PHASE1,'input_identity':identity,'inputs':records,'immutable_baseline':baseline,
             'linker':{'driver':manifest['compiler']['compiler'],'driver_sha256':manifest['compiler']['compiler_sha256'],
                       'version':version['stdout'].strip(),'flags':LINK_FLAGS,'exit_code':link_record['exit_code'],
                       'stderr':link_record['stderr'],'stdout':link_record['stdout']},
@@ -94,12 +112,13 @@ def run(output=DEFAULT_OUTPUT,publish=False):
             'protected_input_count':len(protected),'protected_inputs_unchanged':True,'original_object_or_module_claimed':False,
             'original_toolchain_verified_matches':0,'gate0':'OPEN'}
         verify_hashes(protected)
+        baseline_check(model_inputs)
         for path,record in zip(paths,records):
             if sha(path.read_bytes())!=record['object_sha256']:raise ValueError('input object changed during link')
         if not reused:write(marker,dict(attempt,status='VALIDATED',output_sha256=audit['output_sha256']))
         write(out/'partial_link_status.json',report)
-        if publish:write(ROOT/'docs/matching_phase1/partial_link_status.json',report)
-        print('PASS_AUTHORED_RELOCATABLE_PARTIAL_LINK: six independent inputs, five opaque imports; output='+audit['output_sha256'])
+        if publish:write(ROOT/'docs/matching_phase1/cluster_expansion_status.json',report)
+        print('PASS_AUTHORED_RELOCATABLE_PARTIAL_LINK: '+str(len(records))+' independent inputs, '+str(len(audit['undefined_symbols']))+' opaque imports; output='+audit['output_sha256'])
         print('new linker invocations='+str(report['new_link_invocations_this_run'])+'; genuine matches=0; Gate0 OPEN')
         return 0
     finally:
@@ -113,7 +132,7 @@ def cli(argv=None):
     except (OSError,ValueError,KeyError,subprocess.SubprocessError) as error:
         print('PARTIAL_LINK_ERROR: '+type(error).__name__+': '+str(error),file=sys.stderr)
         out=args.output.resolve()
-        if out.is_relative_to((ROOT/'local/matching_phase1/runs').resolve()) and out.exists():
+        if out.is_relative_to((ROOT/'local/matching_phase1/runs').resolve()) and not out.is_relative_to(BASELINE_OUTPUT.resolve()) and out.exists():
             write(out/'failure.json',{'classification':'PARTIAL_LINK_ERROR','error':type(error).__name__+': '+str(error),
                 'genuine_original_matches':0,'gate0':'OPEN','automatic_retry':False})
         return 2

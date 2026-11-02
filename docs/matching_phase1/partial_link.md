@@ -4,6 +4,12 @@
 original-object objdiff, original module, ROM rebuild or runtime-parity claim.
 Original-toolchain verified matched C remains **0; Gate0 OPEN**.
 
+This is the immutable #122 six-object baseline report. The current runner now
+targets a distinct eight-object output by default; see
+[cluster_expansion.md](cluster_expansion.md). The commands/inventories below
+describe the original run at commit `0c22e517686703dd5d5116be480c62d65c6a603e`.
+Neither this baseline's local linked object nor its public status is overwritten.
+
 ## Preservation before experimentation
 
 The uncommitted #121 work was present. Before linker investigation, the batch

@@ -8,14 +8,14 @@ import unittest
 
 HERE=Path(__file__).resolve().parent
 sys.path[:0]=[str(HERE),str(HERE.parents[1]/'tools/matching_phase0')]
-from partial_link_audit import inspect,attributes,validate_inputs,validate_output,EXPECTED_UNDEFINED
+from partial_link_audit import inspect,attributes,validate_inputs,validate_output,external_targets,CLUSTER_NAMES
 from partial_link import INPUT_ROOT,LINK_FLAGS,inputs
 
 
 def projection(models,manifest):
     """Logical expected-state fixture only. Never writes or fabricates a linked .o."""
     result=copy.deepcopy(models[0]);result.update(functions={},bodies={},layouts={},calls=[],exidx=[])
-    result['inventory']['undefined_symbols']=sorted(EXPECTED_UNDEFINED)
+    result['inventory']['undefined_symbols']=sorted(external_targets(manifest))
     position=0
     for index,(model,row) in enumerate(zip(models,manifest['symbols'])):
         name=row['symbol'];function=copy.deepcopy(model['functions'][name]);function['value']=position
@@ -27,7 +27,7 @@ def projection(models,manifest):
         position+=function['size']
     for section in result['inventory']['sections']:
         if section['name']=='.text':section['size']=position
-        if section['name']=='.ARM.exidx':section['size']=48
+        if section['name']=='.ARM.exidx':section['size']=8*len(models)
     return result
 
 
@@ -37,11 +37,12 @@ class PartialLinkTests(unittest.TestCase):
         cls.manifest=json.loads((HERE/'batch.json').read_text())
         cls.raw=[(INPUT_ROOT/row['symbol']/'leaf.o').read_bytes() for row in cls.manifest['symbols']]
         cls.models=[inspect(data) for data in cls.raw]
+        cls.undefined=external_targets(cls.manifest)
 
     def test_actual_independent_compiler_objects_pass_preflight(self):
         result=validate_inputs(self.models,self.manifest)
         self.assertEqual(result[5],'arm946e-s');self.assertEqual(result[6],4)
-        self.assertEqual([len(model['functions']) for model in self.models],[1]*6)
+        self.assertEqual([len(model['functions']) for model in self.models],[1]*len(self.models))
 
     def test_duplicate_object_symbol_rejected(self):
         models=copy.deepcopy(self.models);models[1]=models[0]
@@ -128,11 +129,11 @@ class PartialLinkTests(unittest.TestCase):
     def test_model_expected_projection_is_self_consistent(self):
         result=validate_output(self.models,projection(self.models,self.manifest),self.manifest)
         self.assertEqual(result['status'],'PASS_AUTHORED_PARTIAL_LINK_ONLY')
-        self.assertEqual(len(result['functions']),6)
+        self.assertEqual(len(result['functions']),len(self.models))
         self.assertFalse(result['original_object_comparison'])
 
     def test_output_undefined_add_remove_or_resolve_rejected(self):
-        for names in [sorted(EXPECTED_UNDEFINED|{'unexpected_runtime'}),sorted(EXPECTED_UNDEFINED-{'func_02019024'}),[]]:
+        for names in [sorted(self.undefined|{'unexpected_runtime'}),sorted(self.undefined-{'func_02019024'}),[]]:
             model=projection(self.models,self.manifest);model['inventory']['undefined_symbols']=names
             with self.subTest(names=names),self.assertRaises(ValueError):validate_output(self.models,model,self.manifest)
 
@@ -182,10 +183,11 @@ class PartialLinkTests(unittest.TestCase):
         self.assertNotIn('--allow-multiple-definition',LINK_FLAGS)
 
     def test_original_byte_verdicts_are_not_rebased_into_matches(self):
-        models,paths,records=inputs(self.manifest)
-        self.assertEqual(len({path.resolve() for path in paths}),6)
-        self.assertEqual(sum(row['unchanged_original_byte_diagnostic']=='MATCH' for row in records),1)
-        self.assertEqual(sum(row['unchanged_original_byte_diagnostic']=='MISMATCH' for row in records),5)
+        paths=[INPUT_ROOT/row['symbol']/'leaf.o' for row in self.manifest['symbols']]
+        self.assertEqual(len({path.resolve() for path in paths}),len(self.models))
+        records=[json.loads((INPUT_ROOT/name/'status.json').read_text()) for name in CLUSTER_NAMES]
+        self.assertEqual(sum(row['exact_status']=='MATCH' for row in records),1)
+        self.assertEqual(sum(row['exact_status']=='MISMATCH' for row in records),5)
 
 
 if __name__=='__main__':unittest.main(verbosity=2)
