@@ -6,3 +6,5 @@
 #include "func_02068008.c"
 #include "func_0200aee8.c"
 #include "func_0200abbc.c"
+#include "func_0200ac04.c"
+#include "func_0200acd0.c"

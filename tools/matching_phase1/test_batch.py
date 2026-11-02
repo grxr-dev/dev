@@ -26,7 +26,7 @@ class BatchTests(unittest.TestCase):
 
     def test_six_existing_hypotheses_exactly_once(self):
         validate_manifest(self.manifest)
-        self.assertEqual({row['symbol'] for row in self.manifest['symbols']},{'func_020660f4','func_020660fc','func_0206655c','func_020665cc','func_02067f74','func_02068008','func_0200aee8','func_0200abbc'})
+        self.assertEqual({row['symbol'] for row in self.manifest['symbols']},{'func_020660f4','func_020660fc','func_0206655c','func_020665cc','func_02067f74','func_02068008','func_0200aee8','func_0200abbc','func_0200ac04','func_0200acd0'})
 
     def test_duplicate_symbol_rejected(self):
         self.manifest['symbols'][1]=copy.deepcopy(self.manifest['symbols'][0])

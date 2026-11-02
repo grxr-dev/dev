@@ -1,4 +1,4 @@
-"""Fixed two-callee reference audit; public output contains hashes/scalars, never code bytes."""
+"""Bounded context-group reference audit; public output contains hashes/scalars, never code bytes."""
 import argparse
 import json
 import re
@@ -7,6 +7,10 @@ from batch import ROOT,HERE,read_json,validate_manifest,verify_inputs,verify_has
 from nul_count_pilot import decode
 
 SELECTED={'func_0200aee8','func_0200abbc'}
+GROUPS={
+    'context':(SELECTED,{'func_0200acd0','func_0200ac04'},'context_evidence.json'),
+    'protocol':({'func_0200ac04','func_0200acd0'},{'func_0200a464','func_0200ad94'},'context_protocol_evidence.json')
+}
 
 
 def call_target(image,pc):
@@ -16,7 +20,8 @@ def call_target(image,pc):
     return pc+8+4*(immediate-(1<<24) if immediate&(1<<23) else immediate)
 
 
-def analyze(manifest,image):
+def analyze(manifest,image,group='context'):
+    selected,opaque,_=GROUPS[group]
     metadata=ROOT/manifest['inputs']['metadata_root']
     symbols=(metadata/'arm9/symbols.txt').read_text().splitlines()
     ranges=[]
@@ -26,7 +31,7 @@ def analyze(manifest,image):
     all_relocs=[(path.relative_to(metadata).as_posix(),line) for path in sorted(metadata.rglob('relocs.txt')) for line in path.read_text().splitlines()]
     results=[]
     for row in manifest['symbols']:
-        if row['symbol'] not in SELECTED:continue
+        if row['symbol'] not in selected:continue
         address=int(row['address'],16);size=row['reference_size'];body=image[address-0x02000000:address-0x02000000+size]
         if (address,size,row['symbol']) not in ranges or sha(body)!=row['reference_sha256']:raise ValueError('selected inferred boundary/hash changed')
         if any(start<address+size and address<start+length and name!=row['symbol'] for start,length,name in ranges):
@@ -53,7 +58,7 @@ def analyze(manifest,image):
             'direct_callers':callers,'direct_caller_count':len(callers),'indirect_callers_excluded':True})
     nested=[]
     for address,size,name in ranges:
-        if name not in ('func_0200acd0','func_0200ac04'):continue
+        if name not in opaque:continue
         nested.append({'symbol':name,'address':hex(address),'size':size,'sha256':sha(image[address-0x02000000:address-0x02000000+size]),
                        'implementation':'OPAQUE_NOT_RECONSTRUCTED'})
     if len(results)!=2 or len(nested)!=2:raise ValueError('fixed evidence coverage')
@@ -71,23 +76,24 @@ def analyze(manifest,image):
                 if pc!=address+code_bytes or struct.unpack_from('<I',body,code_bytes)[0]!=target:raise ValueError('frontier literal changed')
             else:raise ValueError('unexpected frontier relocation')
         frontier.append({'symbol':name,'size':size,'code_bytes':code_bytes,'literal_bytes':size-code_bytes,'sha256':sha(body),
-                         'original_relocations':relocs,'selected':name in SELECTED})
+                         'original_relocations':relocs,'selected':name in selected})
     return {'schema':'brainage-context-callee-evidence/1','selected':results,'nested_opaque_boundaries':nested,
             'original_five_import_audit':frontier,
             'prototype_and_original_compilation_units':'UNKNOWN','genuine_original_matches':0,'gate0':'OPEN'}
 
 
-def run(publish=False):
+def run(publish=False,group='context'):
     manifest=read_json(HERE/'batch.json');validate_manifest(manifest);protected,image=verify_inputs(manifest)
     try:
-        report=analyze(manifest,image)
+        report=analyze(manifest,image,group)
         report.update(protected_input_count=len(protected),protected_inputs_unchanged=True)
-        path=ROOT/'local/matching_phase1/runs/context-evidence.json'
+        filename=GROUPS[group][2];path=ROOT/'local/matching_phase1/runs'/filename
         path.write_text(json.dumps(report,indent=2)+'\n')
-        if publish:(ROOT/'docs/matching_phase1/context_evidence.json').write_text(json.dumps(report,indent=2)+'\n')
+        if publish:(ROOT/'docs/matching_phase1'/filename).write_text(json.dumps(report,indent=2)+'\n')
         print('PASS fixed reference audit: two functions, '+str(sum(row['direct_caller_count'] for row in report['selected']))+' verified direct callers; 12 inputs unchanged')
     finally:verify_hashes(protected)
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--publish',action='store_true');run(parser.parse_args().publish)
+    parser=argparse.ArgumentParser();parser.add_argument('--publish',action='store_true');parser.add_argument('--group',choices=GROUPS,default='context')
+    args=parser.parse_args();run(args.publish,args.group)

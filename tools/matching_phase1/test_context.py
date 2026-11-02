@@ -115,7 +115,8 @@ class ContextTests(unittest.TestCase):
             with self.subTest(key=key),self.assertRaises(ValueError):validate_manifest(manifest)
 
     def test_two_former_imports_defined_two_new_nested_imports(self):
-        names={row['symbol'] for row in self.manifest['symbols']};undefined=external_targets(self.manifest)
+        previous=dict(self.manifest,symbols=self.manifest['symbols'][:8])
+        names={row['symbol'] for row in previous['symbols']};undefined=external_targets(previous)
         self.assertTrue({'func_0200aee8','func_0200abbc'}<=names)
         self.assertEqual(undefined,{'func_02019024','func_0200aa5c','func_0200ab7c','func_0200acd0','func_0200ac04'})
 

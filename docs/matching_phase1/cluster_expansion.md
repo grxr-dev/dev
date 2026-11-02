@@ -5,6 +5,10 @@ Eight C hypotheses, not eight original-source matches. Authentic matched C=0;
 Gate0 OPEN. Original compiler family/revision, original prototypes/source names
 and original compilation-unit partitions remain unqualified.
 
+This is the preserved #123 eight-object report. The current manifest/runner
+now targets the distinct [ten-object protocol expansion](context_protocol_expansion.md);
+its output/status do not overwrite either earlier linked baseline.
+
 ## Selection and original evidence
 
 All 12 pinned inputs were verified before inspecting bytes. The five-import

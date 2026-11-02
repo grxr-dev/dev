@@ -14,6 +14,8 @@ extern void func_0200aee8(void *context);
 extern ba_u32 func_0200abbc(void *context, const unsigned char *input);
 extern ba_u32 func_0200acd0(ba_u32 *output_pair, const unsigned char *input);
 extern ba_u32 func_0200ac04(void *context, ba_u32 first, ba_u32 second);
+extern ba_u32 func_0200a464(void *context, ba_u32 command, ba_u32 second, ba_u32 first);
+extern ba_u32 func_0200ad94(void *scratch, const unsigned char *input, ba_u32 *output_pair, ba_u32 mode);
 extern ba_u32 func_0200aa5c(void *context, void *destination, ba_u32 count);
 extern void func_0200ab7c(void *context);
 

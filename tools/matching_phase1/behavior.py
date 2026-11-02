@@ -9,7 +9,7 @@ from bounded_pilot import bit_origins
 
 
 def verify(kind, original, compiled, address, counter):
-    if kind in ('context_init','context_prepare'):
+    if kind in ('context_init','context_prepare','context_accept','pair_forward'):
         from context_models import verify as context_check
         return context_check(kind,original,compiled,address)
     if kind == 'zero':

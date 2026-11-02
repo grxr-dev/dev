@@ -1,0 +1,9 @@
+{
+  "address": "0x0200ac04",
+  "size": 124,
+  "symbol": "func_0200ac04",
+  "reference_sha256": "47cf08e752daa201b3ffc4419e63659b130118c9d4ebb7eeb41101901430c851",
+  "arm_call_targets": {"func_0200a464": "0x0200a464"},
+  "expected_original_relocations": ["from:0x0200ac40 kind:arm_call to:0x0200a464 module:main"],
+  "original_literal_words": {}
+}

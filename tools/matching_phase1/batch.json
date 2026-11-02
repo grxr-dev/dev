@@ -193,8 +193,69 @@
       "domain": "normal ABI opaque calls; acd0 initializes both output words on nonzero return; no escaped stack pointer; scratch and context disjoint; nested effects remain opaque",
       "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
       "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_0200ac04",
+      "address": "0x0200ac04",
+      "mode": "ARM_LE",
+      "reference_size": 124,
+      "reference_sha256": "47cf08e752daa201b3ffc4419e63659b130118c9d4ebb7eeb41101901430c851",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200ac04.c",
+      "comparison_config": "tools/matching_phase1/context_accept_config.json",
+      "code_bytes": 124,
+      "literal_words": {},
+      "direct_call_targets": {"func_0200a464": "0x0200a464"},
+      "original_relocations": ["from:0x0200ac40 kind:arm_call to:0x0200a464 module:main"],
+      "behavior_model": "context_accept",
+      "behavior_evidence_tier": "bounded_pre_post_dispatch_memory_protocol",
+      "domain": "first zero needs no context access; otherwise valid ordinary aligned u32 fields through +0x33; normal opaque dispatcher with four observed register arguments; post-dispatch flags used; no volatile/concurrent memory",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
+    },
+    {
+      "symbol": "func_0200acd0",
+      "address": "0x0200acd0",
+      "mode": "ARM_LE",
+      "reference_size": 64,
+      "reference_sha256": "92bbee4f88a2abd1d62110b6c7b61359063e6c8bf5e127479837ec7af6bf3e63",
+      "reference_section": ".text",
+      "original_compilation_unit": "UNKNOWN",
+      "source": "src/arm9/utility_hypotheses/func_0200acd0.c",
+      "comparison_config": "tools/matching_phase1/pair_forward_config.json",
+      "code_bytes": 64,
+      "literal_words": {},
+      "direct_call_targets": {"func_0200aee8": "0x0200aee8", "func_0200ad94": "0x0200ad94"},
+      "original_relocations": [
+        "from:0x0200ace4 kind:arm_call to:0x0200aee8 module:main",
+        "from:0x0200acf8 kind:arm_call to:0x0200ad94 module:main"
+      ],
+      "behavior_model": "pair_forward",
+      "behavior_evidence_tier": "bounded_partially_initialized_scratch_call_protocol",
+      "domain": "68-byte aligned scratch reservation is not a recovered type; only AEE8 fields initialized; opaque AD94 must obey validity/lifetime of input/pair/scratch and normal ABI; success output initialization still an opaque obligation",
+      "source_confidence": "C_HYPOTHESIS_NOT_ORIGINAL",
+      "original_prototype": "UNKNOWN"
     }
   ],
+  "partial_link": {
+    "output": "local/matching_phase1/runs/partial-link-context-protocol-v1",
+    "status": "docs/matching_phase1/context_protocol_expansion_status.json",
+    "baselines": [
+      {
+        "report": "docs/matching_phase1/partial_link_status.json",
+        "report_sha256_lf": "f0176f78806cd009895579ada73bbaac95d74714f7c4e9fa73bb41fd12f4d13a",
+        "output_sha256": "36acd51ab2f5d1f14490e5ad3b5e660e24a054efe794216757c0b2d66ad4de4c",
+        "symbol_count": 6
+      },
+      {
+        "report": "docs/matching_phase1/cluster_expansion_status.json",
+        "report_sha256_lf": "874f025bf6e17d1cc43ea478ed58674dabd7541a5c45d14881833766065cc8ed",
+        "output_sha256": "e4672ae07e9a15b76d3f974123327bbef33c9ac74b07fb200e66200927426613",
+        "symbol_count": 8
+      }
+    ]
+  },
   "shared_header": "src/arm9/utility_hypotheses/contracts.h",
   "cluster_source": "src/arm9/utility_hypotheses/cluster.c",
   "inputs": {

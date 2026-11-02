@@ -8,16 +8,22 @@ CONTEXT=0x4000
 INPUT=0x5000
 STACK=0x8000
 RETURN=0x9000
+PAIR=0x6000
 WRITTEN={0:4,4:4,8:4,12:4,16:4,24:2}
 
 
-def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignment=0):
+def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignment=0,
+          protocol=None,dispatch_result=0,dispatch_words=None,forward_result=0,forward_pair=None,forward_read_offsets=()):
     context=CONTEXT+alignment
     registers={f'r{index}':0xabc00000+index for index in range(13)}
     registers.update(r0=context,r1=INPUT,sp=STACK,lr=RETURN)
+    pair_address=PAIR+alignment
+    if protocol=='context_accept':registers.update(r1=first,r2=second)
+    elif protocol=='pair_forward':registers['r0']=pair_address
+    elif protocol is not None:raise ValueError('unknown protocol scenario')
     preserved={name:registers[name] for name in ['sp',*[f'r{index}' for index in range(4,12)]]}
     memory={context+index:value for index,value in enumerate(initial)}
-    calls=[];writes=[];reads=[];frame=None;maximum_stack=0;zero=False
+    calls=[];writes=[];reads=[];call_states=[];frame=None;frame_limit=None;scratch=None;maximum_stack=0;zero=False;nzcv=None
     program={pc:(op,args) for pc,op,args in rows};pc=rows[0][0]
 
     def value(token):
@@ -30,7 +36,7 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
         return sum(memory[address+index]<<(8*index) for index in range(width))
 
     def write(address,width,number):
-        if address%width or not (context<=address<=context+len(initial)-width or registers['sp']<=address<=STACK-width):
+        if address%width or not (context<=address<=context+len(initial)-width or registers['sp']<=address<=STACK-width or protocol=='pair_forward' and pair_address<=address<=pair_address+8-width):
             raise ValueError('outside virtual context/owned stack')
         writes.append((address,width,number&((1<<(8*width))-1)))
         for index in range(width):memory[address+index]=(number>>(8*index))&255
@@ -39,11 +45,12 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
         if target!=RETURN or any(registers[name]!=number for name,number in preserved.items()):
             raise ValueError('callee-saved register/SP/return mismatch')
         return {'return':registers['r0'],'context':bytes(memory[context+index] for index in range(len(initial))),
-                'calls':calls,'writes':writes,'reads':reads,'stack_bytes':maximum_stack}
+                'calls':calls,'writes':writes,'reads':reads,'stack_bytes':maximum_stack,'call_states':call_states,'nzcv':nzcv,
+                'output_pair_bytes':[memory.get(pair_address+index) for index in range(8)]}
 
     for step in range(64):
         if pc not in program:raise ValueError('escaped bounded context code')
-        op,args=program[pc];next_pc=pc+4
+        op,args=program[pc];args=args.replace('fp','r11').replace('ip','r12');next_pc=pc+4
         if op not in ('beq','bne') and op.endswith(('eq','ne')):
             condition=op[-2:];op=op[:-2]
             if zero!=(condition=='eq'):pc=next_pc;continue
@@ -51,8 +58,12 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
             destination,source=args.split(', ');registers[destination]=value(source)
         elif op in ('add','sub'):
             destination,left,right=args.split(', ')
+            if destination=='sp' and op=='sub':frame_limit=registers['sp']
             registers[destination]=(value(left)+(value(right) if op=='add' else -value(right)))&MASK
             if destination=='sp' and op=='sub':frame=registers['sp']
+        elif op in ('orr','bic'):
+            destination,left,right=args.split(', ')
+            registers[destination]=(value(left)|(value(right)))&MASK if op=='orr' else value(left)&(~value(right)&MASK)
         elif op in ('str','strh','ldr'):
             match=re.fullmatch(r'(r\d+), \[(r\d+|sp)(?:, #(0x[0-9a-f]+|\d+))?\]',args)
             if not match:raise ValueError('unsupported context memory operand')
@@ -75,12 +86,36 @@ def trace(rows,initial,*,first=0,second=0,pair=(0,0),initialize_pair=True,alignm
             values=[read(address+4*index,4) for index in range(len(names))]
             for name,number in zip(names,values):registers[name]=number
         elif op=='cmp':
-            left,right=args.split(', ');zero=value(left)==value(right)
+            left,right=args.split(', ');left=value(left);right=value(right);difference=(left-right)&MASK;zero=left==right
+            nzcv=(difference>>31,int(zero),int(left>=right),int(bool((left^right)&(left^difference)&0x80000000)))
         elif op in ('b','beq','bne'):
             if op=='b' or zero==(op=='beq'):next_pc=value(args)
         elif op=='bl':
             target=value(args)
-            if target==0x0200acd0:
+            if protocol=='context_accept' and target==0x0200a464:
+                arguments=tuple(registers[f'r{index}'] for index in range(4))
+                if arguments!=(context,6,second,first):raise ValueError('dispatcher ABI mismatch')
+                calls.append((target,*arguments));before=bytes(memory[context+index] for index in range(len(initial)))
+                for offset,number in (dispatch_words or {}).items():write(context+offset,4,number)
+                call_states.append({'before':before,'after':bytes(memory[context+index] for index in range(len(initial)))})
+                result=dispatch_result
+            elif protocol=='pair_forward' and target==0x0200aee8:
+                scratch=registers['r0']
+                if frame_limit is None or not registers['sp']<=scratch<=frame_limit-68:raise ValueError('scratch reservation/ABI mismatch')
+                calls.append((target,'scratch'))
+                for offset,width in WRITTEN.items():write(scratch+offset,width,14 if offset==16 else 0)
+                result=0
+            elif protocol=='pair_forward' and target==0x0200ad94:
+                arguments=tuple(registers[f'r{index}'] for index in range(4))
+                if scratch is None or arguments!=(scratch,INPUT,pair_address,0):raise ValueError('forward producer ABI mismatch')
+                calls.append((target,'scratch',INPUT,pair_address,0))
+                call_states.append({'scratch':[(index,memory[scratch+index]) for index in range(68) if scratch+index in memory]})
+                for offset in forward_read_offsets:read(scratch+offset,4)
+                if forward_pair is not None:
+                    write(pair_address,4,forward_pair[0]);write(pair_address+4,4,forward_pair[1])
+                result=forward_result
+            elif protocol is not None:raise ValueError('unknown protocol callee')
+            elif target==0x0200acd0:
                 if frame is None or registers['r0']!=frame or registers['r1']!=INPUT:
                     raise ValueError('pair producer ABI mismatch')
                 calls.append((target,'frame',INPUT))
@@ -129,6 +164,39 @@ def verify(kind,original,compiled,address):
             if before['context']!=initial or after['context']!=initial or before['stack_bytes']!=16 or after['stack_bytes']!=16:
                 raise ValueError('wrapper local effects/frame mismatch')
             count+=1
+    elif kind=='context_accept':
+        for first,second,result,flags,mutate,alignment in itertools.product((0,1,0x80000000,0xffffffff),(0,1,0x12345678,0xffffffff),
+                (0,1,0x80000000,0xffffffff),(0,0x10,0x20,0x30,0x80000000,0xffffffff),(False,True),(0,4)):
+            initial=bytearray(range(64));initial[12:16]=flags.to_bytes(4,'little');initial=bytes(initial)
+            effects={12:flags^0xa5a5a5a5,20:0x2468,8:0x1234,44:0x5678,48:0x9abc} if mutate else {}
+            expected=bytearray(initial)
+            if first:
+                for offset,number in {8:first,44:first,48:second}.items():expected[offset:offset+4]=number.to_bytes(4,'little')
+                for offset,number in effects.items():expected[offset:offset+4]=number.to_bytes(4,'little')
+                if result:
+                    flags_after=int.from_bytes(expected[12:16],'little')
+                    expected[12:16]=((flags_after|0x10)&~0x20).to_bytes(4,'little')
+            traces=[trace(rows,initial,protocol=kind,first=first,second=second,dispatch_result=result,dispatch_words=effects,alignment=alignment) for rows in (left,right)]
+            for checked in traces:
+                if checked['return']!=int(first!=0 and result!=0) or checked['context']!=bytes(expected) or len(checked['calls'])!=int(first!=0):
+                    raise ValueError('dispatch pre/post fields or return mismatch')
+            if traces[0]['calls']!=traces[1]['calls'] or traces[0]['call_states']!=traces[1]['call_states'] or traces[0]['nzcv']!=traces[1]['nzcv']:
+                raise ValueError('dispatcher arguments/state/flags differ')
+            count+=1
+    elif kind=='pair_forward':
+        expected_scratch=initialized(bytes(68))
+        initialized_offsets={offset+index for offset,width in WRITTEN.items() for index in range(width)}
+        for result,output,alignment in itertools.product((0,1,0x80000000,0xffffffff),(None,(0,0),(0xffffffff,0x80000000)),(0,4,8,12)):
+            traces=[trace(rows,bytes(32),protocol=kind,forward_result=result,forward_pair=output,alignment=alignment) for rows in (left,right)]
+            expected_output=[None]*8 if output is None else list(b''.join(number.to_bytes(4,'little') for number in output))
+            for checked in traces:
+                if checked['return']!=int(result!=0) or checked['output_pair_bytes']!=expected_output or len(checked['calls'])!=2:
+                    raise ValueError('forward output/return/call count mismatch')
+                if checked['call_states']!=[{'scratch':[(index,expected_scratch[index]) for index in sorted(initialized_offsets)]}]:
+                    raise ValueError('scratch initialized extent differs')
+            if traces[0]['calls']!=traces[1]['calls'] or traces[0]['nzcv']!=traces[1]['nzcv']:
+                raise ValueError('forwarded arguments/flags differ')
+            count+=1
     else:raise ValueError('unknown context model')
     return {'status':'PASS_BOUNDED_MODEL','cases':count,'count_kind':'finite_cases','independent_cpu_emulator':False,
-            'formatter_or_external_effects_proved':False,'evidence_scope':'ordinary memory effects' if kind=='context_init' else 'opaque pair protocol only'}
+            'formatter_or_external_effects_proved':False,'evidence_scope':'ordinary memory effects' if kind=='context_init' else 'conditional opaque protocol only'}

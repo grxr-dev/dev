@@ -7,7 +7,7 @@ from object_inventory import inventory,layout
 
 EXPECTED_UNDEFINED={'func_02019024','func_0200aee8','func_0200abbc','func_0200aa5c','func_0200ab7c'}
 CLUSTER_NAMES={'func_020660f4','func_020660fc','func_0206655c','func_020665cc','func_02067f74','func_02068008'}
-ALLOWED_CALLS=EXPECTED_UNDEFINED|CLUSTER_NAMES|{'func_0200acd0','func_0200ac04'}
+ALLOWED_CALLS=EXPECTED_UNDEFINED|CLUSTER_NAMES|{'func_0200acd0','func_0200ac04','func_0200a464','func_0200ad94'}
 NUMERIC_TAGS={6,7,8,9,14,17,18,20,21,23,24,25,26,27,28,30,34,38}
 
 
@@ -44,7 +44,8 @@ def attributes(data):
     return values
 
 
-def inspect(data):
+def inspect(data,allowed_calls=None):
+    allowed_calls=ALLOWED_CALLS if allowed_calls is None else allowed_calls
     parsed=inventory(data)
     header=struct.unpack('<16sHHIIIIIHHHHHH',region(data,0,52))
     if header[4]!=0 or header[10]!=0 or header[7]!=0x05000200 or header[0][7:9]!=b'\0\0':
@@ -88,7 +89,7 @@ def inspect(data):
                 immediate=word&0xffffff;addend=(immediate-(1<<24) if immediate&(1<<23) else immediate)*4
                 owner=owners[0]
                 if target['section_index']==0:
-                    if target['name'] not in ALLOWED_CALLS or addend!=-8:raise ValueError('unexpected external/addend')
+                    if target['name'] not in allowed_calls or addend!=-8:raise ValueError('unexpected external/addend')
                     target_name=target['name']
                 else:
                     candidates=[symbol['name'] for symbol in functions.values() if symbol['section_index']==target['section_index'] and symbol['value']==target['value']+addend+8]
@@ -120,7 +121,7 @@ def external_targets(manifest):
 
 def validate_inputs(objects,manifest):
     expected={row['symbol']:row for row in manifest['symbols']}
-    if not 6<=len(expected)<=8 or len(objects)!=len(expected):raise ValueError('exact manifest coverage of independent input objects required')
+    if not 6<=len(expected)<=10 or len(objects)!=len(expected):raise ValueError('exact manifest coverage of independent input objects required')
     seen=set();undefined=set();baseline_attributes=None
     for item in objects:
         if len(item['functions'])!=1:raise ValueError('input must contain one independently compiled function, not the unity cluster')
@@ -159,7 +160,7 @@ def validate_output(inputs,output,manifest):
         before=item['functions'][name];after=output['functions'][name]
         if after['value']!=position or after['size']!=before['size'] or output['layouts'][name]!=item['layouts'][name]:raise ValueError('output function offset/size/code-pool ownership changed')
         before_body=item['bodies'][name];after_body=output['bodies'][name]
-        if name in CLUSTER_NAMES and before_body!=after_body:raise ValueError('old six raw bytes changed')
+        if before_body!=after_body:raise ValueError('input/output raw bytes changed')
         call_offsets={row['offset'] for row in item['calls']}
         for offset in range(0,len(before_body),4):
             if offset not in call_offsets and before_body[offset:offset+4]!=after_body[offset:offset+4]:raise ValueError('nonrelocation code/literal bytes changed')

@@ -50,7 +50,7 @@ def comparison_config(row,manifest):
 
 
 def validate_manifest(manifest):
-    if manifest['schema']!='brainage-source-batch/1' or not 6<=len(manifest['symbols'])<=8:
+    if manifest['schema']!='brainage-source-batch/1' or not 6<=len(manifest['symbols'])<=10:
         raise ValueError('batch schema/coverage')
     seen=set();spans=[]
     for row in manifest['symbols']:
