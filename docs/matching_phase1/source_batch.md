@@ -6,6 +6,11 @@ No extra functions were selected to fill a quota. Original compiler family/revis
 source names/types, ABI details outside the stated domains and original object
 partitions remain unqualified. Authentic matched C=0; Gate0 OPEN.
 
+The tested initial batch was subsequently preserved and pushed as
+`234671ea4194fe37283b4fa9ec38c0a96a1fd494` before the separate
+[authored relocatable partial-link pilot](partial_link.md). That follow-up adds
+27 regressions (90 total); the original 63-test evidence below remains historical.
+
 ## One command
 
 From the dev repository:
@@ -15,7 +20,7 @@ python -B tools/matching_phase1/batch.py --publish-status
 ```
 
 This validates all12 pinned inputs, builds/tests/checks six symbols, builds the
-authored cluster/repeat/negative objects, runs real objdiff and 63 regressions,
+authored cluster/repeat/negative objects, runs real objdiff and 90 regressions,
 then rechecks all12 input hashes. The command needs the existing qualified
 Zig0.15.2/Clang20.1.2 and Capstone; it does not download anything implicitly.
 The optional explicit official CLI installer is
@@ -177,4 +182,5 @@ Original CodeWarrior qualification is a separate track: lawfully provisioned
 mwccarm/mwldarm, provenance/banners/hashes and representative nontrivial ABI,
 section/flags evidence for the still-unknown original family/revision. No
 proprietary download or compiler-version sweep was performed. Neither that
-qualification nor the next partial-link increment was started in this task.
+qualification nor the partial-link increment was started in the initial batch;
+the separately preserved follow-up is documented in [partial_link.md](partial_link.md).

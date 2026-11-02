@@ -1,0 +1,122 @@
+"""One real -r authored-object pilot; validated existing output is reused, not relinked."""
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from batch import ROOT,HERE,read_json,validate_manifest,verify_inputs,verify_hashes,sha,command
+from partial_link_audit import inspect,validate_inputs,validate_output
+
+PRESERVED_PHASE1='234671ea4194fe37283b4fa9ec38c0a96a1fd494'
+INPUT_ROOT=ROOT/'local/matching_phase1/runs/utility-batch'
+DEFAULT_OUTPUT=ROOT/'local/matching_phase1/runs/partial-link'
+LINK_FLAGS=['-r','-m','armelf','--build-id=none','--no-gc-sections','--icf=none',
+            '--no-merge-exidx-entries','--no-allow-multiple-definition']
+
+
+def write(path,value):
+    Path(path).write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')
+
+
+def inputs(manifest):
+    report=read_json(INPUT_ROOT/'batch_status.json')
+    if report['classification']!='BATCH_CHECKS_COMPLETED_NOT_AUTHENTIC_MATCH' or report['summary']['compile_pass']!=6 or report['summary']['semantic_pass']!=6 or report['summary']['exact_matches']!=1 or report['summary']['exact_mismatches']!=5 or report['compiler']!=manifest['compiler']:
+        raise ValueError('run the current successful six-symbol batch before partial linking')
+    header=ROOT/manifest['shared_header']
+    if sha(header.read_text().encode())!=report['shared_header_sha256_lf']:raise ValueError('shared declarations changed since compile')
+    by_name={row['symbol']:row for row in report['symbols']}
+    if len(by_name)!=6 or len(report['symbols'])!=6:raise ValueError('duplicate/missing batch status records')
+    models=[];paths=[];records=[]
+    for row in manifest['symbols']:
+        prior=by_name[row['symbol']]
+        if sha((ROOT/row['source']).read_text().encode())!=prior['source_sha256_lf']:
+            raise ValueError('source changed since independent compilation')
+        path=INPUT_ROOT/row['symbol']/'leaf.o';data=path.read_bytes()
+        if sha(data)!=prior['object_sha256']:raise ValueError('compiled input object identity changed')
+        model=inspect(data)
+        if set(model['functions'])!={row['symbol']} or model['functions'][row['symbol']]['size']!=prior['generated_size']:
+            raise ValueError('per-source object does not contain exactly its own function')
+        models.append(model);paths.append(path.resolve())
+        records.append({'symbol':row['symbol'],'source':row['source'],'object':path.relative_to(ROOT).as_posix(),
+            'object_sha256':sha(data),'size':len(data),'function_size':prior['generated_size'],
+            'compile_status':prior['compile_status'],'semantic_status':prior['semantic_status'],
+            'unchanged_original_byte_diagnostic':prior['exact_status']})
+    if len(set(paths))!=6:raise ValueError('six independent object paths required')
+    validate_inputs(models,manifest)
+    return models,paths,records
+
+
+def run(output=DEFAULT_OUTPUT,publish=False):
+    out=Path(output).resolve()
+    allowed=(ROOT/'local/matching_phase1/runs').resolve()
+    if not out.is_relative_to(allowed) or out==allowed or out==INPUT_ROOT.resolve() or INPUT_ROOT.resolve().is_relative_to(out):
+        raise ValueError('dedicated output below ignored local/matching_phase1/runs required')
+    out.mkdir(parents=True,exist_ok=True)
+    manifest=read_json(HERE/'batch.json');validate_manifest(manifest)
+    protected,_=verify_inputs(manifest)
+    model_inputs,paths,records=inputs(manifest)
+    tool=ROOT/manifest['compiler']['compiler']
+    env=dict(os.environ,ZIG_GLOBAL_CACHE_DIR=str(ROOT/'local/matching_phase0/toolchains/zig-cache'),
+        ZIG_LOCAL_CACHE_DIR=str(out/'cache'),TEMP=str(out),TMP=str(out))
+    version=command([tool,'ld.lld','--version'],out,env,15)
+    if version['exit_code'] or not version['stdout'].startswith('LLD 20.1.2 '):raise ValueError('bundled LLD version mismatch')
+    identity=sha(json.dumps({'inputs':records,'flags':LINK_FLAGS,'zig_sha256':manifest['compiler']['compiler_sha256'],
+        'lld_banner':version['stdout'].strip()},sort_keys=True,separators=(',',':')).encode())
+    object_path=out/'linked-authored.o';map_path=out/'linked-authored.map'
+    argv=[tool,'ld.lld',*LINK_FLAGS,'--Map='+str(map_path),'-o',object_path,*paths]
+    marker=out/'attempt.json';reused=False;link_record=None
+    try:
+        if marker.exists():
+            attempt=read_json(marker)
+            if attempt.get('identity')!=identity or attempt.get('status')!='VALIDATED':
+                raise ValueError('earlier/stale/unvalidated attempt exists; no automatic retry')
+            if not object_path.exists() or sha(object_path.read_bytes())!=attempt['output_sha256']:
+                raise ValueError('validated linked output changed; no relink fallback')
+            link_record=read_json(out/'link-command.json');reused=True
+        else:
+            if object_path.exists() or map_path.exists():raise ValueError('untracked existing link artifacts; preserve and inspect')
+            attempt={'schema':'authored-partial-link-attempt/1','identity':identity,'status':'DISPATCHING','link_invocations':1}
+            with marker.open('x',encoding='utf-8') as handle:
+                handle.write(json.dumps(attempt,indent=2));handle.flush();os.fsync(handle.fileno())
+            link_record=command(argv,out,env)
+            write(out/'link-command.json',link_record)
+            if link_record['exit_code']!=0:raise ValueError('LLD -r failed: '+link_record['stderr'])
+        audit=validate_output(model_inputs,inspect(object_path.read_bytes()),manifest)
+        if not map_path.is_file():raise ValueError('link map missing')
+        report={'schema':'brainage-authored-partial-link/1','classification':'PASS_AUTHORED_RELOCATABLE_PARTIAL_LINK',
+            'preserved_phase1_commit':PRESERVED_PHASE1,'input_identity':identity,'inputs':records,
+            'linker':{'driver':manifest['compiler']['compiler'],'driver_sha256':manifest['compiler']['compiler_sha256'],
+                      'version':version['stdout'].strip(),'flags':LINK_FLAGS,'exit_code':link_record['exit_code'],
+                      'stderr':link_record['stderr'],'stdout':link_record['stdout']},
+            'output':audit,'map_sha256':sha(map_path.read_bytes()),'output_path':object_path.relative_to(ROOT).as_posix(),
+            'link_invocations_for_this_artifact':1,'new_link_invocations_this_run':0 if reused else 1,
+            'protected_input_count':len(protected),'protected_inputs_unchanged':True,'original_object_or_module_claimed':False,
+            'original_toolchain_verified_matches':0,'gate0':'OPEN'}
+        verify_hashes(protected)
+        for path,record in zip(paths,records):
+            if sha(path.read_bytes())!=record['object_sha256']:raise ValueError('input object changed during link')
+        if not reused:write(marker,dict(attempt,status='VALIDATED',output_sha256=audit['output_sha256']))
+        write(out/'partial_link_status.json',report)
+        if publish:write(ROOT/'docs/matching_phase1/partial_link_status.json',report)
+        print('PASS_AUTHORED_RELOCATABLE_PARTIAL_LINK: six independent inputs, five opaque imports; output='+audit['output_sha256'])
+        print('new linker invocations='+str(report['new_link_invocations_this_run'])+'; genuine matches=0; Gate0 OPEN')
+        return 0
+    finally:
+        verify_hashes(protected)
+
+
+def cli(argv=None):
+    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=DEFAULT_OUTPUT);parser.add_argument('--publish-status',action='store_true')
+    args=parser.parse_args(argv)
+    try:return run(args.output,args.publish_status)
+    except (OSError,ValueError,KeyError,subprocess.SubprocessError) as error:
+        print('PARTIAL_LINK_ERROR: '+type(error).__name__+': '+str(error),file=sys.stderr)
+        out=args.output.resolve()
+        if out.is_relative_to((ROOT/'local/matching_phase1/runs').resolve()) and out.exists():
+            write(out/'failure.json',{'classification':'PARTIAL_LINK_ERROR','error':type(error).__name__+': '+str(error),
+                'genuine_original_matches':0,'gate0':'OPEN','automatic_retry':False})
+        return 2
+
+
+if __name__=='__main__':raise SystemExit(cli())
