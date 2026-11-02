@@ -96,7 +96,7 @@ class FutureLane:
  def ready(self):
   if not self.legacy._recovery_check:raise Conflict('fresh future readiness required')
   r=self.legacy._recovery_check()
-  if r['content'].get('proof_build')!='inbox-raw-user-proof-20261101-01' or r['content'].get('future_build')!=BUILD or r['content'].get('future_lane_seal')!=config(self.runtime)['seal']:raise Conflict('loaded future content/lane capability required')
+  if r['content'].get('proof_build')!='inbox-composer-user-proof-20261102-01' or r['content'].get('future_build')!=BUILD or r['content'].get('future_lane_seal')!=config(self.runtime)['seal']:raise Conflict('loaded future content/lane capability required')
  def claim(self):
   with self.q.lock:
    v=config(self.runtime)
@@ -139,13 +139,13 @@ class FutureLane:
    return {'ok':True,'build':ONE_BUILD,'authorization_id':g['authorization_id'],'expires_at':g['expires_at']}
  def ack(self,body):
   with self.q.lock:
-   allowed={'delivery_id','claim_token','authorization_id','state','error','pre_send','observed_sha256','send_count','new_user_turns','composer_empty','user_turn_uuid'}
+   allowed={'delivery_id','claim_token','authorization_id','state','error','pre_send','observed_sha256','send_count','new_user_turns','composer_empty','user_turn_uuid','verification_method','composer_sha256'}
    if set(body)-allowed:raise Conflict('invalid future ACK')
    if body.get('error') is not None and (not isinstance(body['error'],str) or len(body['error'])>2000):raise Conflict('invalid error')
    e,g=self.checked(body,True);state=body['state']
    if state=='FAILED_RETRYABLE':state='FAILED_PERMANENT'
    if state not in ('DELIVERED','FAILED_PERMANENT','NEEDS_REVIEW'):raise Conflict('invalid future outcome')
-   if state=='DELIVERED' and (not e['outcome']['send_intent'] or body.get('observed_sha256')!=e['text_sha256'] or type(body.get('send_count')) is not int or body['send_count']!=1 or type(body.get('new_user_turns')) is not int or body['new_user_turns']!=1 or body.get('composer_empty') is not True or not re.fullmatch('[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}',str(body.get('user_turn_uuid','')))):raise Conflict('exact new USER/hash/one-Send/empty-composer proof required')
+   if state=='DELIVERED' and (not e['outcome']['send_intent'] or body.get('verification_method')!='composer_hash_single_send_new_user_uuid_v1' or body.get('composer_sha256')!=e['text_sha256'] or body.get('observed_sha256') is not None or type(body.get('send_count')) is not int or body['send_count']!=1 or type(body.get('new_user_turns')) is not int or body['new_user_turns']!=1 or body.get('composer_empty') is not True or not re.fullmatch('[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}',str(body.get('user_turn_uuid','')))):raise Conflict('exact composer hash/one-Send/new USER/empty-composer proof required')
    outcome=dict(body,state=state,_future=g,send_intent=e['outcome']['send_intent']);outcome.pop('claim_token')
    if e['outcome']==outcome:return e
    if e['state'] not in ('DELIVERING','NEEDS_REVIEW') or (e['state']=='NEEDS_REVIEW' and 'state' in e['outcome']):raise Conflict('refusing to rewrite terminal future outcome')

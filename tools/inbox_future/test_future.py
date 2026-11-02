@@ -30,7 +30,7 @@ class FutureTests(unittest.TestCase):
    c.executescript('CREATE TABLE requests(request_id TEXT PRIMARY KEY,source TEXT); CREATE TABLE completions(sequence INTEGER PRIMARY KEY AUTOINCREMENT,event_id TEXT,request_id TEXT,result BLOB);')
    for i in range(1,11):c.execute('INSERT INTO requests VALUES(?,?)',('old'+str(i),'github'))
    c.execute('INSERT INTO completions VALUES(10,?,?,NULL)',('old-event','old10'))
-  self.before=self.legacy.path.read_bytes();self.legacy._recovery_check=lambda:{'content':{'future_build':future.BUILD,'future_lane_seal':future.config(self.r)['seal']}}
+  self.before=self.legacy.path.read_bytes();self.legacy._recovery_check=lambda:{'content':{'proof_build':'inbox-composer-user-proof-20261102-01','future_build':future.BUILD,'future_lane_seal':future.config(self.r)['seal']}}
   self.api=InboxApi(self.legacy);self.lane=self.api.future
  def event(self,rid,seq,old_request=False):
   response='verbatim `result` '+rid;h=future.sha256_text(response)
@@ -42,7 +42,7 @@ class FutureTests(unittest.TestCase):
   return {'delivery_id':rid+':'+h,'text':'[CODEX → CHATGPT]\n\n'+response}
  def claim(self):return self.api.local_next()[1]
  def proof(self,d,state='DELIVERED'):
-  return {'delivery_id':d['delivery_id'],'claim_token':d['claim_token'],'authorization_id':d['authorization']['authorization_id'],'state':state,'observed_sha256':d['text_sha256'],'send_count':1,'new_user_turns':1,'composer_empty':True,'user_turn_uuid':'12345678-1234-1234-1234-123456789abc'}
+  return {'delivery_id':d['delivery_id'],'claim_token':d['claim_token'],'authorization_id':d['authorization']['authorization_id'],'state':state,'verification_method':'composer_hash_single_send_new_user_uuid_v1','composer_sha256':d['text_sha256'],'observed_sha256':None,'send_count':1,'new_user_turns':1,'composer_empty':True,'user_turn_uuid':'12345678-1234-1234-1234-123456789abc'}
  def permit(self,d):return self.lane.permit({k:d[k] for k in ('delivery_id','claim_token','text_sha256')}|{'authorization_id':d['authorization']['authorization_id'],'binding_identity':self.cfg['binding']['identity']})
  def test_real_source_positive_exact_send_and_dedupe_legacy_unchanged(self):
   body=self.event('new',11);self.assertEqual(self.api.post_inbox(body,True)[0],201);self.assertEqual(self.api.post_inbox(body,True)[0],200)
@@ -65,6 +65,17 @@ class FutureTests(unittest.TestCase):
   restarted=future.FutureLane(self.legacy);self.assertEqual(restarted.q._entries[b['delivery_id']]['state'],'NEEDS_REVIEW');self.assertIsNone(restarted.claim())
  def test_wrong_binding_or_uuid_never_delivers(self):
   self.api.post_inbox(self.event('new',11),True);d=self.claim();self.permit(d);bad=self.proof(d);bad['user_turn_uuid']='fallback-turn-2';self.assertEqual(self.api.local_ack(bad)[0],409)
+ def test_composer_policy_requires_honest_hash_method_and_durable_one_send(self):
+  self.api.post_inbox(self.event('proof',11),True);d=self.claim()
+  self.assertEqual(self.api.local_ack(self.proof(d))[0],409)
+  self.permit(d)
+  for changes in ({'composer_sha256':'0'*64},{'verification_method':'generic-new-turn'},{'observed_sha256':d['text_sha256']},{'new_user_turns':2},{'send_count':0}):
+   self.assertEqual(self.api.local_ack(self.proof(d)|changes)[0],409)
+  self.assertEqual(self.api.local_ack(self.proof(d))[1]['state'],'DELIVERED')
+  reloaded=InboxQueue(self.r/'inbox_future_queue.json').get(d['delivery_id'])
+  self.assertIsNone(reloaded['outcome']['observed_sha256'])
+  self.assertEqual(reloaded['outcome']['composer_sha256'],d['text_sha256'])
+  self.assertEqual(self.legacy.path.read_bytes(),self.before)
   grant=copy.deepcopy(d['authorization']);grant['lane']['lane_id']='b'*32
   with self.assertRaises(Conflict):future.verify_envelope(grant,d,self.cfg['binding'],self.lane.q.clock(),runtime=self.r)
  def test_readiness_and_legacy_history_change_stop_before_claim(self):
@@ -83,7 +94,7 @@ class FutureTests(unittest.TestCase):
   before=self.event('created-before-activation',11)
   self.assertEqual(self.api.post_inbox(before,True)[0],409);self.assertIsNone(self.claim())
   prepared=future.config(self.r)
-  def receipt():return {'observed_ms':__import__('time').time()*1000,'ready':True,'binding_identity':self.cfg['binding']['identity'],'content':{'future_build':future.BUILD,'future_lane_seal':prepared['seal']}}
+  def receipt():return {'observed_ms':__import__('time').time()*1000,'ready':True,'binding_identity':self.cfg['binding']['identity'],'content':{'proof_build':'inbox-composer-user-proof-20261102-01','future_build':future.BUILD,'future_lane_seal':prepared['seal']}}
   active=owner.activate_policy(self.r,prepared['seal'],6560156429,receipt)
   self.assertEqual((active['state'],active['completion_cutoff'],active['request_cutoff']),('ACTIVE',11,11))
   self.assertEqual(self.api.post_inbox(before,True)[0],409)
@@ -100,7 +111,7 @@ class FutureTests(unittest.TestCase):
   t=host.Transport('http://127.0.0.1:18741',self.r/'native_journal.json',wire);identity=self.cfg['binding']['identity']
   self.assertEqual(t.handle({'cmd':'binding'})['future_lane']['lane_id'],'a'*32)
   probe=t.handle({'cmd':'poll','binding_identity':identity});self.assertEqual(probe['cmd'],'readiness_probe')
-  content={k:True for k in ['reachable','bound','composer_present','composer_empty','ready']};content.update(generation_active=False,busy=False,reason='ready',binding_identity=identity,one_build=future.ONE_BUILD,future_build=future.BUILD,future_lane_seal=future.config(self.r)['seal'])
+  content={k:True for k in ['reachable','bound','composer_present','composer_empty','ready']};content.update(proof_build='inbox-composer-user-proof-20261102-01',generation_active=False,busy=False,reason='ready',binding_identity=identity,one_build=future.ONE_BUILD,future_build=future.BUILD,future_lane_seal=future.config(self.r)['seal'])
   msg={'cmd':'readiness_result','probe_id':probe['probe_id'],'binding_identity':identity,'build':binding.BUILD,'one_build':future.ONE_BUILD,'future_build':future.BUILD,'match_count':1,'matches':[{'id':1,'windowId':1,'url':'https://chatgpt.com/c/'+future.DEST,'hidden':False,'discarded':False,'incognito':False}],'truncated':False,'ready':True,'reason':'ready','content':content}
   self.assertEqual(t.handle(msg)['cmd'],'readiness_recorded')
   d=t.handle({'cmd':'poll','binding_identity':identity});self.assertEqual(d['cmd'],'delivery')

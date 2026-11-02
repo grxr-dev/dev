@@ -1,7 +1,7 @@
 "use strict";
 let BOUND_CONVERSATION_ID=null, configuredBinding=null, configuredFutureLane=null;
-const VERIFIER_BUILD='inbox-v1-trace2-20261011-01';
-const CONTENT_PROOF_BUILD='inbox-raw-user-proof-20261101-01';
+const VERIFIER_BUILD='inbox-composer-user-proof-20261102-01';
+const CONTENT_PROOF_BUILD='inbox-composer-user-proof-20261102-01';
 
 // Read data properties only: never invoke a page function/getter or use eval.
 // Firefox Xray wrappers hide React's expando data; wrappedJSObject is the
@@ -189,6 +189,15 @@ function authoredBubbleBody(el){
  }
  return null;
 }
+function visibleUserIds(doc=document){
+ const result=new Set();
+ for(const el of doc.querySelectorAll(CURRENT_USER_SELECTOR)){
+  const id=currentUserIdentity(el);if(!id||!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))continue;
+  const style=doc.defaultView.getComputedStyle(el);
+  if(el.getClientRects().length&&style.display!=='none'&&style.visibility!=='hidden'&&style.opacity!=='0')result.add(id);
+ }
+ return result;
+}
 function userMessages(doc=document,{historical=false}={}){
  const messages=new Map(),bubbleOnlyIds=new Set(),markdownIds=new Set(),legacyIds=new Set(),modelIds=new Set();
  function visible(el){if(!el.isConnected||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;if(historical)return true;const style=doc.defaultView.getComputedStyle(el);return el.getClientRects().length>0&&style.display!=="none"&&style.visibility!=="hidden"&&style.opacity!=="0";}
@@ -299,23 +308,25 @@ async function deliver(d){
     // Recheck synchronously after the asynchronous hash operation.
     if(!bound()||composer()!==editor||composerText(editor)!==d.text)return fail('FAILED_PERMANENT','composer changed during final hash; no Send',true);
     checkedGrant(d,configuredBinding);
+    verifierTrace(d,'composer_verified_sha256',{payload_sha256:d.text_sha256,bound:bound()});
     const permit=await browser.runtime.sendMessage({cmd:'exact_one_send_permit',delivery_id:d.delivery_id,authorization_id:d.authorization.authorization_id});
     if(!permit||permit.ok!==true||permit.build!==ONE_BUILD||permit.authorization_id!==d.authorization.authorization_id||permit.expires_at!==d.authorization.expires_at)return fail('NEEDS_REVIEW','durable one-use Send permit unavailable; never resend');
     checkedGrant(d,configuredBinding);
-    if(!bound()||composer()!==editor||composerText(editor)!==d.text)return fail('NEEDS_REVIEW','composer/recipient changed after durable Send permit; never resend');
+    if(!bound()||composer()!==editor||composerText(editor)!==d.text||Array.from(userMessageIds(document)).some(id=>!ids.has(id)))return fail('NEEDS_REVIEW','composer/recipient/user turns changed after durable Send permit; never resend');
     // Mark BEFORE click: even a thrown click or lost page is ambiguous.
     mayHaveSent=true;
     const pending=fail('NEEDS_REVIEW','Send initiated; outcome pending');seen.set(d.delivery_id,{...pending,payload_sha256:d.text_sha256});
     verifierTrace(d,'send',{bound:bound()});
     button.click(); // the sole Send site
-    // Exact payload identity, not viewport visibility or the first new turn.
+    // Exact pre-Send composer proof + one new visible USER UUID; rendered Markdown is diagnostic.
     // Stay within the background's 120 s deadline and never click again.
-    const end=Date.now()+90000;let matchingId=null,exitReason='deadline_expired',sample=0;
+    const newlySeen=new Set();const end=Date.now()+90000;let matchingId=null,exitReason='deadline_expired',sample=0;
     verifierTrace(d,'deadline',{deadline_ms:end,bound:bound()});
     while(Date.now()<end){
       if(!bound()){exitReason='page_unbound_before_sample';break;}
       const matches=new Map(),candidates=[];let candidateCount=0;sample++;
-      for(const turn of userMessages(document,{historical:true})){
+      for(const id of visibleUserIds(document))if(!ids.has(id))newlySeen.add(id);
+      try{for(const turn of userMessages(document,{historical:true})){
         const inBaseline=ids.has(turn.id);
         const observed=canonicalText(turn.text);
         const expected=observed===d.text?d.text:turn.bubbleOnly?inlineCodeBubbleText(d.text):d.text;
@@ -326,7 +337,7 @@ async function deliver(d){
         if(!inBaseline&&observed===expected){
           observedHash=await hash(observed);expectedHash=await hash(expected);
           candidate.hash_match=observedHash===expectedHash;candidate.observed_sha256=observedHash;candidate.expected_sha256=expectedHash;
-          if(candidate.hash_match)matches.set(turn.id,turn);
+          // Rendered hash is diagnostic only under composer/UUID policy.
         }
         // Diagnostics are best-effort, including hashing/helper failures.
         // Never use analysis output to decide delivery or overwrite match gates.
@@ -337,22 +348,24 @@ async function deliver(d){
         }catch(_){}
 
       }
-      verifierTrace(d,'sample',{sample,bound:bound(),...conversationTrace(initialConvId),candidates,candidate_count:candidateCount,candidates_truncated:candidateCount>64,match_count:matches.size});
+      }catch(_){} // Optional DOM/model/hash diagnostics cannot veto identity proof.
+      verifierTrace(d,'sample',{sample,bound:bound(),...conversationTrace(initialConvId),candidates,candidate_count:candidateCount,candidates_truncated:candidateCount>64,match_count:newlySeen.size});
       if(!bound()){exitReason='page_unbound_after_sample';break;}
-      if(matches.size>1){verifierTrace(d,'terminal',{reason:'multiple_exact_new_identities',state:'NEEDS_REVIEW',bound:bound()});const r=fail('NEEDS_REVIEW','multiple new USER identities match this exact payload');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
-      const id=matches.size===1?matches.keys().next().value:null;
-      // Require the same new message identity and exact canonical text/hash on
-      // consecutive samples; transient partial/replaced DOM is not terminal.
-      if(id&&id===matchingId){
-        if(composer()!==editor||composerText(editor)!=='')return fail('NEEDS_REVIEW','exact new USER turn exists but composer is not empty');
-        verifierTrace(d,'terminal',{reason:'stable_exact_match',uuid:id,bound:bound(),state:'DELIVERED'});
-        const r={state:'DELIVERED',delivery_id:d.delivery_id,observed_sha256:d.text_sha256,send_count:1,new_user_turns:1,composer_empty:true,user_turn_uuid:id};seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+      if(newlySeen.size>1){const r=fail('NEEDS_REVIEW','multiple fresh USER identities after Send; never resend');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;}
+      const visibleIds=visibleUserIds(document);
+      const id=newlySeen.size===1?[...newlySeen][0]:null;
+      if(id&&id===matchingId&&visibleIds.has(id)){
+        // Final synchronous binding/editor/identity check. No async gap before ACK.
+        for(const current of visibleIds)if(!ids.has(current))newlySeen.add(current);
+        if(!bound()||conversationIdFromUrl(document)!==initialConvId||newlySeen.size!==1||composer()!==editor||composerText(editor)!=='')return fail('NEEDS_REVIEW','post-Send binding/composer/identity became ambiguous; never resend');
+        verifierTrace(d,'terminal',{reason:'composer_verified_single_send_stable_new_user',uuid:id,bound:bound(),state:'DELIVERED'});
+        const r={state:'DELIVERED',delivery_id:d.delivery_id,verification_method:'composer_hash_single_send_new_user_uuid_v1',composer_sha256:d.text_sha256,observed_sha256:null,send_count:1,new_user_turns:1,composer_empty:true,user_turn_uuid:id};seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
       }
       matchingId=id;
       await sleep(250);
     }
     verifierTrace(d,'terminal',{reason:exitReason,bound:bound(),...conversationTrace(initialConvId),deadline_ms:end,state:'NEEDS_REVIEW'});
-    const r=fail('NEEDS_REVIEW','Send may have occurred; no stable exact-payload new USER identity within verification deadline');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
+    const r=fail('NEEDS_REVIEW','Send may have occurred; no unique stable visible new USER identity within verification deadline');seen.set(d.delivery_id,{...r,payload_sha256:d.text_sha256});return r;
   }catch(_){
     verifierTrace(d,'terminal',{reason:mayHaveSent?'exception_after_send':'exception_before_send',bound:bound()});
     const r=fail(mayHaveSent?'NEEDS_REVIEW':'FAILED_PERMANENT',mayHaveSent?'exception after Send intent; manual review':'pre-Send insertion exception; draft retained',!mayHaveSent);

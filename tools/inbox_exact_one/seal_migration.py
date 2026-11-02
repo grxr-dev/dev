@@ -43,7 +43,7 @@ def state_hashes(bridge):return {n:sha(bridge/'.runtime'/n) for n in PROTECTED}
 def history_digest(q):return digest({'entries':{k:v for k,v in q['entries'].items() if k!=TARGET},'recovery_once':q.get('recovery_once'),'superseded_watchdog':q.get('superseded_watchdog')})
 def checked_binding(bridge):
  code='import sys,json;sys.path.insert(0,sys.argv[1]);from inbox_binding import load;print(json.dumps(load(sys.argv[1]+"/.runtime")))'
- p=subprocess.run([sys.executable,'-B','-c',code,str(bridge)],capture_output=True,timeout=10)
+ p=subprocess.run([sys.executable,'-B','-c',code,str(bridge)],capture_output=True,timeout=10,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
  if p.returncode:raise ValueError('coherent source/config verification failed')
  return json.loads(p.stdout)
 def paths(manifest):

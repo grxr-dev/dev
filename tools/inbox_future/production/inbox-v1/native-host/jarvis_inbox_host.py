@@ -201,7 +201,7 @@ class Transport:
             return delivery
         if msg.get('cmd')=='result' and self.authorized_pending():
             delivery=self.pending['delivery']
-            allowed={'cmd','delivery_id','state','error','pre_send','observed_sha256','send_count','new_user_turns','composer_empty','user_turn_uuid'}
+            allowed={'cmd','delivery_id','state','error','pre_send','observed_sha256','send_count','new_user_turns','composer_empty','user_turn_uuid','verification_method','composer_sha256'}
             if self.pending['outcome'] is not None or msg.get('delivery_id')!=delivery['delivery_id'] or not set(msg)<=allowed or msg.get('state') not in ('DELIVERED','FAILED_RETRYABLE','FAILED_PERMANENT','NEEDS_REVIEW'):raise ValueError('invalid exact outcome')
             self.set_outcome({key:value for key,value in msg.items() if key not in ('cmd','delivery_id')})
             return self.recover_ack()

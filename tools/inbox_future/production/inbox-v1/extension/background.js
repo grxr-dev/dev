@@ -1,6 +1,6 @@
 "use strict";
 const NATIVE_HOST='jarvis_inbox_host';
-const CONTENT_PROOF_BUILD='inbox-raw-user-proof-20261101-01';
+const CONTENT_PROOF_BUILD='inbox-composer-user-proof-20261102-01';
 let BOUND_CONVERSATION_ID=null, configuredBinding=null, configuredFutureLane=null;
 let port=null, timer=null, busy=false, awaitingAck=false;
 let activeDelivery=null, permitWait=null;

@@ -13,7 +13,7 @@ from inbox_future import BUILD as FUTURE_BUILD
 
 BOOLS={'reachable','bound','composer_present','composer_empty','generation_active','busy','ready'}
 REASONS={'ready','unique_bound_tab_required','delivery_or_ack_active','content_unreachable_or_timeout','tab_query_failed','page_unbound','composer_missing_or_unsupported','delivery_active','draft_present','generation_active','readiness_inspection_failed'}
-PROOF_BUILD='inbox-raw-user-proof-20261101-01'
+PROOF_BUILD='inbox-composer-user-proof-20261102-01'
 
 def targets(value):
  if not isinstance(value,list) or len(value)>2:raise ValueError('bounded targets required')

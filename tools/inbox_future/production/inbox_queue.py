@@ -6,6 +6,7 @@ import hashlib
 import copy
 import json
 import os
+import re
 from pathlib import Path
 import secrets
 import tempfile
@@ -68,7 +69,11 @@ class InboxQueue:
         if e['claim_token'] is not None and (not isinstance(e['claim_token'],str) or len(e['claim_token'])!=64):raise ValueError('invalid claim token')
         if e['attempt_count'] and (e['claim_token'] is None or e['last_attempt_at'] is None):raise ValueError('incomplete claim')
         if e['state']==FAILED_RETRYABLE and (e['next_attempt_at'] is None or not isinstance(e['outcome'],dict) or e['outcome'].get('pre_send') is not True):raise ValueError('unproven retry')
-        if e['state']==DELIVERED and (not isinstance(e['outcome'],dict) or e['outcome'].get('observed_sha256')!=e['text_sha256'] or e['delivered_at'] is None):raise ValueError('unproven delivery')
+        if e['state']==DELIVERED:
+            o=e['outcome']
+            legacy=isinstance(o,dict) and o.get('verification_method')!='composer_hash_single_send_new_user_uuid_v1' and o.get('observed_sha256')==e['text_sha256']
+            composer=isinstance(o,dict) and isinstance(o.get('_future'),dict) and o.get('verification_method')=='composer_hash_single_send_new_user_uuid_v1' and o.get('composer_sha256')==e['text_sha256'] and o.get('observed_sha256') is None and o.get('send_intent') is True and type(o.get('send_count')) is int and o['send_count']==1 and type(o.get('new_user_turns')) is int and o['new_user_turns']==1 and o.get('composer_empty') is True and isinstance(o.get('user_turn_uuid'),str) and re.fullmatch('[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}',o['user_turn_uuid'])
+            if not (legacy or composer) or e['delivered_at'] is None:raise ValueError('unproven delivery')
     def _validate_recovery(self,r,entries):
         from inbox_recovery import TARGET, TEXT_SHA256
         keys={'delivery_id','authorization_id','authorized_at','expected_fingerprint','entry_before','readiness','status','events','armed_entries_sha256','prior_evidence'}

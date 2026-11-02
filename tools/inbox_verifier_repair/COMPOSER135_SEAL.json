@@ -1,0 +1,44 @@
+{
+  "proof_build": "inbox-composer-user-proof-20261102-01",
+  "verification_method": "composer_hash_single_send_new_user_uuid_v1",
+  "old_identity": "eb789679d470bea0061e4c2fdbbbeb11aea329bb8d2262b49fa768e22b784a3e",
+  "new_identity": "5648f702f4922b51facf8cb75785d529039f93a56eb59a28a44398231337fa1f",
+  "old_seal": "975fe745ad5aa2366cc391b0f728ec4bda2c29753773f69d45a69c8711d59d2c",
+  "new_seal": "8d7dc4d2a4629c28cf5e28355ff0ba91d28dd05b875d90292dccc98d85286d2f",
+  "lane_id": "90df5616a7c1490d9e8af8d1bb78dfb6",
+  "recipient": "6ae5615a-0720-83ea-a43b-82386ce031e5",
+  "cutoffs": [
+    129,
+    129
+  ],
+  "generation": 1,
+  "epoch": "b2108916e5fb44098859a58e0252a2ad",
+  "delivery_policy": "HOLD",
+  "changed_components": {
+    "inbox-v1/extension/background.js": {
+      "old": "8b31cba695a25eda392c228dd188f28d2de562db8f17ffe3dbe7c6c3ef0a39d4",
+      "new": "0792ada74812d3e8e2adce187fd4bd64a999dca3033e61ca4bb2f6323cbee7f4"
+    },
+    "inbox-v1/extension/chatgpt_content.js": {
+      "old": "6718107c1812cd4cbfce995b31b94e247c81cdfc19dedbc85d067b6397119c2a",
+      "new": "01fc09b074efac606f15ade120426ab952643226ae8f24b53dba50d0b3bd9596"
+    },
+    "inbox-v1/native-host/jarvis_inbox_host.py": {
+      "old": "b5902f1f01f03a8bd6e9640882626ae926329f9eb2e4484ffc1ad1979180ed16",
+      "new": "805c7d84c31f67286ff436247fc7342812b6a40ad4115ecde364de309ec93fc6"
+    },
+    "inbox-v1/native-host/readiness_diagnostic.py": {
+      "old": "917152007b005c0878c32c8cbf8b701a595949801b3d34d58dc76dd8cfa3c1d6",
+      "new": "2e8a87d0639335b37a5eff5ef82792946ede1d7ee2eb67326d10fdcd55a37aa2"
+    },
+    "inbox_future.py": {
+      "old": "14dc114add5d30191ce22c4f97de56e764341e7508b9ea318fc3a854d9e530c3",
+      "new": "21a6165ef81ad43f22eb492152b329f4b41b87f37ab1c93d1bc93bfb2d09cccd"
+    },
+    "inbox_queue.py": {
+      "old": "3c63f69d52779e012854d3e7a97669112609021c9b554e5fa22dbdee2322d1b4",
+      "new": "fae3e7a1e1f4b59e1b557881e67ab6e8d242163164f384eb15c2d8bf5e6566f3"
+    }
+  },
+  "status": "POST_TERMINAL_INSTALL_NOT_YET_RUN"
+}
