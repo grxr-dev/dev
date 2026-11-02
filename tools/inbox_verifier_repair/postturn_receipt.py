@@ -30,12 +30,12 @@ def scheduler_metadata():
  return json.loads(scheduler("$ErrorActionPreference='Stop';$s=New-Object -ComObject Schedule.Service;$s.Connect();$t=$s.GetFolder([string][char]92).GetTask('"+TASK+"');@{path=$t.Definition.Actions.Item(1).Path;arguments=$t.Definition.Actions.Item(1).Arguments;logon=$t.Definition.Principal.LogonType;instances=@($t.GetInstances(0)|ForEach-Object{@{instance=$_.InstanceGuid;pid=$_.EnginePID;state=$_.State}})}|ConvertTo-Json -Depth 5 -Compress"))
 
 
-def prove_independent_scheduler(life):
+def prove_independent_scheduler(life,script_path=None):
  r.managed.independent(life)
  until=time.monotonic()+10
  while not (AREA/'registration.json').exists() and time.monotonic()<until:time.sleep(.2)
  reg=json.loads((AREA/'registration.json').read_text(encoding='utf-8'))
- info=scheduler_metadata();expected=subprocess.list2cmdline([str(Path(__file__).resolve()),'run'])
+ info=scheduler_metadata();expected=subprocess.list2cmdline([str(Path(script_path or __file__).resolve()),'run'])
  if Path(info['path'])!=Path(sys.executable).with_name('pythonw.exe') or info['arguments']!=expected or info['logon']!=3:raise ValueError('scheduled action identity mismatch')
  instances=[x for x in info['instances'] if x['instance'].lower()==reg['instance'].lower()]
  if len(instances)!=1 or instances[0]['state']!=4:raise ValueError('one running scheduled invocation required')

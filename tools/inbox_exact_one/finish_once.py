@@ -98,11 +98,11 @@ def exclusive_stopped(life,a):
  # Recheck exact PID/start before sending the existing reviewed managed command.
  if life.process(old['pid'])!=old:raise ValueError('bridge identity changed before shutdown')
  args=[str(PIPE),'probe',str(tray['pid']),str(old['pid']),str(tray['ticks']),str(old['ticks']),'-']
- p=subprocess.run(args,capture_output=True,timeout=15)
+ p=subprocess.run(args,capture_output=True,timeout=15,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
  if p.returncode:raise ValueError('managed pipe probe failed; no shutdown')
  channel=json.loads(p.stdout)['pipe_sha256'];idle(http());task_finished(a)
  args[1]='shutdown-if-idle';args[-1]=channel
- p=subprocess.run(args,capture_output=True,timeout=15)
+ p=subprocess.run(args,capture_output=True,timeout=15,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
  if p.returncode:raise ValueError('managed idle shutdown unconfirmed; no file install')
  deadline=time.monotonic()+30
  while not life.process_exited(old['pid'],old['ticks']):
